@@ -1,12 +1,17 @@
 package com.ae.visuavid.service.dto;
 
-import com.ae.visuavid.config.Constants;
-import com.ae.visuavid.domain.Authority;
-import com.ae.visuavid.domain.User;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.ae.visuavid.config.Constants;
+import com.ae.visuavid.domain.Role;
+import com.ae.visuavid.domain.User;
 
 /**
  * A DTO representing a user, with his authorities.
@@ -45,6 +50,8 @@ public class UserDTO {
 
     private Instant lastModifiedDate;
 
+    private Set<String> roles;
+    
     private Set<String> authorities;
 
     public UserDTO() {
@@ -64,7 +71,8 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
+        this.authorities = user.getAuthorities();
     }
 
     public Long getId() {
@@ -163,30 +171,29 @@ public class UserDTO {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setAuthorities(Set<String> roles) {
+        this.roles = roles;
+    }
+
     public Set<String> getAuthorities() {
-        return authorities;
-    }
+		return authorities;
+	}
 
-    public void setAuthorities(Set<String> authorities) {
-        this.authorities = authorities;
-    }
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", login=" + login + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", email=" + email + ", imageUrl=" + imageUrl + ", activated=" + activated + ", langKey=" + langKey
+				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy
+				+ ", lastModifiedDate=" + lastModifiedDate + ", roles=" + roles + ", authorities=" + authorities + "]";
+	}
+
+	
 }
