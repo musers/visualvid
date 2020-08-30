@@ -104,7 +104,7 @@ task integrationTest(type: Test) {
     useJUnitPlatform()
     description = "Execute integration tests."
     group = "verification"
-    include "**/*IT*", "**/*IntTest*"
+    include "**/*", "**/*IntTest*"
 
     testLogging {
         events 'FAILED', 'SKIPPED'
@@ -120,7 +120,7 @@ task integrationTest(type: Test) {
     reports.html.enabled = false
 }
 
-check.dependsOn integrationTest
+// check.dependsOn integrationTest
 task testReport(type: TestReport) {
     destinationDir = file("$buildDir/reports/tests")
     reportOn test
