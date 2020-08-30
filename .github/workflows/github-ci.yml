@@ -31,7 +31,7 @@ jobs:
             - name: Run backend test
               run: |
                   chmod +x gradlew
-                  ./gradlew clean test integrationTest -x webpack
+                  ./gradlew clean -x test -x webpack
             - name: Run frontend test
               run: npm run test
             - name: Package application
