@@ -100,36 +100,36 @@ test {
     reports.html.enabled = false
 }
 
-task integrationTest(type: Test) {
-    useJUnitPlatform()
-    description = "Execute integration tests."
-    group = "verification"
-    include "**/*", "**/*IntTest*"
+//task integrationTest(type: Test) {
+//    useJUnitPlatform()
+//    description = "Execute integration tests."
+//    group = "verification"
+//    include "**/*", "**/*IntTest*"
+//
+//    testLogging {
+//        events 'FAILED', 'SKIPPED'
+//    }
+//
+//    if (project.hasProperty('testcontainers')) {
+//        environment 'spring.profiles.active', 'testcontainers'
+//    }
+//
+//    // uncomment if the tests reports are not generated
+//    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
+//    // ignoreFailures true
+//    reports.html.enabled = false
+//}
 
-    testLogging {
-        events 'FAILED', 'SKIPPED'
-    }
+//// check.dependsOn integrationTest
+//task testReport(type: TestReport) {
+//    destinationDir = file("$buildDir/reports/tests")
+//    reportOn test
+//}
 
-    if (project.hasProperty('testcontainers')) {
-        environment 'spring.profiles.active', 'testcontainers'
-    }
-
-    // uncomment if the tests reports are not generated
-    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
-    // ignoreFailures true
-    reports.html.enabled = false
-}
-
-// check.dependsOn integrationTest
-task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/tests")
-    reportOn test
-}
-
-task integrationTestReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/tests")
-    reportOn integrationTest
-}
+//task integrationTestReport(type: TestReport) {
+//    destinationDir = file("$buildDir/reports/tests")
+//    reportOn integrationTest
+//}
 
 if (!project.hasProperty("runList")) {
     project.ext.runList = "main"
