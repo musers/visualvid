@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.ae.visuavid.VisualvidApp;
 import com.ae.visuavid.domain.Authority;
+import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
 import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.security.AuthoritiesConstants;
@@ -499,7 +500,7 @@ public class UserResourceIT {
         assertThat(user.getCreatedDate()).isNotNull();
         assertThat(user.getLastModifiedBy()).isNull();
         assertThat(user.getLastModifiedDate()).isNotNull();
-        assertThat(user.getAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.USER);
+        assertThat(user.getRoles()).extracting("name").containsExactly(AuthoritiesConstants.USER);
     }
 
     @Test
@@ -509,11 +510,11 @@ public class UserResourceIT {
         user.setCreatedDate(Instant.now());
         user.setLastModifiedBy(DEFAULT_LOGIN);
         user.setLastModifiedDate(Instant.now());
-        Set<Authority> authorities = new HashSet<>();
-        Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.USER);
-        authorities.add(authority);
-        user.setAuthorities(authorities);
+        Set<Role> roles = new HashSet<>();
+        Role role = new Role();
+        role.setName(AuthoritiesConstants.USER);
+        roles.add(role);
+        user.setRoles(roles);
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
 
@@ -529,7 +530,7 @@ public class UserResourceIT {
         assertThat(userDTO.getCreatedDate()).isEqualTo(user.getCreatedDate());
         assertThat(userDTO.getLastModifiedBy()).isEqualTo(DEFAULT_LOGIN);
         assertThat(userDTO.getLastModifiedDate()).isEqualTo(user.getLastModifiedDate());
-        assertThat(userDTO.getAuthorities()).containsExactly(AuthoritiesConstants.USER);
+        assertThat(userDTO.getRoles()).containsExactly(AuthoritiesConstants.USER);
         assertThat(userDTO.toString()).isNotNull();
     }
 

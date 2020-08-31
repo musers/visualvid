@@ -2,8 +2,10 @@ package com.ae.visuavid.service;
 
 import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.Authority;
+import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
 import com.ae.visuavid.repository.AuthorityRepository;
+import com.ae.visuavid.repository.RoleRepository;
 import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.security.AuthoritiesConstants;
 import com.ae.visuavid.security.SecurityUtils;
@@ -18,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +39,18 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    private final RoleRepository roleRepository;
+
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository,
+        RoleRepository roleRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.roleRepository = roleRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -122,9 +133,9 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
-        newUser.setAuthorities(authorities);
+        Set<Role> roles = new HashSet<>();
+        roleRepository.findById(AuthoritiesConstants.USER).ifPresent(roles::add);
+        newUser.setRoles(roles);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -158,15 +169,15 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
-        if (userDTO.getAuthorities() != null) {
-            Set<Authority> authorities = userDTO
-                .getAuthorities()
+        if (userDTO.getRoles() != null) {
+            Set<Role> authorities = userDTO
+                .getRoles()
                 .stream()
-                .map(authorityRepository::findById)
+                .map(roleRepository::findById)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toSet());
-            user.setAuthorities(authorities);
+            user.setRoles(authorities);
         }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
@@ -195,12 +206,12 @@ public class UserService {
                     user.setImageUrl(userDTO.getImageUrl());
                     user.setActivated(userDTO.isActivated());
                     user.setLangKey(userDTO.getLangKey());
-                    Set<Authority> managedAuthorities = user.getAuthorities();
+                    Set<Role> managedAuthorities = user.getRoles();
                     managedAuthorities.clear();
                     userDTO
-                        .getAuthorities()
+                        .getRoles()
                         .stream()
-                        .map(authorityRepository::findById)
+                        .map(roleRepository::findById)
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .forEach(managedAuthorities::add);
@@ -274,12 +285,26 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+        return addAuthoritiesForRoles(userRepository.findOneWithRolesByLogin(login));
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
-        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+        return addAuthoritiesForRoles(SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithRolesByLogin));
+    }
+
+    public Optional<User> addAuthoritiesForRoles(Optional<User> userOptional) {
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Set<String> authorities = user
+                .getRoles()
+                .stream()
+                .flatMap(role -> role.getAuthorities().stream())
+                .map(authority -> new String(authority.getName()))
+                .collect(Collectors.toSet());
+            user.setAuthorities(authorities);
+        }
+        return userOptional;
     }
 
     /**

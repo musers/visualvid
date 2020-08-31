@@ -51,26 +51,51 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
-
-        <createTable tableName="jhi_user_authority">
+        
+        
+        <createTable tableName="jhi_role">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        
+        <createTable tableName="jhi_user_role">
             <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="jhi_role_authority">
+            <column name="role_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="authority_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        
+         <addPrimaryKey columnNames="user_id, role_name" tableName="jhi_user_role"/>
 
-        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+        <addPrimaryKey columnNames="role_name, authority_name" tableName="jhi_role_authority"/>
+        
+        
+        <addForeignKeyConstraint baseColumnNames="role_name"
+                                 baseTableName="jhi_user_role"
+                                 constraintName="fk_role_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="jhi_role"/>
 
         <addForeignKeyConstraint baseColumnNames="authority_name"
-                                 baseTableName="jhi_user_authority"
+                                 baseTableName="jhi_role_authority"
                                  constraintName="fk_authority_name"
                                  referencedColumnNames="name"
                                  referencedTableName="jhi_authority"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="jhi_user_authority"
+                                 baseTableName="jhi_user_role"
                                  constraintName="fk_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
@@ -87,6 +112,13 @@
             <column name="created_date" type="timestamp"/>
         </loadData>
         <dropDefaultValue tableName="jhi_user" columnName="created_date" columnDataType="datetime"/>
+        
+        <loadData
+                  file="config/liquibase/data/role.csv"
+                  separator=";"
+                  tableName="jhi_role">
+            <column name="name" type="string"/>
+        </loadData>
         <loadData
                   file="config/liquibase/data/authority.csv"
                   separator=";"
@@ -95,11 +127,21 @@
         </loadData>
 
         <loadData
-                  file="config/liquibase/data/user_authority.csv"
+                  file="config/liquibase/data/user_role.csv"
                   separator=";"
-                  tableName="jhi_user_authority">
+                  tableName="jhi_user_role">
             <column name="user_id" type="numeric"/>
+             <column name="role_name" type="string"/>
         </loadData>
+        
+         <loadData
+                  file="config/liquibase/data/role_authority.csv"
+                  separator=";"
+                  tableName="jhi_role_authority">
+            <column name="role_name" type="string"/>
+            <column name="authority_name" type="string"/>
+        </loadData>
+        
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" >
                 <constraints primaryKey="true" nullable="false"/>

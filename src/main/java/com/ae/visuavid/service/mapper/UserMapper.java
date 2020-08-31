@@ -1,6 +1,7 @@
 package com.ae.visuavid.service.mapper;
 
 import com.ae.visuavid.domain.Authority;
+import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
 import com.ae.visuavid.service.dto.UserDTO;
 import java.util.*;
@@ -41,22 +42,22 @@ public class UserMapper {
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
-            Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
-            user.setAuthorities(authorities);
+            Set<Role> authorities = this.rolesFromStrings(userDTO.getRoles());
+            user.setRoles(authorities);
             return user;
         }
     }
 
-    private Set<Authority> authoritiesFromStrings(Set<String> authoritiesAsString) {
-        Set<Authority> authorities = new HashSet<>();
+    private Set<Role> rolesFromStrings(Set<String> rolesAsString) {
+        Set<Role> roles = new HashSet<>();
 
-        if (authoritiesAsString != null) {
-            authorities =
-                authoritiesAsString
+        if (rolesAsString != null) {
+            roles =
+                rolesAsString
                     .stream()
                     .map(
                         string -> {
-                            Authority auth = new Authority();
+                            Role auth = new Role();
                             auth.setName(string);
                             return auth;
                         }
@@ -64,7 +65,7 @@ public class UserMapper {
                     .collect(Collectors.toSet());
         }
 
-        return authorities;
+        return roles;
     }
 
     public User userFromId(Long id) {

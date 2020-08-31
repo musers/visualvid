@@ -76,9 +76,9 @@ public class UserMapperTest {
 
         assertThat(users).isNotEmpty();
         assertThat(users).size().isEqualTo(1);
-        assertThat(users.get(0).getAuthorities()).isNotNull();
-        assertThat(users.get(0).getAuthorities()).isNotEmpty();
-        assertThat(users.get(0).getAuthorities().iterator().next().getName()).isEqualTo("ADMIN");
+        assertThat(users.get(0).getRoles()).isNotNull();
+        assertThat(users.get(0).getRoles()).isNotEmpty();
+        assertThat(users.get(0).getRoles().iterator().next().getName()).isEqualTo("ADMIN");
     }
 
     @Test
@@ -92,8 +92,8 @@ public class UserMapperTest {
 
         assertThat(users).isNotEmpty();
         assertThat(users).size().isEqualTo(1);
-        assertThat(users.get(0).getAuthorities()).isNotNull();
-        assertThat(users.get(0).getAuthorities()).isEmpty();
+        assertThat(users.get(0).getRoles()).isNotNull();
+        assertThat(users.get(0).getRoles()).isEmpty();
     }
 
     @Test
@@ -105,9 +105,9 @@ public class UserMapperTest {
         User user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
-        assertThat(user.getAuthorities()).isNotNull();
-        assertThat(user.getAuthorities()).isNotEmpty();
-        assertThat(user.getAuthorities().iterator().next().getName()).isEqualTo("ADMIN");
+        assertThat(user.getRoles()).isNotNull();
+        assertThat(user.getRoles()).isNotEmpty();
+        assertThat(user.getRoles().iterator().next().getName()).isEqualTo("ADMIN");
     }
 
     @Test
@@ -117,8 +117,8 @@ public class UserMapperTest {
         User user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
-        assertThat(user.getAuthorities()).isNotNull();
-        assertThat(user.getAuthorities()).isEmpty();
+        assertThat(user.getRoles()).isNotNull();
+        assertThat(user.getRoles()).isEmpty();
     }
 
     @Test
