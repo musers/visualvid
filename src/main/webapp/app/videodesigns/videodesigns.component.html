@@ -1,3 +1,8 @@
 <div class="videodesigns">
-    <p>This is a video desing component</p>
+    <div class="categories" *ngFor="let category of categories">
+        <div class="category">
+            <p>{{category.name}}</p>
+            <jhi-videolisting>THis is a video listing</jhi-videolisting>
+        </div>
+    </div>
 </div>
