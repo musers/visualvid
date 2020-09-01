@@ -1,0 +1,11 @@
+.list {
+  color: #43497b;
+  .card {
+    border-radius: 0.25rem !important;
+    .card-title {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+}
