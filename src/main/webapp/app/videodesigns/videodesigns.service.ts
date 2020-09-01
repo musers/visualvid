@@ -25,15 +25,15 @@ export class VideoDesignsService {
     console.log('categoryId', categoryId);
     const data = [
       {
-        posterUrl: 'posterUrl',
-        videoUrl: 'videoUrl',
+        posterUrl: 'https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg',
+        videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
         title: 'Restaurant Menu',
         price: 2300,
         category: 'category',
       },
       {
-        posterUrl: 'posterUrl',
-        videoUrl: 'videoUrl',
+        posterUrl: 'https://test-videos.co.uk/user/pages/images/jellyfish.jpg',
+        videoUrl: 'https://test-videos.co.uk/vids/jellyfish/mp4/h264/1080/Jellyfish_1080_10s_1MB.mp4',
         title: 'Fresh and Unique Look',
         price: 2000,
         category: 'category',
