@@ -4,9 +4,20 @@
             <div class="col-3">
                 <div class="card card-block shadow bg-white rounded">
                     <jhi-videoitem [item]="item"></jhi-videoitem>
-                    <div class="card-body">
-                        <h5 class="card-title">{{item.title}}</h5>
-                        <p>$200</p>
+                    <div class="card-body px-2 py-1">
+                        <div class="row m-1">
+                            <div class="title">{{item.title}}</div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="mr-auto">
+                                <div class="price">${{item.price}}</div>
+                            </div>
+                            <div class="ml-auto">
+                                <fa-icon class="px-2" icon="heart"></fa-icon>
+                                <fa-icon style="" class="px-2" icon="shopping-cart"></fa-icon>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
