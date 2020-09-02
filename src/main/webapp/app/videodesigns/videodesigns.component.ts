@@ -8,6 +8,7 @@ import { VideoDesignsService } from './videodesigns.service';
 })
 export class VideoDesignsComponent implements OnInit {
   categories: any = [];
+  active = 1;
   constructor(private videoDesignsService: VideoDesignsService) {}
 
   ngOnInit(): void {
