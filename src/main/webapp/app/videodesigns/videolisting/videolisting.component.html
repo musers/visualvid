@@ -1,11 +1,11 @@
 <div class="container-fluid list">
     <div class="row flex-row flex-nowrap">
-        <ng-container *ngFor="let v of list">
+        <ng-container *ngFor="let item of list">
             <div class="col-3">
-                <div class="card card-block shadow p-3 mb-5 bg-white rounded">
-                    <img class="card-img-top" alt="Video image">
+                <div class="card card-block shadow bg-white rounded">
+                    <jhi-videoitem [item]="item"></jhi-videoitem>
                     <div class="card-body">
-                        <h5 class="card-title">{{v.title}}</h5>
+                        <h5 class="card-title">{{item.title}}</h5>
                         <p>$200</p>
                     </div>
                 </div>
