@@ -1,42 +1,17 @@
 <div class="videodesigns">
-<!--    <div class="categories" *ngFor="let category of categories">-->
-<!--        <div class="category">-->
-<!--            <p>{{category.name}}</p>-->
-<!--            <jhi-videolisting></jhi-videolisting>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">-->
-<!--&lt;!&ndash;        <ng-container *ngFor="let category of categories">&ndash;&gt;-->
-<!--        <div *ngFor="let category of categories">-->
-<!--            <li [ngbNavItem]="{{category.index}}">-->
-<!--                <a ngbNavLink>{{category.name}}</a>-->
-<!--                <ng-template ngbNavContent>-->
-<!--                    <jhi-videolisting></jhi-videolisting>-->
-<!--                </ng-template>-->
-<!--            </li>-->
-<!--&lt;!&ndash;        <li [ngbNavItem]="2">&ndash;&gt;-->
-<!--&lt;!&ndash;            <a ngbNavLink>xyz</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <ng-template ngbNavContent>&ndash;&gt;-->
-<!--&lt;!&ndash;                <jhi-videolisting></jhi-videolisting>&ndash;&gt;-->
-<!--&lt;!&ndash;            </ng-template>&ndash;&gt;-->
-<!--&lt;!&ndash;        </li>&ndash;&gt;-->
-<!--&lt;!&ndash;        </ng-container>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </ul>-->
-
-    <nav ngbNav #nav="ngbNav" class="nav-tabs">
+  <nav ngbNav #nav="ngbNav" class="nav nav-tabs nav-pills">
         <ng-container *ngFor="let c of categories">
-
-        <ng-container ngbNavItem>
-            <a ngbNavLink>{{c.name}}</a>
-            <ng-template ngbNavContent>
-                <jhi-videolisting [category]="c"></jhi-videolisting>
-            </ng-template>
-        </ng-container>
-        </ng-container>
-
+            <ng-container ngbNavItem>
+                <a ngbNavLink>{{c.name}}</a>
+                <ng-template ngbNavContent>
+                    <jhi-videolisting [category]="c"></jhi-videolisting>
+                </ng-template>
+            </ng-container>
+            </ng-container>
+            <a class="nav-link btn btn-primary btn-get-started mr-5" routerLink="/" (click)="collapseNavbar()">
+                <span btn-get-started>View All</span>
+            </a>
     </nav>
-
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
 </div>
 

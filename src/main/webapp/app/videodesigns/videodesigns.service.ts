@@ -20,6 +20,21 @@ export class VideoDesignsService {
         name: 'Logo Reveals',
         id: 'logoReveals',
       },
+      {
+        index: '3',
+        name: 'Corporate',
+        id: 'corporate',
+      },
+      {
+        index: '4',
+        name: 'Restaurant Displays',
+        id: 'restaurantDisplays',
+      },
+      {
+        index: '5',
+        name: 'Party Event Invitations',
+        id: 'partyEventInvitations',
+      },
     ];
     return of(data);
   }

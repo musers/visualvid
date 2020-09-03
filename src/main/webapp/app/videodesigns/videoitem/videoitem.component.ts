@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
-import videojs from 'video.js';
+//import videojs from 'video.js';
 
 import { VideoItem } from '../videoitem.model';
 @Component({
@@ -8,7 +8,7 @@ import { VideoItem } from '../videoitem.model';
   styleUrls: ['videoitem.scss'],
 })
 export class VideoItemComponent implements OnInit, AfterViewInit {
-  public vjs?: videojs.Player;
+  //public vjs?: videojs.Player;
 
   @Input() item?: VideoItem;
   constructor() {}
