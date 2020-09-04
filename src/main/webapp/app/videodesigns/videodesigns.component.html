@@ -14,7 +14,7 @@
   <nav ngbNav #nav="ngbNav" class="nav nav-tabs nav-pills p-3">
         <ng-container *ngFor="let c of categories">
             <ng-container ngbNavItem>
-                <a ngbNavLink><div class="tab-title" [innerHtml]="c.name"></div></a>
+                <a ngbNavLink><div class="tab-title" [innerHtml]="c.nameFormatted"></div></a>
                 <ng-template ngbNavContent>
                     <jhi-videolisting [category]="c"></jhi-videolisting>
                 </ng-template>
