@@ -17,8 +17,10 @@ export class VideoDesignsComponent implements OnInit {
   loadData(): void {
     this.videoDesignsService.getCategories().subscribe(data => {
       if (data) {
-        console.log(data);
         this.categories = data;
+        this.categories.forEach(function (c: any) {
+          c.name = 'asdf';
+        });
       }
     });
   }

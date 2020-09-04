@@ -11,18 +11,20 @@
 
 
 
-  <nav ngbNav #nav="ngbNav" class="nav nav-tabs nav-pills">
+  <nav ngbNav #nav="ngbNav" class="nav nav-tabs nav-pills p-3">
         <ng-container *ngFor="let c of categories">
             <ng-container ngbNavItem>
-                <a ngbNavLink>{{c.name}}</a>
+                <a ngbNavLink><div class="tab-title" [innerHtml]="c.name"></div></a>
                 <ng-template ngbNavContent>
                     <jhi-videolisting [category]="c"></jhi-videolisting>
                 </ng-template>
             </ng-container>
             </ng-container>
-            <a class="nav-link btn btn-primary btn-get-started mr-5" routerLink="/">
+            <div class="view-all ml-auto">
+            <a class="nav-link btn btn-primary btn-view-all" routerLink="/">
                 <span btn-get-started>View All</span>
             </a>
+            </div>
     </nav>
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
 </div>
