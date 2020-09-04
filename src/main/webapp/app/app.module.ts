@@ -25,6 +25,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     VisualvidEntityModule,
     VisualvidAppRoutingModule,
   ],
+  exports: [],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent],
 })

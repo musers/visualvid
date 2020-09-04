@@ -23,6 +23,7 @@
     "@ngx-translate/core": "12.1.2",
     "@ngx-translate/http-loader": "5.0.0",
     "@types/video.js": "^7.3.10",
+    "angular-svg-icon": "^10.0.0",
     "bootstrap": "4.5.0",
     "moment": "2.27.0",
     "ng-jhipster": "0.14.0",

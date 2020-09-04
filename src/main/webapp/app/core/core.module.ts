@@ -19,6 +19,7 @@ import { ErrorHandlerInterceptor } from 'app/blocks/interceptor/errorhandler.int
 import { NotificationInterceptor } from 'app/blocks/interceptor/notification.interceptor';
 
 import { fontAwesomeIcons } from './icons/font-awesome-icons';
+import { SvgIconRegistryService } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
@@ -76,10 +77,19 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
   ],
 })
 export class VisualvidCoreModule {
-  constructor(iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig, languageService: JhiLanguageService) {
+  iconNames = ['cart', 'fav', 'logo', 'search'];
+  constructor(
+    iconLibrary: FaIconLibrary,
+    dpConfig: NgbDatepickerConfig,
+    languageService: JhiLanguageService,
+    private svgIconRegistryService: SvgIconRegistryService
+  ) {
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
     dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
     languageService.init();
+    this.iconNames.forEach((iconName: string) => {
+      this.svgIconRegistryService.loadSvg('content/icons/' + iconName + '.svg', iconName);
+    });
   }
 }
