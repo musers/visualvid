@@ -46,7 +46,8 @@ export class VideoDesignsService {
       data = [
         {
           id: 'myvideo-1',
-          posterUrl: 'https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg',
+          posterUrl:
+            'https://lh3.googleusercontent.com/proxy/WTMn_2hZeGV7HQEk1BV-t9yiUPHOI2iryrjKxyxzpjo9qYo8r5JlwSnfc2rt1U7YZLK8qinHfXNnKiex51G5iQ_LG8vPcavbRRzUx1qhkDqz2g',
           videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
           title: 'Restaurant Menu',
           price: 2300,
@@ -54,7 +55,8 @@ export class VideoDesignsService {
         },
         {
           id: 'myvideo-2',
-          posterUrl: 'https://test-videos.co.uk/user/pages/images/jellyfish.jpg',
+          posterUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Big_Buck_Bunny_4K.webm/310px-seek%3D116-Big_Buck_Bunny_4K.webm.jpg',
           videoUrl: 'https://test-videos.co.uk/vids/jellyfish/mp4/h264/1080/Jellyfish_1080_10s_1MB.mp4',
           title: 'Fresh and Unique Look',
           price: 2000,
@@ -62,7 +64,7 @@ export class VideoDesignsService {
         },
         {
           id: 'myvideo-3',
-          posterUrl: 'https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg',
+          posterUrl: 'https://images.pexels.com/photos/3862372/pexels-photo-3862372.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
           videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
           title: 'Corporate Presentation',
           price: 1600,

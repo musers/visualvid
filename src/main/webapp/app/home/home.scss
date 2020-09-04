@@ -12,8 +12,11 @@ Main page styles
 
 .jumbo-title {
   font-size: 3.2rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
+}
+.lead {
+  font-size: 1rem;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
