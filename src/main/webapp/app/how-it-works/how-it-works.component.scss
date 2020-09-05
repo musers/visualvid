@@ -6,16 +6,6 @@
         line-height: 1.0;
         color: #43497B;
       }
-      .step-name-text-color {
-        color: #43497B;
-        font-weight: bold;
-        font-size: 1.0rem;
-      }
-      .step-desc-text-color {
-        color: #43497B;
-        font-weight: bold;
-        font-size: 0.6rem;
-      }
       .span-text-color {
         color: #828599;
         font-weight: bold;
@@ -37,7 +27,24 @@
         background-color: #F5F3F6;
         background-clip: border-box;
         border-radius: 0.25rem !important;
+        height: 18rem;
+        width: 16rem;
     }
+    .card-title {
+        margin-bottom: 0.85rem;
+        margin-top: 10rem;
+        text-align: center;
+        font-weight: bold;
+        color: #43497B;
+        font-size: 0.9rem;
+    }
+    .card-text {
+        color: #43497B;
+        font-weight: bold;
+        font-size: 0.6rem;
+        text-align: center;
+    }
+    
 }
 
   
