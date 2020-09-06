@@ -37,13 +37,26 @@
         font-weight: bold;
         color: #43497B;
         font-size: 0.9rem;
+        transform: rotate(0deg); 
+        -webkit-transform: rotate(0deg); 
     }
     .card-text {
         color: #43497B;
         font-weight: bold;
         font-size: 0.6rem;
         text-align: center;
+        transform: rotate(0deg); 
+        -webkit-transform: rotate(0deg); 
     }
+    .container-text-background { 
+        margin-top: -6rem;
+        position: absolute;
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        color: #807f9c;
+        font-size: 9rem;
+        font-weight: 1000;
+    } 
     
 }
 
