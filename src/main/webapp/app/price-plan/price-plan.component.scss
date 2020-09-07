@@ -1,74 +1,65 @@
-.how-it-works {
-  background-color: #fff;
-  .jumbo-title {
-    font-size: 2.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: #43497b;
-  }
-  .span-text-color {
-    color: #828599;
-    font-weight: bold;
-    font-size: 0.7rem;
-  }
-  .row-space {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding-bottom: 25px;
-  }
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #f5f3f6;
-    background-clip: border-box;
-    border-radius: 0.25rem !important;
-    height: 18rem;
-    width: 16rem;
-  }
-  .card-title {
-    margin-bottom: 0.85rem;
-    margin-top: 10rem;
-    text-align: center;
-    font-weight: bold;
-    color: #43497b;
-    font-size: 0.9rem;
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-  }
-  .card-text {
-    color: #43497b;
-    font-weight: bold;
-    font-size: 0.6rem;
-    text-align: center;
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-  }
-  .container-text-background {
-    margin-top: -10rem;
-    position: absolute;
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    color: #807f9c;
-    font-size: 12rem;
-    font-weight: 900;
-    opacity: 20%;
-  }
-  .btn-play-video {
-    background-color: #7175d8;
-    color: #fff !important;
-    font-weight: lighter;
-    margin-top: 5rem;
-    margin-left: 35rem;
-    border-radius: 0.2rem;
-  }
-  .revolution-text-color {
-    color: #43497b;
-    font-weight: bold;
-    font-size: 0.7rem;
-  }
+.price-plan {
+    background-color: #fff;
+    .jumbo-title {
+        font-size: 2.8rem;
+        font-weight: 600;
+        line-height: 1.0;
+        color: #43497B;
+      }
+      .span-text-color {
+        color: #828599;
+        font-weight: bold;
+        font-size: 0.7rem;
+      }
+      .row-space {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        padding-bottom: 25px;
+      }
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #F5F3F6;
+        background-clip: border-box;
+        border-radius: 0.25rem !important;
+        height: 28rem;
+        width: 16rem;
+    }
+    .card-title {
+        margin-top: 1rem;
+        text-align: center;
+        font-weight: bold;
+        color: #43497B;
+        font-size: 1.2rem;
+    }
+    .revolution-text-color {
+        color: #43497B;
+        font-weight: bold;
+        font-size: 0.7rem;
+    }
+    .basic-standard-price {
+        text-align:center;
+        color:#cdd0df;
+        font-size: 0.8rem;
+        margin-top:-0.5rem
+    }
+    .professional-lifetime-price {
+        text-align:center;
+        color:#cdd0df;
+        font-size: 0.8rem;
+        margin-top:-0.5rem
+    }
+    .btn-play-video {
+        color: #fff !important;
+        font-weight: lighter;
+        border-radius: 0.2rem;
+        margin-left: 3rem;
+      }
 }
+
+  
