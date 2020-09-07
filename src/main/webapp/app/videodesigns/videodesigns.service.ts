@@ -46,8 +46,7 @@ export class VideoDesignsService {
       data = [
         {
           id: 'myvideo-1',
-          posterUrl:
-            'https://lh3.googleusercontent.com/proxy/WTMn_2hZeGV7HQEk1BV-t9yiUPHOI2iryrjKxyxzpjo9qYo8r5JlwSnfc2rt1U7YZLK8qinHfXNnKiex51G5iQ_LG8vPcavbRRzUx1qhkDqz2g',
+          posterUrl: 'https://images.pexels.com/photos/3862372/pexels-photo-3862372.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
           videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
           title: 'Restaurant Menu',
           price: 2300,
