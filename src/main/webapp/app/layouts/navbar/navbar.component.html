@@ -46,23 +46,23 @@
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="search"></fa-icon>
+                        <svg-icon name="search" [svgStyle]="{ 'width.px':'25' }"></svg-icon>
                     </span>
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="heart"></fa-icon>
+                        <svg-icon name="fav" [svgStyle]="{ 'width.px':'25' }"></svg-icon>
                     </span>
                 </a>
 
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-                                    <span>
-                                        <fa-icon icon="shopping-cart"></fa-icon>
-                                    </span>
+                    <span>
+                        <svg-icon name="cart" [svgStyle]="{ 'width.px':'25' }"></svg-icon>
+                    </span>
                 </a>
             </li>
 
@@ -75,7 +75,7 @@
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link btn btn-primary btn-get-started" routerLink="/" (click)="collapseNavbar()">
-                    <span btn-get-started>Get Started</span>
+                    <span btn-get-started class="p-2">Get Started</span>
                 </a>
             </li>
 

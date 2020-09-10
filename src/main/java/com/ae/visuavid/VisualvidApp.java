@@ -29,7 +29,7 @@ public class VisualvidApp {
     }
 
     /**
-     * Initializes visualvid.
+     * Initializes visualvid..
      * <p>
      * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>

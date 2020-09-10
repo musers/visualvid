@@ -1,0 +1,28 @@
+<div class="container-fluid list">
+    <div class="row flex-row flex-nowrap">
+        <ng-container *ngFor="let item of list">
+            <div class="col-3">
+                <div class="card card-block shadow bg-white rounded">
+                    <jhi-videoitem [item]="item"></jhi-videoitem>
+                    <div class="card-body px-2 py-1">
+                        <div class="row m-1">
+                            <div class="title">{{item.title}}</div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="mr-auto">
+                                <div class="price">${{item.price}}</div>
+                            </div>
+                            <div class="ml-auto">
+<!--                                <fa-icon class="px-2" icon="heart"></fa-icon>-->
+                                <!--<fa-icon style="" class="px-2" icon="shopping-cart"></fa-icon>-->
+                                <svg-icon name="fav" [svgStyle]="{ 'width.px':'25','color':'#FF6B69' }"></svg-icon>
+                                <svg-icon name="cart" [svgStyle]="{ 'width.px':'25','color':'#5ECBA1' }"></svg-icon>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
