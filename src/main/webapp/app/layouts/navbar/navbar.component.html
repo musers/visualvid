@@ -66,10 +66,17 @@
                 </a>
             </li>
 
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+            <li *ngSwitchCase="false" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()" (click)="login()" id="login">
                     <span>
                         <span>Sign In</span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()" (click)="logout()" id="logout">
+                    <span>
+                        <span>Sign Out</span>
                     </span>
                 </a>
             </li>
@@ -78,6 +85,7 @@
                     <span btn-get-started class="p-2">Get Started</span>
                 </a>
             </li>
+
 
             <!--            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
 <!--                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">-->
