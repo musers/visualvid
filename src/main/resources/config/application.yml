@@ -153,6 +153,12 @@ jhipster:
     contact-email:
     license: unlicensed
     license-url:
+#cloud:
+#  aws:
+#    region.static: ap-south-1
+#    credentials:
+#      accessKey: "AKIARHUCCYF37ZMSRMVY"
+#      secretKey: "G/V7ju4MinT4h2LiFK/YsTvaBUIypYlnyrDFbt9F"
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
@@ -161,5 +167,8 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
-# application:
+application:
+  aws:
+    s3:
+      bucketName: visualvid
+    iamUser: visualvidapiuser1
