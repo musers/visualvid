@@ -1,0 +1,59 @@
+.form-title-project-upload {
+   
+    text-align: center;
+    font-weight: bold;
+    color: #43497B;
+    font-size: 1.2rem;
+    margin-left: -22rem;
+    margin-right: 4rem;
+    padding-bottom: 2rem;
+}
+.form-title-customer-upload {
+   
+    text-align: center;
+    font-weight: bold;
+    color: #43497B;
+    font-size: 1.2rem;
+    margin-right: 4rem;
+    margin-bottom: 37rem;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    /* margin-right: 2rem; */
+    margin-left: -45px;
+}
+.label {
+    flex: 0 0 16.6666666667%;
+    max-width: 16.6666666667%;
+    font-size: 0.8rem;
+    color: #828599;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+.text-box {
+    flex: 0 0 83.3333333333%;
+    max-width: 83.3333333333%;
+    padding-left: 5rem;
+    height:1.6rem;
+}
+.input-item{
+    /* margin: 0; */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.4rem;
+    width: 15rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-preview-upload {
+    height: 1.8rem;
+    width: 7rem;
+    border-radius: 0.2rem;
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+  }
