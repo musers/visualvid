@@ -167,8 +167,8 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-application:
-  aws:
-    s3:
-      bucketName: visualvid
-    iamUser: visualvidapiuser1
+#application:
+#  aws:
+#    s3:
+#      bucketName: visualvid
+#    iamUser: visualvidapiuser1
