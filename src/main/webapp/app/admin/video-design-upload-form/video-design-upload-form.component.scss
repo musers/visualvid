@@ -1,11 +1,10 @@
 .form-title-project-upload {
-   
+
     text-align: center;
     font-weight: bold;
     color: #43497B;
     font-size: 1.2rem;
-    margin-left: -22rem;
-    margin-right: 4rem;
+    margin-left: -26rem;
     padding-bottom: 2rem;
 }
 .form-title-customer-upload {
@@ -14,8 +13,8 @@
     font-weight: bold;
     color: #43497B;
     font-size: 1.2rem;
-    margin-right: 4rem;
-    margin-bottom: 37rem;
+    margin-top: -19rem;
+    margin-left: 6rem;
 }
 .row {
     display: flex;
@@ -56,4 +55,57 @@
     border-radius: 0.2rem;
     padding-top: 0.2rem;
     font-size: 0.8rem;
-  }
+}
+.slide {
+    margin-top: -16.5rem;
+    margin-left: 3.5rem;
+    background-color: #F5F3F6;
+    padding-top:2rem;
+}
+.slide-box {
+    height: 4rem;
+    width: 7rem;
+    margin-top: -1rem;
+    margin-left: -20rem;
+    background-color: gainsboro;
+}
+.slide-button {
+    background-color: #FF6B69;
+    margin-left:2rem;
+    padding-bottom: 1.2rem;
+    height: 1rem;
+    width: 6rem;
+    border-radius: 0.2rem;
+}
+.slide-image {
+    margin-top: -1rem;
+    margin-left: -38rem;
+}
+.slide-image-upload {
+    font-size: 0.9rem;
+}
+.slide-text {
+    margin-top: -2rem;
+}
+.slide-text-box {
+    margin-top: 0.5rem;
+    background-color: #5ECBA1;
+    margin-left: 2.8rem;
+    padding-bottom: 1.2rem;
+    height: 1rem;
+    width: 6rem;
+    border-radius: 0.2rem;
+}
+.new-slide {
+    margin-left: 6.5rem;
+    background-color: #fff;
+    height: 1.5rem;
+    width: 8rem;
+    font-size: 0.9rem;
+    color:#7175d8;
+}
+.right-panel {
+    background-color: #F5F3F6;
+    height: 31rem;
+    margin-top: 20rem;
+}
