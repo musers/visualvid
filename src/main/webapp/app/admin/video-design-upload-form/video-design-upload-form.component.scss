@@ -76,14 +76,13 @@
     height: 1rem;
     width: 6rem;
     border-radius: 0.2rem;
+    font-size: 0.7rem;
 }
 .slide-image {
     margin-top: -1rem;
     margin-left: -38rem;
 }
-.slide-image-upload {
-    font-size: 0.9rem;
-}
+
 .slide-text {
     margin-top: -2rem;
 }
@@ -95,13 +94,14 @@
     height: 1rem;
     width: 6rem;
     border-radius: 0.2rem;
+    font-size: 0.7rem;
 }
 .new-slide {
     margin-left: 6.5rem;
     background-color: #fff;
     height: 1.5rem;
-    width: 8rem;
-    font-size: 0.9rem;
+    width: 6rem;
+    font-size: 0.7rem;
     color:#7175d8;
 }
 .right-panel {
@@ -116,6 +116,7 @@
     width: 6rem;
     height: 2rem;
     background-color: #43497B;
+    font-weight: bold;
 }
 .publish-btn{
     font-size: 0.9rem;
