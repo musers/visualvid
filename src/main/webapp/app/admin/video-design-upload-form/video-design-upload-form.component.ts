@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video-design-upload-form.component.scss'],
 })
 export class VideoDesignUploadFormComponent implements OnInit {
+  slides: Number[] = [0];
   constructor() {}
-
+  
   ngOnInit(): void {}
+
+  addSlide(): void {
+   this.slides.push(this.slides.length);
+  }
 }
+
+

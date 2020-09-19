@@ -94,8 +94,8 @@
         <div class="form-group row">
             <h5 class="form-title-customer-upload">Customer Upload Form</h5>
         </div>
-       <div class="container" style="background-color: #F5F3F6;">
-          <div class="form-group row slide">
+       <div class="container" id="slide-container-id"  style="background-color: #F5F3F6;">
+          <div class="form-group row" *ngFor="let slideItem of slides;first as isFirst"  [ngClass]="isFirst ? 'slide' : 'slide2'">
             <div class="col">
                 <label for="inputEmail3" class="label">Slide 01</label>
             </div>
@@ -115,12 +115,13 @@
                 </div>
             </div>
           </div>
-          <div class="form-group row">
-            <a class="btn btn-primary new-slide" routerLink="/">
-              <span class="">+New Slide</span>
-            </a>
-          </div>
         </div>
+        <div class="form-group row">
+          <a class="btn btn-primary new-slide" (click)="addSlide()">
+            <span class="">+New Slide</span>
+          </a>
+        </div>
+
        
 
         
