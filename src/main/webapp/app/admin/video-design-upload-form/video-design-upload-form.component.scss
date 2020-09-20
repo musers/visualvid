@@ -1,25 +1,28 @@
 .form-title-project-upload {
-
     text-align: center;
     font-weight: bold;
     color: #43497B;
     font-size: 1.2rem;
     margin-left: -26rem;
     padding-bottom: 2rem;
+    margin-top: -5.4rem;
 }
 .form-title-customer-upload {
-   
     text-align: center;
     font-weight: bold;
     color: #43497B;
     font-size: 1.2rem;
-    margin-top: -19rem;
-    margin-left: 6rem;
+    margin-top: -10rem;
+    margin-left: -30rem;
 }
+.right-panel-container {
+    background-color: #F5F3F6;
+    height: 30rem;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
-    /* margin-right: 2rem; */
     margin-left: -45px;
 }
 .label {
@@ -37,7 +40,6 @@
     height:1.6rem;
 }
 .input-item{
-    /* margin: 0; */
     font-family: inherit;
     font-size: inherit;
     line-height: 1.4rem;
@@ -57,10 +59,11 @@
     font-size: 0.8rem;
 }
 .slide {
-    margin-top: -16.5rem;
     margin-left: 3.5rem;
     background-color: #F5F3F6;
-    padding-top:2rem;
+    padding-top: 2rem;
+    margin-top: 2rem;
+
 }
 .slide2 {
     margin-left: 3.5rem;
@@ -87,7 +90,6 @@
     margin-top: -1rem;
     margin-left: -38rem;
 }
-
 .slide-text {
     margin-top: -2rem;
 }
