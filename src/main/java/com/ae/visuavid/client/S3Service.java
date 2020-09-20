@@ -24,15 +24,15 @@ public class S3Service {
     @Autowired
     private ApplicationProperties applicationProperties;
 
-    public S3FileDTO uploadAdminFile(File file, String fileName) throws IOException {
-        return uploadFile(file, ADMIN_UPLOADS_PATH, fileName);
+    public S3FileDTO uploadAdminFile(byte[] bytes, String fileName) throws IOException {
+        return uploadFile(bytes, ADMIN_UPLOADS_PATH, fileName);
     }
 
-    private S3FileDTO uploadFile(File file, String path, String fileName) throws IOException {
+    private S3FileDTO uploadFile(byte[] bytes, String path, String fileName) throws IOException {
         String key = generateKey(path, fileName);
         s3Client.putObject(
             PutObjectRequest.builder().bucket(getBucketName()).key(key).acl(ObjectCannedACL.PUBLIC_READ).build(),
-            RequestBody.fromFile(file)
+            RequestBody.fromBytes(bytes)
         );
         GetUrlRequest request = GetUrlRequest.builder().bucket(getBucketName()).key(key).build();
         String url = s3Client.utilities().getUrl(request).toExternalForm();

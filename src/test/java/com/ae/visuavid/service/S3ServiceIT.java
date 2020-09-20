@@ -3,8 +3,9 @@ package com.ae.visuavid.service;
 import com.ae.visuavid.VisualvidApp;
 import com.ae.visuavid.client.S3Service;
 import com.ae.visuavid.service.dto.S3FileDTO;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +22,9 @@ public class S3ServiceIT {
 
     @Test
     public void uploadFile() throws IOException {
-        String fileName = "test $$&$.txt";
-        File file = new File("C:\\Users\\baddanki\\code\\pden\\visualvid\\README.md");
-        S3FileDTO obj = s3Service.uploadAdminFile(file, fileName);
+        String fileName = "angular.json";
+        String path = "C:\\Users\\baddanki\\code\\pden\\visualvid\\angular.json";
+        byte[] bytes = Files.readAllBytes(Paths.get(path));
+        S3FileDTO obj = s3Service.uploadAdminFile(bytes, fileName);
     }
 }
