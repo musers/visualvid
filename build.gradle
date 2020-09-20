@@ -296,19 +296,17 @@ task cleanResources(type: Delete) {
     delete "build/resources"
 }
 
-//task injectEnv(type: Exec) {
-//    file('.env').readLines().each() {
-//        if (!it.isEmpty() && !it.startsWith("#")) {
-//            def pos = it.indexOf("=")
-//            def key = it.substring(0, pos)
-//            def value = it.substring(pos + 1)
-//            print key
-//            print value
-//            environment key, value
-//        }
-//    }
-//    commandLine 'pwd'
-//}
+task injectEnv(type: Exec) {
+    file('.env').readLines().each() {
+        if (!it.isEmpty() && !it.startsWith("#")) {
+            def pos = it.indexOf("=")
+            def key = it.substring(0, pos)
+            def value = it.substring(pos + 1)
+            environment key, value
+        }
+    }
+    commandLine 'pwd'
+}
 
 wrapper {
     gradleVersion = "6.5"
@@ -321,6 +319,15 @@ if (System.env.VMODE == 'apiOnly') {
     compileTestJava.enabled=false
     testClasses.enabled=false
     integrationTest.enabled=false
+    test.enabled=false
+}
+if (System.env.VMODE == 'intTest') {
+    npmInstall.enabled=false
+    webpack.enabled=false
+    checkstyleMain.enabled=false
+    checkstyleNohttp.enabled=false
+    compileTestJava.enabled=false
+    testClasses.enabled=false
     test.enabled=false
 }
 
