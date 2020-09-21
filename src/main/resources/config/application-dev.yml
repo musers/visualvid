@@ -18,6 +18,7 @@ logging:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
     com.ae.visuavid: DEBUG
+    liquibase: Info
 
 spring:
   profiles:
