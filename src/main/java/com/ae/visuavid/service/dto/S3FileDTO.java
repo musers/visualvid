@@ -4,6 +4,7 @@ public class S3FileDTO {
     private String fileName;
     private String url;
     private String key;
+    private String id;
 
     public String getFileName() {
         return fileName;
