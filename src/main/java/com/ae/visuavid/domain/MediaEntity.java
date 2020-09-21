@@ -4,21 +4,21 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import lombok.Data;
-
 @Entity
 @Table(name = "media")
-@Data
 public class MediaEntity  extends AbstractAuditingEntity{
 
 	/**
@@ -64,5 +64,8 @@ public class MediaEntity  extends AbstractAuditingEntity{
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private List<MediaSlideEntity> medias;
 	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "s3_info_id")
+	private S3InfoEntity s3Info;
 	
 }

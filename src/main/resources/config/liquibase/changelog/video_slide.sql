@@ -5,6 +5,7 @@ create table media (
  description TEXT,
  indian_price NUMERIC(12,2),
  usd_price NUMERIC(12,2),
+ s3_info_id UUID NOT NULL,
  preview_video_s3_url TEXT,
  thumb_nail_s3_url TEXT,
  media_placeholders TEXT,
@@ -38,5 +39,19 @@ create table media (
  updated_by VARCHAR(30)
  );
  
+ create table s3_info (
+ id UUID NOT NULL  PRIMARY KEY,
+ media_name VARCHAR(30),
+ media_s3_key VARCHAR(30),
+ url TEXT,
+ status VARCHAR(30),
+ media_size INT,
+ created_on DATETIME,
+ updated_on DATETIME,
+ created_by VARCHAR(30),
+ updated_by VARCHAR(30)
+ );
+ 
+ ALTER TABLE PUBLIC.media ADD CONSTRAINT fk_s3_info_id FOREIGN KEY (s3_info_id) REFERENCES PUBLIC.media (id);
  ALTER TABLE PUBLIC.media_slide ADD CONSTRAINT fk_media_id FOREIGN KEY (media_id) REFERENCES PUBLIC.media (id);
  ALTER TABLE PUBLIC.slide_items ADD CONSTRAINT fk_media_slide_id FOREIGN KEY (media_slide_id) REFERENCES PUBLIC.media_slide (id);
