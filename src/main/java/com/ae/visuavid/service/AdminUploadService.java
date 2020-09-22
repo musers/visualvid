@@ -13,6 +13,7 @@ import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.S3InfoRepository;
 import com.ae.visuavid.service.dto.AdminMediaDto;
 import com.ae.visuavid.service.mapper.AdminMediaMapper;
+import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 
 
 @Service
@@ -41,6 +42,7 @@ public class AdminUploadService {
 		}
 		catch (Exception e) {
 			log.error("error while saving project-upload-form : {} ", e);
+			throw new ApiRuntimeException(e.getMessage());
 		}
 		
 	}
