@@ -37,6 +37,10 @@ import { RouterModule } from '@angular/router';
         path: 'metrics',
         loadChildren: () => import('./metrics/metrics.module').then(m => m.MetricsModule),
       },
+      {
+        path: 'upload',
+        loadChildren: () => import('./video-design-upload-form/video-design-upload-form.module').then(m => m.VideoDesignUploadFormModule),
+      },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),
   ],

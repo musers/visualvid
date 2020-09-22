@@ -25,11 +25,6 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
         },
-        {
-          path: 'upload',
-          loadChildren: () =>
-            import('./admin/video-design-upload-form/video-design-upload-form.module').then(m => m.VideoDesignUploadFormModule),
-        },
         ...LAYOUT_ROUTES,
       ],
       { enableTracing: DEBUG_INFO_ENABLED }
