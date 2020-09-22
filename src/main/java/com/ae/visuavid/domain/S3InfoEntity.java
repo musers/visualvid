@@ -4,9 +4,12 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "s3_info")
@@ -18,6 +21,8 @@ public class S3InfoEntity  extends AbstractAuditingEntity{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid",strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id")
 	private UUID id;
 	
@@ -85,6 +90,14 @@ public class S3InfoEntity  extends AbstractAuditingEntity{
 
 	public void setSize(Integer size) {
 		this.size = size;
+	}
+
+	public MediaEntity getMedia() {
+		return media;
+	}
+
+	public void setMedia(MediaEntity media) {
+		this.media = media;
 	}
 
 	public static long getSerialversionuid() {

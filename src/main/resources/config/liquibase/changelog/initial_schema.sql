@@ -82,6 +82,7 @@ INSERT INTO PUBLIC.jhi_authority(name) VALUES('ADD_USER');
 INSERT INTO PUBLIC.jhi_authority(name) VALUES('EDIT_USER');
 INSERT INTO PUBLIC.jhi_authority(name) VALUES('DELETE_USER');
 INSERT INTO PUBLIC.jhi_authority(name) VALUES('DEFAULT');
+INSERT INTO PUBLIC.jhi_authority(name) VALUES('ADMIN_USER');
  
 INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(1, 'ROLE_ADMIN');
 INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(2, 'ROLE_USER');
@@ -93,6 +94,7 @@ INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_AD
 INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_ADMIN', 'EDIT_USER');
 INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_ADMIN', 'DELETE_USER');
 INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_USER', 'DEFAULT');
+INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_ADMIN', 'ADMIN_USER');
  
  
  

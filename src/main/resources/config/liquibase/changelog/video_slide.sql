@@ -11,20 +11,20 @@ create table media (
  media_placeholders TEXT,
  text_placeholders TEXT,
  turn_around_time VARCHAR(30),
- created_on DATETIME,
- updated_on DATETIME,
+ created_date DATETIME,
+ last_modified_date DATETIME,
  created_by VARCHAR(30),
- updated_by VARCHAR(30)
+ last_modified_by VARCHAR(30)
  );
  
  create table media_slide (
  id UUID NOT NULL  PRIMARY KEY,
  media_id UUID NOT NULL,
  screen_shot_s3_url TEXT,
- created_on DATETIME,
- updated_on DATETIME,
+ created_date DATETIME,
+ last_modified_date DATETIME,
  created_by VARCHAR(30),
- updated_by VARCHAR(30)
+ last_modified_by VARCHAR(30)
  );
  
  create table slide_items (
@@ -33,10 +33,10 @@ create table media (
  type VARCHAR(10),
  label VARCHAR(20),
  media_order INT,
- created_on DATETIME,
- updated_on DATETIME,
+ created_date DATETIME,
+ last_modified_date DATETIME,
  created_by VARCHAR(30),
- updated_by VARCHAR(30)
+ last_modified_by VARCHAR(30)
  );
  
  create table s3_info (
@@ -46,12 +46,16 @@ create table media (
  url TEXT,
  status VARCHAR(30),
  media_size INT,
- created_on DATETIME,
- updated_on DATETIME,
+ created_date DATETIME,
+ last_modified_date DATETIME,
  created_by VARCHAR(30),
- updated_by VARCHAR(30)
+ last_modified_by VARCHAR(30)
  );
  
- ALTER TABLE PUBLIC.media ADD CONSTRAINT fk_s3_info_id FOREIGN KEY (s3_info_id) REFERENCES PUBLIC.media (id);
+ ALTER TABLE PUBLIC.media ADD CONSTRAINT fk_s3_info_id FOREIGN KEY (s3_info_id) REFERENCES PUBLIC.s3_info (id);
  ALTER TABLE PUBLIC.media_slide ADD CONSTRAINT fk_media_id FOREIGN KEY (media_id) REFERENCES PUBLIC.media (id);
  ALTER TABLE PUBLIC.slide_items ADD CONSTRAINT fk_media_slide_id FOREIGN KEY (media_slide_id) REFERENCES PUBLIC.media_slide (id);
+ 
+ INSERT INTO s3_info (id, media_name,media_s3_key,url,status,media_size) VALUES
+('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'IMAGE', 's3_key', 's3_url', 'InProgress', 250);
+ 
