@@ -34,12 +34,10 @@
                 </div>
                 <div class="form-group row">
                     <label class="label" style="margin-top:0.4rem;">Preview Video</label>
-                    <div class="text-box">
-                        <a class="btn btn-primary btn-preview-upload" style="background-color: #7175d8;" routerLink="/">
-                            <span>Upload</span>
-                        </a>
-                    </div>
+<!--                    <label for="previewvideofile" class="btn btn-primary btn-preview-upload">Upload</label>-->
+                    <input type="file" class="" style="padding-left: 5rem;" id="previewvideofile" (change)="uploadVideoFile($event)">
                 </div>
+
                 <div class="form-group row">
                     <label class="label" style="margin-top:0.4rem;">Thumbnail</label>
                     <div class="text-box">
