@@ -1,0 +1,20 @@
+<div class="bg-white rounded p-3">
+    <div class="row">
+        <div class="col-4">
+            <div class="row row align-items-center">
+                <div class="p-2">
+                    Slide 01
+                </div>
+                <div>
+                    <img alt="Image" width="75" height="75" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Crect x='0' y='0' width='100%25' rx='10' ry='10' height='100%25' fill='%23F6F6F6' %3E%3C/rect%3E%3Ctext fill='%23000' x='50%25' y='50%25' alignment-baseline='middle' text-anchor='middle'%3E+%3C/text%3E%3C/svg%3E">
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <ng-container *ngFor="let si of slideItems;let i = index">
+                <jhi-admin-upload-form-slide-item [item]="si" [index]="i"></jhi-admin-upload-form-slide-item>
+                <div *ngIf="i < slideItems.length-1" class="" style="border-bottom: 1px solid #dcdcdc;"></div>
+            </ng-container>
+        </div>
+    </div>
+</div>
