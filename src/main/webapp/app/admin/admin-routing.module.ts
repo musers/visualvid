@@ -39,7 +39,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'upload',
-        loadChildren: () => import('./video-design-upload-form/video-design-upload-form.module').then(m => m.VideoDesignUploadFormModule),
+        loadChildren: () => import('./admin-upload/admin-upload.module').then(m => m.AdminUploadModule),
       },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),

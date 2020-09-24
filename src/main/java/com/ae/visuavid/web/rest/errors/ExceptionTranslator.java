@@ -137,9 +137,9 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
         Problem problem = Problem.builder().withStatus(Status.CONFLICT).with(MESSAGE_KEY, ErrorConstants.ERR_CONCURRENCY_FAILURE).build();
         return create(ex, problem, request);
     }
-    
+
     @ExceptionHandler
-    public ResponseEntity<Problem> handleApiRuntimeException(ApiRuntimeException ex,NativeWebRequest request) {
-    	 return create(new ApiRuntimeException(ex.getDetail()), request);
+    public ResponseEntity<Problem> handleApiRuntimeException(ApiRuntimeException ex, NativeWebRequest request) {
+        return create(new ApiRuntimeException(ex.getDetail()), request);
     }
 }

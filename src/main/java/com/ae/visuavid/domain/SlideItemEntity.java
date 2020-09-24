@@ -1,7 +1,6 @@
 package com.ae.visuavid.domain;
 
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,78 +9,74 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "slide_items")
 @Data
-public class SlideItemEntity  extends AbstractAuditingEntity{
+public class SlideItemEntity extends AbstractAuditingEntity {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid",strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id")
-	private UUID id;
-	
-	@Column(name = "type")
-	private String type;
-	
-	@Column(name = "label")
-	private String label;
-	
-	@Column(name = "media_order")
-	private Integer order;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "media_slide_id")
-	private MediaSlideEntity mediaSlide;
+    @Column(name = "type")
+    private String type;
 
-	public UUID getId() {
-		return id;
-	}
+    @Column(name = "label")
+    private String label;
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+    @Column(name = "media_order")
+    private Integer order;
 
-	public String getType() {
-		return type;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "media_slide_id")
+    private MediaSlideEntity mediaSlide;
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public UUID getId() {
+        return id;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public Integer getOrder() {
-		return order;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setOrder(Integer order) {
-		this.order = order;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public MediaSlideEntity getMediaSlide() {
-		return mediaSlide;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public void setMediaSlide(MediaSlideEntity mediaSlide) {
-		this.mediaSlide = mediaSlide;
-	}
-	
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public MediaSlideEntity getMediaSlide() {
+        return mediaSlide;
+    }
+
+    public void setMediaSlide(MediaSlideEntity mediaSlide) {
+        this.mediaSlide = mediaSlide;
+    }
 }

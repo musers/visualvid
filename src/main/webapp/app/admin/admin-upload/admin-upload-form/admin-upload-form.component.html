@@ -1,0 +1,95 @@
+<div class="container admin-upload-form">
+    <div class="row">
+        <div class="col-lg-6 project-upload-form">
+            <div class="heading">Project Upload Form</div>
+            <form>
+                <div class="form-group row">
+                    <label class="vlabel">Name</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="name"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Html Description</label>
+                    <div class="vtext-box">
+                        <textarea class="input-item" style=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Category</label>
+                    <div class="vtext-box">
+                        <select class="input-item" style="" id="category">
+                            <option>Family Invitations</option>
+                            <option>Logo Reveals</option>
+                            <option>Corporate</option>
+                            <option>Restaurant Displays</option>
+                            <option>PartyEvent Invitations</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Preview Video</label>
+                    <div class="vtext-box">
+                        <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
+                    </div>
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event)">
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Thumbnail</label>
+                    <div class="vtext-box">
+                        <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
+                    </div>
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event)">
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="vlabel">Price</label>
+                    <div class="form-row row" style="width: 60%;padding-left: 5rem;">
+                        <div class="form-group col-md-6">
+                            <label class="vlabel" for="indianprice" style="max-width:100%;">Indian Price</label>
+                            <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="vlabel" for="usdprice" style="max-width:100%;">USD</label>
+                            <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="vlabel">Media Placeholders</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="mediaPlaceHolders"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Text Placeholders</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="textPlaceHolders"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Turn Around Time</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="turnAroundTime"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 customer-upload-form">
+            <div class="heading">Customer Upload Form</div>
+            <div class="slide-container rounded"></div>
+            <div class="form-group row mt-2">
+                    <div class="btn btn-primary preview-btn ml-auto" >
+                        <span class="">Preview</span>
+                    </div>
+                    <div class="btn btn-primary publish-btn ml-2">
+                        <span class="">Publish</span>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>

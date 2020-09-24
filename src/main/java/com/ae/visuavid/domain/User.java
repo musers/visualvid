@@ -1,5 +1,7 @@
 package com.ae.visuavid.domain;
 
+import com.ae.visuavid.config.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -20,12 +22,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
-
-import com.ae.visuavid.config.Constants;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A user.
