@@ -1,9 +1,25 @@
-<div class="row slideitem pb-2" *ngIf="item" >
-    <div class="">
-        This is some file {{item.type}}
-    </div>
-    <div class=" ml-auto">
-            <label for="uploadbtn" class="btn btn-primary upload-btn upload-btn">Upload</label>
-            <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn">
-    </div>
+<div class="slideitem py-2" *ngIf="item" >
+    <ng-container [ngSwitch]="item.type">
+        <ng-container *ngSwitchCase="'image'">
+            <div class="row image-type">
+                <div class="col">
+                    <input type="text" class="form-control textfield" redonly placeholder="Image 01">
+                </div>
+                <div class="col ml-auto">
+                    <label for="uploadbtn" class="btn btn-primary upload-btn r-btn">Upload</label>
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn">
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'label'">
+            <div class="row label-type">
+                <div class="col">
+                    <input type="text" class="form-control textfield">
+                </div>
+                <div class="col ml-auto">
+                    <label class="btn btn-primary r-btn"><span class="text">Text Box</span></label>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
 </div>

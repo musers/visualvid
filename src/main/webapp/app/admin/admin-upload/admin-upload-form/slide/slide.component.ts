@@ -17,7 +17,7 @@ export class SlideComponent implements OnInit {
         type: 'image',
       },
       {
-        type: 'image',
+        type: 'label',
       }
     );
   }

@@ -1,60 +1,12 @@
-.admin-upload-form {
-  .heading {
-    font-weight: bold;
-    color: #43497b;
-    font-size: 1.2rem;
-    padding-bottom: 1.5rem;
-  }
-  .customer-upload-form {
-  }
-  .form-group {
-    margin-right: 0;
-    margin-left: 0;
-  }
-  .vlabel {
-    flex: 0 0 16.6666666667%;
-    max-width: 16.6666666667%;
-    font-size: 0.8rem;
-    color: #828599;
-    font-weight: bold;
-    font-size: 0.7rem;
-  }
-  .vtext-box {
-    flex: 0 0 83.3333333333%;
-    max-width: 83.3333333333%;
-    padding-left: 5rem;
-    height: 1.6rem;
-  }
-  .input-item {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: 1.4rem;
-    width: 15rem;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-  .upload-btn {
-    background-color: #43497b;
-    background-color: #7175d8;
-    color: #fff !important;
-    margin: auto;
-    padding-right: 1.5rem !important;
-    padding-left: 1.5rem !important;
-    padding-top: 0rem !important;
-    padding-bottom: 0rem !important;
-  }
-  .slide-container {
-    background-color: #aaabb3;
-    height: 31rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .project-upload-form {
-    border-right: 2px solid #dcdcdc;
-  }
+.image {
+  $div-height: 5rem;
+  $div-width: 5rem;
+  height: $div-height;
+  width: $div-width;
+  background: #f5f3f6;
+  border: 1px solid #d0d0d5 !important;
+  border-radius: 0.15rem !important;
+  text-align: center;
+  vertical-align: middle;
+  line-height: $div-height;
 }
