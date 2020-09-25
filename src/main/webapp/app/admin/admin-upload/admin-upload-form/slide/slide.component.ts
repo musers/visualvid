@@ -9,6 +9,7 @@ import { SlideItem } from './slideitem/slideitem.model';
 })
 export class SlideComponent implements OnInit {
   slideItems: Array<SlideItem> = [];
+  previewImageUrl = '';
   constructor(private fileUploadService: FileUploadService) {}
 
   ngOnInit(): void {
@@ -21,11 +22,24 @@ export class SlideComponent implements OnInit {
       }
     );
   }
+  addSlideItem(e: any): void {
+    if (e === 'image') {
+      this.slideItems.push({
+        type: 'image',
+      });
+    } else if (e === 'label') {
+      this.slideItems.push({
+        type: 'label',
+      });
+    }
+  }
 
-  //  uploadVideoFile(e: any): void {
-  //    if (e && e.target) {
-  //      const fileToBeUploaded = e.target.files[0];
-  //      this.fileUploadService.uploadFile(fileToBeUploaded).subscribe();
-  //    }
-  //  }
+  uploadVideoFile(e: any): void {
+    if (e && e.target) {
+      const fileToBeUploaded = e.target.files[0];
+      this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
+        this.previewImageUrl = data.url;
+      });
+    }
+  }
 }

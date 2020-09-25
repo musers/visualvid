@@ -6,13 +6,19 @@
                     Slide 01
                 </div>
                 <div class="image">
-                    +
+                    <ng-container *ngIf="previewImageUrl; else upload_tag">
+                        <img style="height:100%;width:100%;" src="{{previewImageUrl}}" alt="Preview Image">
+                    </ng-container>
+                    <ng-template #upload_tag>
+                        <input type="file" #fileDropRef id="fileDropRef" style="width:0px;height:0px;" (change)="uploadVideoFile($event)"/>
+                        <label for="fileDropRef">+</label>
+                    </ng-template>
                 </div>
             </div>
         </div>
         <div class="col-8">
-            <ng-container *ngFor="let si of slideItems;let i = index">
-                <jhi-admin-upload-form-slide-item [item]="si" [index]="i"></jhi-admin-upload-form-slide-item>
+            <ng-container *ngFor="let si of slideItems;let i = index;let last = last;">
+                <jhi-admin-upload-form-slide-item [item]="si" [index]="i" [isLast]="last" (addSlideItemHandler)="addSlideItem($event)"></jhi-admin-upload-form-slide-item>
                 <div *ngIf="i < slideItems.length-1" class="" style="border-bottom: 1px solid #dcdcdc;"></div>
             </ng-container>
         </div>

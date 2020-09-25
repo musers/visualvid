@@ -9,4 +9,7 @@ eg $input-color: red;
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
 
+.popover {
+  border-radius: 0.25rem !important;
+}
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

@@ -19,6 +19,9 @@
       height: 100%;
       background-color: inherit;
     }
+    .filename {
+      margin-bottom: 0rem;
+    }
     input:focus {
       box-shadow: none !important;
     }
@@ -31,13 +34,13 @@
       width: 100%;
       border: none;
       border-radius: 0px;
-      border-bottom: 1px solid #5ecba1;
+      // border-bottom: 1px solid #5ecba1;
       padding: 0px;
       height: 100%;
     }
     input:focus {
       box-shadow: none !important;
-      border-bottom: 2px solid #5ecba1;
+      // border-bottom: 2px solid #5ecba1;
     }
     .r-btn {
       background-color: #5ecba1;

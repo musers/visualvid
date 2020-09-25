@@ -3,11 +3,14 @@
         <ng-container *ngSwitchCase="'image'">
             <div class="row image-type">
                 <div class="col">
-                    <input type="text" class="form-control textfield" redonly placeholder="Image 01">
+                    <label class="filename">{{imageData.fileName}}</label>
                 </div>
                 <div class="col ml-auto">
                     <label for="uploadbtn" class="btn btn-primary upload-btn r-btn">Upload</label>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn" (change)="uploadVideoFile($event)">
+                    <ng-container *ngIf="isLast">
+                        <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
+                    </ng-container>
                 </div>
             </div>
         </ng-container>
@@ -18,8 +21,18 @@
                 </div>
                 <div class="col ml-auto">
                     <label class="btn btn-primary r-btn"><span class="text">Text Box</span></label>
+                    <ng-container *ngIf="isLast">
+                        <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
+                    </ng-container>
                 </div>
             </div>
         </ng-container>
     </ng-container>
+    <ng-template #addslideitemtemplate>
+        <fa-icon icon="plus" [ngbPopover]="popContent" placement="right"></fa-icon>
+    </ng-template>
+    <ng-template #popContent>
+        <div (click)="addSlide('image')">Image Selection</div>
+        <div (click)="addSlide('label')">Text Selection</div>
+    </ng-template>
 </div>
