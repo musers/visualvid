@@ -12,3 +12,13 @@
 .upload-label {
   display: block;
 }
+.textfield {
+  width: 100%;
+  border: none;
+  border-radius: 0px;
+  padding: 0px;
+  height: 100%;
+}
+.textfield:focus {
+  box-shadow: none !important;
+}
