@@ -7,7 +7,7 @@
                 </div>
                 <div class="col ml-auto">
                     <label for="uploadbtn{{index}}" class="btn btn-primary upload-btn r-btn">Upload</label>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn{{index}}" (change)="uploadVideoFile($event, item, index)">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn{{index}}" (change)="uploadVideoFile($event, item)">
                     <ng-container *ngIf="isLast">
                         <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
                     </ng-container>

@@ -19,9 +19,7 @@ export class SlideItemComponent implements OnInit {
   addSlide(type: String): void {
     this.addSlideItemHandler.emit(type);
   }
-  uploadVideoFile(e: any, sItem: SlideItem, ind: number): void {
-    console.log(sItem);
-    console.log(ind);
+  uploadVideoFile(e: any, sItem: SlideItem): void {
     if (e && e.target) {
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
