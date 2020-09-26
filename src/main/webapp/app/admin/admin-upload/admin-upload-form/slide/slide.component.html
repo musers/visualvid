@@ -1,23 +1,23 @@
-<div class="bg-white rounded pt-2 px-4">
+<div class="bg-white rounded pt-2 px-4 my-2">
     <div class="row">
         <div class="col-4">
             <div class="row row align-items-center">
-                    <input type="text" class="col form-control textfield" placeholder="Slide 01">
+                    <input type="text" class="col form-control textfield" placeholder="Slide {{index}}" [(ngModel)]="item.name">
                 <div class="image">
-                    <ng-container *ngIf="previewImageUrl; else upload_tag">
-                        <img style="height:100%;width:100%;" src="{{previewImageUrl}}" alt="Preview Image">
+                    <ng-container *ngIf="item.previewImageUrl; else upload_tag">
+                        <img style="height:100%;width:100%;" src="{{item.previewImageUrl}}" alt="Preview Image">
                     </ng-container>
                     <ng-template #upload_tag>
-                        <input type="file" #fileDropRef id="fileDropRef" style="width:0px;height:0px;" (change)="uploadVideoFile($event)"/>
-                        <label for="fileDropRef" class="upload-label">+</label>
+                        <input type="file" #fileDropRef id="fileDropRef{{index}}" style="width:0px;height:0px;" (change)="uploadVideoFile($event)"/>
+                        <label for="fileDropRef{{index}}" class="upload-label">+</label>
                     </ng-template>
                 </div>
             </div>
         </div>
         <div class="col-8">
-            <ng-container *ngFor="let si of slideItems;let i = index;let last = last;">
+            <ng-container *ngFor="let si of item.slideItems;let i = index;let last = last;">
                 <jhi-admin-upload-form-slide-item [item]="si" [index]="i" [isLast]="last" (addSlideItemHandler)="addSlideItem($event)"></jhi-admin-upload-form-slide-item>
-                <div *ngIf="i < slideItems.length-1" class="" style="border-bottom: 1px solid #dcdcdc;"></div>
+                <div *ngIf="i < item.slideItems.length-1" class="" style="border-bottom: 1px solid #dcdcdc;"></div>
             </ng-container>
         </div>
     </div>
