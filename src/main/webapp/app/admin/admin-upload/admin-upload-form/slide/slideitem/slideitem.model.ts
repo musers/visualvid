@@ -3,4 +3,7 @@ export interface SlideItem {
   order?: Number;
   type?: String;
   data?: String;
+  fileName?: String;
+  key?: String;
+  url?: String;
 }

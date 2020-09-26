@@ -21,6 +21,8 @@
     }
     .filename {
       margin-bottom: 0rem;
+      word-wrap: break-word;
+      white-space: wrap;
     }
     input:focus {
       box-shadow: none !important;

@@ -12,22 +12,23 @@ export class SlideItemComponent implements OnInit {
   @Input() index?: number;
   @Input() isLast = true;
   @Output() addSlideItemHandler = new EventEmitter();
-  imageData = {
-    fileName: '',
-  };
+
   constructor(private fileUploadService: FileUploadService) {}
 
   ngOnInit(): void {}
   addSlide(type: String): void {
     this.addSlideItemHandler.emit(type);
   }
-  uploadVideoFile(e: any): void {
+  uploadVideoFile(e: any, sItem: SlideItem, ind: number): void {
+    console.log(sItem);
+    console.log(ind);
     if (e && e.target) {
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
         if (data && this.item) {
-          this.item.data = data.key;
-          this.imageData = data;
+          sItem.fileName = data.fileName;
+          sItem.key = data.key;
+          sItem.url = data.url;
         }
       });
     }

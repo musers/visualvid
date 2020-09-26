@@ -3,11 +3,11 @@
         <ng-container *ngSwitchCase="'image'">
             <div class="row image-type">
                 <div class="col">
-                    <label class="filename">{{imageData.fileName}}</label>
+                    <div class="filename">{{item.fileName}}</div>
                 </div>
                 <div class="col ml-auto">
-                    <label for="uploadbtn" class="btn btn-primary upload-btn r-btn">Upload</label>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn" (change)="uploadVideoFile($event)">
+                    <label for="uploadbtn{{index}}" class="btn btn-primary upload-btn r-btn">Upload</label>
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn{{index}}" (change)="uploadVideoFile($event, item, index)">
                     <ng-container *ngIf="isLast">
                         <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
                     </ng-container>
