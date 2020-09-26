@@ -11,8 +11,8 @@ create table media (
  media_placeholders TEXT,
  text_placeholders TEXT,
  turn_around_time VARCHAR(30),
- created_date DATETIME,
- last_modified_date DATETIME,
+ created_date TIMESTAMP,
+ last_modified_date TIMESTAMP,
  created_by VARCHAR(30),
  last_modified_by VARCHAR(30)
  );
@@ -21,8 +21,8 @@ create table media (
  id UUID NOT NULL  PRIMARY KEY,
  media_id UUID NOT NULL,
  screen_shot_s3_url TEXT,
- created_date DATETIME,
- last_modified_date DATETIME,
+ created_date TIMESTAMP,
+ last_modified_date TIMESTAMP,
  created_by VARCHAR(30),
  last_modified_by VARCHAR(30)
  );
@@ -33,8 +33,8 @@ create table media (
  type VARCHAR(10),
  label VARCHAR(20),
  media_order INT,
- created_date DATETIME,
- last_modified_date DATETIME,
+ created_date TIMESTAMP,
+ last_modified_date TIMESTAMP,
  created_by VARCHAR(30),
  last_modified_by VARCHAR(30)
  );
@@ -46,8 +46,8 @@ create table media (
  url TEXT,
  status VARCHAR(30),
  media_size INT,
- created_date DATETIME,
- last_modified_date DATETIME,
+ created_date TIMESTAMP,
+ last_modified_date TIMESTAMP,
  created_by VARCHAR(30),
  last_modified_by VARCHAR(30)
  );
