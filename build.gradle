@@ -143,7 +143,7 @@ liquibase {
             driver "com.zaxxer.hikari.HikariDataSource"
             url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
     		username "visualvid"
-    		password ""
+    		password "Visualvid@123"
             changeLogFile "src/main/resources/config/liquibase/master.xml"
             defaultSchemaName ""
             logLevel "debug"
@@ -155,7 +155,7 @@ liquibase {
             driver "com.zaxxer.hikari.HikariDataSource"
             url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
     		username "visualvid"
-    		password ""
+    		password "Visualvid@123"
             changeLogFile project.ext.diffChangelogFile
             referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
             defaultSchemaName ""
