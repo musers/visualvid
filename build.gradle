@@ -141,11 +141,11 @@ liquibase {
     activities {
         main {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
-    		username: visualvid
-    		password: Visualvid@123
+            url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
+    		username "visualvid"
+    		password ""
             changeLogFile "src/main/resources/config/liquibase/master.xml"
-            defaultSchemaName "public"
+            defaultSchemaName ""
             logLevel "debug"
             classpath "src/main/resources/"
             
@@ -153,12 +153,12 @@ liquibase {
         }
         diffLog {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
-    		username: visualvid
-    		password: Visualvid@123
+            url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
+    		username "visualvid"
+    		password ""
             changeLogFile project.ext.diffChangelogFile
             referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
-            defaultSchemaName "public"
+            defaultSchemaName ""
             logLevel "debug"
             classpath "$buildDir/classes/java/main"
         }
