@@ -141,7 +141,7 @@ liquibase {
     activities {
         main {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url: jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid
+            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
     		username: visualvid
     		password: Visualvid@123
             changeLogFile "src/main/resources/config/liquibase/master.xml"
@@ -153,7 +153,7 @@ liquibase {
         }
         diffLog {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url: jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid
+            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
     		username: visualvid
     		password: Visualvid@123
             changeLogFile project.ext.diffChangelogFile
