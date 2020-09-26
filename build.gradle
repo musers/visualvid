@@ -140,23 +140,25 @@ project.ext.diffChangelogFile = "src/main/resources/config/liquibase/changelog/"
 liquibase {
     activities {
         main {
-            driver "org.h2.Driver"
-            url "jdbc:h2:file:./build/h2db/db/visualvid"
-            username "visualvid"
-            password ""
+            driver "com.zaxxer.hikari.HikariDataSource"
+            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
+    		username: visualvid
+    		password: Visualvid@123
             changeLogFile "src/main/resources/config/liquibase/master.xml"
-            defaultSchemaName ""
+            defaultSchemaName "public"
             logLevel "debug"
             classpath "src/main/resources/"
+            
+   
         }
         diffLog {
-            driver "org.h2.Driver"
-            url "jdbc:h2:file:./build/h2db/db/visualvid"
-            username "visualvid"
-            password ""
+            driver "com.zaxxer.hikari.HikariDataSource"
+            url: "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
+    		username: visualvid
+    		password: Visualvid@123
             changeLogFile project.ext.diffChangelogFile
-            referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.H2Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
-            defaultSchemaName ""
+            referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+            defaultSchemaName "public"
             logLevel "debug"
             classpath "$buildDir/classes/java/main"
         }

@@ -48,7 +48,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         }
 
         if (env.acceptsProfiles(Profiles.of(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT))) {
-            initH2Console(servletContext);
+            //initH2Console(servletContext);
         }
         log.info("Web application fully configured");
     }
