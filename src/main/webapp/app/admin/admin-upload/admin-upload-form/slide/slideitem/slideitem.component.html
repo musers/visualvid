@@ -32,7 +32,9 @@
         <fa-icon icon="plus" [ngbPopover]="popContent" placement="right"></fa-icon>
     </ng-template>
     <ng-template #popContent>
-        <div (click)="addSlide('image')">Image Selection</div>
-        <div (click)="addSlide('label')">Text Selection</div>
+        <div popover-append-to-body="true">
+            <div (click)="addSlide('image')">Image Selection</div>
+            <div (click)="addSlide('label')">Text Selection</div>
+        </div>
     </ng-template>
 </div>

@@ -8,9 +8,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  imports: [HttpClientModule, AngularSvgIconModule.forRoot()],
+  imports: [HttpClientModule, DragDropModule, AngularSvgIconModule.forRoot()],
   exports: [
     FormsModule,
     CommonModule,
@@ -22,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     HttpClientModule,
     AngularSvgIconModule,
+    DragDropModule,
   ],
 })
 export class VisualvidSharedLibsModule {}

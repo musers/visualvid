@@ -82,9 +82,21 @@
             <div class="heading">Customer Upload Form</div>
 
             <div class="slide-container rounded p-4">
-                <ng-container *ngFor="let s of slides;let i = index;">
-                    <jhi-admin-upload-form-slide [item]="s" [index]="i"></jhi-admin-upload-form-slide>
-                </ng-container>
+                <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let s of slides;let i = index;" cdkDrag>
+                    <div class="bg-white rounded pt-2 px-4 my-2">
+                        <div class="row">
+                            <div>
+                            </div>
+                            <div class="ml-auto">
+                                <fa-icon icon="arrows-alt" cdkDragHandle style="color: move;"></fa-icon>
+                                <fa-icon icon="minus" (click)="deleteSlide(i)" style="color: red;"></fa-icon>
+                            </div>
+                        </div>
+                        <jhi-admin-upload-form-slide [item]="s" [index]="i"></jhi-admin-upload-form-slide>
+                    </div>
+                </div>
+                </div>
                 <button type="button" class="btn btn-primary border rounded my-3 newslide-btn" (click)="addSlide()">
                     <span class="px-1"><fa-icon icon="plus"></fa-icon></span>New Slide
                 </button>

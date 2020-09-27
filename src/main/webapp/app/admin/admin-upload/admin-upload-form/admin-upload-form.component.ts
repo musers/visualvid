@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { Slide } from './slide/slide.model';
@@ -24,6 +25,12 @@ export class AdminUploadFormComponent implements OnInit {
         },
       ],
     });
+  }
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.slides, event.previousIndex, event.currentIndex);
+  }
+  deleteSlide(ind: number): void {
+    this.slides.splice(ind, 1);
   }
   addSlide(): void {
     this.slides.push({
