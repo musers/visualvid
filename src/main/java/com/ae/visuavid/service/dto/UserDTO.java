@@ -5,6 +5,7 @@ import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
  * A DTO representing a user, with his authorities.
  */
 public class UserDTO {
-    private Long id;
+    private UUID id;
 
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
@@ -73,11 +74,11 @@ public class UserDTO {
         this.authorities = user.getAuthorities();
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

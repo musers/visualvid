@@ -142,7 +142,7 @@ public class UserResourceIT {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         ManagedUserVM managedUserVM = new ManagedUserVM();
-        managedUserVM.setId(1L);
+        managedUserVM.setId(UUID.randomUUID());
         managedUserVM.setLogin(DEFAULT_LOGIN);
         managedUserVM.setPassword(DEFAULT_PASSWORD);
         managedUserVM.setFirstName(DEFAULT_FIRSTNAME);
@@ -462,11 +462,11 @@ public class UserResourceIT {
     public void testUserEquals() throws Exception {
         TestUtil.equalsVerifier(User.class);
         User user1 = new User();
-        user1.setId(1L);
+        user1.setId(UUID.randomUUID());
         User user2 = new User();
         user2.setId(user1.getId());
         assertThat(user1).isEqualTo(user2);
-        user2.setId(2L);
+        user2.setId(UUID.randomUUID());
         assertThat(user1).isNotEqualTo(user2);
         user1.setId(null);
         assertThat(user1).isNotEqualTo(user2);
@@ -475,7 +475,7 @@ public class UserResourceIT {
     @Test
     public void testUserDTOtoUser() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(DEFAULT_ID);
+        userDTO.setId(UUID.randomUUID());
         userDTO.setLogin(DEFAULT_LOGIN);
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
         userDTO.setLastName(DEFAULT_LASTNAME);
@@ -505,7 +505,7 @@ public class UserResourceIT {
 
     @Test
     public void testUserToUserDTO() {
-        user.setId(DEFAULT_ID);
+        user.setId(UUID.randomUUID());
         user.setCreatedBy(DEFAULT_LOGIN);
         user.setCreatedDate(Instant.now());
         user.setLastModifiedBy(DEFAULT_LOGIN);

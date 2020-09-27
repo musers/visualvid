@@ -1,6 +1,6 @@
 CREATE TABLE PUBLIC.jhi_user 
   ( 
-     id                 BIGINT NOT NULL, 
+     id                 UUID NOT NULL, 
      login              VARCHAR(50) NOT NULL, 
      password_hash      VARCHAR(60), 
      first_name         VARCHAR(50), 
@@ -34,7 +34,7 @@ CREATE TABLE PUBLIC.jhi_user
   
   CREATE TABLE PUBLIC.jhi_user_role 
   ( 
-     user_id   BIGINT NOT NULL, 
+     user_id   UUID NOT NULL, 
      role_name VARCHAR(50) NOT NULL 
   );
   
@@ -46,7 +46,7 @@ CREATE TABLE PUBLIC.jhi_user
  
  CREATE TABLE PUBLIC.jhi_persistent_audit_event 
   ( 
-     event_id   BIGINT NOT NULL, 
+     event_id   UUID NOT NULL, 
      principal  VARCHAR(50) NOT NULL, 
      event_date TIMESTAMP, 
      event_type VARCHAR(255), 
@@ -55,7 +55,7 @@ CREATE TABLE PUBLIC.jhi_user
   
   CREATE TABLE PUBLIC.jhi_persistent_audit_evt_data 
   ( 
-     event_id BIGINT NOT NULL, 
+     event_id UUID NOT NULL, 
      NAME     VARCHAR(150) NOT NULL, 
      value    VARCHAR(255) 
   );
@@ -69,20 +69,20 @@ ALTER TABLE PUBLIC.jhi_user_role ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id)
 ALTER TABLE PUBLIC.jhi_user ALTER COLUMN password_hash SET NOT NULL;
   
 INSERT INTO PUBLIC.jhi_user(id, login, password_hash, first_name, last_name, email, image_url, activated, lang_key, created_by, last_modified_by) 
-VALUES(1, 'system','$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG', 'System', 'System', 'system@localhost', '', 
+VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa1', 'system','$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG', 'System', 'System', 'system@localhost', '', 
 true, 'en', 'system', 'system');
  
 INSERT INTO PUBLIC.jhi_user(id, login, password_hash, first_name, last_name, email, image_url, activated, lang_key, created_by, last_modified_by) 
-VALUES(2, 'anonymoususer','$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO', 'Anonymous', 'User', 'anonymous@localhost', '', 
+VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa2', 'anonymoususer','$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO', 'Anonymous', 'User', 'anonymous@localhost', '', 
  true, 'en', 'system', 'system');
  
  
  INSERT INTO PUBLIC.jhi_user(id, login, password_hash, first_name, last_name, email, image_url, activated, lang_key, created_by, last_modified_by) 
- VALUES(3, 'admin','$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 'Administrator', 'Administrator', 'admin@localhost', '', 
+ VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa3', 'admin','$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 'Administrator', 'Administrator', 'admin@localhost', '', 
  true, 'en', 'system', 'system');
  
  INSERT INTO PUBLIC.jhi_user(id, login, password_hash, first_name, last_name, email, image_url, activated, lang_key, created_by, last_modified_by) 
- VALUES(4, 'user','$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K', 'User', 'User', 'user@localhost', '', 
+ VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa4', 'user','$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K', 'User', 'User', 'user@localhost', '', 
  true, 'en', 'system', 'system');
  
 INSERT INTO PUBLIC.jhi_role(name) VALUES('ROLE_ADMIN');
@@ -94,11 +94,11 @@ INSERT INTO PUBLIC.jhi_authority(name) VALUES('DELETE_USER');
 INSERT INTO PUBLIC.jhi_authority(name) VALUES('DEFAULT');
 INSERT INTO PUBLIC.jhi_authority(name) VALUES('ADMIN_USER');
  
-INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(1, 'ROLE_ADMIN');
-INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(2, 'ROLE_USER');
-INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(3, 'ROLE_ADMIN');
-INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(3, 'ROLE_USER');
-INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES(4, 'ROLE_USER');
+INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa1', 'ROLE_ADMIN');
+INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa2', 'ROLE_USER');
+INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa3', 'ROLE_ADMIN');
+INSERT INTO PUBLIC.jhi_user_role(user_id, role_name) VALUES('3fa85f64-5717-4562-b3fc-2c963f66afa4', 'ROLE_USER');
+
 
 INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_ADMIN', 'ADD_USER');
 INSERT INTO PUBLIC.jhi_role_authority(role_name, authority_name) VALUES('ROLE_ADMIN', 'EDIT_USER');
