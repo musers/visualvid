@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from "@angular/animations";
+
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { Slide } from './slide/slide.model';
@@ -8,6 +16,17 @@ import { Slide } from './slide/slide.model';
   selector: 'jhi-admin-upload-form',
   templateUrl: './admin-upload-form.component.html',
   styleUrls: ['./admin-upload-form.component.scss'],
+  animations: [
+      trigger("fadeInOut", [
+        state(
+          "void",
+          style({
+            opacity: 0
+          })
+        ),
+        transition("void <=> *", animate(1000))
+      ])
+    ]
 })
 export class AdminUploadFormComponent implements OnInit {
   slides: Array<Slide> = [];
