@@ -22,6 +22,7 @@ logging:
 
 spring:
   profiles:
+    active: local
     include:
       - swagger
       # Uncomment to activate TLS for the dev profile
@@ -37,19 +38,22 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid
+    url: jdbc:h2:file:./build/h2db/db/visualvid;DB_CLOSE_DELAY=-1
     username: visualvid
-    password: Visualvid@123
+    password: 
     hikari:
       poolName: Hikari
       auto-commit: false
+  h2:
+    console:
+      enabled: false   
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
+    database-platform: io.github.jhipster.domain.util.FixedH2Dialect
     show-sql: true
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
      contexts: dev, faker
-    #drop-first: true
+     drop-first: true
   mail:
     host: localhost
     port: 25
