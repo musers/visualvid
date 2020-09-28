@@ -50,7 +50,7 @@
   }
   .slide-container {
     background-color: #aaabb3;
-    height: 31rem;
+    min-height: 31rem;
   }
   .newslide-btn {
     color: #7175d8;
@@ -62,6 +62,23 @@
     border-radius: 0.25rem !important;
   }
 }
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* .example-box:last-child {
+  border: none;
+} */
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
 
 @media (min-width: 1200px) {
   .project-upload-form {
