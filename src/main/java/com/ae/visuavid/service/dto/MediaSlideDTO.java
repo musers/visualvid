@@ -8,6 +8,12 @@ public class MediaSlideDTO implements BaseDTO {
 
     private String screenShotS3Url;
 
+    private String screnShotS3Key;
+
+    private String slideName;
+
+    private Integer slideOrder;
+
     private List<SlideItemDTO> slideItems;
 
     public UUID getId() {
@@ -32,5 +38,29 @@ public class MediaSlideDTO implements BaseDTO {
 
     public void setSlideItems(List<SlideItemDTO> slideItems) {
         this.slideItems = slideItems;
+    }
+
+    public String getScrenShotS3Key() {
+        return screnShotS3Key;
+    }
+
+    public void setScrenShotS3Key(String screnShotS3Key) {
+        this.screnShotS3Key = screnShotS3Key;
+    }
+
+    public String getSlideName() {
+        return slideName;
+    }
+
+    public void setSlideName(String slideName) {
+        this.slideName = slideName;
+    }
+
+    public Integer getSlideOrder() {
+        return slideOrder;
+    }
+
+    public void setSlideOrder(Integer slideOrder) {
+        this.slideOrder = slideOrder;
     }
 }

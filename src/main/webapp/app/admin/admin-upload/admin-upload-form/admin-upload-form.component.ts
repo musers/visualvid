@@ -1,40 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from "@angular/animations";
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
-import { Slide } from './slide/slide.model';
+import { AdminMediaService } from '../admin-media.service';
+import { AdminMedia } from './adminmedia.model';
 
 @Component({
   selector: 'jhi-admin-upload-form',
   templateUrl: './admin-upload-form.component.html',
   styleUrls: ['./admin-upload-form.component.scss'],
   animations: [
-      trigger("fadeInOut", [
-        state(
-          "void",
-          style({
-            opacity: 0
-          })
-        ),
-        transition("void <=> *", animate(1000))
-      ])
-    ]
+    trigger('fadeInOut', [
+      state(
+        'void',
+        style({
+          opacity: 0,
+        })
+      ),
+      transition('void <=> *', animate(1000)),
+    ]),
+  ],
 })
 export class AdminUploadFormComponent implements OnInit {
-  slides: Array<Slide> = [];
-  constructor(private fileUploadService: FileUploadService) {}
+  item: AdminMedia = {
+    slides: [],
+  };
+  constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
-    this.slides.push({
-      name: '',
+    this.item.slides.push({
+      slideName: '',
       slideItems: [
         {
           type: 'image',
@@ -46,14 +42,14 @@ export class AdminUploadFormComponent implements OnInit {
     });
   }
   drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.slides, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.item.slides, event.previousIndex, event.currentIndex);
   }
   deleteSlide(ind: number): void {
-    this.slides.splice(ind, 1);
+    this.item.slides.splice(ind, 1);
   }
   addSlide(): void {
-    this.slides.push({
-      name: '',
+    this.item.slides.push({
+      slideName: '',
       slideItems: [
         {
           type: 'image',
@@ -64,13 +60,26 @@ export class AdminUploadFormComponent implements OnInit {
       ],
     });
   }
-  uploadVideoFile(e: any): void {
+  uploadVideoFile(e: any, type: string): void {
     if (e && e.target) {
       const fileToBeUploaded = e.target.files[0];
-      this.fileUploadService.uploadFile(fileToBeUploaded).subscribe();
+      this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
+        if (type === 'preview') {
+          this.item.previewVideoS3Url = data.url;
+          this.item.previewVideoS3Key = data.s3Key;
+        } else if (type === 'thumbnail') {
+          this.item.thumbNailS3Url = data.url;
+          this.item.thumbNailS3Key = data.s3Key;
+        }
+      });
     }
   }
   saveData(): void {
-    console.log(this.slides);
+    console.log(this.item);
+    // TODO need to remove following
+    this.item.categoryId = 'cate1';
+    this.item.indianPrice = '0';
+    this.item.usdPrice = 0;
+    this.adminMediaService.save(this.item).subscribe();
   }
 }
