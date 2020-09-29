@@ -2,25 +2,14 @@ package com.ae.visuavid.domain;
 
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import lombok.Data;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media_slide")
-@Data
-public class MediaSlideEntity extends AbstractAuditingEntity {
+public class MediaSlideEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
      */
@@ -50,7 +39,7 @@ public class MediaSlideEntity extends AbstractAuditingEntity {
 
     @OneToMany(mappedBy = "mediaSlide", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<SlideItemEntity> mediaSlides;
+    private List<SlideItemEntity> slideItems;
 
     public UUID getId() {
         return id;
@@ -76,12 +65,12 @@ public class MediaSlideEntity extends AbstractAuditingEntity {
         this.media = media;
     }
 
-    public List<SlideItemEntity> getMediaSlides() {
-        return mediaSlides;
+    public List<SlideItemEntity> getSlideItems() {
+        return slideItems;
     }
 
-    public void setMediaSlides(List<SlideItemEntity> mediaSlides) {
-        this.mediaSlides = mediaSlides;
+    public void setSlideItems(List<SlideItemEntity> slideItems) {
+        this.slideItems = slideItems;
     }
 
     public String getScreenShotS3Key() {

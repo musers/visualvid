@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-public class AdminMediaDTO {
+public class AdminMediaDTO implements BaseDTO {
     private UUID id;
 
     @NotNull

@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media")
-public class AdminMediaEntity extends AbstractAuditingEntity {
+public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
      */

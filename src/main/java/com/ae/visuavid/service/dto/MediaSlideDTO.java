@@ -3,7 +3,7 @@ package com.ae.visuavid.service.dto;
 import java.util.List;
 import java.util.UUID;
 
-public class MediaSlideDTO {
+public class MediaSlideDTO implements BaseDTO {
     private UUID id;
 
     private String screenShotS3Url;

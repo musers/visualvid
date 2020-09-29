@@ -2,7 +2,7 @@ package com.ae.visuavid.service.dto;
 
 import java.util.UUID;
 
-public class SlideItemDTO {
+public class SlideItemDTO implements BaseDTO {
     private UUID id;
 
     private String type;
