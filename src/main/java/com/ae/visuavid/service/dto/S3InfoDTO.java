@@ -1,36 +1,13 @@
-package com.ae.visuavid.domain;
+package com.ae.visuavid.service.dto;
 
 import java.util.UUID;
-import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-@Table(name = "s3_info")
-public class S3InfoEntity extends AbstractAuditingEntity {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id")
+public class S3InfoDTO {
     private UUID id;
-
-    @Column(name = "media_name")
     private String name;
-
-    @Column(name = "media_s3_key")
     private String s3Key;
-
-    @Column(name = "url")
     private String url;
-
-    @Column(name = "status")
     private String status;
-
-    @Column(name = "media_size")
     private Integer size;
 
     public UUID getId() {

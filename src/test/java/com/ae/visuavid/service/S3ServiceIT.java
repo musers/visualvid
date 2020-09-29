@@ -2,7 +2,7 @@ package com.ae.visuavid.service;
 
 import com.ae.visuavid.VisualvidApp;
 import com.ae.visuavid.client.S3Service;
-import com.ae.visuavid.service.dto.S3FileDTO;
+import com.ae.visuavid.service.dto.S3InfoDTO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,6 +25,6 @@ public class S3ServiceIT {
         String fileName = "angular.json";
         String path = "C:\\Users\\baddanki\\code\\pden\\visualvid\\angular.json";
         byte[] bytes = Files.readAllBytes(Paths.get(path));
-        S3FileDTO obj = s3Service.uploadAdminFile(bytes, fileName);
+        S3InfoDTO obj = s3Service.uploadAdminFile(bytes, fileName);
     }
 }

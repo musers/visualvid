@@ -1,22 +1,22 @@
 package com.ae.visuavid.service.mapper;
 
-import com.ae.visuavid.domain.MediaEntity;
-import com.ae.visuavid.service.dto.AdminMediaDto;
+import com.ae.visuavid.domain.AdminMediaEntity;
+import com.ae.visuavid.service.dto.AdminMediaDTO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdminMediaMapper implements EntityMapper<AdminMediaDto, MediaEntity> {
+public class AdminMediaMapper implements EntityMapper<AdminMediaDTO, AdminMediaEntity> {
     @Autowired
     MediaSlideMapper slideMapper;
 
     @Override
-    public MediaEntity toEntity(AdminMediaDto dto) {
-        MediaEntity entity = new MediaEntity();
+    public AdminMediaEntity toEntity(AdminMediaDTO dto) {
+        AdminMediaEntity entity = new AdminMediaEntity();
         entity.setId(dto.getId());
-        entity.setCategory(dto.getCategory());
+        entity.setCategoryId(dto.getCategoryId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPreviewVideoS3Url(dto.getPreviewVideoS3Url());
@@ -32,10 +32,10 @@ public class AdminMediaMapper implements EntityMapper<AdminMediaDto, MediaEntity
     }
 
     @Override
-    public AdminMediaDto toDto(MediaEntity entity) {
-        AdminMediaDto dto = new AdminMediaDto();
+    public AdminMediaDTO toDto(AdminMediaEntity entity) {
+        AdminMediaDTO dto = new AdminMediaDTO();
         dto.setId(entity.getId());
-        dto.setCategory(entity.getCategory());
+        dto.setCategoryId(entity.getCategoryId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
         dto.setPreviewVideoS3Url(entity.getPreviewVideoS3Url());
@@ -50,19 +50,15 @@ public class AdminMediaMapper implements EntityMapper<AdminMediaDto, MediaEntity
     }
 
     @Override
-    public List<MediaEntity> toEntity(List<AdminMediaDto> dtoList) {
-        List<MediaEntity> entities = new ArrayList<>();
-        dtoList.forEach(
-            dto -> {
-                entities.add(toEntity(dto));
-            }
-        );
+    public List<AdminMediaEntity> toEntity(List<AdminMediaDTO> dtoList) {
+        List<AdminMediaEntity> entities = new ArrayList<>();
+        dtoList.forEach(dto -> entities.add(toEntity(dto)));
         return entities;
     }
 
     @Override
-    public List<AdminMediaDto> toDto(List<MediaEntity> entityList) {
-        List<AdminMediaDto> dtos = new ArrayList<>();
+    public List<AdminMediaDTO> toDto(List<AdminMediaEntity> entityList) {
+        List<AdminMediaDTO> dtos = new ArrayList<>();
         entityList.forEach(
             entity -> {
                 dtos.add(toDto(entity));

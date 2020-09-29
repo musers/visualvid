@@ -1,8 +1,7 @@
 package com.ae.visuavid.client;
 
 import com.ae.visuavid.config.ApplicationProperties;
-import com.ae.visuavid.service.dto.S3FileDTO;
-import java.io.File;
+import com.ae.visuavid.service.dto.S3InfoDTO;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,11 @@ public class S3Service {
     @Autowired
     private ApplicationProperties applicationProperties;
 
-    public S3FileDTO uploadAdminFile(byte[] bytes, String fileName) throws IOException {
+    public S3InfoDTO uploadAdminFile(byte[] bytes, String fileName) throws IOException {
         return uploadFile(bytes, ADMIN_UPLOADS_PATH, fileName);
     }
 
-    private S3FileDTO uploadFile(byte[] bytes, String path, String fileName) throws IOException {
+    private S3InfoDTO uploadFile(byte[] bytes, String path, String fileName) throws IOException {
         String key = generateKey(path, fileName);
         s3Client.putObject(
             PutObjectRequest.builder().bucket(getBucketName()).key(key).acl(ObjectCannedACL.PUBLIC_READ).build(),
@@ -52,10 +51,10 @@ public class S3Service {
             .toString();
     }
 
-    private S3FileDTO constructS3FileDTO(String fileName, String key, String url) {
-        S3FileDTO obj = new S3FileDTO();
-        obj.setFileName(fileName);
-        obj.setKey(key);
+    private S3InfoDTO constructS3FileDTO(String fileName, String key, String url) {
+        S3InfoDTO obj = new S3InfoDTO();
+        obj.setName(fileName);
+        obj.setS3Key(key);
         obj.setUrl(url);
         return obj;
     }

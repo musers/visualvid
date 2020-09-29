@@ -1,21 +1,14 @@
 package com.ae.visuavid.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SlideItemDTO {
-    @JsonProperty("id")
     private UUID id;
 
-    @JsonProperty("type")
     private String type;
 
-    @JsonProperty("label")
     private String label;
 
-    @JsonProperty("order")
     private Integer order;
 
     public UUID getId() {

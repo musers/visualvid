@@ -1,7 +1,7 @@
 package com.ae.visuavid.web.rest;
 
 import com.ae.visuavid.client.S3Service;
-import com.ae.visuavid.service.dto.S3FileDTO;
+import com.ae.visuavid.service.dto.S3InfoDTO;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,8 @@ public class FileResource {
     private S3Service s3Service;
 
     @PostMapping(value = "/adminupload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<S3FileDTO> uploadFile(@RequestParam MultipartFile file) throws IOException {
-        S3FileDTO fileDTO = s3Service.uploadAdminFile(file.getBytes(), file.getOriginalFilename());
+    public ResponseEntity<S3InfoDTO> uploadFile(@RequestParam MultipartFile file) throws IOException {
+        S3InfoDTO fileDTO = s3Service.uploadAdminFile(file.getBytes(), file.getOriginalFilename());
         log.info(String.format("File name '%s' uploaded successfully.", file.getOriginalFilename()));
         return ResponseEntity.ok(fileDTO);
     }

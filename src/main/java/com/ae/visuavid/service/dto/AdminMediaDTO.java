@@ -1,53 +1,41 @@
 package com.ae.visuavid.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
-public class AdminMediaDto {
-    @JsonProperty("id")
+public class AdminMediaDTO {
     private UUID id;
 
-    @JsonProperty("name")
     @NotNull
     private String name;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("category")
     @NotNull
-    private String category;
+    private String categoryId;
 
-    @JsonProperty("indianPrice")
     @NotNull
     private BigDecimal indianPrice;
 
-    @JsonProperty("usdPrice")
     @NotNull
     private BigDecimal usdPrice;
 
-    @JsonProperty("previewVideoS3Url")
     private String previewVideoS3Url;
 
-    @JsonProperty("thumbNailS3Url")
+    private String previewVideoS3Key;
+
     private String thumbNailS3Url;
 
-    @JsonProperty("mediaPlaceholder")
+    private String thumbNailS3Key;
+
     private String mediaPlaceholder;
 
-    @JsonProperty("textPlaceholder")
     private String textPlaceholder;
 
-    @JsonProperty("turnAroundTime")
     private String turnAroundTime;
 
-    @JsonProperty("s3InfoId")
-    private UUID s3InfoId;
-
-    @JsonProperty("slides")
     private List<MediaSlideDTO> slides;
 
     public String getName() {
@@ -64,14 +52,6 @@ public class AdminMediaDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public BigDecimal getIndianPrice() {
@@ -134,12 +114,8 @@ public class AdminMediaDto {
         return slides;
     }
 
-    public UUID getS3InfoId() {
-        return s3InfoId;
-    }
-
-    public void setS3InfoId(UUID s3InfoId) {
-        this.s3InfoId = s3InfoId;
+    public void setSlides(List<MediaSlideDTO> slides) {
+        this.slides = slides;
     }
 
     public UUID getId() {
@@ -150,7 +126,27 @@ public class AdminMediaDto {
         this.id = id;
     }
 
-    public void setSlides(List<MediaSlideDTO> slides) {
-        this.slides = slides;
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getPreviewVideoS3Key() {
+        return previewVideoS3Key;
+    }
+
+    public void setPreviewVideoS3Key(String previewVideoS3Key) {
+        this.previewVideoS3Key = previewVideoS3Key;
+    }
+
+    public String getThumbNailS3Key() {
+        return thumbNailS3Key;
+    }
+
+    public void setThumbNailS3Key(String thumbNailS3Key) {
+        this.thumbNailS3Key = thumbNailS3Key;
     }
 }

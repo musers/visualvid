@@ -3,23 +3,14 @@ package com.ae.visuavid.domain;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media")
-public class MediaEntity extends AbstractAuditingEntity {
+public class AdminMediaEntity extends AbstractAuditingEntity {
     /**
      *
      */
@@ -34,8 +25,8 @@ public class MediaEntity extends AbstractAuditingEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "category")
-    private String category;
+    @Column(name = "category_id")
+    private String categoryId;
 
     @Column(name = "description")
     private String description;
@@ -61,13 +52,15 @@ public class MediaEntity extends AbstractAuditingEntity {
     @Column(name = "turn_around_time")
     private String turnAroundTime;
 
+    @Column(name = "thumb_nail_s3_key")
+    private String thumbNailS3Key;
+
+    @Column(name = "preview_video_s3_key")
+    private String previewVideoS3Key;
+
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<MediaSlideEntity> slides;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s3_info_id")
-    private S3InfoEntity s3Info;
 
     public UUID getId() {
         return id;
@@ -83,14 +76,6 @@ public class MediaEntity extends AbstractAuditingEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDescription() {
@@ -157,19 +142,35 @@ public class MediaEntity extends AbstractAuditingEntity {
         this.turnAroundTime = turnAroundTime;
     }
 
-    public S3InfoEntity getS3Info() {
-        return s3Info;
-    }
-
-    public void setS3Info(S3InfoEntity s3Info) {
-        this.s3Info = s3Info;
-    }
-
     public List<MediaSlideEntity> getSlides() {
         return slides;
     }
 
     public void setSlides(List<MediaSlideEntity> slides) {
         this.slides = slides;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getThumbNailS3Key() {
+        return thumbNailS3Key;
+    }
+
+    public void setThumbNailS3Key(String thumbNailS3Key) {
+        this.thumbNailS3Key = thumbNailS3Key;
+    }
+
+    public String getPreviewVideoS3Key() {
+        return previewVideoS3Key;
+    }
+
+    public void setPreviewVideoS3Key(String previewVideoS3Key) {
+        this.previewVideoS3Key = previewVideoS3Key;
     }
 }
