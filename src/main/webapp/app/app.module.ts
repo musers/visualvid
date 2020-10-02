@@ -7,6 +7,7 @@ import { VisualvidCoreModule } from 'app/core/core.module';
 import { VisualvidAppRoutingModule } from './app-routing.module';
 import { VisualvidHomeModule } from './home/home.module';
 import { VisualvidEntityModule } from './entities/entity.module';
+import { UserModule } from './user/user.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -21,6 +22,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     VisualvidSharedModule,
     VisualvidCoreModule,
     VisualvidHomeModule,
+    UserModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     VisualvidEntityModule,
     VisualvidAppRoutingModule,
