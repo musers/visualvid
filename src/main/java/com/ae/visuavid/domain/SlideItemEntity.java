@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "slide_items")
 @Data
-public class SlideItemEntity extends AbstractAuditingEntity {
+public class SlideItemEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
      */

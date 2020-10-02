@@ -6,13 +6,13 @@
                 <div class="form-group row">
                     <label class="vlabel">Name</label>
                     <div class="vtext-box">
-                        <input type="text" class="input-item" id="name"/>
+                        <input type="text" class="input-item" id="name" name="name" [(ngModel)]="item.name"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel">Html Description</label>
                     <div class="vtext-box">
-                        <textarea class="input-item" style="line-height:1rem;"></textarea>
+                        <textarea class="input-item" style="line-height:1rem;" name="description" [(ngModel)]="item.description"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -32,14 +32,14 @@
                     <div class="vtext-box">
                         <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event)">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Thumbnail</label>
                     <div class="vtext-box">
                         <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event)">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
                 </div>
 
 
@@ -48,11 +48,11 @@
                     <div class="form-row row" style="width: 60%;padding-left: 5rem;">
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianprice" style="max-width:100%;">Indian Price</label>
-                            <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="">
+                            <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="" name="indianPrice" [(ngModel)]="item.indianPrice">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdprice" style="max-width:100%;">USD</label>
-                            <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="">
+                            <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="" name="usdPrice" [(ngModel)]="item.usdPrice">
                         </div>
                     </div>
                 </div>
@@ -61,19 +61,19 @@
                 <div class="form-group row">
                     <label class="vlabel">Media Placeholders</label>
                     <div class="vtext-box">
-                        <input type="text" class="input-item" id="mediaPlaceHolders"/>
+                        <input type="text" class="input-item" id="mediaPlaceHolders" name="mediaPlaceholder" [(ngModel)]="item.mediaPlaceholder"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel">Text Placeholders</label>
                     <div class="vtext-box">
-                        <input type="text" class="input-item" id="textPlaceHolders"/>
+                        <input type="text" class="input-item" id="textPlaceHolders" name="textPlaceholder" [(ngModel)]="item.textPlaceholder"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel">Turn Around Time</label>
                     <div class="vtext-box">
-                        <input type="text" class="input-item" id="turnAroundTime"/>
+                        <input type="text" class="input-item" id="turnAroundTime" name="turnAroundTime" [(ngModel)]="item.turnAroundTime"/>
                     </div>
                 </div>
             </form>
@@ -83,8 +83,8 @@
 
             <div class="slide-container rounded p-4">
                 <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let s of slides;let i = index;" cdkDrag [@fadeInOut]>
-                    <div class="bg-white rounded pt-2 px-4 my-2">
+                <div *ngFor="let s of item.slides;let i = index;" cdkDrag [@fadeInOut]>
+                    <div class="bg-white rounded py-2 px-4 my-2">
                         <div class="row">
                             <div>
                             </div>

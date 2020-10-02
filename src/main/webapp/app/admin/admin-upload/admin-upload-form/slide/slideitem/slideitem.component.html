@@ -1,33 +1,23 @@
 <div class="slideitem py-2" *ngIf="item" >
     <ng-container [ngSwitch]="item.type">
-        <ng-container *ngSwitchCase="'image'">
-            <div class="row image-type">
+            <div class="row">
                 <div class="col">
-                    <div class="filename">{{item.fileName}}</div>
+                    <input type="text" class="form-control textfield" placeholder="Enter Label" name="label" [(ngModel)]="item.label">
                 </div>
-                <div class="col ml-auto">
-                    <label for="uploadbtn{{index}}" class="btn btn-primary upload-btn r-btn">Upload</label>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="uploadbtn{{index}}" (change)="uploadVideoFile($event, item)">
+                <div class="col ml-auto" class="{{item.type}}">
+                    <ng-container *ngSwitchCase="'image'">
+                        <label class="btn btn-primary upload-btn r-btn">Upload</label>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'label'">
+                        <label class="btn btn-primary r-btn"><span class="text">Text Box</span></label>
+                    </ng-container>
                     <ng-container *ngIf="isLast">
                         <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
                     </ng-container>
                 </div>
             </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'label'">
-            <div class="row label-type">
-                <div class="col">
-                    <input type="text" class="form-control textfield" placeholder="Enter Label">
-                </div>
-                <div class="col ml-auto">
-                    <label class="btn btn-primary r-btn"><span class="text">Text Box</span></label>
-                    <ng-container *ngIf="isLast">
-                        <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
-                    </ng-container>
-                </div>
-            </div>
-        </ng-container>
     </ng-container>
+
     <ng-template #addslideitemtemplate>
         <fa-icon icon="plus" [ngbPopover]="popContent" placement="right"></fa-icon>
     </ng-template>

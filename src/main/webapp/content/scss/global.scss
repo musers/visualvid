@@ -163,6 +163,9 @@ entity detail page css
   }
 }
 
+body {
+  min-width: 600px;
+}
 @media screen and (min-width: 768px) {
   .row.jh-entity-details > {
     dt {

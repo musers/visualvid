@@ -1,17 +1,19 @@
 package com.ae.visuavid.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.UUID;
 
-public class MediaSlideDTO {
-    @JsonProperty("id")
+public class MediaSlideDTO implements BaseDTO {
     private UUID id;
 
-    @JsonProperty("screenShotS3Url")
     private String screenShotS3Url;
 
-    @JsonProperty("slideItems")
+    private String screnShotS3Key;
+
+    private String slideName;
+
+    private Integer slideOrder;
+
     private List<SlideItemDTO> slideItems;
 
     public UUID getId() {
@@ -36,5 +38,29 @@ public class MediaSlideDTO {
 
     public void setSlideItems(List<SlideItemDTO> slideItems) {
         this.slideItems = slideItems;
+    }
+
+    public String getScrenShotS3Key() {
+        return screnShotS3Key;
+    }
+
+    public void setScrenShotS3Key(String screnShotS3Key) {
+        this.screnShotS3Key = screnShotS3Key;
+    }
+
+    public String getSlideName() {
+        return slideName;
+    }
+
+    public void setSlideName(String slideName) {
+        this.slideName = slideName;
+    }
+
+    public Integer getSlideOrder() {
+        return slideOrder;
+    }
+
+    public void setSlideOrder(Integer slideOrder) {
+        this.slideOrder = slideOrder;
     }
 }

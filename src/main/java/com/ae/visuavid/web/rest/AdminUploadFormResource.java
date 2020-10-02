@@ -1,7 +1,7 @@
 package com.ae.visuavid.web.rest;
 
 import com.ae.visuavid.service.AdminUploadService;
-import com.ae.visuavid.service.dto.AdminMediaDto;
+import com.ae.visuavid.service.dto.AdminMediaDTO;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class AdminUploadFormResource {
     AdminUploadService adminUploadService;
 
     @PostMapping("/project-upload")
-    public ResponseEntity<Void> saveUploadForm(@RequestBody @Valid AdminMediaDto mediaDto) {
+    public ResponseEntity<Void> saveUploadForm(@RequestBody @Valid AdminMediaDTO mediaDto) {
         adminUploadService.saveUploadForm(mediaDto);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }

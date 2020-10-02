@@ -1,18 +1,19 @@
 package com.ae.visuavid.service;
 
-import com.ae.visuavid.domain.MediaEntity;
-import com.ae.visuavid.domain.S3InfoEntity;
+import com.ae.visuavid.domain.AdminMediaEntity;
+import com.ae.visuavid.domain.MediaSlideEntity;
+import com.ae.visuavid.domain.SlideItemEntity;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.S3InfoRepository;
-import com.ae.visuavid.service.dto.AdminMediaDto;
+import com.ae.visuavid.service.dto.AdminMediaDTO;
 import com.ae.visuavid.service.mapper.AdminMediaMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
-import java.util.Optional;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class AdminUploadService {
@@ -27,20 +28,39 @@ public class AdminUploadService {
     @Autowired
     S3InfoRepository s3InfoRepository;
 
-    public void saveUploadForm(AdminMediaDto mediaDto) {
+    public void saveUploadForm(AdminMediaDTO mediaDto) {
         try {
             log.info("saving adminUploadForm : projectUploadForm");
-            MediaEntity media = mediaMapper.toEntity(mediaDto);
-            if (!StringUtils.isEmpty(mediaDto.getS3InfoId())) {
-                Optional<S3InfoEntity> s3InfoEntity = s3InfoRepository.findById(mediaDto.getS3InfoId());
-                media.setS3Info(s3InfoEntity.get());
-                media.setPreviewVideoS3Url(s3InfoEntity.get().getUrl());
-            }
+            AdminMediaEntity media = mediaMapper.toEntity(mediaDto);
+            updateMedia(media);
             adminUploadFormRepository.save(media);
             log.info("successfully saved adminUploadForm");
         } catch (Exception e) {
             log.error("error while saving project-upload-form : {} ", e);
             throw new ApiRuntimeException(e.getMessage());
+        }
+    }
+
+    private void updateMedia(AdminMediaEntity media) {
+        List<MediaSlideEntity> slides = media.getSlides();
+        if (!CollectionUtils.isEmpty(slides)) {
+            int order = 0;
+            for (MediaSlideEntity slide : slides) {
+                slide.setMedia(media);
+                slide.setSlideOrder(order++);
+                updateSlide(slide);
+            }
+        }
+    }
+
+    private void updateSlide(MediaSlideEntity slide) {
+        List<SlideItemEntity> slideItems = slide.getSlideItems();
+        if (!CollectionUtils.isEmpty(slideItems)) {
+            int order = 0;
+            for (SlideItemEntity slideItem : slideItems) {
+                slideItem.setMediaSlide(slide);
+                slideItem.setOrder(order++);
+            }
         }
     }
 }

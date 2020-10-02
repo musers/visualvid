@@ -2,10 +2,9 @@ import { SlideItem } from './slideitem/slideitem.model';
 
 export interface Slide {
   id?: string;
-  order?: Number;
-  name?: string;
-  previewImageUrl?: string;
-  previewImageKey?: string;
-  previewImageName?: string;
+  slideOrder?: Number;
+  slideName?: string;
+  screenShotS3Url?: string;
+  screenShotS3Key?: string;
   slideItems: Array<SlideItem>;
 }

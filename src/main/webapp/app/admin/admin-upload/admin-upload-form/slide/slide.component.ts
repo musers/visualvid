@@ -31,7 +31,8 @@ export class SlideComponent implements OnInit {
     if (e && e.target) {
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
-        this.item.previewImageUrl = data.url;
+        this.item.screenShotS3Url = data.url;
+        this.item.screenShotS3Key = data.s3Key;
       });
     }
   }
