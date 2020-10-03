@@ -141,21 +141,21 @@ liquibase {
     activities {
         main {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
-    		username "visualvid"
-    		password "Visualvid@123"
+            url ""
+    		username ""
+    		password ""
             changeLogFile "src/main/resources/config/liquibase/master.xml"
             defaultSchemaName ""
             logLevel "debug"
             classpath "src/main/resources/"
-            
-   
+
+
         }
         diffLog {
             driver "com.zaxxer.hikari.HikariDataSource"
-            url "jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid"
-    		username "visualvid"
-    		password "Visualvid@123"
+            url ""
+    		username ""
+    		password ""
             changeLogFile project.ext.diffChangelogFile
             referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
             defaultSchemaName ""
@@ -279,7 +279,7 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
-    
+
     compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
