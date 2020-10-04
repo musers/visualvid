@@ -71,6 +71,6 @@ public class AdminUploadService {
     }
 
     public AdminMediaDTO getAdminUpload(String id) {
-        return mediaMapper.toDto(adminUploadFormRepository.getOne(UUID.fromString(id)));
+        return mediaMapper.toDto(adminUploadFormRepository.findById(UUID.fromString(id)).get());
     }
 }
