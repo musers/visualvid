@@ -8,12 +8,14 @@ import com.ae.visuavid.repository.S3InfoRepository;
 import com.ae.visuavid.service.dto.AdminMediaDTO;
 import com.ae.visuavid.service.mapper.AdminMediaMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AdminUploadService {
@@ -62,5 +64,13 @@ public class AdminUploadService {
                 slideItem.setOrder(order++);
             }
         }
+    }
+
+    public List<AdminMediaDTO> getAdminUploads() {
+        return mediaMapper.toDtosBasic(adminUploadFormRepository.findAll());
+    }
+
+    public AdminMediaDTO getAdminUpload(String id) {
+        return mediaMapper.toDto(adminUploadFormRepository.getOne(UUID.fromString(id)));
     }
 }
