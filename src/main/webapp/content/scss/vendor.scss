@@ -6,10 +6,18 @@ eg $input-color: red;
 ****************************/
 // Override Bootstrap variables
 @import 'bootstrap-variables';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeicons/primeicons.css';
+
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
 
+@import '~quill/dist/quill.snow.css';
 .popover {
   border-radius: 0.25rem !important;
+}
+strong {
+  font-weight: bold !important;
 }
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { VisualvidSharedModule } from 'app/shared/shared.module';
+import { EditorModule } from 'primeng/editor';
 
 import { AdminUploadComponent } from './admin-upload.component';
 import { AdminUploadFormComponent } from './admin-upload-form/admin-upload-form.component';
@@ -9,7 +10,7 @@ import { SlideComponent } from './admin-upload-form/slide/slide.component';
 import { SlideItemComponent } from './admin-upload-form/slide/slideitem/slideitem.component';
 
 @NgModule({
-  imports: [VisualvidSharedModule, RouterModule.forChild([AdminUploadRoute])],
+  imports: [VisualvidSharedModule, EditorModule, RouterModule.forChild([AdminUploadRoute])],
   declarations: [AdminUploadComponent, AdminUploadFormComponent, SlideComponent, SlideItemComponent],
   exports: [AdminUploadComponent, AdminUploadFormComponent],
 })
