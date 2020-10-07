@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *

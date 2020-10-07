@@ -5,6 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { AdminMedia } from './adminmedia.model';
+import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
 
 @Component({
   selector: 'jhi-admin-upload-form',
@@ -26,6 +27,8 @@ export class AdminUploadFormComponent implements OnInit {
   item: AdminMedia = {
     slides: [],
   };
+  categories: AdminCategory[] = [];
+
   constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
@@ -40,7 +43,13 @@ export class AdminUploadFormComponent implements OnInit {
         },
       ],
     });
+    this.adminMediaService.getCategories().subscribe((res: AdminCategory[]) => {
+      if (res != null) {
+        this.categories = res;
+      }
+    });
   }
+
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.item.slides, event.previousIndex, event.currentIndex);
   }

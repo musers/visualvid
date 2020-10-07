@@ -11,20 +11,17 @@
                 </div>
                 <div class="form-group row">
                     <label class="vlabel">Html Description</label>
-                    <div class="vtext-box" style="height:100%;">
-                        <!--<textarea class="input-item" style="line-height:1rem;" name="description" [(ngModel)]="item.description"></textarea>-->
-                        <p-editor [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" [style]="{'height':'100%'}"></p-editor>
+                    <div class="vtext-box">
+                        <textarea class="input-item" style="line-height:1rem;" name="description" [(ngModel)]="item.description"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Category</label>
                     <div class="vtext-box">
                         <select class="input-item" style="" id="category">
-                            <option>Family Invitations</option>
-                            <option>Logo Reveals</option>
-                            <option>Corporate</option>
-                            <option>Restaurant Displays</option>
-                            <option>PartyEvent Invitations</option>
+                        <option *ngFor="let c of categories;" [value]="c.categoryId">
+                            {{ c.categoryName }}
+                          </option>
                         </select>
                     </div>
                 </div>
