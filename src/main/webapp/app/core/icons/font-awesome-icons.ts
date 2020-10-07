@@ -35,6 +35,7 @@ import {
   faShoppingCart,
   faArrowUp,
   faMinus,
+  faTimesCircle,
 
   // jhipster-needle-add-icon-import
   faHome,
@@ -83,4 +84,5 @@ export const fontAwesomeIcons = [
   faArrowUp,
   faArrowsAlt,
   faMinus,
+  faTimesCircle,
 ];

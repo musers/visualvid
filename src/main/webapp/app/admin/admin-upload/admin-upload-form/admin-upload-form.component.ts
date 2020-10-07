@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -26,6 +26,7 @@ export class AdminUploadFormComponent implements OnInit {
   item: AdminMedia = {
     slides: [],
   };
+  @ViewChild('description') divRef: ElementRef;
   constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
@@ -72,6 +73,20 @@ export class AdminUploadFormComponent implements OnInit {
           this.item.thumbNailS3Key = data.s3Key;
         }
       });
+    }
+  }
+  openFullscreen(): void {
+    // Use this.divRef.nativeElement here to request fullscreen
+    const elem = this.divRef.nativeElement;
+
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
     }
   }
   saveData(): void {
