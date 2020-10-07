@@ -27,7 +27,7 @@ export class AdminUploadFormComponent implements OnInit {
   item: AdminMedia = {
     slides: [],
   };
-  @ViewChild('description') divRef: ElementRef;
+  @ViewChild('description') divRef?: ElementRef;
   categories: AdminCategory[] = [];
 
   constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
@@ -85,17 +85,17 @@ export class AdminUploadFormComponent implements OnInit {
     }
   }
   openFullscreen(): void {
-    // Use this.divRef.nativeElement here to request fullscreen
-    const elem = this.divRef.nativeElement;
-
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
+    if (this.divRef) {
+      const elem = this.divRef.nativeElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      }
     }
   }
   saveData(): void {
