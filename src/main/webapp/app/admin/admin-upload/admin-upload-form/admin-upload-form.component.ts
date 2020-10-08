@@ -112,7 +112,7 @@ export class AdminUploadFormComponent implements OnInit {
     if (!this.item.usdPrice) {
       this.errors.usdPrice = true;
     }
-    if (Object.keys(this.errors).length == 0) {
+    if (Object.keys(this.errors).length === 0) {
       console.log('no errors');
       this.adminMediaService.save(this.item).subscribe();
     }
