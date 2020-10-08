@@ -7,6 +7,11 @@
                     <label class="vlabel">Name</label>
                     <div class="vtext-box">
                         <input type="text" class="input-item" id="name" name="name" [(ngModel)]="item.name"/>
+                        <div *ngIf="errors.firstnameRequired">
+                            <small class="form-text text-danger">
+                                Your first name is required.
+                            </small>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -51,10 +56,20 @@
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianprice" style="max-width:100%;">Indian Price</label>
                             <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="" name="indianPrice" [(ngModel)]="item.indianPrice">
+                            <div *ngIf="errors.indianPrice">
+                                <small class="form-text text-danger">
+                                    Indian price is required.
+                                </small>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdprice" style="max-width:100%;">USD</label>
                             <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="" name="usdPrice" [(ngModel)]="item.usdPrice">
+                            <div *ngIf="errors.usdPrice">
+                                <small class="form-text text-danger">
+                                    Us price is required.
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -33,6 +33,7 @@ export class AdminUploadFormComponent implements OnInit {
   };
   @ViewChild('description') divRef?: ElementRef;
   categories: AdminCategory[] = [];
+  errors: any = {};
 
   constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
 
@@ -100,10 +101,20 @@ export class AdminUploadFormComponent implements OnInit {
   }
   saveData(): void {
     console.log(this.item);
+    this.errors = {};
     // TODO need to remove following
-    this.item.categoryId = 'cate1';
-    this.item.indianPrice = '0';
-    this.item.usdPrice = 0;
-    this.adminMediaService.save(this.item).subscribe();
+    if (!this.item.name) {
+      this.errors.firstnameRequired = true;
+    }
+    if (!this.item.indianPrice) {
+      this.errors.indianPrice = true;
+    }
+    if (!this.item.usdPrice) {
+      this.errors.usdPrice = true;
+    }
+    if (Object.keys(this.errors).length == 0) {
+      console.log('no errors');
+      this.adminMediaService.save(this.item).subscribe();
+    }
   }
 }
