@@ -21,6 +21,10 @@ import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincat
       ),
       transition('void <=> *', animate(1000)),
     ]),
+    trigger('EnterLeave', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':leave', [animate('0.3s ease-out', style({ transform: 'translateX(100%)' }))]),
+    ]),
   ],
 })
 export class AdminUploadFormComponent implements OnInit {
@@ -35,14 +39,7 @@ export class AdminUploadFormComponent implements OnInit {
   ngOnInit(): void {
     this.item.slides.push({
       slideName: '',
-      slideItems: [
-        {
-          type: 'image',
-        },
-        {
-          type: 'label',
-        },
-      ],
+      slideItems: this.getInitialSlideItems(),
     });
     this.adminMediaService.getCategories().subscribe((res: AdminCategory[]) => {
       if (res != null) {
@@ -60,14 +57,7 @@ export class AdminUploadFormComponent implements OnInit {
   addSlide(): void {
     this.item.slides.push({
       slideName: '',
-      slideItems: [
-        {
-          type: 'image',
-        },
-        {
-          type: 'label',
-        },
-      ],
+      slideItems: this.getInitialSlideItems(),
     });
   }
   uploadVideoFile(e: any, type: string): void {
@@ -97,6 +87,16 @@ export class AdminUploadFormComponent implements OnInit {
         elem.webkitRequestFullscreen();
       }
     }
+  }
+  getInitialSlideItems(): Array<any> {
+    return [
+      {
+        type: 'image',
+      },
+      {
+        type: 'label',
+      },
+    ];
   }
   saveData(): void {
     console.log(this.item);

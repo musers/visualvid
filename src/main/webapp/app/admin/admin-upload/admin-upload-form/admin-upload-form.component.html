@@ -85,11 +85,11 @@
 
             <div class="slide-container rounded p-4">
                 <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let s of item.slides;let i = index;" cdkDrag [@fadeInOut]>
+                <div *ngFor="let s of item.slides;let i = index;" cdkDrag [@EnterLeave]>
                     <div class="bg-white rounded py-2 px-4 my-2">
                         <div class="row" style="position:relative;">
-                            <div class="" style="position:absolute;top:0px;right:0px;">
-                                <fa-icon icon="times-circle" (click)="deleteSlide(i)" style=""></fa-icon>
+                            <div class="" style="position:absolute;top:0px;right:0px; z-index: 999;" (click)="deleteSlide(i)">
+                                <fa-icon icon="times-circle" style=""></fa-icon>
                             </div>
                         </div>
                         <jhi-admin-upload-form-slide [item]="s" [index]="i"></jhi-admin-upload-form-slide>
