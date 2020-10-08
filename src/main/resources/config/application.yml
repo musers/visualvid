@@ -111,12 +111,15 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      max-file-size: 800MB
+      max-request-size: 800MB
 
 server:
-  servlet:
-    session:
-      cookie:
-        http-only: true
+  session:
+    cookie:
+      http-only: true
 
 # Properties to be exposed on the /info management endpoint
 info:
