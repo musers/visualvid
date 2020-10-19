@@ -132,7 +132,8 @@ Custom alerts for notification
   }
   .jhi-toast {
     position: fixed;
-    width: 100%;
+    width: 100% !important;
+    z-index: 999;
     &.left {
       left: 5px;
     }

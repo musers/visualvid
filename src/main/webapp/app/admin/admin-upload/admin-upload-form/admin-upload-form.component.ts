@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
@@ -35,7 +36,11 @@ export class AdminUploadFormComponent implements OnInit {
   categories: AdminCategory[] = [];
   errors: any = {};
 
-  constructor(private fileUploadService: FileUploadService, private adminMediaService: AdminMediaService) {}
+  constructor(
+    private fileUploadService: FileUploadService,
+    private adminMediaService: AdminMediaService,
+    private alertService: JhiAlertService
+  ) {}
 
   ngOnInit(): void {
     this.item.slides.push({
@@ -65,6 +70,7 @@ export class AdminUploadFormComponent implements OnInit {
     if (e && e.target) {
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
+        this.alertService.addAlert({ type: 'success', msg: 'file.upload.successful', timeout: 5000, toast: true }, []);
         if (type === 'preview') {
           this.item.previewVideoS3Url = data.url;
           this.item.previewVideoS3Key = data.s3Key;
@@ -102,7 +108,6 @@ export class AdminUploadFormComponent implements OnInit {
   saveData(): void {
     console.log(this.item);
     this.errors = {};
-    // TODO need to remove following
     if (!this.item.name) {
       this.errors.firstnameRequired = true;
     }
@@ -114,7 +119,9 @@ export class AdminUploadFormComponent implements OnInit {
     }
     if (Object.keys(this.errors).length === 0) {
       console.log('no errors');
-      this.adminMediaService.save(this.item).subscribe();
+      this.adminMediaService.save(this.item).subscribe(() => {
+        this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
+      });
     }
   }
 }

@@ -7,7 +7,7 @@
                         <img style="height:100%;width:100%;" src="{{item.screenShotS3Url}}" alt="Preview Image">
                     </ng-container>
                     <ng-template #upload_tag>
-                        <input type="file" #fileDropRef id="fileDropRef{{index}}" style="width:0px;height:0px;" (change)="uploadVideoFile($event)"/>
+                        <input type="file" #fileDropRef id="fileDropRef{{index}}" style="width:0px;height:0px;visibility:hidden;" (change)="uploadVideoFile($event)"/>
                         <label for="fileDropRef{{index}}" class="upload-label">+</label>
                     </ng-template>
                 </div>
