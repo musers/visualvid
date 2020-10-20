@@ -1,45 +1,43 @@
 .user-upload {
-    color:#828599;
-    padding-left: 2rem;
-    .heading-msg {
-        font-size: small;
-        max-width: 35.3333333333%;
-    }
+  color: #43497b;
+  .heading-msg {
+    font-size: small;
+  }
 }
 
 .slide-list {
-    background-color: #43497B;
-    .vtext-box {
-        padding-left: 5rem;
-    }
-    
+  background-color: #43497b;
+  .vtext-box {
+    padding-left: 5rem;
+  }
+
   .input-item {
-        font-size: small;
-        line-height: 1.8rem;
-        width: 10rem;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        margin-bottom: 0.5rem;
-        text-align: inherit;
+    font-size: small;
+    line-height: 1.8rem;
+    width: 10rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 0.5rem;
+    text-align: inherit;
   }
   .slide-items {
-      margin-left: -3rem;
-      margin-top: 1rem;
-      border: 2px solid #7175D8;
-      border-radius: 0.3rem;
-      height: 29rem;
-      margin-bottom: 3rem;
+    margin-left: -3rem;
+    margin-top: 1rem;
+    border: 2px solid #7175d8;
+    border-radius: 0.3rem;
+    height: 29rem;
+    margin-bottom: 3rem;
   }
   .form-text {
     display: block;
     color: #fff;
     margin-top: -0.5rem;
- }
- .image {
+  }
+  .image {
     height: 6rem;
     width: 6.5rem;
     background: #f5f3f6;
@@ -48,32 +46,45 @@
     text-align: center;
     vertical-align: middle;
     margin-top: 2rem;
- }
- .image-arrow {
+  }
+  .image-arrow {
     display: block;
     margin-top: -3.5rem;
- }
- .tutorial-video {
+  }
+  .tutorial-video {
     height: 13rem;
     text-align: center;
     font-size: small;
     font-weight: bold;
-    color:#828599;
- }
- .btn-tutorial {
+    color: #828599;
+  }
+  .btn-tutorial {
     width: 10rem;
     height: 2.2rem;
-    background-color: #FF6B69;
+    background-color: #ff6b69;
     font-size: 0.9rem;
     margin-left: 8rem;
-}
-.btn-submit {
+  }
+  .btn-submit {
     width: 8rem;
     height: 2.2rem;
-    background-color: #7175D8;
+    background-color: #7175d8;
     font-size: 0.9rem;
     margin-right: 3rem;
+  }
 }
- 
-
+.image {
+  $div-height: 5rem;
+  $div-width: 5rem;
+  height: $div-height;
+  width: $div-width;
+  background: #f5f3f6;
+  border: 1px solid #d0d0d5 !important;
+  border-radius: 0.15rem !important;
+  text-align: center;
+  vertical-align: middle;
+}
+.upload-label {
+  display: block;
+  padding-top: 30px;
 }

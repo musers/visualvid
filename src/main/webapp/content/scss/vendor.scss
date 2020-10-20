@@ -10,6 +10,9 @@ eg $input-color: red;
 @import '~primeng/resources/primeng.min.css';
 @import '~primeicons/primeicons.css';
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/*@import '~https://fonts.googleapis.com/icon?family=Material+Icons';*/
+
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
 

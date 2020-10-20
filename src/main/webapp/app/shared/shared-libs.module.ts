@@ -9,9 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-  imports: [HttpClientModule, DragDropModule, AngularSvgIconModule.forRoot()],
+  imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
   exports: [
     FormsModule,
     CommonModule,
@@ -24,6 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HttpClientModule,
     AngularSvgIconModule,
     DragDropModule,
+    MatTabsModule,
   ],
 })
 export class VisualvidSharedLibsModule {}
