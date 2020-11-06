@@ -139,5 +139,6 @@
   "footer": "This is your footer",
   "uploadFormTitle": "Upload Video Designs",
   "file.upload.successful": "File uploaded sucessfully",
-  "uploadform.saved.successfully": "Media saved successfully"
+  "uploadform.saved.successfully": "Media saved successfully",
+  "customerUploadForm": "Customer Upload Form"
 }

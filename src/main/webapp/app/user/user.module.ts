@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { VisualvidSharedModule } from '../../app/shared/shared.module';
-import { UserComponent} from './user.component';
-import { USER_ROUTE} from './user.route';
-
+import { UserUploadModule } from '../../app/user/user-upload/user-upload.module';
 @NgModule({
-    imports: [VisualvidSharedModule, RouterModule.forChild([USER_ROUTE])],
-    declarations: [UserComponent],
-    exports: [UserComponent]
+    imports: [VisualvidSharedModule, UserUploadModule],
+    declarations: [],
+    exports: []
 })
 
 export class UserModule {
