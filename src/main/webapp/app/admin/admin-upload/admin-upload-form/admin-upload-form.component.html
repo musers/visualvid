@@ -27,8 +27,8 @@
                 <div class="form-group row">
                     <label class="vlabel" style="">Category</label>
                     <div class="vtext-box">
-                        <select class="input-item" style="" id="category">
-                        <option *ngFor="let c of categories;" [value]="c.categoryId">
+                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">
+                        <option *ngFor="let c of categories;" [ngValue]="c.categoryId">
                             {{ c.categoryName }}
                           </option>
                         </select>
