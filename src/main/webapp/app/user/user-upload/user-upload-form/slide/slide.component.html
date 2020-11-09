@@ -1,26 +1,24 @@
-<div class="container p-2" style="overflow-x:hidden;">
-    <input type="text" class="input-item" style="width:100%;"/>
-    <small class="form-text">Text 01</small>
-    <input type="text" class="mt-4 input-item" style="width:100%;" id="name"/>
-    <small class="form-text">Text 02</small>
-    <div class="row">
-        <div class="col-4">
-            <div class="image">
-                <label class="upload-label">+</label>
-            </div>
-            <small class="form-text mt-1 pl-3">Image 02345</small>
-        </div>
-        <div class="col-4">
-            <div class="image">
-                <label  class="upload-label">+</label>
-            </div>
-            <small class="form-text mt-1 pl-3">Image 01</small>
-        </div>
-        <div class="col-4">
-            <div class="image">
-                <label  class="upload-label">+</label>
-            </div>
-            <small class="form-text mt-1 pl-3">Image 01</small>
-        </div>
+<div class="row p-4" style="overflow-x:hidden;">
+    <ng-container *ngFor="let si of adminMediaSlide?.slideItems;let i=index;">
+        <ng-container [ngSwitch]="si.type">
+<!--            <div class="col-4" class="{{si.type}}">-->
+                <div class="col pb-2" *ngSwitchCase="'image'">
+                    <input type="text" class="input-item image" style=""/>
+                    <small class="form-text">{{si.label}}</small>
+                </div>
+                <div class="col-12 pb-2" *ngSwitchCase="'label'">
+                    <input type="text" class="input-item label shadow" style="width:100%;border:none;"/>
+                    <small class="form-text">{{si.label}}</small>
+                </div>
+<!--            </div>-->
+            <div class="pb-2"></div>
+        </ng-container>
+        <div class="pb-4"></div>
+    </ng-container>
+</div>
+<div class="row">
+    <div class="col-12 pb-2">
+        <textarea class="input-item shadow" rows="3" style="width:100%;border:none;"></textarea>
+        <small class="form-text">Instructions</small>
     </div>
 </div>

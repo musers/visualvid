@@ -3,12 +3,14 @@
         <div class="row">
             <div class="col-6 pt-4" style="background:#F6F6F6;">
                 <div class="lead" style="font-weight: bold;">Customer Upload Form</div>
-                <p class="heading-msg">Upload your text and photos</p>
+                <small class="text-muted">Upload your text and photos</small>
                 <div class="">
-                    <mat-tab-group #allTabs>
+                    <mat-tab-group #allTabs [(selectedIndex)]="activeTabIndex" (selectedTabChange)="slideChanged($event)">
                         <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
                             <mat-tab label={{s.slideName}}>
+                                <div style="height:500px; overflow:visible !importannt;">
                                 <jhi-user-upload-form-slide [adminMediaSlide]="s"></jhi-user-upload-form-slide>
+                                </div>
                             </mat-tab>
                         </ng-container>
                     </mat-tab-group>
@@ -23,29 +25,36 @@
                 </div>
             </div>
             <div class="col-6">
-                <div class="bg-white tutorial-video my-5 mx-3 border shadow-sm rounded">
-                    <img style="height:100%;width:100%;" class="p-2"
-                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Big_Buck_Bunny_4K.webm/310px-seek%3D116-Big_Buck_Bunny_4K.webm.jpg"/>
-                    <div class="" style="display: grid;justify-items: center;">
-                        <div class=" row pt-4">
-                            <div class="col">
-                                Having Trouble Uploading Photos or Text
-                            </div>
-                        </div>
-                        <div class=" row pt-2">
-                            <div class="col">
-                                <div class="btn btn-primary">
-                                    <span class="">Watch Tutorial</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" row pt-2 pb-3">
-                            <div class="col">
-                                <span>Contact Us on Whatsapp</span>
-                                <span style="color:#7175D8;">+91-7093215961</span>
-                            </div>
-                        </div>
+                <div class="pt-3"></div>
+                <div class="bg-white tutorial-video my-5 mx-auto text-center">
+                    <img class="mt-4 img-fluid img-thumbnail" style="width:90%;" src={{activeSlide?.screenShotS3Url}}>
+                    <div class="having-trouble-bar">
+                        <small>
+                            <span class=".text-muted">Having Trouble While Uploading</span>
+                            <a class="px-2">Click here</a>
+                        </small>
                     </div>
+
+<!--                    <div class="" style="display: grid;justify-items: center;">-->
+<!--                        <div class=" row pt-4">-->
+<!--                            <div class="col">-->
+<!--                                Having Trouble Uploading Photos or Text-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class=" row pt-2">-->
+<!--                            <div class="col">-->
+<!--                                <div class="btn btn-primary">-->
+<!--                                    <span class="">Watch Tutorial</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class=" row pt-2 pb-3">-->
+<!--                            <div class="col">-->
+<!--                                <span>Contact Us on Whatsapp</span>-->
+<!--                                <span style="color:#7175D8;">+91-7093215961</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

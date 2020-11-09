@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
+import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
 
 @Component({
   selector: 'jhi-user-upload-form',
@@ -12,7 +13,8 @@ import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.
 })
 export class UserUploadFormComponent implements OnInit, OnDestroy {
   adminMedia?: AdminMedia;
-
+  activeSlide?: Slide;
+  activeTabIndex = 0;
   constructor(
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2,
     private adminMediaService: AdminMediaService,
@@ -30,13 +32,24 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  slideChanged(evt: any): void {
+    if(this.adminMedia && this.adminMedia.slides){
+      this.activeSlide = this.adminMedia.slides[evt.index];
+    }
+    console.log(this.activeSlide);
+  }
+
   ngOnDestroy(): void {
     this.renderer.removeClass(this.document.body, 'customer-upload-active');
   }
   gotoPrev(): void {
-    console.log('gotoPrev');
+    if(this.activeTabIndex > 0){
+      this.activeTabIndex--;
+    }
   }
   gotoNext(): void {
-    console.log('gotoNext');
+    if(this.activeTabIndex < this.adminMedia?.slides?.length-1){
+      this.activeTabIndex++;
+    }
   }
 }
