@@ -36,6 +36,8 @@ import {
   faArrowUp,
   faMinus,
   faTimesCircle,
+  faLongArrowAltRight,
+  faLongArrowAltLeft,
 
   // jhipster-needle-add-icon-import
   faHome,
@@ -78,6 +80,8 @@ export const fontAwesomeIcons = [
   faSearch,
   faTrashAlt,
   faShoppingCart,
+  faLongArrowAltRight,
+  faLongArrowAltLeft,
   // jhipster-needle-add-icon-import
   faAsterisk,
   faPlay,

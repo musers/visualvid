@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import {UserUploadComponent} from './user-upload.component';
 
 export const USER_UPLOAD_ROUTE : Route = {
-    path: 'user/upload',
+    path: 'customer/upload/:adminMediaId',
     component: UserUploadComponent,
     data: {
         authorities: [],

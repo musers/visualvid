@@ -6,19 +6,20 @@
                 <p class="heading-msg">Upload your text and photos</p>
                 <div class="">
                     <mat-tab-group #allTabs>
-                        <mat-tab label="Slide 01">
-                            <jhi-user-upload-form-slide></jhi-user-upload-form-slide>
-                        </mat-tab>
-                        <mat-tab label="Slide 02">Slide 02</mat-tab>
-                        <mat-tab label="Slide 03">Slide 03</mat-tab>
-                        <mat-tab label="Slide 04">Slide 04</mat-tab>
-                        <mat-tab label="Slide 05">Slide 05</mat-tab>
-                        <mat-tab label="Slide 06">Slide 06</mat-tab>
-                        <mat-tab label="Slide 07">Slide 07</mat-tab>
-                        <mat-tab label="Slide 08">Slide 08</mat-tab>
-                        <mat-tab label="Slide 09">Slide 09</mat-tab>
-                        <mat-tab label="Slide 10">Slide 10</mat-tab>
+                        <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
+                            <mat-tab label={{s.slideName}}>
+                                <jhi-user-upload-form-slide [adminMediaSlide]="s"></jhi-user-upload-form-slide>
+                            </mat-tab>
+                        </ng-container>
                     </mat-tab-group>
+                </div>
+                <div class="form-group row bg-white m-2 p-2 rounded prev-next-bar">
+                    <div class="btn mr-auto" style="color:#7175D8;" (click)="gotoPrev()">
+                        <fa-icon icon="long-arrow-alt-left" class="px-3"></fa-icon><span class="">Previous</span>
+                    </div>
+                    <div class="btn ml-auto" style="color:#7175D8;" (click)="gotoNext()">
+                        <span class="">Next</span><fa-icon icon="long-arrow-alt-right" class="px-3"></fa-icon>
+                    </div>
                 </div>
             </div>
             <div class="col-6">

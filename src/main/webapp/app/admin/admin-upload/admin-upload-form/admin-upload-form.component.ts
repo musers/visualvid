@@ -43,28 +43,36 @@ export class AdminUploadFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.item.slides.push({
-      slideName: '',
-      slideItems: this.getInitialSlideItems(),
-    });
-    this.adminMediaService.getCategories().subscribe((res: AdminCategory[]) => {
-      if (res != null) {
-        this.categories = res;
-      }
-    });
+    if(this.item.slides){
+      this.item.slides.push({
+        slideName: '',
+        slideItems: this.getInitialSlideItems(),
+      });
+      this.adminMediaService.getCategories().subscribe((res: AdminCategory[]) => {
+        if (res != null) {
+          this.categories = res;
+        }
+      });
+    }
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.item.slides, event.previousIndex, event.currentIndex);
+    if(this.item.slides){
+      moveItemInArray(this.item.slides, event.previousIndex, event.currentIndex);
+    }
   }
   deleteSlide(ind: number): void {
-    this.item.slides.splice(ind, 1);
+    if(this.item.slides){
+      this.item.slides.splice(ind, 1);
+    }
   }
   addSlide(): void {
-    this.item.slides.push({
-      slideName: '',
-      slideItems: this.getInitialSlideItems(),
-    });
+  if(this.item.slides){
+      this.item.slides.push({
+        slideName: '',
+        slideItems: this.getInitialSlideItems(),
+      });
+    }
   }
   uploadVideoFile(e: any, type: string): void {
     if (e && e.target) {

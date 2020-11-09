@@ -88,3 +88,10 @@
   display: block;
   padding-top: 30px;
 }
+.prev-next-bar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+}

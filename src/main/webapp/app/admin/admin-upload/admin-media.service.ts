@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { AdminMedia } from './admin-upload-form/adminmedia.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
@@ -13,10 +12,10 @@ export class AdminMediaService {
   public categoryUrl = SERVER_API_URL + '/api/categories/';
   constructor(protected httpClient: HttpClient) {}
 
-  public save(adminMedia: AdminMedia): Observable<AdminMedia> {
+  public save(adminMedia: AdminMedia): Observable<any> {
     return this.httpClient.post(this.resourceUrl, adminMedia);
   }
-  public get(id: String): Observable<AdminMedia> {
+  public get(id: String): Observable<any> {
     return this.httpClient.get(this.resourceUrl+'/'+id);
   }
 
