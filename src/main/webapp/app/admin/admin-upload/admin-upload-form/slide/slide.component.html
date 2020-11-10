@@ -2,6 +2,11 @@
         <div class="col-4">
             <div class="row row align-items-center">
                     <input type="text" class="col form-control textfield" placeholder="Slide {{index}}"  name="Slide {{index}}" [(ngModel)]="item.slideName">
+                    <div *ngIf="errors['slide'+index+'slideNameRequired']">
+                        <small class="form-text text-danger">
+                            Name cannot be empty
+                        </small>
+                    </div>
                 <div class="image">
                     <ng-container *ngIf="item.screenShotS3Url; else upload_tag">
                         <img style="height:100%;width:100%;" src="{{item.screenShotS3Url}}" alt="Preview Image">
@@ -11,11 +16,16 @@
                         <label for="fileDropRef{{index}}" class="upload-label">+</label>
                     </ng-template>
                 </div>
+                <div *ngIf="errors['slide'+index+'screenShotS3UrlRequired']">
+                    <small class="form-text text-danger">
+                        Screenshot cannot be empty
+                    </small>
+                </div>
             </div>
         </div>
         <div class="col-8">
             <ng-container *ngFor="let si of item.slideItems;let i = index;let last = last;">
-                <jhi-admin-upload-form-slide-item [item]="si" [index]="i" [isLast]="last" (addSlideItemHandler)="addSlideItem($event)"></jhi-admin-upload-form-slide-item>
+                <jhi-admin-upload-form-slide-item [item]="si" [index]="i" [isLast]="last" (removeSlideItemHandler)="removeSlideItem($event)" (addSlideItemHandler)="addSlideItem($event)"></jhi-admin-upload-form-slide-item>
                 <div *ngIf="i < item.slideItems.length-1" class="" style="border-bottom: 1px solid #dcdcdc;"></div>
             </ng-container>
         </div>

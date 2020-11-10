@@ -32,12 +32,22 @@
                             {{ c.categoryName }}
                           </option>
                         </select>
+                        <div *ngIf="errors.categoryIdRequired">
+                            <small class="form-text text-danger">
+                                Category cannot be empty.
+                            </small>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Preview Video</label>
                     <div class="vtext-box">
                         <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
+                        <div *ngIf="errors.previewVideoS3UrlRequired">
+                            <small class="form-text text-danger">
+                                Preview Video cannot be empty.
+                            </small>
+                        </div>
                     </div>
                     <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
                 </div>
@@ -45,6 +55,11 @@
                     <label class="vlabel" style="">Thumbnail</label>
                     <div class="vtext-box">
                         <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
+                        <div *ngIf="errors.thumbNailS3UrlRequired">
+                            <small class="form-text text-danger">
+                                Thumbnail cannot be empty.
+                            </small>
+                        </div>
                     </div>
                     <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
                 </div>
@@ -104,10 +119,12 @@
                     <div class="bg-white rounded py-2 px-4 my-2">
                         <div class="row" style="position:relative;">
                             <div class="" style="position:absolute;top:0px;right:0px; z-index: 999;" (click)="deleteSlide(i)">
-                                <fa-icon icon="times-circle" style=""></fa-icon>
+<!--                                <fa-icon icon="times-circle" style=""></fa-icon>-->
+                                <svg-icon name="clear"></svg-icon>
+
                             </div>
                         </div>
-                        <jhi-admin-upload-form-slide [item]="s" [index]="i"></jhi-admin-upload-form-slide>
+                        <jhi-admin-upload-form-slide [errors]="errors" [item]="s" [index]="i"></jhi-admin-upload-form-slide>
                     </div>
                 </div>
                 </div>

@@ -1,7 +1,7 @@
 <div class="slideitem py-2" *ngIf="item" >
     <ng-container [ngSwitch]="item.type">
             <div class="row">
-                <div class="col">
+                <div class="col-5">
                     <input type="text" class="form-control textfield" placeholder="Enter Label" name="label" [(ngModel)]="item.label">
                 </div>
                 <div class="col ml-auto" class="{{item.type}}">
@@ -9,17 +9,19 @@
                         <label class="btn btn-primary upload-btn r-btn">Upload</label>
                     </ng-container>
                     <ng-container *ngSwitchCase="'label'">
-                        <label class="btn btn-primary r-btn"><span class="text">Text Box</span></label>
+                        <label class="btn btn-primary r-btn"><span class="text">Textbox</span></label>
                     </ng-container>
                     <ng-container *ngIf="isLast">
                         <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
                     </ng-container>
+                    <svg-icon name="remove_circle_outline" (click)="removeSlideItem()"></svg-icon>
                 </div>
             </div>
     </ng-container>
 
     <ng-template #addslideitemtemplate>
-        <fa-icon icon="plus" [ngbPopover]="popContent" placement="right"></fa-icon>
+<!--        <fa-icon icon="plus" [ngbPopover]="popContent" placement="right"></fa-icon>-->
+        <svg-icon name="add_circle_outline" [ngbPopover]="popContent" placement="right"></svg-icon>
     </ng-template>
     <ng-template #popContent>
         <div popover-append-to-body="true">

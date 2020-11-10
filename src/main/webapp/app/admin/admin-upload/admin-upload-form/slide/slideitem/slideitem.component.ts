@@ -11,10 +11,14 @@ export class SlideItemComponent implements OnInit {
   @Input() index?: number;
   @Input() isLast = true;
   @Output() addSlideItemHandler = new EventEmitter();
+  @Output() removeSlideItemHandler = new EventEmitter();
 
   constructor() {}
   ngOnInit(): void {}
   addSlide(type: String): void {
     this.addSlideItemHandler.emit(type);
+  }
+  removeSlideItem(): void {
+    this.removeSlideItemHandler.emit(this.index);
   }
 }

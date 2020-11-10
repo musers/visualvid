@@ -77,7 +77,8 @@ import { SvgIconRegistryService } from 'angular-svg-icon';
   ],
 })
 export class VisualvidCoreModule {
-  iconNames = ['cart', 'fav', 'logo', 'search', 'play_arrow'];
+  iconNames = ['cart', 'fav', 'logo', 'search', 'play_arrow','add_circle_outline','remove_circle_outline','delete_outline',
+  'clear'];
   constructor(
     iconLibrary: FaIconLibrary,
     dpConfig: NgbDatepickerConfig,

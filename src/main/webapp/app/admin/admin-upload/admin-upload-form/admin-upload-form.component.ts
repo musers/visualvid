@@ -63,7 +63,11 @@ export class AdminUploadFormComponent implements OnInit {
   }
   deleteSlide(ind: number): void {
     if(this.item.slides){
+      if(this.item.slides.length === 1){
+      this.alertService.addAlert({ type: 'warning', msg: 'atleastOneSlideRequired', timeout: 5000, toast: true }, []);
+      }else {
       this.item.slides.splice(ind, 1);
+      }
     }
   }
   addSlide(): void {
@@ -107,29 +111,53 @@ export class AdminUploadFormComponent implements OnInit {
     return [
       {
         type: 'image',
-      },
-      {
-        type: 'label',
-      },
+      }
     ];
   }
   saveData(): void {
     console.log(this.item);
     this.errors = {};
-    if (!this.item.name) {
-      this.errors.firstnameRequired = true;
-    }
-    if (!this.item.indianPrice) {
-      this.errors.indianPrice = true;
-    }
-    if (!this.item.usdPrice) {
-      this.errors.usdPrice = true;
-    }
+    this.validateAdminForm();
     if (Object.keys(this.errors).length === 0) {
       console.log('no errors');
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
       });
     }
+  }
+  validateAdminForm(): void {
+      if (!this.item.name) {
+        this.errors.firstnameRequired = true;
+      }
+      if (!this.item.indianPrice) {
+        this.errors.indianPrice = true;
+      }
+      if (!this.item.usdPrice) {
+        this.errors.usdPrice = true;
+      }
+      if (!this.item.categoryId) {
+        this.errors.categoryIdRequired = true;
+      }
+      if (!this.item.previewVideoS3Url) {
+        this.errors.previewVideoS3UrlRequired = true;
+      }
+      if (!this.item.thumbNailS3Url) {
+        this.errors.thumbNailS3UrlRequired = true;
+      }
+      if(!this.item.slides || this.item.slides.length === 0){
+        this.errors.slidesRequired = true;
+      }
+      this.item.slides.forEach( (slide,index) => {
+        this.validateSlide(slide, index);
+      })
+  }
+  validateSlide(s: any, index: number) : void {
+
+      if(!s.slideName){
+        this.errors['slide'+index+'slideNameRequired'] = true;
+      }
+      if(!s.screenShotS3Url){
+        this.errors['slide'+index+'screenShotS3UrlRequired']=true;
+      }
   }
 }

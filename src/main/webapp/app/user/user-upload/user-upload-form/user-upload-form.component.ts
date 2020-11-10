@@ -48,8 +48,10 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     }
   }
   gotoNext(): void {
-    if(this.activeTabIndex < this.adminMedia?.slides?.length-1){
-      this.activeTabIndex++;
+    if(this.adminMedia && this.adminMedia.slides){
+      if(this.activeTabIndex < this.adminMedia?.slides?.length-1){
+        this.activeTabIndex++;
+      }
     }
   }
 }

@@ -140,5 +140,7 @@
   "uploadFormTitle": "Upload Video Designs",
   "file.upload.successful": "File uploaded sucessfully",
   "uploadform.saved.successfully": "Media saved successfully",
-  "customerUploadForm": "Customer Upload Form"
+  "customerUploadForm": "Customer Upload Form",
+  "atleastOneSlideItemRequired": "At least one item required",
+  "atleastOneSlideRequired": "At least one slide required"
 }
