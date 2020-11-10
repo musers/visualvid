@@ -2,7 +2,7 @@
     <div class="row flex-row flex-nowrap">
         <ng-container *ngFor="let item of list">
             <div class="col-3">
-                <div class="card card-block shadow bg-white rounded">
+                <div class="card card-block shadow bg-white rounded" (click)="onVideoItemClick(item)">
                     <jhi-videoitem [item]="item"></jhi-videoitem>
                     <div class="card-body px-2 py-1">
                         <div class="row m-1">

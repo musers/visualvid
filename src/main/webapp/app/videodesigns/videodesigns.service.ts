@@ -39,10 +39,10 @@ export class VideoDesignsService {
     ];
     return of(data);
   }
-  public getVideos(categoryId: string): Observable<Array<VideoItem>> {
-    console.log('categoryId', categoryId);
+  public getVideos(id: string): Observable<Array<VideoItem>> {
+    console.log('id', id);
     let data;
-    if (categoryId === 'familyInvitations') {
+    if (id === 'familyInvitations') {
       data = [
         {
           id: 'myvideo-1',

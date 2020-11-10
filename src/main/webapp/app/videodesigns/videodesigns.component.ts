@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Category } from './category.model';
+import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
 import { VideoDesignsService } from './videodesigns.service';
+import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
+
 @Component({
   selector: 'jhi-videodesigns',
   templateUrl: './videodesigns.component.html',
   styleUrls: ['videodesigns.scss'],
 })
 export class VideoDesignsComponent implements OnInit {
-  categories: Category[] = [];
-  active = 1;
-  constructor(private videoDesignsService: VideoDesignsService) {}
+  categories: AdminCategory[] = [];
+  activeId = 'ngb-nav-0';
+  constructor(private videoDesignsService: VideoDesignsService,
+    private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void {
-    this.videoDesignsService.getCategories().subscribe(data => {
+    this.adminMediaService.getCategories().subscribe(data => {
       if (data) {
         this.categories = data;
         this.categories.forEach(c => {
-          c.nameFormatted = c.name.split(' ').join('<br>');
+          c.nameFormatted = c.categoryName.split(' ').join('<br>');
         });
       }
     });

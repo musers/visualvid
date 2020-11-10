@@ -1,4 +1,6 @@
 export interface AdminCategory {
-  categoryId?: String;
-  categoryName?: String;
+  categoryId: String;
+  categoryName: String;
+  id?: string;
+  nameFormatted?: string;
 }
