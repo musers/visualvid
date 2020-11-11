@@ -35,6 +35,7 @@ export class AdminUploadFormComponent implements OnInit {
   @ViewChild('description') divRef?: ElementRef;
   categories: AdminCategory[] = [];
   errors: any = {};
+  disabled = false;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -118,10 +119,11 @@ export class AdminUploadFormComponent implements OnInit {
     console.log(this.item);
     this.errors = {};
     this.validateAdminForm();
-    if (Object.keys(this.errors).length === 0) {
+    if (Object.keys(this.errors).length === 0 && !this.disabled) {
       console.log('no errors');
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
+        this.disabled=true;
       });
     }
   }

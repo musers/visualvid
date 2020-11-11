@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { VideoItem } from '../videoitem.model';
+import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { VideoDesignsService } from '../videodesigns.service';
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 
@@ -11,7 +11,7 @@ import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 })
 export class VideoListingComponent implements OnInit {
   @Input() category: any;
-  list: VideoItem[] = [];
+  list: AdminMedia[] = [];
   constructor(private videoDesignsService: VideoDesignsService,
     private adminMediaService: AdminMediaService) {}
 

@@ -49,7 +49,7 @@
                             </small>
                         </div>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" accept="video/*" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Thumbnail</label>
@@ -61,7 +61,7 @@
                             </small>
                         </div>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
+                    <input type="file" accept="image/*" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
                 </div>
 
 
@@ -133,12 +133,12 @@
                 </button>
             </div>
             <div class="form-group row mt-2">
-                    <div class="btn btn-primary preview-btn ml-auto" >
+                    <button class="btn btn-primary preview-btn ml-auto" [disabled]="disabled">
                         <span class="">Preview</span>
-                    </div>
-                    <div class="btn btn-primary publish-btn ml-2" (click)="saveData()">
+                    </button>
+                    <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">
                         <span class="">Publish</span>
-                    </div>
+                    </button>
             </div>
         </div>
 
