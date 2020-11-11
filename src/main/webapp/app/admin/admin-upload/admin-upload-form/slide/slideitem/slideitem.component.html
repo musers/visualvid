@@ -11,10 +11,10 @@
                     <ng-container *ngSwitchCase="'label'">
                         <label class="btn btn-primary r-btn"><span class="text">Textbox</span></label>
                     </ng-container>
+                    <svg-icon name="remove_circle_outline" (click)="removeSlideItem()"></svg-icon>
                     <ng-container *ngIf="isLast">
                         <ng-container *ngTemplateOutlet="addslideitemtemplate"></ng-container>
                     </ng-container>
-                    <svg-icon name="remove_circle_outline" (click)="removeSlideItem()"></svg-icon>
                 </div>
             </div>
     </ng-container>
