@@ -49,7 +49,7 @@
                             </small>
                         </div>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" accept="video/*" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Thumbnail</label>
@@ -61,7 +61,7 @@
                             </small>
                         </div>
                     </div>
-                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
+                    <input type="file" accept="image/*" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
                 </div>
 
 
@@ -108,6 +108,23 @@
                         <input type="text" class="input-item" id="turnAroundTime" name="turnAroundTime" [(ngModel)]="item.turnAroundTime"/>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="vlabel">Tags</label>
+                    <div class="vtext-box">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                      [removable]="removable" (removed)="removeTag(tag)">
+                                {{tag}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input class="input-item" 
+                                   [matChipInputFor]="chipList"
+                                   [matChipInputSeparatorKeyCodes]="tagSeparatorKeysCodes"
+                                   [matChipInputAddOnBlur]="addOnBlur"
+                                   (matChipInputTokenEnd)="addTag($event)">
+                        </mat-chip-list>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-lg-6 customer-upload-form">
@@ -115,7 +132,7 @@
 
             <div class="slide-container rounded p-4">
                 <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let s of item.slides;let i = index;" cdkDrag [@EnterLeave]>
+                <div *ngFor="let s of item.slides;let i = index;" [@EnterLeave]>
                     <div class="bg-white rounded py-2 px-4 my-2">
                         <div class="row" style="position:relative;">
                             <div class="" style="position:absolute;top:0px;right:0px; z-index: 999;" (click)="deleteSlide(i)">
@@ -133,12 +150,12 @@
                 </button>
             </div>
             <div class="form-group row mt-2">
-                    <div class="btn btn-primary preview-btn ml-auto" >
+                    <button class="btn btn-primary preview-btn ml-auto" [disabled]="disabled">
                         <span class="">Preview</span>
-                    </div>
-                    <div class="btn btn-primary publish-btn ml-2" (click)="saveData()">
+                    </button>
+                    <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">
                         <span class="">Publish</span>
-                    </div>
+                    </button>
             </div>
         </div>
 

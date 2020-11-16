@@ -1,4 +1,4 @@
-.image {
+.image-placeholder {
   $div-height: 5rem;
   $div-width: 5rem;
   height: $div-height;
@@ -16,9 +16,43 @@
   width: 100%;
   border: none;
   border-radius: 0px;
-  padding: 0px;
   height: 100%;
 }
 .textfield:focus {
   box-shadow: none !important;
 }
+
+.image-container:hover .image {
+  opacity: 0.3;
+}
+
+.image-container:hover .overlay-text {
+  opacity: 1;
+}
+.image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  .overlay-text {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+      .text {
+        color: #FF6B69;
+      }
+  }
+}
+.movable-slide {
+    align-items: stretch;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGUlEQVQ4y2NgoBJwoJAedcGoC0ZdMOAuAABF0hABJ/8lyQAAAABJRU5ErkJggg==);
+    margin-top: -10px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    cursor: move;
+}
+

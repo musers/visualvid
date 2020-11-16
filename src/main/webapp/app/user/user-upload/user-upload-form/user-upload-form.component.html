@@ -9,7 +9,7 @@
                         <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
                             <mat-tab label={{s.slideName}}>
                                 <div style="height:500px; overflow:visible !importannt;">
-                                <jhi-user-upload-form-slide [adminMediaSlide]="s"></jhi-user-upload-form-slide>
+                                <jhi-user-upload-form-slide [adminMediaSlide]="s" [userSlideItems]="userSlides[i]?.userSlideItems"></jhi-user-upload-form-slide>
                                 </div>
                             </mat-tab>
                         </ng-container>
@@ -27,7 +27,7 @@
             <div class="col-6">
                 <div class="pt-3"></div>
                 <div class="bg-white tutorial-video my-5 mx-auto text-center">
-                    <img class="mt-4 img-fluid img-thumbnail" style="width:90%;" src={{activeSlide?.screenShotS3Url}}>
+                    <img class="mt-4 img-fluid img-thumbnail" style="width:100%;" src={{activeSlide?.screenShotS3Url}}>
                     <div class="having-trouble-bar">
                         <small>
                             <span class=".text-muted">Having Trouble While Uploading</span>

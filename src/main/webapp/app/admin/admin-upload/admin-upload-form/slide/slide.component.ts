@@ -38,8 +38,11 @@ export class SlideComponent implements OnInit {
       }else {
         this.item.slideItems.splice(ind, 1);
       }
-
     }
+  }
+  removeScreenShot(): void {
+    this.item.screenShotS3Url = undefined;
+    this.item.screenShotS3Key = undefined;
   }
   uploadVideoFile(e: any): void {
     if (e && e.target) {

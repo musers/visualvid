@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, ViewEncapsulation } from '@angular/core';
 import videojs from 'video.js';
 
-import { VideoItem } from '../videoitem.model';
+import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 @Component({
   selector: 'jhi-videoitem',
   templateUrl: './videoitem.component.html',
@@ -11,7 +11,7 @@ import { VideoItem } from '../videoitem.model';
 export class VideoItemComponent implements OnInit, AfterViewInit {
   public player?: videojs.Player;
 
-  @Input() item?: VideoItem;
+  @Input() item?: AdminMedia;
   constructor() {}
 
   ngOnInit(): void {}

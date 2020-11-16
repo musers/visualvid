@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JhiAlertService } from 'ng-jhipster';
 
@@ -35,6 +36,14 @@ export class AdminUploadFormComponent implements OnInit {
   @ViewChild('description') divRef?: ElementRef;
   categories: AdminCategory[] = [];
   errors: any = {};
+  disabled = false;
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly tagSeparatorKeysCodes: number[] = [ENTER, COMMA];
+  tags: string[] = []
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -70,6 +79,23 @@ export class AdminUploadFormComponent implements OnInit {
       }
     }
   }
+  addTag(event: any): void {
+     const input = event.input;
+     const value = event.value;
+     if ((value || '').trim() && !this.tags.includes(value.trim())) {
+       this.tags.push(value.trim());
+     }
+     if (input) {
+       input.value = '';
+     }
+   }
+   removeTag(tag: string): void {
+     const index = this.tags.indexOf(tag);
+     if (index >= 0) {
+       this.tags.splice(index, 1);
+     }
+   }
+
   addSlide(): void {
   if(this.item.slides){
       this.item.slides.push({
@@ -118,10 +144,11 @@ export class AdminUploadFormComponent implements OnInit {
     console.log(this.item);
     this.errors = {};
     this.validateAdminForm();
-    if (Object.keys(this.errors).length === 0) {
+    if (Object.keys(this.errors).length === 0 && !this.disabled) {
       console.log('no errors');
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
+        this.disabled=true;
       });
     }
   }

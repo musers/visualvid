@@ -10,6 +10,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
@@ -26,6 +28,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     AngularSvgIconModule,
     DragDropModule,
     MatTabsModule,
+    MatChipsModule,
+    MatIconModule
   ],
 })
 export class VisualvidSharedLibsModule {}
