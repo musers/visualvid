@@ -17,6 +17,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
   activeSlide?: Slide;
   activeTabIndex = 0;
   userSlides: Array<UserSlide> = [];
+  hideSubmitPanel = true;
   constructor(
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2,
     private adminMediaService: AdminMediaService,
@@ -44,17 +45,29 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     this.renderer.removeClass(this.document.body, 'customer-upload-active');
   }
   gotoPrev(): void {
-    console.log(this.userSlides);
     if(this.activeTabIndex > 0){
       this.activeTabIndex--;
     }
   }
   gotoNext(): void {
     if(this.adminMedia && this.adminMedia.slides){
+      this.updateSubmitPanelTag();
       if(this.activeTabIndex < this.adminMedia?.slides?.length-1){
         this.activeTabIndex++;
       }
     }
+  }
+
+  updateSubmitPanelTag(): void{
+    if(this.activeTabIndex === this.adminMedia?.slides?.length-1){
+      this.hideSubmitPanel = false;
+    }
+  }
+  cancel(): void {
+    this.hideSubmitPanel = true;
+  }
+  saveCustomerUploadForm(): void{
+    console.log(this.userSlides);
   }
   updateUserSlides(): void {
     this.userSlides = [];

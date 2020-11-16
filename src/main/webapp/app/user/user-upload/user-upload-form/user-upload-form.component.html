@@ -2,27 +2,48 @@
     <div class="container-fluid bg-white user-upload border rounded">
         <div class="row">
             <div class="col-6 pt-4" style="background:#F6F6F6;">
-                <div class="lead" style="font-weight: bold;">Customer Upload Form</div>
-                <small class="text-muted">Upload your text and photos</small>
-                <div class="">
-                    <mat-tab-group #allTabs [(selectedIndex)]="activeTabIndex" (selectedTabChange)="slideChanged($event)">
-                        <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
-                            <mat-tab label={{s.slideName}}>
-                                <div style="height:500px; overflow:visible !importannt;">
-                                <jhi-user-upload-form-slide [adminMediaSlide]="s" [userSlideItems]="userSlides[i]?.userSlideItems"></jhi-user-upload-form-slide>
-                                </div>
-                            </mat-tab>
-                        </ng-container>
-                    </mat-tab-group>
-                </div>
-                <div class="form-group row bg-white m-2 p-2 rounded prev-next-bar">
-                    <div class="btn mr-auto" style="color:#7175D8;" (click)="gotoPrev()">
-                        <fa-icon icon="long-arrow-alt-left" class="px-3"></fa-icon><span class="">Previous</span>
+                <ng-container *ngIf="hideSubmitPanel">
+                    <div class="lead" style="font-weight: bold;">Customer Upload Form</div>
+                    <small class="text-muted">Upload your text and photos</small>
+                    <div class="">
+                        <mat-tab-group #allTabs [(selectedIndex)]="activeTabIndex" (selectedTabChange)="slideChanged($event)">
+                            <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
+                                <mat-tab label={{s.slideName}}>
+                                    <div style="height:500px; overflow:visible !importannt;">
+                                    <jhi-user-upload-form-slide [adminMediaSlide]="s" [userSlideItems]="userSlides[i]?.userSlideItems"></jhi-user-upload-form-slide>
+                                    </div>
+                                </mat-tab>
+                            </ng-container>
+                        </mat-tab-group>
                     </div>
-                    <div class="btn ml-auto" style="color:#7175D8;" (click)="gotoNext()">
-                        <span class="">Next</span><fa-icon icon="long-arrow-alt-right" class="px-3"></fa-icon>
+                    <div class="form-group row bg-white m-2 p-2 rounded prev-next-bar">
+                        <div class="btn mr-auto" style="color:#7175D8;" (click)="gotoPrev()">
+                            <fa-icon icon="long-arrow-alt-left" class="px-3"></fa-icon><span class="">Previous</span>
+                        </div>
+                        <div class="btn ml-auto" style="color:#7175D8;" (click)="gotoNext()">
+                            <span class="">Next</span><fa-icon icon="long-arrow-alt-right" class="px-3"></fa-icon>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="!hideSubmitPanel">
+                    <div class="d-flex align-items-center flex-column justify-content-center h-100">
+                        <div class="text-muted d-table text-center my-4">
+                            Just One Step More
+                        </div>
+                        <div class="form-group row mt-2">
+                            <div class="btn btn-primary publish-btn mr-3" (click)="saveCustomerUploadForm()">
+                                <span class="">Submit</span>
+                            </div>
+                            <div class="btn btn-danger preview-btn" (click)="cancel()">
+                                <span class="">Cancel</span>
+                            </div>
+                        </div>
+                        <div class="text-muted d-table text-center my-4">
+                            Click on <strong>Submit</strong> to finish uploading
+                            <p>Or click on <Strong>Cancel</Strong> to go back to upload form</p>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
             <div class="col-6">
                 <div class="pt-3"></div>
@@ -35,37 +56,8 @@
                         </small>
                     </div>
 
-<!--                    <div class="" style="display: grid;justify-items: center;">-->
-<!--                        <div class=" row pt-4">-->
-<!--                            <div class="col">-->
-<!--                                Having Trouble Uploading Photos or Text-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class=" row pt-2">-->
-<!--                            <div class="col">-->
-<!--                                <div class="btn btn-primary">-->
-<!--                                    <span class="">Watch Tutorial</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class=" row pt-2 pb-3">-->
-<!--                            <div class="col">-->
-<!--                                <span>Contact Us on Whatsapp</span>-->
-<!--                                <span style="color:#7175D8;">+91-7093215961</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="form-group row mt-2">
-        <div class="btn btn-danger preview-btn ml-auto" >
-            <span class="">Cancel</span>
-        </div>
-        <div class="btn btn-primary publish-btn mx-3">
-            <span class="">Submit</span>
         </div>
     </div>
 </div>
