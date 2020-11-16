@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "slide_items")
-@Data
 public class SlideItemEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
