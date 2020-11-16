@@ -3,7 +3,22 @@
         <ng-container [ngSwitch]="si.type">
 <!--            <div class="col-4" class="{{si.type}}">-->
                 <div class="col pb-2" *ngSwitchCase="'image'">
-                    <input type="text" class="input-item image" style=""/>
+<!--                    <input type="text" class="input-item image" style=""/>-->
+                    <div class="image-placeholder">
+                        <ng-container *ngIf="userSlideItems && userSlideItems[i]?.s3Url; else upload_tag">
+                            <div class="image-container">
+                                <img style="height:100%;width:100%;" class="image" src="{{userSlideItems[i].s3Url}}" alt="Preview Image">
+                                <div class="overlay-text" (click)="removeFile(i)">
+                                    <div class="text">remove</div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #upload_tag>
+                            <input type="file" accept="image/*" #fileDropRef id="fileDropRef{{si.id}}"
+                                   style="width:0px;height:0px;visibility:hidden;" (change)="uploadFile($event, i)"/>
+                            <label for="fileDropRef{{si.id}}" class="upload-label">+</label>
+                        </ng-template>
+                    </div>
                     <small class="form-text">{{si.label}}</small>
                 </div>
                 <div class="col-12 pb-2" *ngSwitchCase="'label'">

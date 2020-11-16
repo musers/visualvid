@@ -5,6 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
+import { UserSlide } from './slide/userSlide.model';
 
 @Component({
   selector: 'jhi-user-upload-form',
@@ -15,6 +16,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
   adminMedia?: AdminMedia;
   activeSlide?: Slide;
   activeTabIndex = 0;
+  userSlides: Array<UserSlide> = [];
   constructor(
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2,
     private adminMediaService: AdminMediaService,
@@ -25,8 +27,8 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     if(adminMediaId){
       this.adminMediaService.get(adminMediaId).subscribe((res: AdminMedia) => {
         if (res != null) {
-          console.log(res);
           this.adminMedia = res;
+          this.updateUserSlides();
         }
       });
     }
@@ -36,13 +38,13 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     if(this.adminMedia && this.adminMedia.slides){
       this.activeSlide = this.adminMedia.slides[evt.index];
     }
-    console.log(this.activeSlide);
   }
 
   ngOnDestroy(): void {
     this.renderer.removeClass(this.document.body, 'customer-upload-active');
   }
   gotoPrev(): void {
+    console.log(this.userSlides);
     if(this.activeTabIndex > 0){
       this.activeTabIndex--;
     }
@@ -53,5 +55,26 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
         this.activeTabIndex++;
       }
     }
+  }
+  updateUserSlides(): void {
+    this.userSlides = [];
+    if(this.adminMedia && this.adminMedia.slides){
+      this.adminMedia.slides.forEach(slide => {
+        this.userSlides.push(this.updateUserSlide(slide))
+      });
+    }
+  }
+  updateUserSlide(slide: Slide): any {
+    const userSlide = {} as UserSlide;
+    userSlide.adminId = slide.id;
+    userSlide.userSlideItems = []
+    slide.slideItems.forEach(si => {
+    if(userSlide.userSlideItems){
+      userSlide.userSlideItems.push({
+        adminId: si.id
+      })
+      }
+    })
+    return userSlide;
   }
 }
