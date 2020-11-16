@@ -18,7 +18,7 @@
     font-size: 0.8rem;
     color: #828599;
     font-weight: bold;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
   .vtext-box {
     flex: 0 0 83.3333333333%;
@@ -26,9 +26,6 @@
     padding-left: 5rem;
   }
   .input-item {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: 1.4rem;
     width: 15rem;
     color: #495057;
     background-color: #fff;
@@ -36,6 +33,7 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    flex: inherit;
   }
   .upload-btn {
     background-color: #43497b;

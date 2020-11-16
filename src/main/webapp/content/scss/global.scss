@@ -43,7 +43,14 @@ a:hover {
 .dropdown-item:hover {
   color: $dropdown-link-hover-color;
 }
-
+input {
+  line-height: 2rem;
+  padding-left: 10px;
+}
+select {
+  height: 2rem;
+  padding-left: 10px;
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
