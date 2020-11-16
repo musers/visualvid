@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
-import { UserSlide } from './slide/userSlide.model';
+import { UserSlide } from './slide/user-slide.model';
 
 @Component({
   selector: 'jhi-user-upload-form',
