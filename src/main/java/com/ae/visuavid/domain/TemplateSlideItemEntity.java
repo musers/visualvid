@@ -5,7 +5,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "template_slide_item")
+@Table(name = "template_slide_items")
 public class TemplateSlideItemEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
