@@ -3,4 +3,5 @@ export interface UserSlideItem {
   adminId?: string;
   s3Url?: string;
   s3Key?: string;
+  data?: string;
 }

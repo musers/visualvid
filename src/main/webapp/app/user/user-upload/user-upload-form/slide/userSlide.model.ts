@@ -1,4 +1,4 @@
-import { UserSlideItem } from './slideitem/userSlideItem.model';
+import { UserSlideItem } from './slideitem/user-slide-item.model';
 export interface UserSlide {
   id?: string;
   adminId?: string;
