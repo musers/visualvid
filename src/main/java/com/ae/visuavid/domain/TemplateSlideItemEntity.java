@@ -1,8 +1,9 @@
 package com.ae.visuavid.domain;
 
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "template_slide_items")
@@ -30,11 +31,14 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
     @Column(name = "item_order")
     private Integer itemOrder;
 
-    @Column(name = "screen_shot_s3_url")
-    private String screenShotS3Url;
+    @Column(name = "s3_url")
+    private String s3Url;
 
-    @Column(name = "screen_shot_s3_key")
-    private String screenShotS3Key;
+    @Column(name = "s3_key")
+    private String s3Key;
+
+    @Column(name = "admin_slide_item_id")
+    private UUID adminSlideItemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "template_slide_id")
@@ -72,20 +76,20 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
         this.itemOrder = itemOrder;
     }
 
-    public String getScreenShotS3Url() {
-        return screenShotS3Url;
+    public String getS3Url() {
+        return s3Url;
     }
 
-    public void setScreenShotS3Url(String screenShotS3Url) {
-        this.screenShotS3Url = screenShotS3Url;
+    public void setS3Url(String s3Url) {
+        this.s3Url = s3Url;
     }
 
-    public String getScreenShotS3Key() {
-        return screenShotS3Key;
+    public String getS3Key() {
+        return s3Key;
     }
 
-    public void setScreenShotS3Key(String screenShotS3Key) {
-        this.screenShotS3Key = screenShotS3Key;
+    public void setS3Key(String s3Key) {
+        this.s3Key = s3Key;
     }
 
     public TemplateSlideEntity getTemplateSlide() {
@@ -103,4 +107,12 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
     public void setItemValue(String itemValue) {
         this.itemValue = itemValue;
     }
+    public UUID getAdminSlideItemId() {
+        return adminSlideItemId;
+    }
+
+    public void setAdminSlideItemId(UUID adminSlideItemId) {
+        this.adminSlideItemId = adminSlideItemId;
+    }
+
 }

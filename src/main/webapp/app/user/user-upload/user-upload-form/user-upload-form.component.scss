@@ -102,3 +102,18 @@
   bottom: 10px;
   text-align: center;
 }
+.cubes3d {
+  display: inline-block;
+  width: 100%;
+  height: 497px;
+  // TODO
+  background: url('../../../../content/images/cubes3d2.png') no-repeat center top;
+  background-size: contain;
+  box-shadow: 25px 25px 50px 0 white inset, -25px -25px 50px 0 white inset;
+  position: relative;
+  .user-upload-close {
+     position: absolute;
+      top: 15px;
+      right: 16px;
+  }
+}

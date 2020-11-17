@@ -6,7 +6,7 @@ import java.util.UUID;
 public class TemplateDTO implements BaseDTO {
     private UUID id;
     private UUID adminMediaId;
-    private List<TemplateSlideDTO> slides;
+    private List<TemplateSlideDTO> userSlides;
 
     public UUID getId() {
         return id;
@@ -24,11 +24,11 @@ public class TemplateDTO implements BaseDTO {
         this.adminMediaId = adminMediaId;
     }
 
-    public List<TemplateSlideDTO> getSlides() {
-        return slides;
+    public List<TemplateSlideDTO> getUserSlides() {
+        return userSlides;
     }
 
-    public void setSlides(List<TemplateSlideDTO> slides) {
-        this.slides = slides;
+    public void setUserSlides(List<TemplateSlideDTO> userSlides) {
+        this.userSlides = userSlides;
     }
 }

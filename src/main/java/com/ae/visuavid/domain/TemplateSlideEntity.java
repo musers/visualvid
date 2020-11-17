@@ -1,11 +1,12 @@
 package com.ae.visuavid.domain;
 
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "template_slide")
@@ -33,16 +34,16 @@ public class TemplateSlideEntity extends AbstractAuditingEntity implements BaseE
     @Column(name = "slide_order")
     private Integer slideOrder;
 
-    @Column(name = "instructions")
-    private String instructions;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "template_id")
     private TemplateEntity template;
 
+    @Column(name = "admin_slide_id")
+    private UUID adminSlideId;
+
     @OneToMany(mappedBy = "templateSlide", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<TemplateSlideItemEntity> slideItems;
+    private List<TemplateSlideItemEntity> userSlideItems;
 
     public UUID getId() {
         return id;
@@ -84,14 +85,6 @@ public class TemplateSlideEntity extends AbstractAuditingEntity implements BaseE
         this.slideOrder = slideOrder;
     }
 
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
     public TemplateEntity getTemplate() {
         return template;
     }
@@ -100,11 +93,19 @@ public class TemplateSlideEntity extends AbstractAuditingEntity implements BaseE
         this.template = template;
     }
 
-    public List<TemplateSlideItemEntity> getSlideItems() {
-        return slideItems;
+    public List<TemplateSlideItemEntity> getUserSlideItems() {
+        return userSlideItems;
     }
 
-    public void setSlideItems(List<TemplateSlideItemEntity> slideItems) {
-        this.slideItems = slideItems;
+    public void setUserSlideItems(List<TemplateSlideItemEntity> userSlideItems) {
+        this.userSlideItems = userSlideItems;
+    }
+    public UUID getAdminSlideId() {
+        return adminSlideId;
+    }
+
+    public void setAdminSlideId(UUID adminSlideId) {
+        this.adminSlideId = adminSlideId;
     }
 }
+

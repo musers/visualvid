@@ -42,7 +42,7 @@ public class TemplateService {
     }
 
     private void updateSlide(TemplateEntity template) {
-        List<TemplateSlideEntity> slides = template.getSlides();
+        List<TemplateSlideEntity> slides = template.getUserSlides();
         if (!CollectionUtils.isEmpty(slides)) {
             for (TemplateSlideEntity slide : slides) {
                 slide.setTemplate(template);
@@ -53,7 +53,7 @@ public class TemplateService {
     }
 
     private void updateSlideItem(TemplateSlideEntity slide) {
-        List<TemplateSlideItemEntity> slideItems = slide.getSlideItems();
+        List<TemplateSlideItemEntity> slideItems = slide.getUserSlideItems();
         if (!CollectionUtils.isEmpty(slideItems)) {
             for (TemplateSlideItemEntity slideItem : slideItems) {
                 slideItem.setTemplateSlide(slide);

@@ -1,11 +1,14 @@
 import { Component, Inject, OnInit, OnDestroy, Renderer2} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
+import { UserTemplateService } from 'app/user/user-upload/user-template.service';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
 import { UserSlide } from './slide/user-slide.model';
+import { UserTemplate } from './user-template.model';
 
 @Component({
   selector: 'jhi-user-upload-form',
@@ -14,15 +17,21 @@ import { UserSlide } from './slide/user-slide.model';
 })
 export class UserUploadFormComponent implements OnInit, OnDestroy {
   adminMedia?: AdminMedia;
+  item: UserTemplate = {
+    userSlides : []
+  };
   activeSlide: Slide = {
     slideItems : []
   };
   activeTabIndex = 0;
   userSlides: Array<UserSlide> = [];
   hideSubmitPanel = true;
+  userUploadSuccess = false;
   constructor(
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2,
     private adminMediaService: AdminMediaService,
+    private userTemplateService: UserTemplateService,
+    private alertService: JhiAlertService,
     private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.renderer.addClass(this.document.body, 'customer-upload-active');
@@ -31,6 +40,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
       this.adminMediaService.get(adminMediaId).subscribe((res: AdminMedia) => {
         if (res != null) {
           this.adminMedia = res;
+          this.item.adminMediaId = res.id;
           this.updateUserSlides();
         }
       });
@@ -69,27 +79,42 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     this.hideSubmitPanel = true;
   }
   saveCustomerUploadForm(): void{
-    console.log(this.userSlides);
+  console.log(this.item);
+    this.userTemplateService.save(this.item).subscribe(() => {
+//         this.alertService.addAlert({ type: 'success', msg: 'user.uploadform.saved.successfully', timeout: 5000, toast: true }, []);
+        this.userUploadSuccess = true;
+    });
   }
   updateUserSlides(): void {
-    this.userSlides = [];
+    this.item.userSlides = [];
     if(this.adminMedia && this.adminMedia.slides){
       this.adminMedia.slides.forEach(slide => {
-        this.userSlides.push(this.updateUserSlide(slide))
+        this.item.userSlides.push(this.updateUserSlide(slide))
       });
     }
   }
   updateUserSlide(slide: Slide): any {
     const userSlide = {} as UserSlide;
-    userSlide.adminId = slide.id;
+    userSlide.adminSlideId = slide.id;
+    userSlide.screenShotS3Key = slide.screenShotS3Key;
+    userSlide.screenShotS3Url = slide.screenShotS3Url;
+    userSlide.slideName = slide.slideName;
+    userSlide.slideOrder = slide.slideOrder;
     userSlide.userSlideItems = []
     slide.slideItems.forEach(si => {
     if(userSlide.userSlideItems){
       userSlide.userSlideItems.push({
-        adminId: si.id
+        adminSlideItemId: si.id,
+        itemOrder: si.order,
+        itemLabel: si.label,
+        itemType: si.type
       })
       }
     })
     return userSlide;
+  }
+
+  gotoHome() : void {
+    window.location.href= '/';
   }
 }

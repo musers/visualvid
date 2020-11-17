@@ -1,12 +1,12 @@
 package com.ae.visuavid.domain;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "template")
@@ -28,7 +28,7 @@ public class TemplateEntity extends AbstractAuditingEntity implements BaseEntity
 
     @OneToMany(mappedBy = "template", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<TemplateSlideEntity> slides;
+    private List<TemplateSlideEntity> userSlides;
 
     public UUID getId() {
         return id;
@@ -46,11 +46,11 @@ public class TemplateEntity extends AbstractAuditingEntity implements BaseEntity
         this.adminMediaId = adminMediaId;
     }
 
-    public List<TemplateSlideEntity> getSlides() {
-        return slides;
+    public List<TemplateSlideEntity> getUserSlides() {
+        return userSlides;
     }
 
-    public void setSlides(List<TemplateSlideEntity> slides) {
-        this.slides = slides;
+    public void setUserSlides(List<TemplateSlideEntity> userSlides) {
+        this.userSlides = userSlides;
     }
 }

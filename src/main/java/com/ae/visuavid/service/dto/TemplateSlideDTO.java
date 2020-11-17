@@ -2,7 +2,6 @@ package com.ae.visuavid.service.dto;
 
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.Column;
 
 public class TemplateSlideDTO implements BaseDTO {
     private UUID id;
@@ -10,8 +9,8 @@ public class TemplateSlideDTO implements BaseDTO {
     private String screenShotS3Key;
     private String slideName;
     private Integer slideOrder;
-    private String instructions;
-    private List<TemplateSlideItemDTO> slideItems;
+    private UUID adminSlideId;
+    private List<TemplateSlideItemDTO> userSlideItems;
 
     public UUID getId() {
         return id;
@@ -53,19 +52,18 @@ public class TemplateSlideDTO implements BaseDTO {
         this.slideOrder = slideOrder;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public List<TemplateSlideItemDTO> getUserSlideItems() {
+        return userSlideItems;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public UUID getAdminSlideId() {
+        return adminSlideId;
     }
 
-    public List<TemplateSlideItemDTO> getSlideItems() {
-        return slideItems;
+    public void setAdminSlideId(UUID adminSlideId) {
+        this.adminSlideId = adminSlideId;
     }
-
-    public void setSlideItems(List<TemplateSlideItemDTO> slideItems) {
-        this.slideItems = slideItems;
+    public void setUserSlideItems(List<TemplateSlideItemDTO> userSlideItems) {
+        this.userSlideItems = userSlideItems;
     }
 }

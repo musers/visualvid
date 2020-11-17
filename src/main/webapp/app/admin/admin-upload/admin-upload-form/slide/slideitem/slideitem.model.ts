@@ -1,6 +1,6 @@
 export interface SlideItem {
   id?: string;
-  order?: Number;
-  type?: String;
-  label?: String;
+  order?: number;
+  type?: string;
+  label?: string;
 }

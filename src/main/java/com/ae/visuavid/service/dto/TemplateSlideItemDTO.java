@@ -1,7 +1,6 @@
 package com.ae.visuavid.service.dto;
 
 import java.util.UUID;
-import javax.persistence.Column;
 
 public class TemplateSlideItemDTO implements BaseDTO {
     private UUID id;
@@ -9,8 +8,9 @@ public class TemplateSlideItemDTO implements BaseDTO {
     private String itemLabel;
     private String itemValue;
     private Integer itemOrder;
-    private String screenShotS3Url;
-    private String screenShotS3Key;
+    private String s3Url;
+    private String s3Key;
+    private UUID adminSlideItemId;
 
     public String getItemType() {
         return itemType;
@@ -44,19 +44,35 @@ public class TemplateSlideItemDTO implements BaseDTO {
         this.itemOrder = itemOrder;
     }
 
-    public String getScreenShotS3Url() {
-        return screenShotS3Url;
+    public String getS3Url() {
+        return s3Url;
     }
 
-    public void setScreenShotS3Url(String screenShotS3Url) {
-        this.screenShotS3Url = screenShotS3Url;
+    public void setS3Url(String s3Url) {
+        this.s3Url = s3Url;
     }
 
-    public String getScreenShotS3Key() {
-        return screenShotS3Key;
+    public String getS3Key() {
+        return s3Key;
     }
 
-    public void setScreenShotS3Key(String screenShotS3Key) {
-        this.screenShotS3Key = screenShotS3Key;
+    public void setS3Key(String s3Key) {
+        this.s3Key = s3Key;
     }
+
+    public UUID getAdminSlideItemId() {
+        return adminSlideItemId;
+    }
+
+    public void setAdminSlideItemId(UUID adminSlideItemId) {
+        this.adminSlideItemId = adminSlideItemId;
+    }
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
 }
