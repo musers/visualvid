@@ -14,7 +14,9 @@ import { UserSlide } from './slide/user-slide.model';
 })
 export class UserUploadFormComponent implements OnInit, OnDestroy {
   adminMedia?: AdminMedia;
-  activeSlide?: Slide;
+  activeSlide: Slide = {
+    slideItems : []
+  };
   activeTabIndex = 0;
   userSlides: Array<UserSlide> = [];
   hideSubmitPanel = true;
@@ -52,14 +54,14 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
   gotoNext(): void {
     if(this.adminMedia && this.adminMedia.slides){
       this.updateSubmitPanelTag();
-      if(this.activeTabIndex < this.adminMedia?.slides?.length-1){
+      if(this.adminMedia?.slides?.length && this.activeTabIndex < this.adminMedia?.slides?.length-1){
         this.activeTabIndex++;
       }
     }
   }
 
   updateSubmitPanelTag(): void{
-    if(this.activeTabIndex === this.adminMedia?.slides?.length-1){
+    if(this.adminMedia?.slides?.length && this.activeTabIndex === this.adminMedia?.slides?.length-1){
       this.hideSubmitPanel = false;
     }
   }
