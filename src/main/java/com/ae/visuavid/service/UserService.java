@@ -38,10 +38,15 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
-    
+
     private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository,RoleRepository roleRepository) {
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository,
+        RoleRepository roleRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
@@ -280,26 +285,26 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-    	return  addAuthoritiesForRoles(userRepository.findOneWithRolesByLogin(login));
+        return addAuthoritiesForRoles(userRepository.findOneWithRolesByLogin(login));
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
         return addAuthoritiesForRoles(SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithRolesByLogin));
     }
-    
-    public Optional<User> addAuthoritiesForRoles(Optional<User> userOptional){
-    	if(userOptional.isPresent()) {
-    		User user = userOptional.get();
-    		Set<String> authorities = user
-    		    .getRoles()
-    		    .stream()
-    		    .flatMap(role -> role.getAuthorities().stream())
-    		    .map(authority -> new String(authority.getName()))
+
+    public Optional<User> addAuthoritiesForRoles(Optional<User> userOptional) {
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Set<String> authorities = user
+                .getRoles()
+                .stream()
+                .flatMap(role -> role.getAuthorities().stream())
+                .map(authority -> new String(authority.getName()))
                 .collect(Collectors.toSet());
-    		user.setAuthorities(authorities);    
-    	}
-    	return userOptional;
+            user.setAuthorities(authorities);
+        }
+        return userOptional;
     }
 
     /**

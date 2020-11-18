@@ -23,7 +23,7 @@ management:
   endpoint:
     health:
       show-details: when_authorized
-      roles: 'ROLE_ADMIN'
+      roles: 'ADMIN_USER'
     jhimetrics:
       enabled: true
   info:
@@ -111,12 +111,15 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      max-file-size: 800MB
+      max-request-size: 800MB
 
 server:
-  servlet:
-    session:
-      cookie:
-        http-only: true
+  session:
+    cookie:
+      http-only: true
 
 # Properties to be exposed on the /info management endpoint
 info:
@@ -153,6 +156,12 @@ jhipster:
     contact-email:
     license: unlicensed
     license-url:
+#cloud:
+#  aws:
+#    region.static: ap-south-1
+#    credentials:
+#      accessKey: "AKIARHUCCYF37ZMSRMVY"
+#      secretKey: "G/V7ju4MinT4h2LiFK/YsTvaBUIypYlnyrDFbt9F"
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
@@ -161,5 +170,6 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
-# application:
+application:
+  s3:
+    bucketName: visualvid

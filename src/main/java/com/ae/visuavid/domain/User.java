@@ -5,17 +5,15 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -25,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.GenericGenerator;
 
 import com.ae.visuavid.config.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,9 +37,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
     @NotNull
     @Pattern(regexp = Constants.LOGIN_REGEX)
@@ -101,15 +101,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     )
     @BatchSize(size = 20)
     private Set<Role> roles = new HashSet<>();
-    
+
     @Transient
     private Set<String> authorities = new HashSet<>();
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -211,14 +211,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<String> getAuthorities() {
-		return authorities;
-	}
+        return authorities;
+    }
 
-	public void setAuthorities(Set<String> authorities) {
-		this.authorities = authorities;
-	}
+    public void setAuthorities(Set<String> authorities) {
+        this.authorities = authorities;
+    }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -234,13 +234,38 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return 31;
     }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", activated=" + activated + ", langKey=" + langKey
-				+ ", imageUrl=" + imageUrl + ", activationKey=" + activationKey + ", resetKey=" + resetKey
-				+ ", resetDate=" + resetDate + ", roles=" + roles + ", authorities=" + authorities + "]";
-	}
-
-  
+    @Override
+    public String toString() {
+        return (
+            "User [id=" +
+            id +
+            ", login=" +
+            login +
+            ", password=" +
+            password +
+            ", firstName=" +
+            firstName +
+            ", lastName=" +
+            lastName +
+            ", email=" +
+            email +
+            ", activated=" +
+            activated +
+            ", langKey=" +
+            langKey +
+            ", imageUrl=" +
+            imageUrl +
+            ", activationKey=" +
+            activationKey +
+            ", resetKey=" +
+            resetKey +
+            ", resetDate=" +
+            resetDate +
+            ", roles=" +
+            roles +
+            ", authorities=" +
+            authorities +
+            "]"
+        );
+    }
 }

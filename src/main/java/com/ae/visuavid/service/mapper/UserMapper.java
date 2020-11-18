@@ -52,8 +52,8 @@ public class UserMapper {
         Set<Role> roles = new HashSet<>();
 
         if (rolesAsString != null) {
-        	roles =
-        			rolesAsString
+            roles =
+                rolesAsString
                     .stream()
                     .map(
                         string -> {
@@ -68,7 +68,7 @@ public class UserMapper {
         return roles;
     }
 
-    public User userFromId(Long id) {
+    public User userFromId(UUID id) {
         if (id == null) {
             return null;
         }

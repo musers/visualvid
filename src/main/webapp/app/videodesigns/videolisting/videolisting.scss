@@ -1,0 +1,18 @@
+.list {
+  color: #43497b;
+  .card {
+    border-radius: 0.25rem !important;
+    .card-body {
+    }
+    .title {
+      text-transform: initial;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .price {
+      font-size: 1rem !important;
+      font-weight: 600;
+      color: #828599;
+    }
+  }
+}

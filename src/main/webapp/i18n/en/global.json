@@ -136,5 +136,12 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "This is your footer"
+  "footer": "This is your footer",
+  "uploadFormTitle": "Upload Video Designs",
+  "file.upload.successful": "File uploaded sucessfully",
+  "uploadform.saved.successfully": "Media saved successfully",
+  "user.uploadform.saved.successfully": "Template has been saved successfully",
+  "customerUploadForm": "Customer Upload Form",
+  "atleastOneSlideItemRequired": "At least one item required",
+  "atleastOneSlideRequired": "At least one slide required"
 }

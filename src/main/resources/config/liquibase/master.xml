@@ -13,7 +13,13 @@
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
-    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+   <!--  <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/> -->
+    <include file="config/liquibase/changelog/initial_schema.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/video_slide.sql" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/001_admin_media_db_changes.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/002_categories.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/001_user_template.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

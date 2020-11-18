@@ -8,23 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Instant;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ae.visuavid.VisualvidApp;
 import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.User;
@@ -37,6 +20,21 @@ import com.ae.visuavid.service.dto.PasswordChangeDTO;
 import com.ae.visuavid.service.dto.UserDTO;
 import com.ae.visuavid.web.rest.vm.KeyAndPasswordVM;
 import com.ae.visuavid.web.rest.vm.ManagedUserVM;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Integration tests for the {@link AccountResource} REST controller.
@@ -49,7 +47,7 @@ public class AccountResourceIT {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -380,9 +378,7 @@ public class AccountResourceIT {
 
         Optional<User> userDup = userRepository.findOneWithRolesByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
-        assertThat(userDup.get().getRoles())
-            .hasSize(1)
-            .containsExactly(roleRepository.findById(AuthoritiesConstants.USER).get());
+        assertThat(userDup.get().getRoles()).hasSize(1).containsExactly(roleRepository.findById(AuthoritiesConstants.USER).get());
     }
 
     @Test

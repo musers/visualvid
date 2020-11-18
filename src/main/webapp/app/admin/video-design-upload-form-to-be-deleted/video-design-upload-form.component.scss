@@ -1,0 +1,119 @@
+.form-title-project-upload {
+  text-align: center;
+  font-weight: bold;
+  color: #43497b;
+  font-size: 1.2rem;
+  margin-left: -26rem;
+  padding-bottom: 2rem;
+  margin-top: -5.4rem;
+}
+.form-title-customer-upload {
+  text-align: center;
+  font-weight: bold;
+  color: #43497b;
+  font-size: 1.2rem;
+  margin-top: -10rem;
+  margin-left: -30rem;
+}
+.right-panel-container {
+  background-color: #f5f3f6;
+  height: 30rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -45px;
+}
+
+.input-item {
+  width: 15rem;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn-preview-upload {
+  height: 1.8rem;
+  width: 7rem;
+  border-radius: 0.2rem;
+  padding-top: 0.2rem;
+  font-size: 0.8rem;
+}
+.slide {
+  margin-left: 3.5rem;
+  background-color: #f5f3f6;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+.slide2 {
+  margin-left: 3.5rem;
+  background-color: #f5f3f6;
+  padding-top: 2rem;
+}
+.slide-box {
+  height: 4rem;
+  width: 7rem;
+  margin-top: -1rem;
+  margin-left: -20rem;
+  background-color: gainsboro;
+}
+.slide-button {
+  background-color: #ff6b69;
+  margin-left: 2rem;
+  padding-bottom: 1.2rem;
+  height: 1rem;
+  width: 6rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+}
+.slide-image {
+  margin-top: -1rem;
+  margin-left: -38rem;
+}
+.slide-text {
+  margin-top: -2rem;
+}
+.slide-text-box {
+  margin-top: 0.5rem;
+  background-color: #5ecba1;
+  margin-left: 2.8rem;
+  padding-bottom: 1.2rem;
+  height: 1rem;
+  width: 6rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+}
+.new-slide {
+  margin-left: 6.5rem;
+  background-color: #fff;
+  height: 1.5rem;
+  width: 6rem;
+  font-size: 0.7rem;
+  color: #7175d8;
+}
+.right-panel {
+  background-color: #f5f3f6;
+  height: 31rem;
+  margin-top: 20rem;
+}
+.preview-btn {
+  font-size: 0.9rem;
+  margin-top: 38rem;
+  margin-left: -20rem;
+  width: 6rem;
+  height: 2rem;
+  background-color: #43497b;
+  border-radius: 0.2rem;
+}
+.publish-btn {
+  font-size: 0.9rem;
+  margin-top: 38rem;
+  margin-left: 2rem;
+  width: 6rem;
+  height: 2rem;
+  background-color: #7175d8;
+  border-radius: 0.2rem;
+}

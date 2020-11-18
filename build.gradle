@@ -140,22 +140,24 @@ project.ext.diffChangelogFile = "src/main/resources/config/liquibase/changelog/"
 liquibase {
     activities {
         main {
-            driver "org.h2.Driver"
-            url "jdbc:h2:file:./build/h2db/db/visualvid"
-            username "visualvid"
-            password ""
+            driver "com.zaxxer.hikari.HikariDataSource"
+            url ""
+    		username ""
+    		password ""
             changeLogFile "src/main/resources/config/liquibase/master.xml"
             defaultSchemaName ""
             logLevel "debug"
             classpath "src/main/resources/"
+
+
         }
         diffLog {
-            driver "org.h2.Driver"
-            url "jdbc:h2:file:./build/h2db/db/visualvid"
-            username "visualvid"
-            password ""
+            driver "com.zaxxer.hikari.HikariDataSource"
+            url ""
+    		username ""
+    		password ""
             changeLogFile project.ext.diffChangelogFile
-            referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.H2Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+            referenceUrl "hibernate:spring:com.ae.visuavid.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
             defaultSchemaName ""
             logLevel "debug"
             classpath "$buildDir/classes/java/main"
@@ -255,6 +257,11 @@ dependencies {
     implementation ("io.springfox:springfox-swagger2") {
         exclude module: "mapstruct"
     }
+    //AWS
+    implementation platform('software.amazon.awssdk:bom:2.10.30')
+    implementation group: 'software.amazon.awssdk', name: 'iam'
+    implementation group: 'software.amazon.awssdk', name: 's3'
+
     implementation "io.springfox:springfox-bean-validators"
     implementation "org.postgresql:postgresql"
     liquibaseRuntime "org.postgresql:postgresql"
@@ -272,6 +279,11 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
@@ -291,10 +303,41 @@ task cleanResources(type: Delete) {
     delete "build/resources"
 }
 
+task injectEnv(type: Exec) {
+    file('.env').readLines().each() {
+        if (!it.isEmpty() && !it.startsWith("#")) {
+            def pos = it.indexOf("=")
+            def key = it.substring(0, pos)
+            def value = it.substring(pos + 1)
+            environment key, value
+        }
+    }
+    commandLine 'pwd'
+}
+
 wrapper {
     gradleVersion = "6.5"
 }
-
+integrationTest.enabled=false
+if (System.env.VMODE == 'apiOnly') {
+    npmInstall.enabled=false
+    webpack.enabled=false
+    checkstyleMain.enabled=false
+    checkstyleNohttp.enabled=false
+    compileTestJava.enabled=false
+    testClasses.enabled=false
+    integrationTest.enabled=false
+    test.enabled=false
+}
+if (System.env.VMODE == 'intTest') {
+    npmInstall.enabled=false
+    webpack.enabled=false
+    checkstyleMain.enabled=false
+    checkstyleNohttp.enabled=false
+    compileTestJava.enabled=false
+    testClasses.enabled=false
+    test.enabled=false
+}
 
 if (project.hasProperty("nodeInstall")) {
     node {

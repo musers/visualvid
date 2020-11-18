@@ -17,32 +17,32 @@ Navbar
 
 .navbar {
   padding: 0.2rem 1rem;
-  background-color: #43497B !important;
-  height: 60px;
- 
 
   ul.navbar-nav {
     .nav-item {
       margin-left: 0.5em;
     }
   }
+  .navbar-nav {
+    font-size: 14px;
+  }
 
   a.nav-link {
-    font-weight: 500;
-    font-family: Verdana;
-    color: white !important;
-    font-size: smaller;
+    font-weight: 400;
   }
 }
-
+.btn-get-started {
+  background-color: #5ecba1;
+  border-color: #5ecba1;
+}
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .logo-img {
-  height: 45px;
-  width: 45px;
+  height: 50px;
+  width: 100px;
   display: inline-block;
   vertical-align: middle;
-  //background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  background: url('../../../content/images/logo.png') no-repeat center center;
   background-size: contain;
 }

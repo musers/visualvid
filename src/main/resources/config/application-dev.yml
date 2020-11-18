@@ -18,10 +18,10 @@ logging:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
     com.ae.visuavid: DEBUG
+    liquibase: Info
 
 spring:
   profiles:
-    active: dev
     include:
       - swagger
       # Uncomment to activate TLS for the dev profile
@@ -37,22 +37,19 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./build/h2db/db/visualvid;DB_CLOSE_DELAY=-1
+    url: jdbc:postgresql://ec2-15-206-124-163.ap-south-1.compute.amazonaws.com:5432/visualvid
     username: visualvid
-    password:
+    password: Visualvid@123
     hikari:
       poolName: Hikari
       auto-commit: false
-  h2:
-    console:
-      enabled: false
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+    database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
     show-sql: true
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    drop-first: true
+    #drop-first: true
   mail:
     host: localhost
     port: 25
@@ -113,5 +110,6 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
-# application:
+application:
+  s3:
+    bucketName: visualvid

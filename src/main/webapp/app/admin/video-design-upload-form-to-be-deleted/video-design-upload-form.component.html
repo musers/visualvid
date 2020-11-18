@@ -1,0 +1,133 @@
+<div class="page">
+    <div class="container">
+        <div class="d-md-flex h-md-100 align-items-center">
+
+            <!-- First Half -->
+
+            <div class="col-md-6">
+                <div>
+                    <h5 class="form-title-project-upload">Project Upload Form</h5>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Name</label>
+                    <div class="text-box">
+                        <input type="text" class="input-item" id="name"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Html Description</label>
+                    <div class="text-box">
+                        <textarea class="input-item" style="height:7rem;width:23rem"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label" style="margin-top:6.4rem;">Category</label>
+                    <div class="text-box">
+                        <select class="input-item" style="margin-top:6rem;width:15rem;" id="category">
+                            <option>Family Invitations</option>
+                            <option>Logo Reveals</option>
+                            <option>Corporate</option>
+                            <option>Restaurant Displays</option>
+                            <option>PartyEvent Invitations</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label" style="margin-top:0.4rem;">Preview Video</label>
+<!--                    <label for="previewvideofile" class="btn btn-primary btn-preview-upload">Upload</label>-->
+                    <input type="file" class="" accept="video/*" style="padding-left: 5rem;" id="previewvideofile" (change)="uploadVideoFile($event)">
+                </div>
+
+                <div class="form-group row">
+                    <label class="label" style="margin-top:0.4rem;">Thumbnail</label>
+                    <div class="text-box">
+                        <a class="btn btn-primary btn-preview-upload" style="background-color: #43497B;" routerLink="/">
+                            <span>Upload</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Price</label>
+                    <div>
+                        <label class="label" style="max-width: 20rem; padding-left: 5rem;">Indian
+                            Price</label>
+                        <label class="label" style="max-width: 20rem;padding-left: 3rem;">USD
+                            Price</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div style="padding-left:11rem; margin-top:-1rem">
+                        <input type="text" class="input-item" id="indianPrice" style="width:7.2rem"/>
+                        <input type="text" class="input-item" id="usdPrice" style="width:7.2rem"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Media Placeholders</label>
+                    <div class="text-box">
+                        <input type="text" class="input-item" id="mediaPlaceHolders"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Text Placeholders</label>
+                    <div class="text-box">
+                        <input type="text" class="input-item" id="textPlaceHolders"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="label">Turn Around Time</label>
+                    <div class="text-box">
+                        <input type="text" class="input-item" id="turnAroundTime"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Half -->
+
+            <div class="col-md-8">
+                <div>
+                    <h5 class="form-title-customer-upload">Customer Upload Form</h5>
+                </div>
+
+                <div class="container right-panel-container" id="slide-container-id">
+                    <div class="form-group row" *ngFor="let slideItem of slides;first as isFirst"
+                         [ngClass]="isFirst ? 'slide' : 'slide2'">
+                        <div class="col">
+                            <label class="label">Slide 01</label>
+                        </div>
+                        <div class="col">
+                            <textarea class="slide-box" id="description"></textarea>
+                        </div>
+                        <div class="col slide-image">
+                            <label class="label">Image 01</label>
+                            <a class="btn btn-primary slide-button" routerLink="/">
+                                <span class="">UPLOAD</span>
+                            </a>
+                            <div>
+                                <label class="label slide-text">Text 01</label>
+                                <a class="btn btn-primary slide-text-box" routerLink="/">
+                                    <span class="">Text Box</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <a class="btn btn-primary new-slide" (click)="addSlide()">
+                            <span class="">+New Slide</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <a class="btn btn-primary preview-btn" routerLink="/">
+                    <span class="">Preview</span>
+                </a>
+                <a class="btn btn-primary publish-btn" routerLink="/">
+                    <span class="">Publish</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

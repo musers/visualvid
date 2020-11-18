@@ -1,0 +1,163 @@
+<div class="container-fluid admin-upload-form px-5">
+    <div class="row">
+        <div class="col-lg-6 project-upload-form">
+            <div class="heading">Project Upload Form</div>
+            <form style="display:block;">
+                <div class="form-group row">
+                    <label class="vlabel">Name</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="name" name="name" [(ngModel)]="item.name"/>
+                        <div *ngIf="errors.firstnameRequired">
+                            <small class="form-text text-danger">
+                                Your first name is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Html Description</label>
+                    <div class="vtext-box" style="height:100%;" #description (dblclick)="openFullscreen()">
+                        <div>
+                        <!--<textarea class="input-item" style="line-height:1rem;" name="description" [(ngModel)]="item.description"></textarea>-->
+                        <p-editor [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" [style]="{'height':'100%'}">
+                        </p-editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Category</label>
+                    <div class="vtext-box">
+                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">
+                        <option *ngFor="let c of categories;" [ngValue]="c.categoryId">
+                            {{ c.categoryName }}
+                          </option>
+                        </select>
+                        <div *ngIf="errors.categoryIdRequired">
+                            <small class="form-text text-danger">
+                                Category cannot be empty.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Preview Video</label>
+                    <div class="vtext-box">
+                        <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
+                        <div *ngIf="errors.previewVideoS3UrlRequired">
+                            <small class="form-text text-danger">
+                                Preview Video cannot be empty.
+                            </small>
+                        </div>
+                    </div>
+                    <input type="file" class="" style="visibility:hidden;height:0px;width:0px;" accept="video/*" id="previewvideofile" (change)="uploadVideoFile($event,'preview')">
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel" style="">Thumbnail</label>
+                    <div class="vtext-box">
+                        <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
+                        <div *ngIf="errors.thumbNailS3UrlRequired">
+                            <small class="form-text text-danger">
+                                Thumbnail cannot be empty.
+                            </small>
+                        </div>
+                    </div>
+                    <input type="file" accept="image/*" class="" style="visibility:hidden;height:0px;width:0px;" id="thumbnailuploadfile" (change)="uploadVideoFile($event,'thumbnail')">
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="vlabel">Price</label>
+                    <div class="form-row row" style="width: 60%;padding-left: 5rem;">
+                        <div class="form-group col-md-6">
+                            <label class="vlabel" for="indianprice" style="max-width:100%;">Indian Price</label>
+                            <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="" name="indianPrice" [(ngModel)]="item.indianPrice">
+                            <div *ngIf="errors.indianPrice">
+                                <small class="form-text text-danger">
+                                    Indian price is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="vlabel" for="usdprice" style="max-width:100%;">USD</label>
+                            <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="" name="usdPrice" [(ngModel)]="item.usdPrice">
+                            <div *ngIf="errors.usdPrice">
+                                <small class="form-text text-danger">
+                                    Us price is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="vlabel">Media Placeholders</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="mediaPlaceHolders" name="mediaPlaceholder" [(ngModel)]="item.mediaPlaceholder"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Text Placeholders</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="textPlaceHolders" name="textPlaceholder" [(ngModel)]="item.textPlaceholder"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Turn Around Time</label>
+                    <div class="vtext-box">
+                        <input type="text" class="input-item" id="turnAroundTime" name="turnAroundTime" [(ngModel)]="item.turnAroundTime"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="vlabel">Tags</label>
+                    <div class="vtext-box">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                      [removable]="removable" (removed)="removeTag(tag)">
+                                {{tag}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input class="input-item" 
+                                   [matChipInputFor]="chipList"
+                                   [matChipInputSeparatorKeyCodes]="tagSeparatorKeysCodes"
+                                   [matChipInputAddOnBlur]="addOnBlur"
+                                   (matChipInputTokenEnd)="addTag($event)">
+                        </mat-chip-list>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 customer-upload-form">
+            <div class="heading">Customer Upload Form</div>
+
+            <div class="slide-container rounded p-4">
+                <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let s of item.slides;let i = index;" [@EnterLeave]>
+                    <div class="bg-white rounded py-2 px-4 my-2">
+                        <div class="row" style="position:relative;">
+                            <div class="" style="position:absolute;top:0px;right:0px; z-index: 999;" (click)="deleteSlide(i)">
+<!--                                <fa-icon icon="times-circle" style=""></fa-icon>-->
+                                <svg-icon name="clear"></svg-icon>
+
+                            </div>
+                        </div>
+                        <jhi-admin-upload-form-slide [errors]="errors" [item]="s" [index]="i"></jhi-admin-upload-form-slide>
+                    </div>
+                </div>
+                </div>
+                <button type="button" class="btn btn-primary border rounded my-3 newslide-btn" (click)="addSlide()">
+                    <span class="px-1"><fa-icon icon="plus"></fa-icon></span>New Slide
+                </button>
+            </div>
+            <div class="form-group row mt-2">
+                    <button class="btn btn-primary preview-btn ml-auto" [disabled]="disabled">
+                        <span class="">Preview</span>
+                    </button>
+                    <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">
+                        <span class="">Publish</span>
+                    </button>
+            </div>
+        </div>
+
+    </div>
+</div>
