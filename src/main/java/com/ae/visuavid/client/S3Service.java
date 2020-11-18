@@ -1,9 +1,16 @@
 package com.ae.visuavid.client;
 
 import com.ae.visuavid.config.ApplicationProperties;
+import com.ae.visuavid.domain.S3InfoEntity;
+import com.ae.visuavid.enumeration.S3MediaStatusType;
+import com.ae.visuavid.repository.S3InfoRepository;
 import com.ae.visuavid.service.dto.S3InfoDTO;
+import com.ae.visuavid.service.mapper.S3InfoMapper;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -15,16 +22,44 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Component
 public class S3Service {
+    private static final Logger log = LoggerFactory.getLogger(S3Service.class);
+
     private static final String ADMIN_UPLOADS_PATH = "adminuploads";
 
     @Autowired
-    private S3Client s3Client;
+    protected S3Client s3Client;
 
     @Autowired
-    private ApplicationProperties applicationProperties;
+    protected ApplicationProperties applicationProperties;
+
+    @Autowired
+    protected S3InfoRepository s3InfoRepository;
+
+    @Autowired
+    protected S3InfoMapper s3InfoMapper;
 
     public S3InfoDTO uploadAdminFile(byte[] bytes, String fileName) throws IOException {
-        return uploadFile(bytes, ADMIN_UPLOADS_PATH, fileName);
+        log.info("Uploading media fileName {} to s3 ", fileName);
+        S3InfoDTO s3InfoDTO = uploadFile(bytes, ADMIN_UPLOADS_PATH, fileName);
+        log.info("Uploaded media  fileName {} : s3Key {} :  to s3 ", fileName, s3InfoDTO.getS3Key());
+        saveS3Info(s3InfoDTO, S3MediaStatusType.IN_PROGRESS.name());
+        return s3InfoDTO;
+    }
+
+    public void saveS3Info(S3InfoDTO s3InfoDTO, String status) {
+        log.info("Saving s3Info with s3key: {} ", s3InfoDTO.getS3Key());
+        S3InfoEntity s3InfoEntity = s3InfoMapper.toEntity(s3InfoDTO);
+        s3InfoEntity.setStatus(status);
+        s3InfoRepository.save(s3InfoEntity);
+        log.info("Saved s3Info with s3key: {} ", s3InfoEntity.getS3Key());
+    }
+
+    public void updateS3InfoStatus(List<String> s3Keys, String status) {
+        log.info("Updating  s3Info with s3keys: {} ", s3Keys);
+        List<S3InfoEntity> s3InfoEntities = s3InfoRepository.findByS3KeyIn(s3Keys);
+        s3InfoEntities.forEach(s3Info -> s3Info.setStatus(S3MediaStatusType.COMPLETED.name()));
+        s3InfoRepository.saveAll(s3InfoEntities);
+        log.info("Updated s3Info with s3keys: {} ", s3Keys);
     }
 
     private S3InfoDTO uploadFile(byte[] bytes, String path, String fileName) throws IOException {

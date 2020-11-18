@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "s3_info")
-public class S3InfoEntity extends AbstractAuditingEntity {
+public class S3InfoEntity extends AbstractAuditingEntity implements BaseEntity {
     /**
      *
      */

@@ -1,13 +1,16 @@
 package com.ae.visuavid.service;
 
+import com.ae.visuavid.client.S3Service;
 import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.MediaSlideEntity;
 import com.ae.visuavid.domain.SlideItemEntity;
+import com.ae.visuavid.enumeration.S3MediaStatusType;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.S3InfoRepository;
 import com.ae.visuavid.service.dto.AdminMediaDTO;
 import com.ae.visuavid.service.mapper.AdminMediaMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -29,7 +32,10 @@ public class AdminUploadService {
     AdminUploadFormRepository adminUploadFormRepository;
 
     @Autowired
-    S3InfoRepository s3InfoRepository;
+    S3Service s3Service;
+
+    @Autowired
+    List<String> s3KeyList;
 
     public void saveUploadForm(AdminMediaDTO mediaDto) {
         try {
@@ -37,7 +43,8 @@ public class AdminUploadService {
             AdminMediaEntity media = mediaMapper.toEntity(mediaDto);
             updateMedia(media);
             adminUploadFormRepository.save(media);
-            log.info("successfully saved adminUploadForm");
+            log.info("saved adminUploadForm : projectUploadForm :", media.getId());
+            updateS3InfoStatus(media);
         } catch (Exception e) {
             log.error("error while saving project-upload-form : {} ", e);
             throw new ApiRuntimeException(e.getMessage());
@@ -51,6 +58,7 @@ public class AdminUploadService {
             for (MediaSlideEntity slide : slides) {
                 slide.setMedia(media);
                 slide.setSlideOrder(order++);
+                s3KeyList.add(slide.getScreenShotS3Key());
                 updateSlide(slide);
             }
         }
@@ -73,5 +81,12 @@ public class AdminUploadService {
 
     public AdminMediaDTO getAdminUpload(String id) {
         return mediaMapper.toDto(adminUploadFormRepository.findById(UUID.fromString(id)).get());
+    }
+
+    private void updateS3InfoStatus(AdminMediaEntity media) {
+        s3KeyList.add(media.getPreviewVideoS3Key());
+        s3KeyList.add(media.getThumbNailS3Key());
+        s3Service.updateS3InfoStatus(s3KeyList, S3MediaStatusType.COMPLETED.name());
+        s3KeyList.clear();
     }
 }
