@@ -7,6 +7,7 @@ import com.ae.visuavid.repository.TemplateRepository;
 import com.ae.visuavid.service.dto.TemplateDTO;
 import com.ae.visuavid.service.mapper.TemplateMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,9 +31,6 @@ public class TemplateService {
     protected TemplateRepository templateRepository;
 
     @Autowired
-    protected List<String> s3KeyList;
-
-    @Autowired
     protected S3Service s3Service;
 
     public TemplateService() {}
@@ -40,8 +38,9 @@ public class TemplateService {
     public void saveTemplate(TemplateDTO templateDTO) {
         log.info("saving user-template");
         try {
+            List<String> s3KeyList = new ArrayList<>();
             TemplateEntity template = templateMapper.toEntity(templateDTO);
-            updateSlide(template);
+            updateSlide(template, s3KeyList);
             templateRepository.save(template);
             log.info("successfully saved user-template {} : ", template.getId());
             s3Service.updateS3InfoStatus(s3KeyList, S3MediaStatusType.COMPLETED.name());
@@ -52,7 +51,7 @@ public class TemplateService {
         }
     }
 
-    private void updateSlide(TemplateEntity template) {
+    private void updateSlide(TemplateEntity template, List<String> s3KeyList) {
         List<TemplateSlideEntity> slides = template.getUserSlides();
         if (!CollectionUtils.isEmpty(slides)) {
             for (TemplateSlideEntity slide : slides) {
@@ -61,12 +60,12 @@ public class TemplateService {
                 if (!StringUtils.isEmpty(slide.getScreenShotS3Key())) {
                     s3KeyList.add(slide.getScreenShotS3Key());
                 }
-                updateSlideItem(slide);
+                updateSlideItem(slide, s3KeyList);
             }
         }
     }
 
-    private void updateSlideItem(TemplateSlideEntity slide) {
+    private void updateSlideItem(TemplateSlideEntity slide, List<String> s3KeyList) {
         List<TemplateSlideItemEntity> slideItems = slide.getUserSlideItems();
         if (!CollectionUtils.isEmpty(slideItems)) {
             for (TemplateSlideItemEntity slideItem : slideItems) {

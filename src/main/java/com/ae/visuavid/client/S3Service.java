@@ -41,6 +41,7 @@ public class S3Service {
     public S3InfoDTO uploadAdminFile(byte[] bytes, String fileName) throws IOException {
         log.info("Uploading media fileName {} to s3 ", fileName);
         S3InfoDTO s3InfoDTO = uploadFile(bytes, ADMIN_UPLOADS_PATH, fileName);
+        s3InfoDTO.setSize(bytes.length);
         log.info("Uploaded media  fileName {} : s3Key {} :  to s3 ", fileName, s3InfoDTO.getS3Key());
         saveS3Info(s3InfoDTO, S3MediaStatusType.IN_PROGRESS.name());
         return s3InfoDTO;
