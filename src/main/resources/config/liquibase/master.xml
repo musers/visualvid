@@ -19,6 +19,8 @@
     <include file="config/liquibase/changelog/001_admin_media_db_changes.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/002_categories.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/001_user_template.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/003_alter_s3_info.xml" relativeToChangelogFile="false"/>
+
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

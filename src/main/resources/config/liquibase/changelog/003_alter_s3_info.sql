@@ -1,0 +1,1 @@
+ALTER TABLE s3_info ALTER COLUMN media_s3_key TYPE TEXT;

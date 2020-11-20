@@ -2,7 +2,7 @@ package com.ae.visuavid.service.dto;
 
 import java.util.UUID;
 
-public class S3InfoDTO {
+public class S3InfoDTO implements BaseDTO {
     private UUID id;
     private String name;
     private String s3Key;
