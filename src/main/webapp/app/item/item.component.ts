@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import videojs from 'video.js';
+import { ActivatedRoute } from '@angular/router';
 
 import { AdminMedia } from '../../app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { ItemService } from '../../app/item/item.service';
@@ -16,14 +17,17 @@ export class ItemComponent implements OnInit, AfterViewInit {
   @Input() item?: AdminMedia = {
     slides: [],
   };
-  constructor(private itemService: ItemService) {}
+  constructor(private itemService: ItemService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.itemService.get('88baed2f-6991-49df-9512-a2cef99c09bc').subscribe((res: AdminMedia) => {
-      if (res != null) {
-        this.item = res;
-      }
-    });
+  const adminMediaId = this.route.snapshot.paramMap.get('adminMediaId');
+  if(adminMediaId){
+      this.itemService.get(adminMediaId).subscribe((res: AdminMedia) => {
+        if (res) {
+          this.item = res;
+        }
+      });
+    }
   }
   ngAfterViewInit(): void {
     if (this.item && this.item.id) {

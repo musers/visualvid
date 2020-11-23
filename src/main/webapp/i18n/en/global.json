@@ -142,6 +142,7 @@
   "uploadform.saved.successfully": "Media saved successfully",
   "user.uploadform.saved.successfully": "Template has been saved successfully",
   "customerUploadForm": "Customer Upload Form",
+  "itemForm": "Item View",
   "atleastOneSlideItemRequired": "At least one item required",
   "atleastOneSlideRequired": "At least one slide required"
 }

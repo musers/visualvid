@@ -1,10 +1,11 @@
 <div>
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="item && item.previewVideoS3Url">
         <div class="row mt-5">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="video-wrapper">
-                    <video id="item-{{item?.id}}" class="video-js vjs-default-skin vjs-16-9"  controls="controls" preload="none"  data-setup="{}" poster="{{item?.thumbNailS3Url}}">
-                        <source type="video/mp4" src="{{item?.previewVideoS3Url}}">
+                    <video id="item-{{item.id}}" class="video-js vjs-default-skin vjs-16-9"  controls="controls" preload="none"  data-setup="{}" poster="{{item.thumbNailS3Url}}">
+                        <source src="{{item.previewVideoS3Url}}" type="video/mp4">
+                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                     </video>
                 </div>
                 <div class="lead video-desc">
