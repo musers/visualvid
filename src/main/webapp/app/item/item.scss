@@ -1,0 +1,22 @@
+@import '~video.js/dist/video-js.css';
+video {
+  object-fit: cover; /*to cover all the box*/
+  border-radius: 0.25rem;
+}
+.video-js .vjs-big-play-button {
+  display: none !important;
+}
+.vjs-poster {
+}
+.video-wrapper {
+  width: 35rem;
+  height: 30rem;
+  margin-left: 8rem;
+}
+.card {
+  margin-left: 5rem;
+}
+.video-desc {
+  margin-top: -6rem;
+  margin-left: 8rem;
+}

@@ -1,0 +1,61 @@
+<div>
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="video-wrapper">
+                    <video id="item-{{item?.id}}" class="video-js vjs-default-skin vjs-16-9"  controls="controls" preload="none"  data-setup="{}" poster="{{item?.thumbNailS3Url}}">
+                        <source type="video/mp4" src="{{item?.previewVideoS3Url}}">
+                    </video>
+                </div>
+                <div class="lead video-desc">
+                    <div style="color:#43497b; font-weight: bold;">Video Description</div>
+                    <div style="color:#828599; font-size: small; margin-top: 1rem;">
+                        {{item?.description}}
+                    </div>
+                    <div style="color:#828599; font-size: small; margin-top: 2rem;">
+                        <p>Project features</p>
+                        <p>After Effects CS5 or above</p>
+                        <p>FullHD (1920×1080), 30fps</p>
+                        <p>Easy to use</p>
+                        <p>Modular structure</p>
+                        <p>No plugins required</p>
+                        <p>Video tutorial is included</p>
+                        <p>PDF tutorial is included</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card" style="height: 28rem; width: 25rem;">
+                    <div class="lead mt-4 ml-4">
+                        <div  style="color:#43497b">{{item?.name}}</div>
+                        <div class="lead mt-2" style="color:#43497b; font-weight: bold;"> $ {{item?.usdPrice}}</div>
+                        <div style="font-size:x-small;color: #aaabb3">Regular Price + Premium Delivery</div>
+                        <div class="custom-control custom-checkbox mt-4" style="font-size: small; color: #828599;">
+                            <input type="checkbox" class="custom-control-input" id="1">
+                            <label class="custom-control-label" for="1">Advanced Customization</label>
+                            <span style="margin-left: 2rem; font-weight: bold;">$ 1000</span>
+                        </div>
+                        <div></div>
+                        <div class="custom-control custom-checkbox mt-2" style="font-size: small; color: #828599;">
+                            <input type="checkbox" class="custom-control-input" id="2">
+                            <label class="custom-control-label" for="2" style="font-size: small;">Premium Delivery (Rush Order)</label>
+                            <span style="margin-left: 2rem; font-weight: bold;">$ 1000</span>
+                        </div>
+                        <div class="lead mt-4" style="color:#43497b; font-size: small; font-weight: bold;">Turn Around Time</div>
+                        <div style="font-size:x-small;color: #aaabb3">2 Days Delivery*</div>
+                        <div class="mt-4">
+                            <a class="btn btn-primary btn-play-video" style=" background-color: #5ECBA1; width:20rem" routerLink="/">
+                                <span>Add to Cart</span>
+                            </a>
+                        </div>
+                        <div class="mt-4">
+                            <a class="btn btn-primary btn-play-video" style=" background-color: #7175d8; width: 20rem;" routerLink="/">
+                                <span>Buy Now</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
