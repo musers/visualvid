@@ -1,7 +1,7 @@
 <div class="container-fluid list">
     <div class="row">
         <ng-container *ngFor="let item of list">
-            <div class="col-3">
+            <div class="col-3" (dblclick)="onVideoItemDoubleClick(item)">
                 <div class="card card-block shadow bg-white rounded my-2">
                     <jhi-videoitem [item]="item"></jhi-videoitem>
                     <div class="card-body px-2 py-1">

@@ -26,4 +26,8 @@ strong {
 .text-muted {
     color: #AAABB3 !important;
 }
+.vjs-control-bar {
+  visibility: hidden !important;
+}
+$center-big-play-button: true;
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
