@@ -20,6 +20,9 @@
     <include file="config/liquibase/changelog/002_categories.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/001_user_template.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/003_alter_s3_info.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/004_alter_media.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/005_order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/005_1_alter_order.xml" relativeToChangelogFile="false"/>
 
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->

@@ -32,16 +32,16 @@ public class OrderResource {
         log.info("Inside create order Resource ");
         if (orderDTO.getId() != null) {
             orderDTO = orderService.create(orderDTO);
-            return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+            return new ResponseEntity<>(orderDTO, HttpStatus.ACCEPTED);
         } else {
             throw new ApiRuntimeException("cannot update order without Id");
         }
     }
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<OrderDTO> create(@PathVariable("id") String id) {
+    public ResponseEntity<OrderDTO> findOrderById(@PathVariable("id") String id) {
         log.info("Inside get order Resource ");
         OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
-        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 }

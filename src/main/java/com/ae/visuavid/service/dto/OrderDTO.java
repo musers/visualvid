@@ -1,12 +1,13 @@
 package com.ae.visuavid.service.dto;
 
+import java.util.List;
 import java.util.UUID;
-import javax.persistence.Column;
 
 public class OrderDTO implements BaseDTO {
     private UUID id;
     private UUID userId;
     private String status;
+    private List<LineDTO> lines;
 
     public UUID getId() {
         return id;
@@ -30,5 +31,13 @@ public class OrderDTO implements BaseDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<LineDTO> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<LineDTO> lines) {
+        this.lines = lines;
     }
 }

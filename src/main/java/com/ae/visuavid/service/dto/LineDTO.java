@@ -1,8 +1,6 @@
 package com.ae.visuavid.service.dto;
 
-import com.codahale.metrics.MetricRegistryListener;
 import java.util.UUID;
-import javax.persistence.Column;
 
 public class LineDTO implements BaseDTO {
     private UUID id;

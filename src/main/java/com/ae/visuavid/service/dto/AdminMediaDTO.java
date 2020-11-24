@@ -36,6 +36,8 @@ public class AdminMediaDTO implements BaseDTO {
 
     private String turnAroundTime;
 
+    private Integer templateCount;
+
     private List<MediaSlideDTO> slides;
 
     public String getName() {
@@ -112,6 +114,14 @@ public class AdminMediaDTO implements BaseDTO {
 
     public List<MediaSlideDTO> getSlides() {
         return slides;
+    }
+
+    public Integer getTemplateCount() {
+        return templateCount;
+    }
+
+    public void setTemplateCount(Integer templateCount) {
+        this.templateCount = templateCount;
     }
 
     public void setSlides(List<MediaSlideDTO> slides) {

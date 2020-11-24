@@ -1,10 +1,12 @@
 package com.ae.visuavid.service;
 
+import com.ae.visuavid.domain.LineEntity;
 import com.ae.visuavid.domain.OrderEntity;
 import com.ae.visuavid.repository.OrderRepository;
 import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.service.mapper.OrderMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @Transactional
@@ -29,6 +32,7 @@ public class OrderService {
         try {
             OrderEntity orderEntity = orderMapper.toEntity(orderDTO);
             orderEntity.setStatus("Accepted");
+            updateLine(orderEntity);
             orderRepository.save(orderEntity);
             log.info("order saved successfully & OrderId is: {}  ", orderEntity.getId());
             return orderMapper.toDto(orderEntity);
@@ -62,6 +66,15 @@ public class OrderService {
         } catch (Exception e) {
             log.error("error while getting order by ID : {} : {} ", id, e);
             throw new ApiRuntimeException("error creating while getting order " + e.getMessage());
+        }
+    }
+
+    private void updateLine(OrderEntity orderEntity) {
+        List<LineEntity> lines = orderEntity.getLines();
+        if (!CollectionUtils.isEmpty(lines)) {
+            for (LineEntity lineEntity : lines) {
+                lineEntity.setOrder(orderEntity);
+            }
         }
     }
 }

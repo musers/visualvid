@@ -37,7 +37,7 @@ public class MediaSlideEntity extends AbstractAuditingEntity implements BaseEnti
     @JoinColumn(name = "media_id")
     private AdminMediaEntity media;
 
-    @OneToMany(mappedBy = "mediaSlide", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "mediaSlide", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<SlideItemEntity> slideItems;
 
