@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -203,5 +205,15 @@ public class AdminUploadService {
         s3KeyList.add(media.getPreviewVideoS3Key());
         s3KeyList.add(media.getThumbNailS3Key());
         s3Service.updateS3InfoStatus(s3KeyList, S3MediaStatusType.COMPLETED.name());
+    }
+
+    public List<AdminMediaDTO> findByCategory(String categoryId) {
+        List<AdminMediaEntity> mediaEntities = adminUploadFormRepository.findByCategoryId(categoryId);
+        return mediaMapper.toDtos(mediaEntities);
+    }
+
+    public Page<AdminMediaEntity> findByCategory(Pageable pageable, String categoryId) {
+        Page<AdminMediaEntity> mediaEntities = adminUploadFormRepository.findByCategoryId(pageable, categoryId);
+        return mediaEntities;
     }
 }

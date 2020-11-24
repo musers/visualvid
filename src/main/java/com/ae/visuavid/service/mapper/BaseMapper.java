@@ -4,6 +4,7 @@ import com.ae.visuavid.domain.BaseEntity;
 import com.ae.visuavid.service.dto.BaseDTO;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface BaseMapper<T extends BaseDTO, E extends BaseEntity> {
     E toEntity(T dto);
@@ -18,6 +19,13 @@ public interface BaseMapper<T extends BaseDTO, E extends BaseEntity> {
 
     default List<T> toDtos(List<E> entityList) {
         List<T> dtos = new ArrayList<>();
+        entityList.forEach(entity -> dtos.add(toDto(entity)));
+        return dtos;
+    }
+
+    default List<T> toDtos(Page<E> entityList) {
+        List<T> dtos = new ArrayList<>();
+
         entityList.forEach(entity -> dtos.add(toDto(entity)));
         return dtos;
     }
