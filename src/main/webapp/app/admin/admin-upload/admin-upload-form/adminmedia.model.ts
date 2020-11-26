@@ -15,5 +15,6 @@ export interface AdminMedia {
   textPlaceholder?: string;
   turnAroundTime?: string;
   slides: Array<Slide>;
-  tags?: Array<string>;
+  tagList?: Array<string>;
+  tags?: string;
 }
