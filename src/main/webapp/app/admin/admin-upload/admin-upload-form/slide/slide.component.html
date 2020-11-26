@@ -8,7 +8,7 @@
                             Name cannot be empty
                         </small>
                     </div>
-                <div class="image-placeholder">
+                <div class="image-placeholder" style="position: relative;">
                     <ng-container *ngIf="item.screenShotS3Url; else upload_tag">
                         <div class="image-container">
                             <img style="height:100%;width:100%;" class="image" src="{{item.screenShotS3Url}}" alt="Preview Image">

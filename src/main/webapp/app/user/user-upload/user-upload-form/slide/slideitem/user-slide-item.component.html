@@ -1,6 +1,6 @@
     <ng-container [ngSwitch]="adminItem.type">
         <div class="col pb-2" *ngSwitchCase="'image'">
-            <div class="image-placeholder">
+            <div class="image-placeholder" style="position: relative;">
                 <ng-container *ngIf="item?.s3Url; else upload_tag">
                     <div class="image-container">
                         <img style="height:100%;width:100%;" class="image" src="{{item?.s3Url}}" alt="Preview Image">
@@ -18,7 +18,7 @@
             <small class="form-text">{{adminItem.label}}</small>
         </div>
         <div class="col pb-2" *ngSwitchCase="'video'">
-            <div class="image-placeholder">
+            <div class="image-placeholder" style="position: relative;">
                 <ng-container *ngIf="item?.s3Url; else upload_tag">
                     <div class="image-container">
                         <img style="height:100%;width:100%;" class="image" src="{{item?.s3Url}}" alt="Preview Image">

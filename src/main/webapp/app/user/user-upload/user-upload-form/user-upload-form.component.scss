@@ -86,6 +86,14 @@
 }
 .upload-label {
   display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  display: grid;
+  align-content: center;
   padding-top: 30px;
 }
 .prev-next-bar {
