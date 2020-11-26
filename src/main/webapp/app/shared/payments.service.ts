@@ -33,6 +33,9 @@ RAZORPAY_OPTIONS = {
 
   payWithRazor(): void {
 //   https://stackblitz.com/edit/razorpayintegration-zllagv?file=src%2Fapp%2Fapp.component.ts
+// https://gist.github.com/sagrawal31/3471820b4f58024990cf888ae4c87377
+// https://razorpay.com/docs/payment-gateway/quick-integration/
+// https://razorpay.com/docs/payment-gateway/web-integration/standard/
     console.log('payWithRazor')
     this.RAZORPAY_OPTIONS.amount = 100 + '00';
     this.RAZORPAY_OPTIONS.currency = 'INR';
