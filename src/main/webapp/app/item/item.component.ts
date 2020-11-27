@@ -24,6 +24,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
   ) {
     console.log('item',data)
     this.item = data;
+    this.formatTags();
   }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
         if (res) {
           this.item = res;
           this.item.divId = this.item.id;
+          this.formatTags();
         }
       });
     }
@@ -40,6 +42,15 @@ export class ItemComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.item && this.item.divId) {
       this.player = videojs(document.getElementById('item-' + this.item.divId), {});
+    }
+  }
+  formatTags() : void {
+    if(this.item && this.item.tags){
+      this.item.tagList = this.item.tags.split(',').map(
+        function(t: string): string{
+          return t.replace(/@@/g,'');
+        }
+      )
     }
   }
 }
