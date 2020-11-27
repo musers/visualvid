@@ -13,6 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
@@ -31,7 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTabsModule,
     MatChipsModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
 })
 export class VisualvidSharedLibsModule {}

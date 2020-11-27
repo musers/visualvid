@@ -3,11 +3,16 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JhiAlertService } from 'ng-jhipster';
+import {
+  MatDialog,
+  MatDialogRef
+} from "@angular/material/dialog";
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { AdminMedia } from './adminmedia.model';
 import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
+import { ItemComponent } from 'app/item/item.component';
 
 @Component({
   selector: 'jhi-admin-upload-form',
@@ -44,11 +49,13 @@ export class AdminUploadFormComponent implements OnInit {
   addOnBlur = true;
   readonly tagSeparatorKeysCodes: number[] = [ENTER, COMMA];
   tagList: string[] = []
+  matDialogRef ?: MatDialogRef<ItemComponent>;
 
   constructor(
     private fileUploadService: FileUploadService,
     private adminMediaService: AdminMediaService,
-    private alertService: JhiAlertService
+    private alertService: JhiAlertService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -193,5 +200,16 @@ export class AdminUploadFormComponent implements OnInit {
       tags = list.map(t => '@@'+t+'@@').join(',');
     }
     return tags;
+  }
+  previewItem(): void{
+    this.errors = {};
+    this.validateAdminForm();
+    if (Object.keys(this.errors).length === 0 && !this.disabled) {
+      this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.divId = 'preview';
+      this.matDialogRef = this.matDialog.open(ItemComponent, {
+        data: this.item
+      });
+    }
   }
 }

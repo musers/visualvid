@@ -17,4 +17,5 @@ export interface AdminMedia {
   slides: Array<Slide>;
   tagList?: Array<string>;
   tags?: string;
+  divId?: string;
 }
