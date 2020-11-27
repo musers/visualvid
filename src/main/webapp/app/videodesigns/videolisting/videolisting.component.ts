@@ -30,7 +30,7 @@ export class VideoListingComponent implements OnInit {
     // TODO need to remove following
     window.location.href= '/customer/upload/'+item.id;
   }
-  onVideoItemDoubleClick(item: any): void {
+  onVideoItemDoubleClick( item: any): void {
     window.location.href= '/item/'+item.id;
   }
 

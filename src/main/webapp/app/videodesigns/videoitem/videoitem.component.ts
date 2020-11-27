@@ -17,7 +17,17 @@ export class VideoItemComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     if (this.item && this.item.id) {
-      this.player = videojs(document.getElementById(this.item.id), {});
+     const conf = {}
+     conf['userActions'] = {
+        doubleClick: () => {
+          if(this.player){
+            this.player.pause()
+          }
+       }
+     }
+      this.player = videojs(document.getElementById(this.item.id), conf);
     }
   }
+
+
 }
