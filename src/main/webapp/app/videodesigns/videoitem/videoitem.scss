@@ -1,10 +1,5 @@
-@import '~video.js/dist/video-js.css';
+
 video {
   object-fit: cover; /*to cover all the box*/
   border-radius: 0.25rem;
-}
-.video-js .vjs-big-play-button {
-  display: none !important;
-}
-.vjs-poster {
 }

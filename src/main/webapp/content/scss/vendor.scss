@@ -17,6 +17,7 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 
 @import '~quill/dist/quill.snow.css';
+@import '~video.js/dist/video-js.css';
 .popover {
   border-radius: 0.25rem !important;
 }
@@ -29,5 +30,10 @@ strong {
 .vjs-control-bar {
   visibility: hidden !important;
 }
-$center-big-play-button: true;
+.vjs-paused .vjs-big-play-button {
+   display: none;
+}
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+   display: block;
+}
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
