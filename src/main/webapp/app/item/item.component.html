@@ -1,6 +1,11 @@
 <div>
     <div class="container" *ngIf="item && item.previewVideoS3Url">
-        <div class="row mt-5">
+        <div class="item-breadcrumb text-muted mt-5">
+            <span class="home"></span>Home </span>/
+            <span class="category">{{item.categoryId?.replace('_',' ')}}</span>/
+            <span class="item-name">{{item.name}}</span>
+        </div>
+        <div class="row mt-4">
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="video-wrapper img-thumbnail">
                     <video id="item-{{item.divId}}" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"  controls="controls" preload="none"  data-setup="{}" poster="{{item.thumbNailS3Url}}">

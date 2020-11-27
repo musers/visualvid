@@ -208,7 +208,9 @@ export class AdminUploadFormComponent implements OnInit {
       this.item.tags = this.convertTagListToTags(this.tagList);
       this.item.divId = 'preview';
       this.matDialogRef = this.matDialog.open(ItemComponent, {
-        data: this.item
+        data: this.item,
+        width: '80%',
+        height: '100%'
       });
     }
   }
