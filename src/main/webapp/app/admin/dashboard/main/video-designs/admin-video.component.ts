@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminVideoService } from './admin-video.service';
 import { AdminVideoModel } from './admin-video.model';
-import { Pagination } from '../../../../../app/shared/util/request-util';
-import { HttpResponse } from '@angular/common/http';
->>>>>>> 24c02b8cb6cc34fdde719c598482337a9d080cc7
+// import { Pagination } from '../../../../../app/shared/util/request-util';
+// import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-admin-video',
