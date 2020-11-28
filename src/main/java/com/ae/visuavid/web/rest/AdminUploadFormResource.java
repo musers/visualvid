@@ -52,4 +52,14 @@ public class AdminUploadFormResource {
     public ResponseEntity<Page> findMediasByCategory(Pageable pageable, @PathVariable("id") String categoryId) {
         return ResponseEntity.ok(adminUploadService.findByCategory(pageable, categoryId));
     }
+
+    @GetMapping("project-upload/page/search/{media-name}")
+    public ResponseEntity<Page> searchMediaByMediaName(Pageable pageable, @PathVariable("media-name") String mediaName) {
+        return ResponseEntity.ok(adminUploadService.searchByMediaName(pageable, mediaName));
+    }
+
+    @GetMapping("/project-upload/page")
+    public ResponseEntity<Page> findAllByPage(Pageable pageable) {
+        return ResponseEntity.ok(adminUploadService.findAllByPage(pageable));
+    }
 }

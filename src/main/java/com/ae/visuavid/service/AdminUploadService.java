@@ -216,4 +216,14 @@ public class AdminUploadService {
         Page<AdminMediaEntity> mediaEntities = adminUploadFormRepository.findByCategoryId(pageable, categoryId);
         return mediaEntities;
     }
+
+    public Page<AdminMediaEntity> searchByMediaName(Pageable pageable, String mediaName) {
+        Page<AdminMediaEntity> mediaEntities = adminUploadFormRepository.findByNameIgnoreCaseContaining(pageable, mediaName);
+        return mediaEntities;
+    }
+
+    public Page<AdminMediaEntity> findAllByPage(Pageable pageable) {
+        Page<AdminMediaEntity> mediaEntities = adminUploadFormRepository.findAll(pageable);
+        return mediaEntities;
+    }
 }
