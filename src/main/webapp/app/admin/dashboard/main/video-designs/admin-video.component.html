@@ -4,7 +4,45 @@
     </div>
     <div class="row">
         <div class="col-6">
+            <input type="text" class="form-control search" id="search" placeholder="search...">
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3">
+            <a class="btn btn-primary btn-new ml-5"  routerLink="/admin/upload">
+                <span style="font-size: x-small;">+ Add New</span>
+            </a>
            
         </div>
+    </div>
+    <div class="row mt-4 menu-bar">
+         <div class="col-1 ml-n4">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="cb1" name="cb1">
+            </div>
+         </div>
+        <!-- <div class="col-1"><small>Id#</small></div> -->
+         <div class="col-3"><small>Name</small></div>
+         <div class="col-1"><small>Created</small></div>
+         <div class="col-1 ml-4"><small>Modified</small></div>
+         <div class="col-1 ml-4"> <small>Views</small></div>
+         <div class="col-1 ml-4"><small>Sales</small></div>
+         <div class="col-1 ml-4"><small>Earnings</small></div>  
+    </div>
+
+    <div *ngFor="let vd of videoDesigns">
+        <div class="row mt-1 menu-bar video-row">
+            <div class="col-1 ml-n4 mt-2">
+               <div class="custom-control custom-checkbox">
+                   <input type="checkbox" id="cb1" name="cb1">
+               </div>
+            </div>
+           <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
+            <div class="col-3 mt-2"><small>{{vd.name}}</small></div>
+            <div class="col-1 mt-2"><small>{{vd.created}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{vd.modified}}</small></div>
+            <div class="col-1 ml-4 mt-2"> <small>{{vd.views}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{vd.sales}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{vd.earnings}}</small></div>  
+       </div>
     </div>
 </div>
