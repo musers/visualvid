@@ -111,17 +111,17 @@
                 <div class="form-group row">
                     <label class="vlabel">Tags</label>
                     <div class="vtext-box">
+                        <input class="input-item"
+                               [matChipInputFor]="chipList"
+                               [matChipInputSeparatorKeyCodes]="tagSeparatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="addTag($event)">
                         <mat-chip-list #chipList>
-                            <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                            <mat-chip *ngFor="let tag of tagList" [selectable]="selectable"
                                       [removable]="removable" (removed)="removeTag(tag)">
                                 {{tag}}
                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                             </mat-chip>
-                            <input class="input-item" 
-                                   [matChipInputFor]="chipList"
-                                   [matChipInputSeparatorKeyCodes]="tagSeparatorKeysCodes"
-                                   [matChipInputAddOnBlur]="addOnBlur"
-                                   (matChipInputTokenEnd)="addTag($event)">
                         </mat-chip-list>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 </button>
             </div>
             <div class="form-group row mt-2">
-                    <button class="btn btn-primary preview-btn ml-auto" [disabled]="disabled">
+                    <button class="btn btn-primary preview-btn ml-auto" (click)="previewItem()">
                         <span class="">Preview</span>
                     </button>
                     <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">

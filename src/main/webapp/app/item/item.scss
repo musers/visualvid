@@ -1,0 +1,31 @@
+video {
+  object-fit: cover; /*to cover all the box*/
+  border-radius: 0.25rem;
+}
+.video-wrapper {
+  // width: 35rem;
+}
+.card {
+  margin-left: 5rem;
+}
+.section-title {
+  color:#43497b;
+  font-weight: bold;
+}
+.tag{
+  color: #7175d8;
+  padding: 3px
+}
+.tag:hover {
+  background: #7175d8;
+  color: #fff;
+  cursor: pionter;
+  margin: 3px;
+  cursor: pointer;
+}
+.item-breadcrumb {
+  .category: {
+    text-transform: capitalize;
+
+  }
+}

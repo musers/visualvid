@@ -12,6 +12,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
@@ -29,7 +31,9 @@ import { MatIconModule } from '@angular/material/icon';
     DragDropModule,
     MatTabsModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule
   ],
 })
 export class VisualvidSharedLibsModule {}

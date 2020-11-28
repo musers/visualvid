@@ -21,15 +21,9 @@ export class SlideComponent implements OnInit {
 
   ngOnInit(): void {}
   addSlideItem(e: any): void {
-    if (e === 'image') {
-      this.item.slideItems.push({
-        type: 'image',
-      });
-    } else if (e === 'label') {
-      this.item.slideItems.push({
-        type: 'label',
-      });
-    }
+    this.item.slideItems.push({
+          type: e,
+        });
   }
   removeSlideItem(ind: any): void {
     if(this.item.slideItems){

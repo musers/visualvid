@@ -1,6 +1,6 @@
 <div class="row p-4" style="overflow-x:hidden;">
     <ng-container *ngFor="let si of adminMediaSlide?.slideItems;let i=index;">
-        <jhi-user-upload-form-slide-item class="{{si.type === 'image'? 'col-4' : 'col-12'}}" [adminItem]="si" [userSlideItems]="userSlideItems" [index]="i"></jhi-user-upload-form-slide-item>
+        <jhi-user-upload-form-slide-item class="{{si.type === 'image' || si.type === 'video'? 'col-4' : 'col-12'}}" [adminItem]="si" [userSlideItems]="userSlideItems" [index]="i"></jhi-user-upload-form-slide-item>
         <div class="pb-4"></div>
     </ng-container>
 </div>

@@ -6,10 +6,22 @@
                 </div>
                 <div class="col ml-auto" class="{{item.type}}">
                     <ng-container *ngSwitchCase="'image'">
-                        <label class="btn btn-primary upload-btn r-btn">Upload</label>
+                        <label class="btn btn-primary upload-btn r-btn">Image</label>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'video'">
+                        <label class="btn btn-primary r-btn"><span class="text">Video</span></label>
                     </ng-container>
                     <ng-container *ngSwitchCase="'label'">
-                        <label class="btn btn-primary r-btn"><span class="text">Textbox</span></label>
+                        <label class="btn btn-primary r-btn"><span class="text">Label</span></label>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'inst'">
+                        <label class="btn btn-primary r-btn"><span class="text">Instruction</span></label>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'note'">
+                        <label class="btn btn-primary r-btn"><span class="text">Note</span></label>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'checkbox'">
+                        <label class="btn btn-primary r-btn"><span class="text">Checkbox</span></label>
                     </ng-container>
                     <svg-icon name="remove_circle_outline" (click)="removeSlideItem()"></svg-icon>
                     <ng-container *ngIf="isLast">
@@ -25,8 +37,12 @@
     </ng-template>
     <ng-template #popContent>
         <div popover-append-to-body="true">
-            <div (click)="addSlide('image')">Image Selection</div>
-            <div (click)="addSlide('label')">Text Selection</div>
+            <div (click)="addSlide('image')">Image</div>
+            <div (click)="addSlide('video')">Video</div>
+            <div (click)="addSlide('label')">Label</div>
+            <div (click)="addSlide('inst')">Instruction</div>
+            <div (click)="addSlide('note')">Note</div>
+            <div (click)="addSlide('checkbox')">Checkbox</div>
         </div>
     </ng-template>
 </div>

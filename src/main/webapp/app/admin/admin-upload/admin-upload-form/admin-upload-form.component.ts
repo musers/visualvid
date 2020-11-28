@@ -3,11 +3,16 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JhiAlertService } from 'ng-jhipster';
+import {
+  MatDialog,
+  MatDialogRef
+} from "@angular/material/dialog";
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { AdminMedia } from './adminmedia.model';
 import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
+import { ItemComponent } from 'app/item/item.component';
 
 @Component({
   selector: 'jhi-admin-upload-form',
@@ -43,12 +48,14 @@ export class AdminUploadFormComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly tagSeparatorKeysCodes: number[] = [ENTER, COMMA];
-  tags: string[] = []
+  tagList: string[] = []
+  matDialogRef ?: MatDialogRef<ItemComponent>;
 
   constructor(
     private fileUploadService: FileUploadService,
     private adminMediaService: AdminMediaService,
-    private alertService: JhiAlertService
+    private alertService: JhiAlertService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -82,17 +89,17 @@ export class AdminUploadFormComponent implements OnInit {
   addTag(event: any): void {
      const input = event.input;
      const value = event.value;
-     if ((value || '').trim() && !this.tags.includes(value.trim())) {
-       this.tags.push(value.trim());
+     if ((value || '').trim() && !this.tagList.includes(value.trim())) {
+       this.tagList.push(value.trim());
      }
      if (input) {
        input.value = '';
      }
    }
    removeTag(tag: string): void {
-     const index = this.tags.indexOf(tag);
+     const index = this.tagList.indexOf(tag);
      if (index >= 0) {
-       this.tags.splice(index, 1);
+       this.tagList.splice(index, 1);
      }
    }
 
@@ -145,7 +152,7 @@ export class AdminUploadFormComponent implements OnInit {
     this.errors = {};
     this.validateAdminForm();
     if (Object.keys(this.errors).length === 0 && !this.disabled) {
-      console.log('no errors');
+       this.item.tags = this.convertTagListToTags(this.tagList);
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
         this.disabled=true;
@@ -186,5 +193,25 @@ export class AdminUploadFormComponent implements OnInit {
       if(!s.screenShotS3Url){
         this.errors['slide'+index+'screenShotS3UrlRequired']=true;
       }
+  }
+  convertTagListToTags(list: Array<string>): string {
+    let tags = '';
+    if(list){
+      tags = list.map(t => '@@'+t+'@@').join(',');
+    }
+    return tags;
+  }
+  previewItem(): void{
+    this.errors = {};
+    this.validateAdminForm();
+    if (Object.keys(this.errors).length === 0 && !this.disabled) {
+      this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.divId = 'preview';
+      this.matDialogRef = this.matDialog.open(ItemComponent, {
+        data: this.item,
+        width: '80%',
+        height: '100%'
+      });
+    }
   }
 }

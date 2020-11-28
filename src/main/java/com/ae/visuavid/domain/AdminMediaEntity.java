@@ -59,6 +59,15 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
     @Column(name = "preview_video_s3_key")
     private String previewVideoS3Key;
 
+    @Column(name = "template_count")
+    private Integer templateCount;
+
+    @Column(name = "earnings")
+    private Double earnings;
+
+    @Column(name = "tags")
+    private String tags;
+
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<MediaSlideEntity> slides;
@@ -173,5 +182,29 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     public void setPreviewVideoS3Key(String previewVideoS3Key) {
         this.previewVideoS3Key = previewVideoS3Key;
+    }
+
+    public Integer getTemplateCount() {
+        return templateCount;
+    }
+
+    public void setTemplateCount(Integer templateCount) {
+        this.templateCount = templateCount;
+    }
+
+    public Double getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(Double earnings) {
+        this.earnings = earnings;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

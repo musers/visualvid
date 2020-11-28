@@ -36,6 +36,12 @@ public class AdminMediaDTO implements BaseDTO {
 
     private String turnAroundTime;
 
+    private Integer templateCount;
+
+    private Double earnings;
+
+    private String tags;
+
     private List<MediaSlideDTO> slides;
 
     public String getName() {
@@ -114,6 +120,14 @@ public class AdminMediaDTO implements BaseDTO {
         return slides;
     }
 
+    public Integer getTemplateCount() {
+        return templateCount;
+    }
+
+    public void setTemplateCount(Integer templateCount) {
+        this.templateCount = templateCount;
+    }
+
     public void setSlides(List<MediaSlideDTO> slides) {
         this.slides = slides;
     }
@@ -148,5 +162,21 @@ public class AdminMediaDTO implements BaseDTO {
 
     public void setThumbNailS3Key(String thumbNailS3Key) {
         this.thumbNailS3Key = thumbNailS3Key;
+    }
+
+    public Double getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(Double earnings) {
+        this.earnings = earnings;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

@@ -17,13 +17,26 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 
 @import '~quill/dist/quill.snow.css';
+@import '~video.js/dist/video-js.css';
 .popover {
   border-radius: 0.25rem !important;
+}
+.img-thumbnail{
+  padding: 0.5rem!important;
 }
 strong {
   font-weight: bold !important;
 }
 .text-muted {
     color: #AAABB3 !important;
+}
+.vjs-control-bar {
+  visibility: hidden !important;
+}
+.vjs-paused .vjs-big-play-button {
+   display: none;
+}
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+   display: block;
 }
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

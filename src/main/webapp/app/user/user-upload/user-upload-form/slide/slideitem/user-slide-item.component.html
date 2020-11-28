@@ -1,6 +1,6 @@
     <ng-container [ngSwitch]="adminItem.type">
         <div class="col pb-2" *ngSwitchCase="'image'">
-            <div class="image-placeholder">
+            <div class="image-placeholder" style="position: relative;">
                 <ng-container *ngIf="item?.s3Url; else upload_tag">
                     <div class="image-container">
                         <img style="height:100%;width:100%;" class="image" src="{{item?.s3Url}}" alt="Preview Image">
@@ -17,9 +17,43 @@
             </div>
             <small class="form-text">{{adminItem.label}}</small>
         </div>
+        <div class="col pb-2" *ngSwitchCase="'video'">
+            <div class="image-placeholder" style="position: relative;">
+                <ng-container *ngIf="item?.s3Url; else upload_tag">
+                    <div class="image-container">
+                        <img style="height:100%;width:100%;" class="image" src="{{item?.s3Url}}" alt="Preview Image">
+<!--                        <video source src="{{item?.s3Url}}"></video>-->
+                        <div class="overlay-text" (click)="removeFile()">
+                            <div class="text">remove</div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #upload_tag>
+                    <input type="file" accept="video/*" #fileDropRef id="fileDropRefvideo{{adminItem.id}}"
+                           style="width:0px;height:0px;visibility:hidden;" (change)="uploadFile($event)"/>
+                    <label for="fileDropRefvideo{{adminItem.id}}" class="upload-label">+</label>
+                </ng-template>
+            </div>
+            <small class="form-text">{{adminItem.label}}</small>
+        </div>
         <div class="col-12 pb-2" *ngSwitchCase="'label'">
             <input type="text" class="input-item label shadow" style="width:100%;border:none;" [(ngModel)]="item.itemValue"/>
             <small class="form-text">{{adminItem.label}}</small>
         </div>
+        <div class="col-12 pb-2" *ngSwitchCase="'inst'">
+            <input type="text" class="input-item inst shadow" style="width:100%;border:none;" [(ngModel)]="item.itemValue"/>
+            <small class="form-text">{{adminItem.label}}</small>
+        </div>
+        <div class="col-12" *ngSwitchCase="'note'">
+            <small class="form-text bg-primary text-white p-2 rounded"><svg-icon name="info-white"></svg-icon> {{adminItem.label}}</small>
+        </div>
+        <div class="col-12 pb-2" *ngSwitchCase="'checkbox'">
+            <mat-checkbox name="label" color='primary'
+                [(ngModel)]="item.itemValue">
+                {{adminItem.label}}
+            </mat-checkbox>
+<!--            <small class="form-text">{{adminItem.label}}</small>-->
+        </div>
+
         <div class="pb-2"></div>
     </ng-container>
