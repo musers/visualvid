@@ -21,7 +21,7 @@ export class VideoListingComponent implements OnInit {
   loadData(): void {
     this.adminMediaService.getAll(this.category.categoryId).subscribe(data => {
       if (data) {
-        this.list = data;
+        this.list = data.content;
       }
     });
   }

@@ -41,7 +41,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     if (this.item && this.item.divId) {
-      this.player = videojs(document.getElementById('item-' + this.item.divId), {});
+//       this.player = videojs(document.getElementById('item-' + this.item.divId), {});
     }
   }
   formatTags() : void {

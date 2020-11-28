@@ -19,9 +19,7 @@ export class AdminMediaService {
     return this.httpClient.get(this.resourceUrl+'/'+id);
   }
   public getAll(categoryId: String): Observable<any> {
-    console.log('Fetching videos under categoryId: ', categoryId);
-    // TODO need to get by cateogiry ids
-    return this.httpClient.get(this.resourceUrl);
+    return this.httpClient.get(this.resourceUrl+'/page/category/'+categoryId);
   }
   public getCategories(): Observable<AdminCategory[]> {
     return this.httpClient.get<AdminCategory[]>(this.categoryUrl);
