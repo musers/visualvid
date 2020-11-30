@@ -1,9 +1,9 @@
 package com.ae.visuavid.service.dto;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import javax.validation.constraints.NotNull;
 
 public class AdminMediaDTO implements BaseDTO {
     private UUID id;
@@ -18,6 +18,24 @@ public class AdminMediaDTO implements BaseDTO {
 
     @NotNull
     private BigDecimal indianPrice;
+
+    @NotNull
+    private BigDecimal indianDiscPrice;
+
+    @NotNull
+    private BigDecimal indianAdvCustomizationPrice;
+
+    @NotNull
+    private BigDecimal indianPremumDeliveryPrice;
+
+    @NotNull
+    private BigDecimal usdDiscPrice;
+
+    @NotNull
+    private BigDecimal usdAdvCustomizationPrice;
+
+    @NotNull
+    private BigDecimal usdPremumDeliveryPrice;
 
     @NotNull
     private BigDecimal usdPrice;
@@ -178,5 +196,53 @@ public class AdminMediaDTO implements BaseDTO {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public BigDecimal getIndianDiscPrice() {
+        return indianDiscPrice;
+    }
+
+    public void setIndianDiscPrice(BigDecimal indianDiscPrice) {
+        this.indianDiscPrice = indianDiscPrice;
+    }
+
+    public BigDecimal getIndianAdvCustomizationPrice() {
+        return indianAdvCustomizationPrice;
+    }
+
+    public void setIndianAdvCustomizationPrice(BigDecimal indianAdvCustomizationPrice) {
+        this.indianAdvCustomizationPrice = indianAdvCustomizationPrice;
+    }
+
+    public BigDecimal getIndianPremumDeliveryPrice() {
+        return indianPremumDeliveryPrice;
+    }
+
+    public void setIndianPremumDeliveryPrice(BigDecimal indianPremumDeliveryPrice) {
+        this.indianPremumDeliveryPrice = indianPremumDeliveryPrice;
+    }
+
+    public BigDecimal getUsdDiscPrice() {
+        return usdDiscPrice;
+    }
+
+    public void setUsdDiscPrice(BigDecimal usdDiscPrice) {
+        this.usdDiscPrice = usdDiscPrice;
+    }
+
+    public BigDecimal getUsdAdvCustomizationPrice() {
+        return usdAdvCustomizationPrice;
+    }
+
+    public void setUsdAdvCustomizationPrice(BigDecimal usdAdvCustomizationPrice) {
+        this.usdAdvCustomizationPrice = usdAdvCustomizationPrice;
+    }
+
+    public BigDecimal getUsdPremumDeliveryPrice() {
+        return usdPremumDeliveryPrice;
+    }
+
+    public void setUsdPremumDeliveryPrice(BigDecimal usdPremumDeliveryPrice) {
+        this.usdPremumDeliveryPrice = usdPremumDeliveryPrice;
     }
 }
