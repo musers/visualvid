@@ -9,10 +9,6 @@
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="video-wrapper img-thumbnail">
                         <img class="w-100" src="{{item.thumbNailS3Url}}" (click)="playVideo(item.previewVideoS3Url)"></img>
-<!--                    <video id="item-{{item.divId}}" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" poster="{{item.thumbNailS3Url}}">-->
-<!--                        <source src="{{item.previewVideoS3Url}}" type="video/mp4">-->
-<!--                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>-->
-<!--                    </video>-->
                 </div>
                 <div class="lead pt-4 pl-4 video-desc">
                     <div class="section-title">Video Description</div>
@@ -35,20 +31,41 @@
                 <div class="border p-1" style="">
                     <div class="lead m-4">
                         <div  style="color:#43497b">{{item?.name}}</div>
-                        <div class="lead mt-2" style="color:#43497b; font-weight: bold;"> {{item?.usdPrice | currency:'USD'}}</div>
+                        <div class="lead mt-2" style="color:#43497b; font-weight: bold;">
+                            <ng-container *ngIf="isIpIndian">
+                                {{item.indianPrice | currency:'INR'}}
+                            </ng-container>
+                            <ng-container *ngIf="!isIpIndian">
+                                {{item.usdPrice | currency:'USD'}}
+                            </ng-container>
+                        </div>
                         <div style="font-size:x-small;color: #aaabb3">Regular Price + Premium Delivery</div>
                         <ng-container *ngIf="item.usdAdvCustomizationPrice">
                             <div class="custom-control custom-checkbox mt-4 d-flex" style="font-size: small; color: #828599;">
                                 <input type="checkbox" class="custom-control-input" id="1">
                                 <label class="custom-control-label" for="1">Advanced Customization</label>
-                                <span class="ml-auto" style="font-weight: bold;">{{item.usdAdvCustomizationPrice | currency:'USD'}}</span>
+                                <span class="ml-auto" style="font-weight: bold;">
+                                    <ng-container *ngIf="isIpIndian">
+                                        {{item.indianAdvCustomizationPrice | currency:'INR'}}
+                                    </ng-container>
+                                    <ng-container *ngIf="!isIpIndian">
+                                        {{item.usdAdvCustomizationPrice | currency:'USD'}}
+                                    </ng-container>
+                                </span>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="item.usdPremumDeliveryPrice">
                             <div class="custom-control custom-checkbox mt-2 d-flex" style="font-size: small; color: #828599;">
                                 <input type="checkbox" class="custom-control-input" id="2">
                                 <label class="custom-control-label" for="2" style="font-size: small;">Premium Delivery (Rush Order)</label>
-                                <span class="ml-auto" style="font-weight: bold;">$ {{item.usdPremumDeliveryPrice | currency:'USD'}}</span>
+                                <span class="ml-auto" style="font-weight: bold;">
+                                    <ng-container *ngIf="isIpIndian">
+                                        {{item.indianPremumDeliveryPrice | currency:'INR'}}
+                                    </ng-container>
+                                    <ng-container *ngIf="!isIpIndian">
+                                        {{item.usdPremumDeliveryPrice | currency:'USD'}}
+                                    </ng-container>
+                                </span>
                             </div>
                         </ng-container>
 

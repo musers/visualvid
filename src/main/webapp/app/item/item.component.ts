@@ -3,6 +3,7 @@ import videojs from 'video.js';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
+import { CountryService } from 'app/shared/country.service';
 
 import {
   MatDialog,
@@ -24,15 +25,18 @@ export class ItemComponent implements OnInit, AfterViewInit {
   @Input() item?: AdminMedia = {
     slides: [],
   };
+  isIpIndian  = true;
   matDialogRef ?: MatDialogRef<VideoItemComponent>;
   constructor(private itemService: ItemService,
     private route: ActivatedRoute,
     private matDialog: MatDialog,
+    private countryService: CountryService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item',data)
     this.item = data;
     this.formatTags();
+    this.isIpIndian = countryService.isIpIndian();
   }
 
   ngOnInit(): void {
