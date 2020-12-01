@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewEncapsulation, Inject, Optional} from '@angular/core';
 import videojs from 'video.js';
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 @Component({
@@ -10,9 +11,15 @@ import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.
 })
 export class VideoItemComponent implements OnInit, AfterViewInit {
   public player?: videojs.Player;
-
+  autoplay = false;
   @Input() item?: AdminMedia;
-  constructor() {}
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) data?: any) {
+    if(data){
+      this.item = data.item;
+      this.autoplay = data.config?.autoplay;
+    }
+
+  }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
@@ -25,6 +32,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit {
           }
        }
      }
+     conf['autoplay'] = this.autoplay;
       this.player = videojs(document.getElementById(this.item.id), conf);
     }
   }

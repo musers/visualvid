@@ -1,7 +1,13 @@
-import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional} from '@angular/core';
 import videojs from 'video.js';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
+
+import {
+  MatDialog,
+  MatDialogRef
+} from "@angular/material/dialog";
 
 import { AdminMedia } from '../../app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { ItemService } from '../../app/item/item.service';
@@ -18,8 +24,10 @@ export class ItemComponent implements OnInit, AfterViewInit {
   @Input() item?: AdminMedia = {
     slides: [],
   };
+  matDialogRef ?: MatDialogRef<VideoItemComponent>;
   constructor(private itemService: ItemService,
     private route: ActivatedRoute,
+    private matDialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item',data)
@@ -52,5 +60,17 @@ export class ItemComponent implements OnInit, AfterViewInit {
         }
       )
     }
+  }
+  playVideo(videoUrl: string): void {
+    console.log(videoUrl);
+      this.matDialogRef = this.matDialog.open(VideoItemComponent, {
+      data: {
+          item: this.item,
+          config: {
+            autoplay: true,
+          }
+        },
+        width: '60%'
+      });
   }
 }

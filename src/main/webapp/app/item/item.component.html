@@ -8,10 +8,11 @@
         <div class="row mt-4">
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="video-wrapper img-thumbnail">
-                    <video id="item-{{item.divId}}" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"  controls="controls" preload="none"  data-setup="{}" poster="{{item.thumbNailS3Url}}">
-                        <source src="{{item.previewVideoS3Url}}" type="video/mp4">
-                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                    </video>
+                        <img class="w-100" src="{{item.thumbNailS3Url}}" (click)="playVideo(item.previewVideoS3Url)"></img>
+<!--                    <video id="item-{{item.divId}}" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" poster="{{item.thumbNailS3Url}}">-->
+<!--                        <source src="{{item.previewVideoS3Url}}" type="video/mp4">-->
+<!--                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>-->
+<!--                    </video>-->
                 </div>
                 <div class="lead pt-4 pl-4 video-desc">
                     <div class="section-title">Video Description</div>
