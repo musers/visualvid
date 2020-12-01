@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional} from '@angular/core';
 import videojs from 'video.js';
+import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
@@ -31,6 +33,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private matDialog: MatDialog,
     private countryService: CountryService,
+    private razorpayService: RazorpayService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item',data)
@@ -76,5 +79,29 @@ export class ItemComponent implements OnInit, AfterViewInit {
         },
         width: '60%'
       });
+  }
+  pay(): void {
+    console.log('pay');
+        const options = {
+            description: 'Foo Description',
+            key: 'rzp_test_wTzvK2HN5T7KjZ',
+            order_id: '',
+            amount: 100,
+            name: 'Foo',
+            prefill: {
+                email: 'test@test.com',
+                contact: '+918087930476',
+                name: 'Bala'
+            },
+           currency: "INR",
+        };
+
+
+        try {
+            this.razorpayService.payWithRazor(options);
+//             console.log(data);
+        } catch (e) {
+            console.error(e);
+        }
   }
 }

@@ -7,7 +7,7 @@ import { WindowRefService } from 'app/shared/window-ref.service';
 export class PaymentsService {
 
 RAZORPAY_OPTIONS = {
-    "key": "rzp_test_SyBnYSupAIAg5F",
+    "key": "rzp_test_wTzvK2HN5T7KjZ",
     "amount": "",
     "name": "Visualvid",
     "order_id": "",
