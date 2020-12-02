@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
     private S3 s3 = new S3();
+    private Razorpay razorpay = new Razorpay();
 
     public S3 getS3() {
         return s3;
@@ -27,5 +28,37 @@ public class ApplicationProperties {
         public void setBucketName(String bucketName) {
             this.bucketName = bucketName;
         }
+    }
+    public static class Razorpay {
+        private String key;
+        private String secret;
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getSecret() {
+            return secret;
+        }
+
+        public void setSecret(String secret) {
+            this.secret = secret;
+        }
+    }
+
+    public void setS3(S3 s3) {
+        this.s3 = s3;
+    }
+
+    public Razorpay getRazorpay() {
+        return razorpay;
+    }
+
+    public void setRazorpay(Razorpay razorpay) {
+        this.razorpay = razorpay;
     }
 }

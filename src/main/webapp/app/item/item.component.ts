@@ -2,6 +2,7 @@
 import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional} from '@angular/core';
 import videojs from 'video.js';
 import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
+import { PaymentService } from 'app/shared/payment/payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
@@ -34,6 +35,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
     private matDialog: MatDialog,
     private countryService: CountryService,
     private razorpayService: RazorpayService,
+    private paymentService: PaymentService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item',data)
@@ -82,26 +84,30 @@ export class ItemComponent implements OnInit, AfterViewInit {
   }
   pay(): void {
     console.log('pay');
-        const options = {
-            description: 'Foo Description',
-            key: 'rzp_test_wTzvK2HN5T7KjZ',
-            order_id: '',
-            amount: 100,
-            name: 'Foo',
-            prefill: {
-                email: 'test@test.com',
-                contact: '+918087930476',
-                name: 'Bala'
-            },
-           currency: "INR",
-        };
+//     const orderId = 'test5'
+//       this.paymentService.createPaymentOrder(orderId).subscribe(data => {
+//          console.log(data);
+//       const options = {
+//           description: 'Foo Description',
+//           key: 'rzp_test_wTzvK2HN5T7KjZ',
+//           order_id: data.razorPayOrderId,
+//           amount: data.amount,
+//           name: 'Foo',
+//           prefill: {
+//               email: 'test@test.com',
+//               contact: '+918087930476',
+//               name: 'Bala'
+//           },
+//          currency: data.currencyCode,
+//       };
+//
+//       try {
+//           this.razorpayService.payWithRazor(options);
+//       } catch (e) {
+//           console.error(e);
+//       }
+//
+//       });
 
-
-        try {
-            this.razorpayService.payWithRazor(options);
-//             console.log(data);
-        } catch (e) {
-            console.error(e);
-        }
   }
 }
