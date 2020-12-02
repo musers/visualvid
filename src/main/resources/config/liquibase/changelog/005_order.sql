@@ -1,6 +1,6 @@
 create table cart_order (
 id UUID PRIMARY KEY,
-user_id VARCHAR(30)  NOT NULL,
+user_id UUID NOT NULL,
 status VARCHAR(10),
 created_date TIMESTAMP,
 last_modified_date TIMESTAMP,
