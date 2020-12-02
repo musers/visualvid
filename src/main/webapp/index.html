@@ -12,6 +12,7 @@
     <link rel="manifest" href="manifest.webapp" />
     <link rel="stylesheet" href="content/css/loading.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
 </head>
 <body>
@@ -118,5 +119,11 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+    <script>
+        function updateCountry(obj){
+            localStorage.setItem('countryObj',JSON.stringify(obj));
+        }
+    </script>
+    <script src="https://freegeoip.app/json/?callback=updateCountry"></script>
 </body>
 </html>

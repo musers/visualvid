@@ -143,6 +143,7 @@
   "user.uploadform.saved.successfully": "Template has been saved successfully",
   "customerUploadForm": "Customer Upload Form",
   "itemForm": "Item View",
+  "dashboardForm": "Dashboard",
   "atleastOneSlideItemRequired": "At least one item required",
   "atleastOneSlideRequired": "At least one slide required"
 }

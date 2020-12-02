@@ -1,4 +1,8 @@
-<div class="admin-upload rounded pt-3">
+<div class="admin-upload rounded pt-3" *ngIf="readMode">
     <jhi-alert></jhi-alert>
     <jhi-admin-upload-form></jhi-admin-upload-form>
+</div>
+<div class="admin-upload rounded pt-3" *ngIf="!readMode">
+    <jhi-alert></jhi-alert>
+    <jhi-admin-upload-form [item]="item"></jhi-admin-upload-form>
 </div>

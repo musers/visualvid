@@ -1,12 +1,13 @@
 package com.ae.visuavid.domain;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "media")
@@ -34,6 +35,24 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     @Column(name = "indian_price")
     private BigDecimal indianPrice;
+
+    @Column(name = "indian_disc_price")
+    private BigDecimal indianDiscPrice;
+
+    @Column(name = "indian_adv_cust_price")
+    private BigDecimal indianAdvCustomizationPrice;
+
+    @Column(name = "indian_prem_delivery_price")
+    private BigDecimal indianPremumDeliveryPrice;
+
+    @Column(name = "usd_disc_price")
+    private BigDecimal usdDiscPrice;
+
+    @Column(name = "usd_adv_cust_price")
+    private BigDecimal usdAdvCustomizationPrice;
+
+    @Column(name = "usd_prem_delivery_price")
+    private BigDecimal usdPremumDeliveryPrice;
 
     @Column(name = "usd_price")
     private BigDecimal usdPrice;
@@ -206,5 +225,53 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public BigDecimal getIndianDiscPrice() {
+        return indianDiscPrice;
+    }
+
+    public void setIndianDiscPrice(BigDecimal indianDiscPrice) {
+        this.indianDiscPrice = indianDiscPrice;
+    }
+
+    public BigDecimal getIndianAdvCustomizationPrice() {
+        return indianAdvCustomizationPrice;
+    }
+
+    public void setIndianAdvCustomizationPrice(BigDecimal indianAdvCustomizationPrice) {
+        this.indianAdvCustomizationPrice = indianAdvCustomizationPrice;
+    }
+
+    public BigDecimal getIndianPremumDeliveryPrice() {
+        return indianPremumDeliveryPrice;
+    }
+
+    public void setIndianPremumDeliveryPrice(BigDecimal indianPremumDeliveryPrice) {
+        this.indianPremumDeliveryPrice = indianPremumDeliveryPrice;
+    }
+
+    public BigDecimal getUsdDiscPrice() {
+        return usdDiscPrice;
+    }
+
+    public void setUsdDiscPrice(BigDecimal usdDiscPrice) {
+        this.usdDiscPrice = usdDiscPrice;
+    }
+
+    public BigDecimal getUsdAdvCustomizationPrice() {
+        return usdAdvCustomizationPrice;
+    }
+
+    public void setUsdAdvCustomizationPrice(BigDecimal usdAdvCustomizationPrice) {
+        this.usdAdvCustomizationPrice = usdAdvCustomizationPrice;
+    }
+
+    public BigDecimal getUsdPremumDeliveryPrice() {
+        return usdPremumDeliveryPrice;
+    }
+
+    public void setUsdPremumDeliveryPrice(BigDecimal usdPremumDeliveryPrice) {
+        this.usdPremumDeliveryPrice = usdPremumDeliveryPrice;
     }
 }

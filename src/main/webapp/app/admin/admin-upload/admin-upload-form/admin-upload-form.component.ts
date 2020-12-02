@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -35,6 +35,7 @@ import { ItemComponent } from 'app/item/item.component';
   ],
 })
 export class AdminUploadFormComponent implements OnInit {
+  @Input()
   item: AdminMedia = {
     slides: [],
   };
@@ -59,7 +60,9 @@ export class AdminUploadFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if(this.item.slides){
+    console.log('item loaded',this.item);
+
+    if(!this.item.id && this.item.slides){
       this.item.slides.push({
         slideName: '',
         slideItems: this.getInitialSlideItems(),

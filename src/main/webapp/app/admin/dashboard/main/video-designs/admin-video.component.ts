@@ -31,7 +31,6 @@ export class AdminVideoComponent implements OnInit {
       if (res != null) {
         this.videoDesigns = res;
         this.videoDesigns.forEach(vd => {
-          vd.id = '#000' + this.count + 1;
           vd.created = 'Sep23, 2020';
           vd.modified = 'Sep23, 2020';
           vd.views = 500;
@@ -40,5 +39,8 @@ export class AdminVideoComponent implements OnInit {
         });
       }
     });
+  }
+  editVideoDesign(vd:AdminVideoModel): void {
+    window.location.href='/admin/upload/'+vd.id;
   }
 }

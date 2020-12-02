@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-v-dark-blue">
-    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+    <a class="navbar-brand logo" href="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
     </a>
 
@@ -89,9 +89,9 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
                     <li>
-                        <a class="dropdown-item" routerLink="admin/upload" routerLinkActive="active" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="admin/dashboard" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="arrow-up" [fixedWidth]="true"></fa-icon>
-                            <span>Upload Template</span>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     <li>

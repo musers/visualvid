@@ -6,6 +6,12 @@ export interface AdminMedia {
   description?: string;
   categoryId?: string;
   indianPrice?: any;
+  indianDiscPrice?: any;
+  indianAdvCustomizationPrice?: any;
+  indianPremumDeliveryPrice?: any;
+  usdDiscPrice?: any;
+  usdAdvCustomizationPrice?: any;
+  usdPremumDeliveryPrice?: any;
   usdPrice?: any;
   previewVideoS3Url?: string;
   previewVideoS3Key?: string;
