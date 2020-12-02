@@ -62,7 +62,7 @@ export class AdminUploadFormComponent implements OnInit {
   ngOnInit(): void {
     console.log('item loaded',this.item);
 
-    if(this.item.slides){
+    if(!this.item.id && this.item.slides){
       this.item.slides.push({
         slideName: '',
         slideItems: this.getInitialSlideItems(),
