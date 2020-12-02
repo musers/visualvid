@@ -84,30 +84,30 @@ export class ItemComponent implements OnInit, AfterViewInit {
   }
   pay(): void {
     console.log('pay');
-//     const orderId = 'test5'
-//       this.paymentService.createPaymentOrder(orderId).subscribe(data => {
-//          console.log(data);
-//       const options = {
-//           description: 'Foo Description',
-//           key: 'rzp_test_wTzvK2HN5T7KjZ',
-//           order_id: data.razorPayOrderId,
-//           amount: data.amount,
-//           name: 'Foo',
-//           prefill: {
-//               email: 'test@test.com',
-//               contact: '+918087930476',
-//               name: 'Bala'
-//           },
-//          currency: data.currencyCode,
-//       };
-//
-//       try {
-//           this.razorpayService.payWithRazor(options);
-//       } catch (e) {
-//           console.error(e);
-//       }
-//
-//       });
+    const orderId = 'test5'
+      this.paymentService.createPaymentOrder(orderId).subscribe(data => {
+         console.log(data);
+      const options = {
+          description: 'Foo Description',
+          key: 'rzp_test_wTzvK2HN5T7KjZ',
+          order_id: data.razorPayOrderId,
+          amount: data.amount,
+          name: 'Foo',
+          prefill: {
+              email: 'test@test.com',
+              contact: '+918087930476',
+              name: 'Bala'
+          },
+         currency: data.currencyCode,
+      };
+
+      try {
+          this.razorpayService.payWithRazor(options);
+      } catch (e) {
+          console.error(e);
+      }
+
+      });
 
   }
 }

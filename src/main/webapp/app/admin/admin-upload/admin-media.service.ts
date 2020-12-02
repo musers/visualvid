@@ -13,7 +13,12 @@ export class AdminMediaService {
   constructor(protected httpClient: HttpClient) {}
 
   public save(adminMedia: AdminMedia): Observable<any> {
-    return this.httpClient.post(this.resourceUrl, adminMedia);
+    if(adminMedia.id){
+      return this.httpClient.put(this.resourceUrl, adminMedia);
+    }else{
+      return this.httpClient.post(this.resourceUrl, adminMedia);
+    }
+
   }
   public get(id: String): Observable<any> {
     return this.httpClient.get(this.resourceUrl+'/'+id);

@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./metrics/metrics.module').then(m => m.MetricsModule),
       },
       {
-        path: 'upload',
+        path: 'upload/:adminMediaId',
         loadChildren: () => import('./admin-upload/admin-upload.module').then(m => m.AdminUploadModule),
       },
       {
