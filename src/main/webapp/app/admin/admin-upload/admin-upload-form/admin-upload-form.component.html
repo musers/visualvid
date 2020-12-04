@@ -43,6 +43,9 @@
                     <label class="vlabel" style="">Preview Video</label>
                     <div class="vtext-box">
                         <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
+<!--                        <mat-icon check_circle_outline *ngIf="item.previewVideoS3Url"></mat-icon>-->
+                        <!--<span class="material-icons">check_circle_outline</span>-->
+                        <span *ngIf="!item.previewVideoS3Url" class="material-icons">check_circle_outline</span>
                         <div *ngIf="errors.previewVideoS3UrlRequired">
                             <small class="form-text text-danger">
                                 Preview Video cannot be empty.
@@ -55,6 +58,7 @@
                     <label class="vlabel" style="">Thumbnail</label>
                     <div class="vtext-box">
                         <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
+                            <span *ngIf="item.thumbNailS3Url" class="material-icons">check_circle_outline</span>
                         <div *ngIf="errors.thumbNailS3UrlRequired">
                             <small class="form-text text-danger">
                                 Thumbnail cannot be empty.
