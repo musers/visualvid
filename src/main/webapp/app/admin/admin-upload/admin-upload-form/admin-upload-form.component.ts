@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Inject, Optional } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JhiAlertService } from 'ng-jhipster';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { AdminMedia } from './adminmedia.model';
 import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
 import { ItemComponent } from 'app/item/item.component';
-import { UserUploadFormComponent } from 'app/user/user-upload/user-upload-form/user-upload-form.component';
+import { PreviewComponent } from 'app/admin/admin-upload/preview/preview.component';
 @Component({
   selector: 'jhi-admin-upload-form',
   templateUrl: './admin-upload-form.component.html',
@@ -48,7 +48,7 @@ export class AdminUploadFormComponent implements OnInit {
   readonly tagSeparatorKeysCodes: number[] = [ENTER, COMMA];
   tagList: string[] = [];
   matDialogRef?: MatDialogRef<ItemComponent>;
-  previewMatDialogRef: MatDialogRef<UserUploadFormComponent>;
+  previewMatDialogRef: MatDialogRef<PreviewComponent>;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -228,14 +228,14 @@ export class AdminUploadFormComponent implements OnInit {
   preview(): void {
     this.errors = {};
     this.validateAdminForm();
-    // if (Object.keys(this.errors).length === 0 && !this.disabled) {
-    this.item.tags = this.convertTagListToTags(this.tagList);
-    this.item.divId = 'preview';
-    this.previewMatDialogRef = this.matDialog.open(UserUploadFormComponent, {
-      data: this.item,
-      width: '80%',
-      height: '100%',
-    });
-    // }
+    if (Object.keys(this.errors).length === 0 && !this.disabled) {
+      this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.divId = 'preview';
+      this.previewMatDialogRef = this.matDialog.open(PreviewComponent, {
+        data: this.item,
+        width: '80%',
+        height: '100%',
+      });
+    }
   }
 }

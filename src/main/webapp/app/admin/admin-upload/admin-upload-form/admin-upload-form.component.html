@@ -43,8 +43,6 @@
                     <label class="vlabel" style="">Preview Video</label>
                     <div class="vtext-box">
                         <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
-<!--                        <mat-icon check_circle_outline *ngIf="item.previewVideoS3Url"></mat-icon>-->
-                        <!--<span class="material-icons">check_circle_outline</span>-->
                         <span *ngIf="item.previewVideoS3Url" class="material-icons">check_circle_outline</span>
                         <div *ngIf="errors.previewVideoS3UrlRequired">
                             <small class="form-text text-danger">
@@ -196,7 +194,6 @@
                     <button class="btn btn-primary preview-btn ml-auto" (click)="preview()">
                         <span class="">Preview</span>
                     </button>
-                   <!-- <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">-->
                 <button class="btn btn-primary publish-btn ml-2" (click)="saveData()">
                         <span class="">Publish</span>
                     </button>

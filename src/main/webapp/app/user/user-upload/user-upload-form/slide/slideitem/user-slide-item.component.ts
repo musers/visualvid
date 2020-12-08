@@ -15,33 +15,30 @@ export class UserSlideItemComponent implements OnInit {
   @Input() adminItem: SlideItem = {};
   @Input() index = 0;
   item: UserSlideItem = {};
-  constructor(
-    private fileUploadService: FileUploadService,
-    private alertService: JhiAlertService
-  ) {  }
+  constructor(private fileUploadService: FileUploadService, private alertService: JhiAlertService) {}
   ngOnInit(): void {
-      if(this.userSlideItems && this.userSlideItems[this.index]){
-        this.item = this.userSlideItems[this.index];
-      } else {
-        this.item = {};
-      }
+    if (this.userSlideItems && this.userSlideItems[this.index]) {
+      this.item = this.userSlideItems[this.index];
+    } else {
+      this.item = {};
+    }
   }
 
   removeFile(): void {
-    if(this.item){
+    if (this.item) {
       this.item.s3Url = undefined;
       this.item.s3Url = undefined;
     }
   }
   uploadFile(e: any): void {
-    if (e && e.target) {
+    if (e && e.target && this.adminItem.id) {
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
         this.alertService.addAlert({ type: 'success', msg: 'file.upload.successful', timeout: 5000, toast: true }, []);
-          if(this.item){
-            this.item.s3Url = data.url;
-            this.item.s3Key = data.s3Key;
-          }
+        if (this.item) {
+          this.item.s3Url = data.url;
+          this.item.s3Key = data.s3Key;
+        }
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy, Renderer2, Optional } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Renderer2, Optional, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { JhiAlertService } from 'ng-jhipster';
@@ -17,6 +17,7 @@ import { UserTemplate } from './user-template.model';
   styleUrls: ['./user-upload-form.component.scss'],
 })
 export class UserUploadFormComponent implements OnInit, OnDestroy {
+  @Input()
   adminMedia?: AdminMedia;
   item: UserTemplate = {
     userSlides: [],
