@@ -157,8 +157,7 @@ export class AdminUploadFormComponent implements OnInit {
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
         this.disabled = true;
-        window.location.href = '/dashboard/home';
-        // TODO: supposed to land on video design within the dashboard
+        window.location.href = '/dashboard/videodesigns';
       });
     }
   }
