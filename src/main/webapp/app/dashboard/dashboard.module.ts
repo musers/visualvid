@@ -13,6 +13,6 @@ import { DASHBOARD_ROUTE } from './dashboard.route';
   declarations: [DashboardComponent,
     DashboardNavigatorComponent,
     DashboardOverviewComponent],
-  exports: [],
+  exports: [ ],
 })
 export class DashboardModule {}

@@ -5,11 +5,11 @@ import { AdminVideoModel } from './admin-video.model';
 // import { HttpResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'jhi-admin-video',
-  templateUrl: './admin-video.component.html',
-  styleUrls: ['admin-video.scss'],
+  selector: 'jhi-dashboard-videodesigns',
+  templateUrl: './videodesigns.component.html',
+  styleUrls: ['videodesigns.component.scss'],
 })
-export class AdminVideoComponent implements OnInit {
+export class DashboardVideoDesignsComponent implements OnInit {
   @Input() videoDesigns?: AdminVideoModel[];
   count: Number = 0;
 
