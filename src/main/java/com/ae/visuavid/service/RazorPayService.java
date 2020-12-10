@@ -31,6 +31,24 @@ public class RazorPayService {
         return createPaymentOrder(amount, currency.name(), orderId);
     }
 
+    /**
+     * "amount" -> {Integer@3739}
+     * "amount_paid" -> {Integer@3741}
+     * "notes" -> {JSONArray@3743} "[]"
+     * "created_at" -> {Integer@3745}
+     * "amount_due" -> {Integer@3747}
+     * "currency" -> "INR"
+     * "receipt" -> ""
+     * "id" -> "order_G899w0WgKl7zQA"
+     * "entity" -> "order"
+     * "offer_id" -> {JSONObject$Null@3757} "null"
+     * "status" -> "created"
+     * "attempts" -> {Integer@3741} 0
+     * @param amount
+     * @param currency
+     * @param orderId
+     * @return
+     */
     public PaymentOrderDTO createPaymentOrder(@NotNull BigDecimal amount, String currency, String orderId) {
         try {
             log.info("createPaymentOrder for " + orderId);
