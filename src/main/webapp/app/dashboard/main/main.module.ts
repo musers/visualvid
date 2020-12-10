@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 // import { RouterModule } from '@angular/router';
 import { VisualvidSharedModule } from 'app/shared/shared.module';
-import { AdminVideoComponent } from './video-designs/admin-video.component';
-import { AdminOrderComponent } from './orders/admin-order.component';
-import { DbMainPanelComponent } from './db-main-panel.component';
+import { DashboardMainComponent } from './main.component';
+import { DashboardOrdersComponent } from './orders/orders.component';
 // import { DB_MAIN_PANEL_ROUTE } from './db-main-panel.route';
 
 @NgModule({
   imports: [VisualvidSharedModule],
-  declarations: [DbMainPanelComponent, AdminVideoComponent, AdminOrderComponent],
-  exports: [DbMainPanelComponent],
+  declarations: [DashboardMainComponent, DashboardOrdersComponent],
+  exports: [ DashboardMainComponent ],
 })
-export class DbMainPanelModule {}
+export class DashboardMainModule {}

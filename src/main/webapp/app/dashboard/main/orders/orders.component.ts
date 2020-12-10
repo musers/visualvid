@@ -1,19 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminOrderService } from './admin-order.service';
-import { AdminOrderModel } from './admin-order.model';
-// import { Pagination } from '../../../../../app/shared/util/request-util';
-// import { HttpResponse } from '@angular/common/http';
+import { OrderService } from 'app/order/order.service';
+import { OrderModel } from 'app/order/order.model';
 
 @Component({
-  selector: 'jhi-admin-order',
-  templateUrl: './admin-order.component.html',
-  styleUrls: ['admin-order.scss'],
+  selector: 'jhi-dashboard-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['orders.component.scss'],
 })
-export class AdminOrderComponent implements OnInit {
-  @Input() orders?: AdminOrderModel[];
+export class DashboardOrdersComponent implements OnInit {
+  @Input() orders?: OrderModel[];
   count: Number = 0;
 
-  constructor(protected adminOrderService: AdminOrderService) {}
+  constructor(protected adminOrderService: OrderService) {}
 
   ngOnInit(): void {
     //    this.adminVideoService.findAllByPage({
@@ -27,7 +25,7 @@ export class AdminOrderComponent implements OnInit {
     //                 }
     //        });
 
-    this.adminOrderService.findAll().subscribe((res: AdminOrderModel[]) => {
+    this.adminOrderService.findAll().subscribe((res: OrderModel[]) => {
       if (res != null) {
         this.orders = res;
         this.orders.forEach(ord => {
@@ -40,7 +38,7 @@ export class AdminOrderComponent implements OnInit {
       }
     });
   }
-  editOrder(ord: AdminOrderModel): void {
+  editOrder(ord: OrderModel): void {
     window.location.href = '/admin/upload/' + ord.id;
   }
 }

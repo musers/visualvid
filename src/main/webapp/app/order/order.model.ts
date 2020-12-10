@@ -1,4 +1,4 @@
-export interface AdminOrderModel {
+export interface OrderModel {
   id?: string;
   name?: string;
   created?: string;
