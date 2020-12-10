@@ -42,7 +42,7 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./admin-upload/admin-upload.module').then(m => m.AdminUploadModule),
       },
       {
-        path: 'dashboard',
+        path: 'dashboard/:type',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
       },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
