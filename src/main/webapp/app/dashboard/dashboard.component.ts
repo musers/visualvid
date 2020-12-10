@@ -6,8 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['dashboard.scss'],
 })
 export class DashboardComponent implements OnInit {
-
+  showOverview = true;
   constructor() {}
   ngOnInit(): void {
+  }
+  toggleOverview(evt: any) : void {
+    console.log('toggle',evt);
+    this.showOverview = !this.showOverview;
   }
 }

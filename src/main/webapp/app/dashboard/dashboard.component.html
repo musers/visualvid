@@ -1,18 +1,26 @@
 <div>
-    <div class="container rounded dashboard">
+    <div class="container rounded dashboard shadow" style="position: relative">
        <div class="row" style="">
 
          <div class="col-lg-2 bg-v-dark-blue text-color left" style="font-size: small;">
              <jhi-dashboard-navigator></jhi-dashboard-navigator>
          </div>
 
-          <div class="col-lg-7 main-panel mt-3">
+          <div class="col-lg main-panel mt-3">
                 <jhi-dashboard-main></jhi-dashboard-main>
          </div>
 
-         <div class="col-lg-3 right">
-             <jhi-dashboard-overview></jhi-dashboard-overview>
-         </div>
+         <ng-container *ngIf="showOverview">
+             <div class="col-lg-3 right">
+                 <jhi-dashboard-overview (hideOverviewEmitter)="toggleOverview($event)"></jhi-dashboard-overview>
+             </div>
+         </ng-container>
+           <ng-container *ngIf="!showOverview">
+                <div class="overview-btn btn btn-primary" (click)="toggleOverview($event)">overview</div>
+           </ng-container>
+
+
+
 
        </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { SaleModel } from './sale.model';
 
 @Component({
@@ -8,6 +8,8 @@ import { SaleModel } from './sale.model';
 })
 export class DashboardOverviewComponent implements OnInit {
   @Input() topSellers?: SaleModel[];
+  @Input() showOverview = true;
+  @Output() hideOverviewEmitter = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.topSellers = [
@@ -28,5 +30,8 @@ export class DashboardOverviewComponent implements OnInit {
         amount: 12568,
       },
     ];
+  }
+  hideOverview(): void {
+    this.hideOverviewEmitter.emit('toggle');
   }
 }
