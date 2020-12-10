@@ -8,7 +8,7 @@ export const DB_MAIN_PANEL_ROUTE: Route = {
   component: DbMainPanelComponent,
   data: {
     authorities: [],
-    pageTitle: 'dbMainPanel',
+    pageTitle: '',
   },
 //   children: [
 //     { path: 'videodesigns', component: AdminVideoComponent, outlet: 'videodesigns' },

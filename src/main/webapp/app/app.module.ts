@@ -9,6 +9,7 @@ import { VisualvidHomeModule } from './home/home.module';
 import { VisualvidEntityModule } from './entities/entity.module';
 import { UserModule } from './user/user.module';
 import { ItemModule } from './item/item.module';
+import { DashboardModule } from 'app/dashboard/dashboard.module'
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -23,6 +24,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     VisualvidSharedModule,
     VisualvidCoreModule,
     VisualvidHomeModule,
+    DashboardModule,
     UserModule,
     ItemModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
