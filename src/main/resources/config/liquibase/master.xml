@@ -22,11 +22,11 @@
     <include file="config/liquibase/changelog/003_alter_s3_info.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/004_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/005_order.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/005_1_alter_order.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/005_1_alter_order.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/006_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/006_1_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/007_alter_admin_media.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/008_alter_slide_items.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/008_alter_slide_items.xml" relativeToChangelogFile="false"/>-->
 
 
 
