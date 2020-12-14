@@ -1,5 +1,5 @@
 .text-color {
-  color: #fff;
+  color: #D0D0D0;
 }
 .disabled-item {
   color: #D0D0D0;
@@ -10,4 +10,7 @@ i {
 }
 .navitem {
   margin-top: 1.5rem;
+}
+.active-navitem {
+  color: #fff;
 }
