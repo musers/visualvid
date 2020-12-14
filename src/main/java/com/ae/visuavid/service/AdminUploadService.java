@@ -4,19 +4,16 @@ import com.ae.visuavid.client.S3Service;
 import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.MediaSlideEntity;
 import com.ae.visuavid.domain.SlideItemEntity;
-import com.ae.visuavid.domain.TemplateEntity;
 import com.ae.visuavid.enumeration.S3MediaStatusType;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.MediaSlideRepository;
+import com.ae.visuavid.repository.OrderRepository;
 import com.ae.visuavid.repository.SlideItemRepository;
-import com.ae.visuavid.repository.TemplateRepository;
 import com.ae.visuavid.service.dto.AdminMediaDTO;
 import com.ae.visuavid.service.dto.MediaSlideDTO;
 import com.ae.visuavid.service.dto.SlideItemDTO;
 import com.ae.visuavid.service.mapper.AdminMediaMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
-import java.util.*;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -47,7 +47,7 @@ public class AdminUploadService {
     SlideItemRepository slideItemRepository;
 
     @Autowired
-    TemplateRepository templateRepository;
+    OrderRepository templateRepository;
 
     public void saveUploadForm(AdminMediaDTO mediaDto) {
         try {
@@ -190,12 +190,12 @@ public class AdminUploadService {
         Optional<AdminMediaEntity> mediaEntityOptional = adminUploadFormRepository.findById(UUID.fromString(id));
         if (mediaEntityOptional.isPresent()) {
             AdminMediaDTO mediaDTO = mediaMapper.toDto(mediaEntityOptional.get());
-            List<TemplateEntity> templates = templateRepository.findByAdminMediaId(UUID.fromString(id));
-            if (!CollectionUtils.isEmpty(templates)) {
-                mediaDTO.setTemplateCount(templates.size());
-            } else {
-                mediaDTO.setTemplateCount(Integer.valueOf(0));
-            }
+//            List<TemplateEntity> templates = templateRepository.findByAdminMediaId(UUID.fromString(id));
+//            if (!CollectionUtils.isEmpty(templates)) {
+//                mediaDTO.setTemplateCount(templates.size());
+//            } else {
+//                mediaDTO.setTemplateCount(Integer.valueOf(0));
+//            }
             return mediaDTO;
         }
         throw new ApiRuntimeException("could not find adminMedia for Id {} " + id);
