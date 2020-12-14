@@ -23,7 +23,7 @@
     <div class="row mt-4 order-menu-bar">
          <div class="col-1 ml-n4">
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cb1" name="cb1">
+                <input type="checkbox" name="cb1">
             </div>
          </div>
         <!-- <div class="col-1"><small>Id#</small></div> -->
@@ -32,15 +32,15 @@
          <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>
          <div class="col-1 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
          <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>  
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>  
+         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>
+         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>
     </div>
 
-    <div *ngFor="let order of adminOrders">
+    <div *ngFor="let order of orders">
         <div class="row mt-1 order-menu-bar order-row">
             <div class="col-1 ml-n4 mt-2">
                <div class="custom-control custom-checkbox">
-                   <input type="checkbox" id="cb1" name="cb1">
+                   <input type="checkbox" name="cb1">
                </div>
             </div>
            <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
@@ -49,7 +49,7 @@
             <div class="col-2 ml-4 mt-2"><small>{{order.name}}</small></div>
             <div class="col-1 ml-4 mt-2"> <small>{{order.assignTo}}</small></div>
             <div class="col-1 ml-4 mt-2"><small>{{order.status}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{order.timeLeft}}</small></div>  
+            <div class="col-1 ml-4 mt-2"><small>{{order.timeLeft}}</small></div>
             <div class="col-1 ml-4 mt-2">
                 <select class="form-control" id="sel1">
                     <option>Design Team</option>
@@ -57,7 +57,7 @@
                     <option>FInance Team</option>
                     <option>HR Team</option>
                   </select>
-             </div> 
+             </div>
        </div>
     </div>
 </div>
