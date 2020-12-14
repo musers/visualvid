@@ -1,31 +1,24 @@
-.search {
-  height: 1.5rem;
+.text-box {
+  height: 5rem;
   font-size: x-small;
-  color: #828599;
+  background-color: #fff;
 }
 .btn-new {
-  background-color: #7175d8;
-  height: 0.2rem;
+  background-color: #ff6b69;
+  height: 1.5rem;
   font-size: small;
   padding-bottom: 1.4rem;
   color: #fff;
 }
-.card-employee {
-  background-color: #ffffff;
-  text-align: center;
-  height: 14rem;
-  margin-top: rem;
-  padding-top: 6rem;
+.order-menu-bar {
+  font-size: small;
 }
-.employee-role {
-  background-color: #f5f3f6;
-  color: #7175d8;
+.order-menu-label {
   font-weight: bold;
 }
-.employee-profile {
-  width: 8rem;
-  margin-top: -6rem;
-  vertical-align: middle;
+.order-row {
+  background-color: #fff;
+  height: 3rem;
 }
 .form-control {
   display: block;
@@ -34,15 +27,30 @@
   /* padding: 0.375rem 0.75rem; */
   font-size: x-small;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 1.8;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.15rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  width: 10rem;
-  height: 2rem;
+  width: 5rem;
+  height: 1.8rem;
   color: #7175d8;
   font-weight: bold;
+}
+.card-box {
+  height: 5rem;
+  max-width: 22%;
+  margin-right: rem;
+  margin-right: 1rem;
+  font-size: x-small;
+  padding-left: 2.5rem;
+  padding-top: 1rem;
+}
+.card-box-metrics {
+  padding-top: 0.5rem;
+  font-size: x-large;
+  font-weight: bold;
+  color: #7175d8;
 }

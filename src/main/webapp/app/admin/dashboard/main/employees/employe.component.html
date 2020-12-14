@@ -11,7 +11,12 @@
      </div>
      <div class="row mt-4">
         <div class="col-lg-4">
-            <input type="text" class="form-control search" id="search" placeholder="search...">
+            <select class="form-control" id="sel1">
+                <option>Design Team</option>
+                <option>Marketing Team</option>
+                <option>FInance Team</option>
+                <option>HR Team</option>
+              </select>
          </div> 
          <div class="col-lg-4">
             <a class="btn btn-primary btn-new ml-n2"  routerLink="/admin/upload">
@@ -27,7 +32,7 @@
 				<div class="card-deck">
 					<div class="card card-employee">
 						<div class="card-body">
-                                <img class="employee-profile" src="https://visualvid.s3.ap-south-1.amazonaws.com/adminuploads/4b97f6d0-bf6e-475c-9785-cbcb1e596d4d_Thumbnail_04.png"></img>
+                                <img class="employee-profile" src="https://visualvid.s3.ap-south-1.amazonaws.com/adminuploads/4b97f6d0-bf6e-475c-9785-cbcb1e596d4d_Thumbnail_04.png"/>
 							    <small class="row ml-4" style="font-weight: bolder; color: #43497b;">{{emp.name}}</small>
 								<small class="row ml-4"  style="font-size: x-small;">{{emp.email}}</small>
 								<small class="row ml-4"  style="font-size: x-small;">{{emp.mobile}}</small>
