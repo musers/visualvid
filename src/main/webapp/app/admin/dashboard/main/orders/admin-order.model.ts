@@ -1,9 +1,9 @@
 export interface AdminOrderModel {
-  id?: string;
+  saleId?: string;
+  orderId?: string;
   name?: string;
-  created?: string;
-  modified?: string;
-  views?: Number;
-  sales?: Number;
-  earnings?: Number;
+  assignTo?: string;
+  status?: string;
+  timeLeft?: Number;
+  action?: string;
 }
