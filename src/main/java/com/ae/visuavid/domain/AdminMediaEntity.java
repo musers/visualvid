@@ -70,7 +70,7 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
     private String textPlaceholder;
 
     @Column(name = "turn_around_time")
-    private String turnAroundTime;
+    private Long turnAroundTime;
 
     @Column(name = "thumb_nail_s3_key")
     private String thumbNailS3Key;
@@ -163,11 +163,11 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
         this.textPlaceholder = textPlaceholder;
     }
 
-    public String getTurnAroundTime() {
+    public Long getTurnAroundTime() {
         return turnAroundTime;
     }
 
-    public void setTurnAroundTime(String turnAroundTime) {
+    public void setTurnAroundTime(Long turnAroundTime) {
         this.turnAroundTime = turnAroundTime;
     }
 

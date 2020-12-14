@@ -1,6 +1,7 @@
 package com.ae.visuavid.web.rest;
 
 import com.ae.visuavid.service.OrderService;
+import com.ae.visuavid.service.dto.ItemCustomizationDTO;
 import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import org.slf4j.Logger;
@@ -23,8 +24,8 @@ public class OrderResource {
     protected OrderService orderService;
 
     @PostMapping("/order")
-    public ResponseEntity<OrderDTO> create(@Valid @RequestBody OrderDTO orderDTO) {
-        orderDTO = orderService.create(orderDTO);
+    public ResponseEntity<OrderDTO> create(@Valid @RequestBody ItemCustomizationDTO itemCustomization) {
+        OrderDTO orderDTO = orderService.create(itemCustomization);
         return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
     }
 

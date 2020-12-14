@@ -1,5 +1,6 @@
 create table vvid_order(
     id UUID PRIMARY KEY,
+    admin_media_id UUID,
     name TEXT,
     description TEXT,
     order_id VARCHAR(30),
@@ -63,6 +64,6 @@ create table vvid_order_slide_items (
 );
 
 ALTER TABLE PUBLIC.vvid_order_slide
-    ADD CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES PUBLIC.vvid_order (id);
+    ADD CONSTRAINT fk_vvid_order_id FOREIGN KEY (order_id) REFERENCES PUBLIC.vvid_order (id);
 ALTER TABLE PUBLIC.vvid_order_slide_items
-    ADD CONSTRAINT fk_order_slide_id FOREIGN KEY (order_slide_id) REFERENCES PUBLIC.vvid_order_slide (id);
+    ADD CONSTRAINT fk_vvid_order_slide_id FOREIGN KEY (order_slide_id) REFERENCES PUBLIC.vvid_order_slide (id);

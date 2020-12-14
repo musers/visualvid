@@ -1,16 +1,22 @@
 package com.ae.visuavid.service.dto;
 
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
 public class ItemCustomizationDTO {
-    private String adminMediaId;
+    @NotNull
+    private UUID adminMediaId;
+
+    @NotNull
     private String currencyCode;
     private boolean optedForAdvCustomization;
     private boolean optedForPremumDelivery;
 
-    public String getAdminMediaId() {
+    public UUID getAdminMediaId() {
         return adminMediaId;
     }
 
-    public void setAdminMediaId(String adminMediaId) {
+    public void setAdminMediaId(UUID adminMediaId) {
         this.adminMediaId = adminMediaId;
     }
 
