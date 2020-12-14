@@ -1,8 +1,8 @@
 <div>
     <div class="container" *ngIf="item && item.previewVideoS3Url">
         <div class="item-breadcrumb text-muted mt-5">
-            <span class="home"></span>Home </span>
-            <span class="category">{{item.categoryId?.replace('_',' ')}}</span>
+            <span class="home">Home</span>
+            <span class="category">{{formatCategory(item.categoryId)}}</span>
             <span class="item-name">{{item.name}}</span>
         </div>
         <div class="row mt-4">

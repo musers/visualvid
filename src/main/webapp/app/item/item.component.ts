@@ -79,6 +79,9 @@ export class ItemComponent implements OnInit, AfterViewInit {
       width: '60%',
     });
   }
+  formatCategory(categoryId?: string): string {
+    return categoryId? categoryId.replace('_',' '): '';
+  }
   pay(): void {
     console.log('pay');
     const orderId = 'test5';
