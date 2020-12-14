@@ -36,7 +36,7 @@
          <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>  
     </div>
 
-    <div *ngFor="let order of adminOrders">
+    <div *ngFor="let assig of assignments">
         <div class="row mt-1 order-menu-bar order-row">
             <div class="col-1 ml-n4 mt-2">
                <div class="custom-control custom-checkbox">
@@ -44,12 +44,12 @@
                </div>
             </div>
            <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
-            <div class="col-1 mt-2"><small>{{order.saleId}}</small></div>
-            <div class="col-1 mt-2"><small>{{order.orderId}}</small></div>
-            <div class="col-2 ml-4 mt-2"><small>{{order.name}}</small></div>
-            <div class="col-1 ml-4 mt-2"> <small>{{order.assignTo}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{order.status}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{order.timeLeft}}</small></div>  
+            <div class="col-1 mt-2"><small>{{assig.saleId}}</small></div>
+            <div class="col-1 mt-2"><small>{{assig.orderId}}</small></div>
+            <div class="col-2 ml-4 mt-2"><small>{{assig.name}}</small></div>
+            <div class="col-1 ml-4 mt-2"> <small>{{assig.assignTo}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{assig.status}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{assig.timeLeft}}</small></div>  
             <div class="col-1 ml-4 mt-2">
                 <select class="form-control" id="sel1">
                     <option>Design Team</option>

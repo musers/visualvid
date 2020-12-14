@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminOrderModel } from './orders.model';
+import { AssignmentsModel } from './assignments.model';
 
 @Component({
-  selector: 'jhi-admin-order',
-  templateUrl: './orders.component.html',
-  styleUrls: ['orders.scss'],
+  selector: 'jhi-assignments',
+  templateUrl: './assignments.component.html',
+  styleUrls: ['assignments.scss'],
 })
-export class DashboardOrdersComponent implements OnInit {
-  @Input() adminOrders?: AdminOrderModel[];
+export class DashboardAssignmentsComponent implements OnInit {
+  @Input() assignments?: AssignmentsModel[];
   constructor() {}
 
   ngOnInit(): void {
-    this.adminOrders = [
+    this.assignments = [
       {
         saleId: '0001',
         orderId: '0001',
