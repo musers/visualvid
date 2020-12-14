@@ -4,12 +4,14 @@ import com.ae.visuavid.client.S3Service;
 import com.ae.visuavid.repository.OrderRepository;
 import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.service.mapper.OrderMapper;
+import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +32,12 @@ public class OrderService {
     public OrderService() {
     }
 
-    public OrderDTO create(OrderDTO orderDTO) {
+    public OrderDTO create(@NotNull  OrderDTO orderDTO) {
+        UUID adminMediaId = orderDTO.getAdminMediaId();
+        if(adminMediaId == null){
+            throw new ApiRuntimeException("adminMediaId cannot be empty");
+        }
+        
         // TODO
         return null;
     }
