@@ -1,22 +1,22 @@
 <div>
     <div class="mt-4">
-       <h5 style="font-weight: bold;">Orders</h5>
+       <h5 style="font-weight: bold;">Assignments</h5>
     </div>
-    <div class="row ml-1">
+    <div class="row ml-1 mt-4">
         <div class="col-3 card card-box">
-            <div>Total Orders</div>
+            <div>Total Assignments</div>
             <div class="card-box-metrics">1200</div>
         </div>
         <div class="col-3 card card-box">
-            <div>Assigned</div>
+            <div>Completed</div>
             <div class="card-box-metrics">580</div>
         </div>
         <div class="col-3 card card-box">
-            <div>Not Assigned</div>
+            <div>In Progress</div>
             <div class="card-box-metrics">390</div>
         </div>
         <div class="col-3 card card-box">
-            <div>Cancelled</div>
+            <div>Not Completed</div>
             <div class="card-box-metrics">30</div>
         </div>
     </div>
@@ -27,10 +27,9 @@
             </div>
          </div>
         <!-- <div class="col-1"><small>Id#</small></div> -->
-         <div class="col-1"><small style="font-weight: bold;">SalesId</small></div>
          <div class="col-1"><small style="font-weight: bold;">OrderId</small></div>
          <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>
-         <div class="col-1 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
+         <div class="col-2 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
          <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
          <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>  
          <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>  
@@ -44,10 +43,9 @@
                </div>
             </div>
            <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
-            <div class="col-1 mt-2"><small>{{assig.saleId}}</small></div>
             <div class="col-1 mt-2"><small>{{assig.orderId}}</small></div>
             <div class="col-2 ml-4 mt-2"><small>{{assig.name}}</small></div>
-            <div class="col-1 ml-4 mt-2"> <small>{{assig.assignTo}}</small></div>
+            <div class="col-2 ml-4 mt-2"> <small>{{assig.assignTo}}</small></div>
             <div class="col-1 ml-4 mt-2"><small>{{assig.status}}</small></div>
             <div class="col-1 ml-4 mt-2"><small>{{assig.timeLeft}}</small></div>  
             <div class="col-1 ml-4 mt-2">
