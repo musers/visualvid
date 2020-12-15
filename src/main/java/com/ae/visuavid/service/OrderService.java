@@ -142,8 +142,13 @@ public class OrderService {
     }
 
     private String generateOrderId() {
-        // TODO need to generate order id by looking at the database using some kind of sequence
-        return "0001";
+        String orderId = orderRepository.generateOrderId();
+        Optional<OrderEntity> exitingOrder = orderRepository.findByOrderId(orderId);
+        while (exitingOrder.isPresent()) {
+            orderId = orderRepository.generateOrderId();
+            exitingOrder = orderRepository.findByOrderId(orderId);
+        }
+        return orderId;
     }
 
 }
