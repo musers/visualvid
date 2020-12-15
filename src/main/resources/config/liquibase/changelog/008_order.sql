@@ -73,5 +73,20 @@ ALTER TABLE PUBLIC.vvid_order_slide
 ALTER TABLE PUBLIC.vvid_order_slide_items
     ADD CONSTRAINT fk_vvid_order_slide_id FOREIGN KEY (order_slide_id) REFERENCES PUBLIC.vvid_order_slide (id);
 
+create table coupon_info(
+  id UUID PRIMARY KEY,
+  description TEXT,
+  coupon_code VARCHAR(30),
+  start_date TIMESTAMP,
+  end_date TIMESTAMP,
+  coupon_discount_percentage INTEGER,
+  coupon_discount_amount NUMERIC(12,2),
+  active BOOLEAN NOT NULL,
+  created_date TIMESTAMP,
+  last_modified_date TIMESTAMP,
+  created_by VARCHAR(30),
+  last_modified_by VARCHAR(30)
+)
+
 CREATE SEQUENCE "ORDER_ID_SEQ" START WITH 1;
 CREATE SEQUENCE "SALES_ID_SEQ" START WITH 1;

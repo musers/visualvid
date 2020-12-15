@@ -3,6 +3,8 @@ package com.ae.visuavid.service;
 import com.ae.visuavid.config.ApplicationProperties;
 import com.ae.visuavid.constants.Currency;
 import com.ae.visuavid.domain.AdminMediaEntity;
+import com.ae.visuavid.domain.CouponInfoEntity;
+import com.ae.visuavid.repository.CouponInfoRepository;
 import com.ae.visuavid.service.dto.ItemCustomizationDTO;
 import com.ae.visuavid.service.dto.PricingDTO;
 import com.ae.visuavid.utils.NumberUtility;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Service
 public class PricingService {
@@ -19,6 +22,9 @@ public class PricingService {
 
     @Autowired
     private NumberUtility numberUtility;
+
+    @Autowired
+    private CouponInfoRepository couponInfoRepository;
 
     public PricingDTO computePrice(@NotNull AdminMediaEntity adminMediaEntity, ItemCustomizationDTO itemCustomization) {
         PricingDTO pricing = new PricingDTO();
@@ -64,7 +70,13 @@ public class PricingService {
     }
 
     private Integer computeAndGetCouponDiscountPercentage(String couponCode) {
-        //TODO need to get value from database
-        return null;
+        CouponInfoEntity couponInfoEntity = couponInfoRepository.findByCouponCodeAndActiveTrue(couponCode);
+        if (couponInfoEntity != null) {
+            Instant now = Instant.now();
+            if (now.isAfter(couponInfoEntity.getStartDate()) && now.isBefore(couponInfoEntity.getEndDate())) {
+                return couponInfoEntity.getCouponDiscountPercentage();
+            }
+        }
+        return 0;
     }
 }
