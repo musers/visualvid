@@ -173,3 +173,4 @@ jhipster:
 application:
   s3:
     bucketName: visualvid
+  gst: 18

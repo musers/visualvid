@@ -4,4 +4,5 @@ export interface ItemCustomization {
   currencyCode?: string;
   optedForAdvCustomization: boolean;
   optedForPremumDelivery: boolean;
+  couponCode?: string;
 }

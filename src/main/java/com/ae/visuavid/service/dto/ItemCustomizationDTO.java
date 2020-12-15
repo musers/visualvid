@@ -9,6 +9,8 @@ public class ItemCustomizationDTO {
 
     @NotNull
     private String currencyCode;
+
+    private String couponCode;
     private boolean optedForAdvCustomization;
     private boolean optedForPremumDelivery;
 
@@ -42,5 +44,13 @@ public class ItemCustomizationDTO {
 
     public void setOptedForPremumDelivery(boolean optedForPremumDelivery) {
         this.optedForPremumDelivery = optedForPremumDelivery;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
     }
 }

@@ -70,6 +70,19 @@ public class OrderService {
         }
     }
 
+    public OrderDTO findOrderById(UUID id) {
+        Optional<OrderEntity> optOrder = orderRepository.findById(id);
+        if (optOrder.isPresent()) {
+            return orderMapper.toDto(optOrder.get());
+        }
+        return null;
+    }
+
+    public List<OrderDTO> findAll() {
+        //TODO Should not be used, it should be replaced by search and pagination method
+        return orderMapper.toDtos(orderRepository.findAll());
+    }
+
     public OrderDTO create(@NotNull OrderDTO orderDTO) {
         OrderEntity e = orderMapper.toEntity(orderDTO);
         updateParentChildReferences(e);
@@ -108,12 +121,9 @@ public class OrderService {
         orderDTO.setTurnAroundTime(numberUtility.convertToLongNonNullable(adminMediaEntity.getTurnAroundTime()));
         orderDTO.setTags(adminMediaEntity.getTags());
 
-        // From item customization
-        orderDTO.setCurrencyCode(itemCustomization.getCurrencyCode());
-        orderDTO.setAdminMediaId(itemCustomization.getAdminMediaId());
-
         // Pricing info
         PricingDTO pricing = pricingService.computePrice(adminMediaEntity, itemCustomization);
+        orderDTO.setCurrencyCode(pricing.getCurrencyCode());
         orderDTO.setBasicAmount(pricing.getBasicAmount());
         orderDTO.setDiscountAmount(pricing.getDiscountAmount());
         orderDTO.setAdvancedCustomizationAmount(pricing.getAdvancedCustomizationAmount());
@@ -130,17 +140,6 @@ public class OrderService {
     private String generateOrderId() {
         // TODO need to generate order id by looking at the database using some kind of sequence
         return "0001";
-    }
-
-
-    public OrderDTO findOrderById(UUID fromString) {
-        // TODO
-        return null;
-    }
-
-    public List<OrderDTO> findAll() {
-        // TODO
-        return null;
     }
 
 }

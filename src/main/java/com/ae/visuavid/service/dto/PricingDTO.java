@@ -10,6 +10,7 @@ public class PricingDTO {
     private BigDecimal premiumDeliveryAmount;
     private BigDecimal gstAmount;
     private BigDecimal totalAmount;
+    private BigDecimal couponDiscountAmount;
 
     public String getCurrencyCode() {
         return currencyCode;
@@ -65,5 +66,13 @@ public class PricingDTO {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getCouponDiscountAmount() {
+        return couponDiscountAmount;
+    }
+
+    public void setCouponDiscountAmount(BigDecimal couponDiscountAmount) {
+        this.couponDiscountAmount = couponDiscountAmount;
     }
 }
