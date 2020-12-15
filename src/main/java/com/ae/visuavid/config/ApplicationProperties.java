@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
     private S3 s3 = new S3();
-    private int gst;
+    private Integer gst;
     private Razorpay razorpay = new Razorpay();
 
     public S3 getS3() {
@@ -31,11 +31,11 @@ public class ApplicationProperties {
         this.razorpay = razorpay;
     }
 
-    public int getGst() {
+    public Integer getGst() {
         return gst;
     }
 
-    public void setGst(int gst) {
+    public void setGst(Integer gst) {
         this.gst = gst;
     }
 

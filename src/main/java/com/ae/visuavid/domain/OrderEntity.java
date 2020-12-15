@@ -19,10 +19,10 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "order_id")
@@ -40,7 +40,7 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
     @Column(name = "assigned_user_id")
     private String assignedUserId;
 
-    @Column(name="assigned_user_name")
+    @Column(name = "assigned_user_name")
     private String assignedUserName;
 
     @Column(name = "category_id")
@@ -73,6 +73,9 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
     @Column(name = "tags")
     private String tags;
 
+    @Column(name = "coupon_code")
+    private String couponCode;
+
     // Pricing info
     @Column(name = "razor_pay_order_id")
     private String razorPayOrderId;
@@ -101,7 +104,16 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @Column(name = "coupon_discount_amount")
+    private BigDecimal couponDiscountAmount;
+
+    @Column(name = "coupon_discount_percentage")
+    private Integer couponDiscountPercentage;
+
+    @Column(name = "gst_percentage")
+    private Integer gstPercentage;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<OrderSlideEntity> orderSlides;
 
@@ -335,5 +347,37 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
 
     public void setOrderSlides(List<OrderSlideEntity> orderSlides) {
         this.orderSlides = orderSlides;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
+
+    public BigDecimal getCouponDiscountAmount() {
+        return couponDiscountAmount;
+    }
+
+    public void setCouponDiscountAmount(BigDecimal couponDiscountAmount) {
+        this.couponDiscountAmount = couponDiscountAmount;
+    }
+
+    public Integer getCouponDiscountPercentage() {
+        return couponDiscountPercentage;
+    }
+
+    public void setCouponDiscountPercentage(Integer couponDiscountPercentage) {
+        this.couponDiscountPercentage = couponDiscountPercentage;
+    }
+
+    public Integer getGstPercentage() {
+        return gstPercentage;
+    }
+
+    public void setGstPercentage(Integer gstPercentage) {
+        this.gstPercentage = gstPercentage;
     }
 }

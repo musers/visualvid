@@ -41,8 +41,9 @@ public class PricingService {
             premiumDeliveryAmount = adminMediaEntity.getIndianPremumDeliveryPrice();
         }
 
-        BigDecimal baseAmount = numberUtility.add(basicAmount, discountAmount);
-        BigDecimal couponDiscountAmount = computeAndGetCouponDiscountAmount(baseAmount, itemCustomization.getCouponCode());
+        BigDecimal baseAmount = numberUtility.subtract(basicAmount, discountAmount);
+        Integer couponDiscountPercentage = computeAndGetCouponDiscountPercentage(itemCustomization.getCouponCode());
+        BigDecimal couponDiscountAmount = numberUtility.percentage(baseAmount, couponDiscountPercentage);
         BigDecimal totalAmountWithoutGst = numberUtility.
             subtract(numberUtility.add(baseAmount, advancedCustomizationAmount, premiumDeliveryAmount), couponDiscountAmount);
         BigDecimal gstAmount = numberUtility.percentage(totalAmountWithoutGst, applicationProperties.getGst());
@@ -53,13 +54,16 @@ public class PricingService {
         pricing.setDiscountAmount(discountAmount);
         pricing.setAdvancedCustomizationAmount(advancedCustomizationAmount);
         pricing.setPremiumDeliveryAmount(premiumDeliveryAmount);
+        pricing.setCouponDiscountPercentage(couponDiscountPercentage);
         pricing.setCouponDiscountAmount(couponDiscountAmount);
         pricing.setGstAmount(gstAmount);
+        pricing.setGstPercentage(applicationProperties.getGst());
         pricing.setTotalAmount(totalAmount);
+        pricing.setCouponCode(itemCustomization.getCouponCode());
         return pricing;
     }
 
-    private BigDecimal computeAndGetCouponDiscountAmount(BigDecimal baseAmount, String couponCode) {
+    private Integer computeAndGetCouponDiscountPercentage(String couponCode) {
         //TODO need to get value from database
         return null;
     }

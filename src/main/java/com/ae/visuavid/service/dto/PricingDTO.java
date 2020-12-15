@@ -11,6 +11,9 @@ public class PricingDTO {
     private BigDecimal gstAmount;
     private BigDecimal totalAmount;
     private BigDecimal couponDiscountAmount;
+    private Integer couponDiscountPercentage;
+    private Integer gstPercentage;
+    private String couponCode;
 
     public String getCurrencyCode() {
         return currencyCode;
@@ -75,4 +78,29 @@ public class PricingDTO {
     public void setCouponDiscountAmount(BigDecimal couponDiscountAmount) {
         this.couponDiscountAmount = couponDiscountAmount;
     }
+
+    public Integer getCouponDiscountPercentage() {
+        return couponDiscountPercentage;
+    }
+
+    public void setCouponDiscountPercentage(Integer couponDiscountPercentage) {
+        this.couponDiscountPercentage = couponDiscountPercentage;
+    }
+
+    public Integer getGstPercentage() {
+        return gstPercentage;
+    }
+
+    public void setGstPercentage(Integer gstPercentage) {
+        this.gstPercentage = gstPercentage;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
 }
+

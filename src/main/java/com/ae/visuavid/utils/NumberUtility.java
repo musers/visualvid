@@ -46,8 +46,11 @@ public class NumberUtility {
         return val;
     }
 
-    public BigDecimal percentage(BigDecimal n, int gst) {
+    public BigDecimal percentage(BigDecimal n, Integer gst) {
         BigDecimal val = BigDecimal.ZERO;
+        if (gst == null) {
+            gst = 0;
+        }
         if (n != null) {
             val = n.multiply(BigDecimal.valueOf(gst)).divide(BigDecimal.valueOf(100));
         }

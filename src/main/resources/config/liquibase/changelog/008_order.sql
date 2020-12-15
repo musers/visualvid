@@ -30,7 +30,11 @@ create table vvid_order(
     created_date TIMESTAMP,
     last_modified_date TIMESTAMP,
     created_by VARCHAR(30),
-    last_modified_by VARCHAR(30)
+    last_modified_by VARCHAR(30),
+    coupon_discount_amount NUMERIC(12,2),
+    coupon_discount_percentage INTEGER,
+    gst_percentage INTEGER,
+    coupon_code VARCHAR(30)
 );
 
 create table vvid_order_slide (

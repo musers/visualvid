@@ -128,8 +128,12 @@ public class OrderService {
         orderDTO.setDiscountAmount(pricing.getDiscountAmount());
         orderDTO.setAdvancedCustomizationAmount(pricing.getAdvancedCustomizationAmount());
         orderDTO.setPremiumDeliveryAmount(pricing.getPremiumDeliveryAmount());
+        orderDTO.setCouponDiscountPercentage(pricing.getCouponDiscountPercentage());
+        orderDTO.setCouponDiscountAmount(pricing.getCouponDiscountAmount());
+        orderDTO.setGstPercentage(pricing.getGstPercentage());
         orderDTO.setGstAmount(pricing.getGstAmount());
         orderDTO.setTotalAmount(pricing.getTotalAmount());
+        orderDTO.setCouponCode(pricing.getCouponCode());
 
         // Slide & slide item info
         List<OrderSlideDTO> orderSlides = orderSlideMapper.toDTOsFromAdminMediaEntities(adminMediaEntity.getSlides());

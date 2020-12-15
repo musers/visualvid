@@ -24,6 +24,7 @@ public class OrderDTO implements BaseDTO {
     private String textPlaceholder;
     private long turnAroundTime;
     private String tags;
+    private String couponCode;
     // Pricing info
     private String razorPayOrderId;
     private String razorPayPaymentId;
@@ -34,6 +35,9 @@ public class OrderDTO implements BaseDTO {
     private BigDecimal premiumDeliveryAmount;
     private BigDecimal gstAmount;
     private BigDecimal totalAmount;
+    private BigDecimal couponDiscountAmount;
+    private Integer couponDiscountPercentage;
+    private Integer gstPercentage;
     private List<OrderSlideDTO> orderSlides;
 
     public UUID getId() {
@@ -266,5 +270,37 @@ public class OrderDTO implements BaseDTO {
 
     public void setOrderSlides(List<OrderSlideDTO> orderSlides) {
         this.orderSlides = orderSlides;
+    }
+
+    public BigDecimal getCouponDiscountAmount() {
+        return couponDiscountAmount;
+    }
+
+    public void setCouponDiscountAmount(BigDecimal couponDiscountAmount) {
+        this.couponDiscountAmount = couponDiscountAmount;
+    }
+
+    public Integer getCouponDiscountPercentage() {
+        return couponDiscountPercentage;
+    }
+
+    public void setCouponDiscountPercentage(Integer couponDiscountPercentage) {
+        this.couponDiscountPercentage = couponDiscountPercentage;
+    }
+
+    public Integer getGstPercentage() {
+        return gstPercentage;
+    }
+
+    public void setGstPercentage(Integer gstPercentage) {
+        this.gstPercentage = gstPercentage;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
     }
 }
