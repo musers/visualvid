@@ -1,8 +1,10 @@
 package com.ae.visuavid.web.rest;
 
 import com.ae.visuavid.service.OrderService;
-import com.ae.visuavid.service.dto.ItemCustomizationDTO;
+import com.ae.visuavid.service.RazorPayService;
 import com.ae.visuavid.service.dto.OrderDTO;
+import com.ae.visuavid.service.dto.OrderRequestDTO;
+import com.ae.visuavid.service.dto.PaymentOrderDTO;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +25,15 @@ public class OrderResource {
     @Autowired
     protected OrderService orderService;
 
+    @Autowired
+    protected RazorPayService razorPayService;
+
     @PostMapping("/order")
-    public ResponseEntity<OrderDTO> create(@Valid @RequestBody ItemCustomizationDTO itemCustomization) {
-        OrderDTO orderDTO = orderService.create(itemCustomization);
-        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+    public ResponseEntity<PaymentOrderDTO> create(@Valid @RequestBody OrderRequestDTO orderRequest) {
+        List<OrderDTO> orders = orderService.create(orderRequest);
+        PaymentOrderDTO paymentOrder = razorPayService.createPaymentOrder(orders);
+        orderService.updatePaymentOrder(orders, paymentOrder);
+        return new ResponseEntity<>(paymentOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/order")

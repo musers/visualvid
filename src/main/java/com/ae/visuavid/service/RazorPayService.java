@@ -1,8 +1,9 @@
 package com.ae.visuavid.service;
 
 import com.ae.visuavid.VisualvidApp;
-import com.ae.visuavid.constants.Currency;
+import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.service.dto.PaymentOrderDTO;
+import com.ae.visuavid.utils.NumberUtility;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
@@ -10,25 +11,38 @@ import com.razorpay.RazorpayException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RazorPayService {
     private static final Logger log = LoggerFactory.getLogger(VisualvidApp.class);
+
+    @Autowired
+    private NumberUtility numberUtility;
+
     private RazorpayClient razorpayClient;
 
     public RazorPayService(RazorpayClient razorpayClient) {
         this.razorpayClient = razorpayClient;
     }
 
-    public PaymentOrderDTO createPaymentOrder(@NotNull String orderId) {
-        //TODO Make a call to order service and get amount and currency
-        BigDecimal amount = new BigDecimal(399);
-        Currency currency = Currency.INR;
-        return createPaymentOrder(amount, currency.name(), orderId);
+
+    public PaymentOrderDTO createPaymentOrder(List<OrderDTO> orders) {
+        String paymentOrderId = UUID.randomUUID().toString();
+        String currencyCode = null;
+        BigDecimal amount = null;
+        for (OrderDTO order : orders) {
+            currencyCode = order.getCurrencyCode();
+            amount = numberUtility.add(amount, order.getTotalAmount());
+        }
+        PaymentOrderDTO paymentOrder = createPaymentOrder(amount, currencyCode, paymentOrderId);
+        return paymentOrder;
     }
 
     /**
@@ -44,6 +58,7 @@ public class RazorPayService {
      * "offer_id" -> {JSONObject$Null@3757} "null"
      * "status" -> "created"
      * "attempts" -> {Integer@3741} 0
+     *
      * @param amount
      * @param currency
      * @param orderId
@@ -62,7 +77,7 @@ public class RazorPayService {
             PaymentOrderDTO paymentOrder = new PaymentOrderDTO();
             paymentOrder.setAmount(new BigDecimal((Integer) orderJson.get("amount")));
             paymentOrder.setCurrencyCode((String) orderJson.get("currency"));
-            paymentOrder.setOrderIdRef((String) orderJson.get("receipt"));
+            paymentOrder.setPaymentOrderId((String) orderJson.get("receipt"));
             paymentOrder.setRazorPayOrderId((String) orderJson.get("id"));
             log.info("razorPayOrder {}  " + paymentOrder.getRazorPayOrderId());
             return paymentOrder;
@@ -71,4 +86,5 @@ public class RazorPayService {
             throw new ApiRuntimeException("Error occured in creating payment order");
         }
     }
+
 }

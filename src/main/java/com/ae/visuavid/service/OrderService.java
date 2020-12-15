@@ -5,10 +5,7 @@ import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.OrderEntity;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.OrderRepository;
-import com.ae.visuavid.service.dto.ItemCustomizationDTO;
-import com.ae.visuavid.service.dto.OrderDTO;
-import com.ae.visuavid.service.dto.OrderSlideDTO;
-import com.ae.visuavid.service.dto.PricingDTO;
+import com.ae.visuavid.service.dto.*;
 import com.ae.visuavid.service.mapper.OrderMapper;
 import com.ae.visuavid.service.mapper.OrderSlideMapper;
 import com.ae.visuavid.utils.NumberUtility;
@@ -20,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,6 +51,16 @@ public class OrderService {
 
 
     public OrderService() {
+    }
+
+    public List<OrderDTO> create(@NotNull OrderRequestDTO orderRequest) {
+        List<OrderDTO> orders = new ArrayList<>();
+        for (ItemCustomizationDTO itemCustomization : orderRequest.getItemCustomizations()) {
+            itemCustomization.setCouponCode(orderRequest.getCouponCode());
+            itemCustomization.setCurrencyCode(orderRequest.getCurrencyCode());
+            orders.add(create(itemCustomization));
+        }
+        return orders;
     }
 
     public OrderDTO create(ItemCustomizationDTO itemCustomization) {
@@ -151,4 +159,13 @@ public class OrderService {
         return orderId;
     }
 
+    public void updatePaymentOrder(List<OrderDTO> orders, PaymentOrderDTO paymentOrder) {
+        orders.forEach(order -> {
+            // TODO we can update only two fields instead of complete object
+            order.setPaymentOrderId(paymentOrder.getPaymentOrderId());
+            order.setOrderStatus(OrderStatus.PAYMENT_INITIATED.name());
+            OrderEntity orderEntity = orderMapper.toEntity(order);
+            orderRepository.save(orderEntity);
+        });
+    }
 }

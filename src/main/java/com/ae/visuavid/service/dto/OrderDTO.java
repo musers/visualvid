@@ -39,6 +39,7 @@ public class OrderDTO implements BaseDTO {
     private Integer couponDiscountPercentage;
     private Integer gstPercentage;
     private List<OrderSlideDTO> orderSlides;
+    private String paymentOrderId;
 
     public UUID getId() {
         return id;
@@ -302,5 +303,13 @@ public class OrderDTO implements BaseDTO {
 
     public void setCouponCode(String couponCode) {
         this.couponCode = couponCode;
+    }
+
+    public String getPaymentOrderId() {
+        return paymentOrderId;
+    }
+
+    public void setPaymentOrderId(String paymentOrderId) {
+        this.paymentOrderId = paymentOrderId;
     }
 }

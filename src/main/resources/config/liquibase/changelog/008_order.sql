@@ -34,7 +34,8 @@ create table vvid_order(
     coupon_discount_amount NUMERIC(12,2),
     coupon_discount_percentage INTEGER,
     gst_percentage INTEGER,
-    coupon_code VARCHAR(30)
+    coupon_code VARCHAR(30),
+    payment_order_id VARCHAR(50)
 );
 
 create table vvid_order_slide (

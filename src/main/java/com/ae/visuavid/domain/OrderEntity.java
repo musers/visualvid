@@ -113,6 +113,9 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
     @Column(name = "gst_percentage")
     private Integer gstPercentage;
 
+    @Column(name = "payment_order_id")
+    private String paymentOrderId;
+
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<OrderSlideEntity> orderSlides;
@@ -379,5 +382,13 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
 
     public void setGstPercentage(Integer gstPercentage) {
         this.gstPercentage = gstPercentage;
+    }
+
+    public String getPaymentOrderId() {
+        return paymentOrderId;
+    }
+
+    public void setPaymentOrderId(String paymentOrderId) {
+        this.paymentOrderId = paymentOrderId;
     }
 }
