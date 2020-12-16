@@ -86,7 +86,7 @@ create table coupon_info(
   last_modified_date TIMESTAMP,
   created_by VARCHAR(30),
   last_modified_by VARCHAR(30)
-)
+);
 
 CREATE SEQUENCE "ORDER_ID_SEQ" START WITH 1;
 CREATE SEQUENCE "SALES_ID_SEQ" START WITH 1;

@@ -19,9 +19,9 @@ public class PaymentResource {
     @GetMapping("/{orderId}")
     public ResponseEntity<?> createPaymentOrder(@PathVariable("orderId") String orderId, @RequestParam(value = "action", required = true) String action) {
         log.info("createPaymentOrder action: {} ", action);
-        if (action.equals("createpaymentorder")) {
-            return new ResponseEntity<>(razorPayService.createPaymentOrder(orderId), HttpStatus.OK);
-        }
+//        if (action.equals("createpaymentorder")) {
+//            return new ResponseEntity<>(razorPayService.createPaymentOrder(orderId), HttpStatus.OK);
+//        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
