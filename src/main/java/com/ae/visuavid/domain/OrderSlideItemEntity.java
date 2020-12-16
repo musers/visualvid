@@ -6,11 +6,8 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "template_slide_items")
-public class TemplateSlideItemEntity extends AbstractAuditingEntity implements BaseEntity {
-    /**
-     *
-     */
+@Table(name = "vvid_order_slide_items")
+public class OrderSlideItemEntity extends AbstractAuditingEntity implements BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -41,8 +38,8 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
     private UUID adminSlideItemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "template_slide_id")
-    private TemplateSlideEntity templateSlide;
+    @JoinColumn(name = "order_slide_id")
+    private OrderSlideEntity orderSlide;
 
     public UUID getId() {
         return id;
@@ -92,14 +89,6 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
         this.s3Key = s3Key;
     }
 
-    public TemplateSlideEntity getTemplateSlide() {
-        return templateSlide;
-    }
-
-    public void setTemplateSlide(TemplateSlideEntity templateSlide) {
-        this.templateSlide = templateSlide;
-    }
-
     public String getItemValue() {
         return itemValue;
     }
@@ -107,12 +96,21 @@ public class TemplateSlideItemEntity extends AbstractAuditingEntity implements B
     public void setItemValue(String itemValue) {
         this.itemValue = itemValue;
     }
+
     public UUID getAdminSlideItemId() {
         return adminSlideItemId;
     }
 
     public void setAdminSlideItemId(UUID adminSlideItemId) {
         this.adminSlideItemId = adminSlideItemId;
+    }
+
+    public OrderSlideEntity getOrderSlide() {
+        return orderSlide;
+    }
+
+    public void setOrderSlide(OrderSlideEntity orderSlide) {
+        this.orderSlide = orderSlide;
     }
 
 }

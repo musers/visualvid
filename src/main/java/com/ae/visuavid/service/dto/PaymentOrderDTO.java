@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class PaymentOrderDTO {
     private BigDecimal amount;
-    private String orderIdRef;
+    private String paymentOrderId;
     private String razorPayOrderId;
     private String currencyCode;
 
@@ -14,14 +14,6 @@ public class PaymentOrderDTO {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public String getOrderIdRef() {
-        return orderIdRef;
-    }
-
-    public void setOrderIdRef(String orderIdRef) {
-        this.orderIdRef = orderIdRef;
     }
 
     public String getRazorPayOrderId() {
@@ -38,5 +30,13 @@ public class PaymentOrderDTO {
 
     public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
+    }
+
+    public String getPaymentOrderId() {
+        return paymentOrderId;
+    }
+
+    public void setPaymentOrderId(String paymentOrderId) {
+        this.paymentOrderId = paymentOrderId;
     }
 }
