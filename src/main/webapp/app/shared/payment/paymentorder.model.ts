@@ -1,6 +1,7 @@
 export interface PaymentOrder {
   amount?: number;
-  orderIdRef?: string;
+  paymentOrderId?: string;
   razorPayOrderId?: string;
   currencyCode?: string;
+  razorPayKey?: string;
 }

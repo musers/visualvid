@@ -2,11 +2,12 @@
 import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional } from '@angular/core';
 import videojs from 'video.js';
 import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
-import { PaymentService } from 'app/shared/payment/payment.service';
+import { OrderService } from 'app/order/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
 import { CountryService } from 'app/shared/country.service';
+import { OrderRequest } from 'app/order/order-request.model';
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
@@ -34,7 +35,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
     private matDialog: MatDialog,
     private countryService: CountryService,
     private razorpayService: RazorpayService,
-    private paymentService: PaymentService,
+    private orderService: OrderService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item', data);
@@ -82,14 +83,14 @@ export class ItemComponent implements OnInit, AfterViewInit {
   formatCategory(categoryId?: string): string {
     return categoryId? categoryId.replace('_',' '): '';
   }
-  pay(): void {
-    console.log('pay');
-    const orderId = 'test5';
-    this.paymentService.createPaymentOrder(orderId).subscribe(data => {
+  buyNow(): void {
+    const orderRequest = this.prepareOrderRequest();
+    console.log('buyNow');
+    this.orderService.createPaymentOrder(orderRequest).subscribe(data => {
       console.log(data);
       const options = {
         description: 'Foo Description',
-        key: 'rzp_test_wTzvK2HN5T7KjZ',
+        key: data.razorPayKey,
         order_id: data.razorPayOrderId,
         amount: data.amount,
         name: 'Foo',
@@ -107,5 +108,19 @@ export class ItemComponent implements OnInit, AfterViewInit {
         console.error(e);
       }
     });
+  }
+  prepareOrderRequest(): OrderRequest {
+    const itemCustomization = {
+      adminMediaId: this.item.id,
+      optedForAdvCustomization: false,
+      optedForPremumDelivery: false
+    };
+
+    const orderRequest = {
+      couponCode : '',
+      currencyCode: this.isIpIndian ? 'INR': 'USD',
+      itemCustomizations : [itemCustomization]
+    };
+    return orderRequest;
   }
 }

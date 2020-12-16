@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @Autowired
@@ -21,6 +22,12 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
         return generateId("S", "SALES_ID_SEQ");
     }
 
+    @Override
+    public void updatePaymentOrderId(UUID id, String paymentOrderId, String orderStatus) {
+        String updateQuery = "update vvid_order set payment_order_id = ?,order_status = ?  where id = ?";
+        jdbcTemplate.update(updateQuery, paymentOrderId, orderStatus, id);
+    }
+
 
     private String generateId(String prefix, String sequenceName) {
         String sql = "select " + sequenceName + ".NEXTVAL from dual";
@@ -28,7 +35,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
         StringBuilder sb = new StringBuilder(prefix.toUpperCase());
         LocalDate currentdate = LocalDate.now();
         sb.append(currentdate.getYear()).
-            append(currentdate.getMonth()).
+            append(currentdate.getMonthValue()).
             append(String.format("%06d", num));
         return sb.toString();
 

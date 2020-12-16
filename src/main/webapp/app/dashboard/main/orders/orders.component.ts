@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderModel } from 'app/order/order.model';
+import { OrderService } from 'app/order/order.service';
 
 @Component({
   selector: 'jhi-dashboard-orders',
@@ -8,19 +9,12 @@ import { OrderModel } from 'app/order/order.model';
 })
 export class DashboardOrdersComponent implements OnInit {
   @Input() orders?: OrderModel[];
-  constructor() {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orders = [
-      {
-        saleId: '0001',
-        orderId: '0001',
-        name: 'RestaurantPromoVideo',
-        assignTo: 'Bobba Anil',
-        status: 'Assigned',
-        timeLeft: 120,
-        action: 'select',
-      },
-    ];
+  this.orderService.findAll().subscribe(data => {
+        console.log(data);
+        this.orders = data;
+      });
   }
 }

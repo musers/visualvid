@@ -1,6 +1,7 @@
 package com.ae.visuavid.service;
 
 import com.ae.visuavid.VisualvidApp;
+import com.ae.visuavid.config.ApplicationProperties;
 import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.service.dto.PaymentOrderDTO;
 import com.ae.visuavid.utils.NumberUtility;
@@ -28,6 +29,9 @@ public class RazorPayService {
 
     private RazorpayClient razorpayClient;
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
     public RazorPayService(RazorpayClient razorpayClient) {
         this.razorpayClient = razorpayClient;
     }
@@ -42,6 +46,7 @@ public class RazorPayService {
             amount = numberUtility.add(amount, order.getTotalAmount());
         }
         PaymentOrderDTO paymentOrder = createPaymentOrder(amount, currencyCode, paymentOrderId);
+        paymentOrder.setRazorPayKey(applicationProperties.getRazorpay().getKey());
         return paymentOrder;
     }
 

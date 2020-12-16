@@ -144,8 +144,10 @@ public class OrderService {
         orderDTO.setCouponCode(pricing.getCouponCode());
 
         // Slide & slide item info
-        List<OrderSlideDTO> orderSlides = orderSlideMapper.toDTOsFromAdminMediaEntities(adminMediaEntity.getSlides());
-        orderDTO.setOrderSlides(orderSlides);
+        if (adminMediaEntity.getSlides().size() > 0) {
+            List<OrderSlideDTO> orderSlides = orderSlideMapper.toDTOsFromAdminMediaEntities(adminMediaEntity.getSlides());
+            orderDTO.setOrderSlides(orderSlides);
+        }
         return orderDTO;
     }
 
@@ -161,11 +163,7 @@ public class OrderService {
 
     public void updatePaymentOrder(List<OrderDTO> orders, PaymentOrderDTO paymentOrder) {
         orders.forEach(order -> {
-            // TODO we can update only two fields instead of complete object
-            order.setPaymentOrderId(paymentOrder.getPaymentOrderId());
-            order.setOrderStatus(OrderStatus.PAYMENT_INITIATED.name());
-            OrderEntity orderEntity = orderMapper.toEntity(order);
-            orderRepository.save(orderEntity);
+            orderRepository.updatePaymentOrderId(order.getId(), paymentOrder.getPaymentOrderId(), OrderStatus.PAYMENT_INITIATED.name());
         });
     }
 }

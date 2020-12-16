@@ -7,6 +7,7 @@ public class PaymentOrderDTO {
     private String paymentOrderId;
     private String razorPayOrderId;
     private String currencyCode;
+    private String razorPayKey;
 
     public BigDecimal getAmount() {
         return amount;
@@ -38,5 +39,13 @@ public class PaymentOrderDTO {
 
     public void setPaymentOrderId(String paymentOrderId) {
         this.paymentOrderId = paymentOrderId;
+    }
+
+    public String getRazorPayKey() {
+        return razorPayKey;
+    }
+
+    public void setRazorPayKey(String razorPayKey) {
+        this.razorPayKey = razorPayKey;
     }
 }
