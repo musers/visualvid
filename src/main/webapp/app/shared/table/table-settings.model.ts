@@ -11,15 +11,15 @@ export interface TablePaginationSettingsModel {
     /**
      * @description Number of items to display on a page. By default, set to 50.
      */
-    pageSize: number;
+    pageSize?: number;
     /**
      * @description the set of provided page size options to display to the user.
      */
-    pageSizeOptions: number[];
+    pageSizeOptions?: number[];
     /**
      * @description Whether to show the first/last buttons UI to the user.
      */
-    showFirstLastButtons: boolean;
+    showFirstLastButtons?: boolean;
 }
 // This interface contains properties of table column settings
 /**

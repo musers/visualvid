@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TablePaginationSettingsModel, ColumnSettingsModel } from './table-settings.model';
 
+// https://stackblitz.com/edit/mat-table-custom?file=app%2Ftable-demo%2Ftable-demo.component.html
+
 @Component({
   selector: 'jhi-table',
   templateUrl: './table.component.html',

@@ -22,44 +22,56 @@
             <div class="card-box-metrics">30</div>
         </div>
     </div>
-    <div class="row mt-4 order-menu-bar">
-         <div class="col-1 ml-n4">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="cb1">
-            </div>
-         </div>
-        <!-- <div class="col-1"><small>Id#</small></div> -->
-         <div class="col-1"><small style="font-weight: bold;">SalesId</small></div>
-         <div class="col-1"><small style="font-weight: bold;">OrderId</small></div>
-         <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>
-         <div class="col-1 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>
+    <div class="pt-4">
+        <jhi-table [rowData]="rowData"
+               [enableCheckbox]="true"
+               [allowMultiSelect]="true"
+               (getSelectedRows)="onNotifySelected($event)"
+               [sqPaginationConfig]="tablePaginationSettings"
+               [sqColumnDefinition]="columnDefinition">
+        </jhi-table>
     </div>
+<!--    <div class="row mt-4 order-menu-bar">-->
+<!--         <div class="col-1 ml-n4">-->
+<!--            <div class="custom-control custom-checkbox">-->
+<!--                <input type="checkbox" name="cb1">-->
+<!--            </div>-->
+<!--         </div>-->
+<!--        &lt;!&ndash; <div class="col-1"><small>Id#</small></div> &ndash;&gt;-->
+<!--         <div class="col-1"><small style="font-weight: bold;">SalesId</small></div>-->
+<!--         <div class="col-1"><small style="font-weight: bold;">OrderId</small></div>-->
+<!--         <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>-->
+<!--         <div class="col-1 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>-->
+<!--         <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>-->
+<!--         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>-->
+<!--         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>-->
+<!--    </div>-->
 
-    <div *ngFor="let order of orders">
-        <div class="row mt-1 order-menu-bar order-row">
-            <div class="col-1 ml-n4 mt-2">
-               <div class="custom-control custom-checkbox">
-                   <input type="checkbox" name="cb1">
-               </div>
-            </div>
-           <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
-            <div class="col-1 mt-2"><small>{{order.salesId}}</small></div>
-            <div class="col-1 mt-2"><small>{{order.orderId}}</small></div>
-            <div class="col-2 ml-4 mt-2"><small>{{order.name}}</small></div>
-            <div class="col-1 ml-4 mt-2"> <small>{{order.assignTo}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{order.orderStatus}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{order.timeLeft}}</small></div>
-            <div class="col-1 ml-4 mt-2">
-                <select class="form-control" id="sel1">
-                    <option>Design Team</option>
-                    <option>Marketing Team</option>
-                    <option>FInance Team</option>
-                    <option>HR Team</option>
-                  </select>
-             </div>
-       </div>
-    </div>
+
+<!--    <div *ngFor="let order of orders">-->
+<!--        <div class="row mt-1 order-menu-bar order-row">-->
+<!--            <div class="col-1 ml-n4 mt-2">-->
+<!--               <div class="custom-control custom-checkbox">-->
+<!--                   <input type="checkbox" name="cb1">-->
+<!--               </div>-->
+<!--            </div>-->
+<!--           &lt;!&ndash; <div class="col-1 mt-2"><small>{{vd.id}}</small></div> &ndash;&gt;-->
+<!--            <div class="col-1 mt-2"><small>{{order.salesId}}</small></div>-->
+<!--            <div class="col-1 mt-2"><small>{{order.orderId}}</small></div>-->
+<!--            <div class="col-2 ml-4 mt-2"><small>{{order.name}}</small></div>-->
+<!--            <div class="col-1 ml-4 mt-2"> <small>{{order.assignTo}}</small></div>-->
+<!--            <div class="col-1 ml-4 mt-2"><small>{{order.orderStatus}}</small></div>-->
+<!--            <div class="col-1 ml-4 mt-2"><small>{{order.timeLeft}}</small></div>-->
+<!--            <div class="col-1 ml-4 mt-2">-->
+<!--                <select class="form-control" id="sel1">-->
+<!--                    <option>Design Team</option>-->
+<!--                    <option>Marketing Team</option>-->
+<!--                    <option>FInance Team</option>-->
+<!--                    <option>HR Team</option>-->
+<!--                  </select>-->
+<!--             </div>-->
+<!--       </div>-->
+<!--    </div>-->
 </div>
+
+
