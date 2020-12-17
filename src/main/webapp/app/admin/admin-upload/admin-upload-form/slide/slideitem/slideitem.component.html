@@ -2,7 +2,16 @@
     <ng-container [ngSwitch]="item.type">
             <div class="row">
                 <div class="col-5">
+<!--                    <ng-container *ngSwitchCase="'note'">-->
+<!--                        <textarea class="form-control textfield" id="description"></textarea>-->
+<!--                    </ng-container>-->
+                    <ng-container *ngIf="item.type=='note';else non_note">
+                        <textarea class="form-control textfield" id="description"></textarea>
+                    </ng-container>
+
+                    <ng-template #non_note>
                     <input type="text" class="form-control textfield" placeholder="Enter Label" name="label" [(ngModel)]="item.label">
+                    </ng-template>
                 </div>
                 <div class="col ml-auto" class="{{item.type}}">
                     <ng-container *ngSwitchCase="'image'">
