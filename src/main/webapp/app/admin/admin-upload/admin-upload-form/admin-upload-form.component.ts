@@ -168,9 +168,28 @@ export class AdminUploadFormComponent implements OnInit {
     if (!this.item.indianPrice) {
       this.errors.indianPrice = true;
     }
+    if(!this.item.indianDiscPrice){
+      this.errors.indianDiscPrice = true;
+    }
     if (!this.item.usdPrice) {
       this.errors.usdPrice = true;
     }
+    if(!this.item.usdDiscPrice){
+      this.errors.usdDiscPrice = true;
+    }
+    if (!this.item.indianAdvCustomizationPrice) {
+        this.errors.indianAdvCustomizationPrice = true;
+      }
+    if (!this.item.usdAdvCustomizationPrice) {
+        this.errors.usdAdvCustomizationPrice = true;
+      }
+     if (!this.item.indianPremumDeliveryPrice) {
+         this.errors.indianPremumDeliveryPrice = true;
+       }
+    if (!this.item.usdPremumDeliveryPrice) {
+        this.errors.usdPremumDeliveryPrice = true;
+      }
+
     if (!this.item.categoryId) {
       this.errors.categoryIdRequired = true;
     }
