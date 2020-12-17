@@ -1,0 +1,47 @@
+<div class="mat-elevation-z8 table-container">
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container *ngFor="let column of sqColumnDefinition" matColumnDef="{{column.name}}">
+
+            <ng-container *ngIf="column.name ==='select';then checkbox else nocheckbox"></ng-container>
+            <ng-template #checkbox>
+
+                <mat-header-cell *matHeaderCellDef>
+
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null; rowSelect()"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-template>
+            <ng-template #nocheckbox>
+                <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.disableSorting">
+                    <!--For displaying the column label & Icon-->
+                    <div class="column-header-content">
+                        <span> {{column.displayName}}</span>
+                        <mat-icon *ngIf="column.icon" class="icon-align">{{column.icon}}</mat-icon>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element[column.name]}}
+                </mat-cell>
+            </ng-template>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnNames;"
+                 [ngClass]="{'highlight': selectedRowIndex == row.position}"
+                 (click)="enableCheckbox==false && allowMultiSelect==false ? highlight(row) : false ;selection.toggle(row); rowSelect()">
+        </mat-row>
+    </mat-table>
+    <ng-container *ngIf="sqPaginationConfig && sqPaginationConfig.enablePagination">
+        <mat-paginator [pageSize]="sqPaginationConfig.pageSize"
+                       [pageSizeOptions]="sqPaginationConfig.pageSizeOptions"
+                       [showFirstLastButtons]="sqPaginationConfig.showFirstLastButtons">
+        </mat-paginator>
+    </ng-container>
+</div>

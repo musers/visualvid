@@ -6,6 +6,7 @@ import { AlertErrorComponent } from './alert/alert-error.component';
 import { LoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { RouterModule } from '@angular/router';
+import { TableModule } from 'app/shared/table/table.module';
 
 @NgModule({
   imports: [VisualvidSharedLibsModule],
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     AlertErrorComponent,
     LoginModalComponent,
     HasAnyAuthorityDirective,
-    RouterModule
+    RouterModule,
+    TableModule
   ],
 })
 export class VisualvidSharedModule {}
