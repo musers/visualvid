@@ -48,4 +48,8 @@ export class DashboardOrdersComponent implements OnInit {
    onNotifySelected(selectedRows: object[]): void  {
         console.log(selectedRows);
     }
+  search(evt: any): void {
+    console.log(evt);
+    // TODO call a back-end service awith evt.query and map result to this.rowData;
+  }
 }
