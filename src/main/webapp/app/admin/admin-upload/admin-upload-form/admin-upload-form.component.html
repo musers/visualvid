@@ -101,6 +101,12 @@
                                     Indian Price is required.
                                 </small>
                             </div>
+                            <div *ngIf="errors.indianDiscPriceLargerThanPrice">
+                                <small class="form-text text-danger">
+                                    Discount price cannot be more than Indian price
+                                </small>
+                            </div>
+
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdDiscPrice" style="max-width:100%;">USD</label>
@@ -108,6 +114,11 @@
                             <div *ngIf="errors.usdDiscPrice">
                                 <small class="form-text text-danger">
                                     USD Price is required.
+                                </small>
+                            </div>
+                            <div *ngIf="errors.usdDiscPriceLargerThanPrice">
+                                <small class="form-text text-danger">
+                                    Discount price cannot be more than USD price
                                 </small>
                             </div>
                         </div>

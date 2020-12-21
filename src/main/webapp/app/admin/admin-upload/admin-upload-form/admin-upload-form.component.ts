@@ -165,30 +165,36 @@ export class AdminUploadFormComponent implements OnInit {
     if (!this.item.name) {
       this.errors.firstnameRequired = true;
     }
-    if (!this.item.indianPrice) {
+    if (this.item.indianPrice === undefined || null) {
       this.errors.indianPrice = true;
     }
-    if(!this.item.indianDiscPrice){
+    if (this.item.indianDiscPrice === undefined || null) {
       this.errors.indianDiscPrice = true;
     }
-    if (!this.item.usdPrice) {
+    if (this.item.usdPrice === undefined || null) {
       this.errors.usdPrice = true;
     }
-    if(!this.item.usdDiscPrice){
+    if (this.item.usdDiscPrice === undefined || null) {
       this.errors.usdDiscPrice = true;
     }
-    if (!this.item.indianAdvCustomizationPrice) {
-        this.errors.indianAdvCustomizationPrice = true;
-      }
-    if (!this.item.usdAdvCustomizationPrice) {
-        this.errors.usdAdvCustomizationPrice = true;
-      }
-     if (!this.item.indianPremumDeliveryPrice) {
-         this.errors.indianPremumDeliveryPrice = true;
-       }
-    if (!this.item.usdPremumDeliveryPrice) {
-        this.errors.usdPremumDeliveryPrice = true;
-      }
+    if (this.item.indianAdvCustomizationPrice === undefined || null) {
+      this.errors.indianAdvCustomizationPrice = true;
+    }
+    if (this.item.usdAdvCustomizationPrice === undefined || null) {
+      this.errors.usdAdvCustomizationPrice = true;
+    }
+    if (this.item.indianPremumDeliveryPrice === undefined || null) {
+      this.errors.indianPremumDeliveryPrice = true;
+    }
+    if (this.item.usdPremumDeliveryPrice === undefined || null) {
+      this.errors.usdPremumDeliveryPrice = true;
+    }
+    if (this.item.indianPrice && this.item.indianDiscPrice && this.item.indianPrice < this.item.indianDiscPrice) {
+      this.errors.indianDiscPriceLargerThanPrice = true;
+    }
+    if (this.item.usdPrice && this.item.usdDiscPrice && this.item.usdPrice < this.item.usdDiscPrice) {
+      this.errors.usdDiscPriceLargerThanPrice = true;
+    }
 
     if (!this.item.categoryId) {
       this.errors.categoryIdRequired = true;
