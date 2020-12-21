@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminVideoService } from './admin-video.service';
 import { AdminVideoModel } from './admin-video.model';
+import { ColumnSettingsModel, TablePaginationSettingsModel } from 'app/shared/table/table-settings.model';
 // import { Pagination } from '../../../../../app/shared/util/request-util';
 // import { HttpResponse } from '@angular/common/http';
 
@@ -12,8 +13,33 @@ import { AdminVideoModel } from './admin-video.model';
 export class DashboardVideoDesignsComponent implements OnInit {
   @Input() videoDesigns?: AdminVideoModel[];
   count: Number = 0;
-
-  constructor(protected adminVideoService: AdminVideoService) {}
+  columnDefinition: ColumnSettingsModel[] = [];
+  tablePaginationSettings: TablePaginationSettingsModel = {
+    enablePagination: true,
+    pageSize: 10,
+    pageSizeOptions: [10, 20, 30],
+    showFirstLastButtons: true,
+  };
+  rowData: Array<AdminVideoModel> = [];
+  constructor(protected adminVideoService: AdminVideoService) {
+    this.columnDefinition = [
+      {
+        name: 'name',
+        displayName: 'Name',
+        disableSorting: false,
+      },
+      {
+        name: 'id',
+        displayName: 'Video ID #',
+        disableSorting: false,
+      },
+      {
+        name: 'views',
+        displayName: 'Views',
+        disableSorting: false,
+      },
+    ];
+  }
 
   ngOnInit(): void {
     //    this.adminVideoService.findAllByPage({
@@ -30,6 +56,7 @@ export class DashboardVideoDesignsComponent implements OnInit {
     this.adminVideoService.findAll().subscribe((res: AdminVideoModel[]) => {
       if (res != null) {
         this.videoDesigns = res;
+        this.rowData = data;
         this.videoDesigns.forEach(vd => {
           vd.created = 'Sep23, 2020';
           vd.modified = 'Sep23, 2020';
@@ -40,7 +67,14 @@ export class DashboardVideoDesignsComponent implements OnInit {
       }
     });
   }
-  editVideoDesign(vd:AdminVideoModel): void {
-    window.location.href='/admin/upload/'+vd.id;
+  editVideoDesign(vd: AdminVideoModel): void {
+    window.location.href = '/admin/upload/' + vd.id;
+  }
+  onNotifySelected(selectedRows: object[]): void {
+    console.log(selectedRows);
+  }
+  search(evt: any): void {
+    console.log(evt);
+    // TODO call a back-end service awith evt.query and map result to this.rowData;
   }
 }
