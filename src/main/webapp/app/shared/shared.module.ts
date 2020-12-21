@@ -7,10 +7,18 @@ import { LoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { RouterModule } from '@angular/router';
 import { TableModule } from 'app/shared/table/table.module';
+import { SearchComponent } from 'app/shared/search/search.component';
 
 @NgModule({
   imports: [VisualvidSharedLibsModule],
-  declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, LoginModalComponent, HasAnyAuthorityDirective],
+  declarations: [
+    FindLanguageFromKeyPipe,
+    AlertComponent,
+    AlertErrorComponent,
+    LoginModalComponent,
+    SearchComponent,
+    HasAnyAuthorityDirective,
+  ],
   entryComponents: [LoginModalComponent],
   exports: [
     VisualvidSharedLibsModule,
@@ -20,7 +28,8 @@ import { TableModule } from 'app/shared/table/table.module';
     LoginModalComponent,
     HasAnyAuthorityDirective,
     RouterModule,
-    TableModule
+    TableModule,
+    SearchComponent,
   ],
 })
 export class VisualvidSharedModule {}
