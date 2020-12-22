@@ -9,7 +9,7 @@
                         <mat-tab-group #allTabs [(selectedIndex)]="activeTabIndex" (selectedTabChange)="slideChanged($event)">
                             <ng-container *ngFor="let s of adminMedia?.slides;let i = index;">
                                 <mat-tab label={{s.slideName}}>
-                                    <div style="height:500px; overflow:visible !importannt;">
+                                    <div style="height:500px; overflow:visible !important;">
                                     <jhi-user-upload-form-slide [adminMediaSlide]="s" [userSlideItems]="item.userSlides[i]?.userSlideItems"></jhi-user-upload-form-slide>
                                     </div>
                                 </mat-tab>
