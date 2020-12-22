@@ -14,4 +14,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID>, Order
     public List<OrderEntity> findByAdminMediaId(UUID adminMediaId);
 
     Optional<OrderEntity> findByOrderId(String orderId);
+
+    Optional<List<OrderEntity>> findByRazorPayOrderId(String razorPayOrderId);
 }

@@ -17,9 +17,13 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.security.SignatureException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Look for https://razorpay.com/docs/payment-gateway/web-integration/custom/#step-5-verify-the-signature more details
+ */
 @Service
 public class RazorPayService {
     private static final Logger log = LoggerFactory.getLogger(VisualvidApp.class);
@@ -92,4 +96,24 @@ public class RazorPayService {
         }
     }
 
+
+    /**
+     * Validates razorpay signature
+     *
+     * @param razorPayOrderId
+     * @param razorPayPaymentId
+     * @param razorPaySignature
+     */
+    public void validateRazorPayResponse(String razorPayOrderId, String razorPayPaymentId, String razorPaySignature) {
+        String data = new StringBuilder(razorPayOrderId).append("|").append(razorPayPaymentId).toString();
+        try {
+            String generatedSignature = RazorPaySignatureValidator.calculateRFC2104HMAC(data, applicationProperties.getRazorpay().getSecret());
+            if (!razorPaySignature.endsWith(generatedSignature)) {
+                throw new ApiRuntimeException("Error occured while validating signature: " + razorPayOrderId);
+            }
+            log.info("Razor pay signature validation has been successfull: " + razorPayOrderId);
+        } catch (SignatureException e) {
+            throw new ApiRuntimeException("Error occured while validating signature: " + razorPayOrderId);
+        }
+    }
 }

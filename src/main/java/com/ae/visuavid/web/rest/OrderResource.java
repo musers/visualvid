@@ -5,6 +5,7 @@ import com.ae.visuavid.service.RazorPayService;
 import com.ae.visuavid.service.dto.OrderDTO;
 import com.ae.visuavid.service.dto.OrderRequestDTO;
 import com.ae.visuavid.service.dto.PaymentOrderDTO;
+import com.ae.visuavid.service.dto.RazorPayResponseDTO;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,5 +56,9 @@ public class OrderResource {
     public ResponseEntity<List<OrderDTO>> findOrders() {
         List<OrderDTO> orders = orderService.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+    @PostMapping("/order/updaterazorpaytransaction")
+    public void updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
+        orderService.updateRazorPayTransaction(razorPayResponse);
     }
 }

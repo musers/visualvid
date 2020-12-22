@@ -49,6 +49,9 @@ public class OrderService {
     @Autowired
     protected NumberUtility numberUtility;
 
+    @Autowired
+    protected RazorPayService razorPayService;
+
 
     public OrderService() {
     }
@@ -163,7 +166,24 @@ public class OrderService {
 
     public void updatePaymentOrder(List<OrderDTO> orders, PaymentOrderDTO paymentOrder) {
         orders.forEach(order -> {
-            orderRepository.updatePaymentOrderId(order.getId(), paymentOrder.getPaymentOrderId(), OrderStatus.PAYMENT_INITIATED.name());
+            orderRepository.updateRazorPayOrderId(order.getId(), paymentOrder.getRazorPayOrderId(), OrderStatus.PAYMENT_INITIATED.name());
         });
+    }
+
+    public void updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
+        // TODO should not be used, need to get order id from ui and use that
+        String razorPayOrderId = razorPayResponse.getRazorpayOrderId();
+        String razorPayPaymentId = razorPayResponse.getRazorpayPaymentId();
+        String razorPaySignature = razorPayResponse.getRazorpaySignature();
+        razorPayService.validateRazorPayResponse(razorPayOrderId, razorPayPaymentId, razorPaySignature);
+        Optional<List<OrderEntity>> optOrders = orderRepository.findByRazorPayOrderId(razorPayOrderId);
+        if (optOrders.isPresent()) {
+            List<OrderEntity> orders = optOrders.get();
+            orders.forEach(order -> {
+                orderRepository.updateRazorPayPaymentIdAndSalesId(order.getId(), razorPayResponse.getRazorpayPaymentId(), OrderStatus.PAYMENT_COMPLETED.name());
+            });
+        } else {
+            throw new ApiRuntimeException("No orders found for the given razorPayOrderId: " + razorPayOrderId);
+        }
     }
 }

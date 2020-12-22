@@ -23,9 +23,16 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public void updatePaymentOrderId(UUID id, String paymentOrderId, String orderStatus) {
-        String updateQuery = "update vvid_order set payment_order_id = ?,order_status = ?  where id = ?";
+    public void updateRazorPayOrderId(UUID id, String paymentOrderId, String orderStatus) {
+        String updateQuery = "update vvid_order set razor_pay_order_id = ?,order_status = ?  where id = ?";
         jdbcTemplate.update(updateQuery, paymentOrderId, orderStatus, id);
+    }
+
+    @Override
+    public void updateRazorPayPaymentIdAndSalesId(UUID id, String razorpayPaymentId, String orderStatus) {
+        String salesId = generateSalesId();
+        String updateQuery = "update vvid_order set razor_pay_payment_id = ?,order_status = ?, sales_id = ?  where id = ?";
+        jdbcTemplate.update(updateQuery, razorpayPaymentId, orderStatus, salesId, id);
     }
 
 

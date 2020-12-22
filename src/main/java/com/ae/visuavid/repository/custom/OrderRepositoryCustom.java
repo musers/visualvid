@@ -7,5 +7,7 @@ public interface OrderRepositoryCustom {
 
     String generateSalesId();
 
-    void updatePaymentOrderId(UUID id, String paymentOrderId, String orderStatus);
+    void updateRazorPayOrderId(UUID id, String paymentOrderId, String orderStatus);
+
+    void updateRazorPayPaymentIdAndSalesId(UUID id, String razorpayPaymentId, String name);
 }
