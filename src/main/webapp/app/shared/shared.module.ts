@@ -11,7 +11,14 @@ import { SearchComponent } from 'app/shared/search/search.component';
 
 @NgModule({
   imports: [VisualvidSharedLibsModule],
-  declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, LoginModalComponent,SearchComponent, HasAnyAuthorityDirective],
+  declarations: [
+    FindLanguageFromKeyPipe,
+    AlertComponent,
+    AlertErrorComponent,
+    LoginModalComponent,
+    SearchComponent,
+    HasAnyAuthorityDirective,
+  ],
   entryComponents: [LoginModalComponent],
   exports: [
     VisualvidSharedLibsModule,
@@ -22,7 +29,7 @@ import { SearchComponent } from 'app/shared/search/search.component';
     HasAnyAuthorityDirective,
     RouterModule,
     TableModule,
-    SearchComponent
+    SearchComponent,
   ],
 })
 export class VisualvidSharedModule {}

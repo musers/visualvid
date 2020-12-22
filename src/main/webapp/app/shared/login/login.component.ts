@@ -25,8 +25,8 @@ export class LoginModalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.username) {
-//       this.username.nativeElement.focus();
-        setTimeout(() => this.username.nativeElement.focus(), 0);
+      //       this.username.nativeElement.focus();
+      setTimeout(() => this.username.nativeElement.focus(), 0);
     }
   }
 

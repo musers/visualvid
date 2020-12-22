@@ -4,19 +4,18 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef, ViewEncapsulati
   selector: 'jhi-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent {
-
   @ViewChild('searchInput', { read: ElementRef })
   private searchInput: ElementRef;
 
   @Output()
   searchEvent = new EventEmitter<{ query?: string }>();
 
-  constructor() { }
-  search() : void{
+  constructor() {}
+  search(): void {
     const searchTxt = this.searchInput.nativeElement.value;
-    this.searchEvent.emit({ query: searchTxt});
-   }
+    this.searchEvent.emit({ query: searchTxt });
+  }
 }

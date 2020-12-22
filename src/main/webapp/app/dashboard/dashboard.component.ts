@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, Inject} from '@angular/core';
+import { Component, OnInit, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -12,8 +12,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.renderer.addClass(this.document.getElementById('main'), 'dashboard-active');
   }
-  toggleOverview(evt: any) : void {
-    console.log('toggle',evt);
+  toggleOverview(evt: any): void {
+    console.log('toggle', evt);
     this.showOverview = !this.showOverview;
   }
 }

@@ -3,40 +3,71 @@
        <h5 style="font-weight: bold;">Video Designs</h5>
     </div>
     <div class="row">
-        <div class="col-6">
+       <!-- <div class="col-6">
             <input type="text" class="form-control search" id="search" placeholder="search...">
+        </div>-->
+        <div class="col-6">
+            <jhi-search (searchEvent)="search($event)"></jhi-search>
+
         </div>
-        <div class="col-3"></div>
         <div class="col-3">
             <a class="btn btn-primary btn-new ml-5"  routerLink="/admin/upload/new">
                 <span style="font-size: x-small;">+ Add New</span>
             </a>
-
         </div>
+
     </div>
-    <div class="row mt-4 menu-bar">
+    <!--<div class="row mt-4 menu-bar">
          <div class="col-1 ml-n4">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" id="cb1" name="cb1">
             </div>
          </div>
-        <!-- <div class="col-1"><small>Id#</small></div> -->
+        &lt;!&ndash; <div class="col-1"><small>Id#</small></div> &ndash;&gt;
          <div class="col-3"><small>Name</small></div>
          <div class="col-1"><small>Created</small></div>
          <div class="col-1 ml-4"><small>Modified</small></div>
          <div class="col-1 ml-4"> <small>Views</small></div>
          <div class="col-1 ml-4"><small>Sales</small></div>
          <div class="col-1 ml-4"><small>Earnings</small></div>
+    </div>-->
+
+    <div class="row ml-1  mt-4">
+        <div class="col-3 card card-box">
+            <div>Total Videos</div>
+            <div class="card-box-metrics">2200</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>Views</div>
+            <div class="card-box-metrics">880</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>Sales</div>
+            <div class="card-box-metrics">490</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>Earnings</div>
+            <div class="card-box-metrics">40</div>
+        </div>
     </div>
 
-    <div *ngFor="let vd of videoDesigns">
+    <div class="pt-4">
+        <jhi-table [rowData]="rowData"
+                   [enableCheckbox]="true"
+                   [allowMultiSelect]="true"
+                   (getSelectedRows)="onNotifySelected($event)"
+                   [sqPaginationConfig]="tablePaginationSettings"
+                   [sqColumnDefinition]="columnDefinition">
+        </jhi-table>
+    </div>
+    <!--<div *ngFor="let vd of videoDesigns">
         <div class="row mt-1 menu-bar video-row" (dblclick)="editVideoDesign(vd)">
             <div class="col-1 ml-n4 mt-2">
                <div class="custom-control custom-checkbox">
                    <input type="checkbox" id="cb1" name="cb1">
                </div>
             </div>
-           <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
+           &lt;!&ndash; <div class="col-1 mt-2"><small>{{vd.id}}</small></div> &ndash;&gt;
             <div class="col-3 mt-2"><small>{{vd.name}}</small></div>
             <div class="col-1 mt-2"><small>{{vd.created}}</small></div>
             <div class="col-1 ml-4 mt-2"><small>{{vd.modified}}</small></div>
@@ -44,5 +75,5 @@
             <div class="col-1 ml-4 mt-2"><small>{{vd.sales}}</small></div>
             <div class="col-1 ml-4 mt-2"><small>{{vd.earnings}}</small></div>
        </div>
-    </div>
+    </div>-->
 </div>
