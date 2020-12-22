@@ -55,9 +55,9 @@ export class DashboardVideoDesignsComponent implements OnInit {
 
     this.adminVideoService.findAll().subscribe((res: AdminVideoModel[]) => {
       if (res != null) {
-        this.videoDesigns = res;
-        this.rowData = data;
-        this.videoDesigns.forEach(vd => {
+        // this.videoDesigns = res;
+        this.rowData = res;
+        this.rowData.forEach(vd => {
           vd.created = 'Sep23, 2020';
           vd.modified = 'Sep23, 2020';
           vd.views = 500;
