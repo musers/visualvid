@@ -1,6 +1,7 @@
 package com.ae.visuavid.repository.impl;
 
 import com.ae.visuavid.repository.custom.OrderRepositoryCustom;
+import com.ae.visuavid.util.ProfileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -11,6 +12,8 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private ProfileUtils profileUtils;
 
     @Override
     public String generateOrderId() {
@@ -37,14 +40,20 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
 
 
     private String generateId(String prefix, String sequenceName) {
-        String sql = "select " + sequenceName + ".NEXTVAL from dual";
-        Long num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
+        Long num;
+        if (profileUtils.isProfileLocal()) {
+            String sql = "select " + sequenceName + ".NEXTVAL from dual";
+            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
+        } else {
+            String sql = "select last_value from \""+sequenceName+"\"";
+            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
+        }
+
         StringBuilder sb = new StringBuilder(prefix.toUpperCase());
         LocalDate currentdate = LocalDate.now();
         sb.append(currentdate.getYear()).
             append(currentdate.getMonthValue()).
-            append(String.format("%06d", num));
+            append(String.format("%06d", num + 1));
         return sb.toString();
-
     }
 }
