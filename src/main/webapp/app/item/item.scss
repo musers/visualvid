@@ -26,6 +26,11 @@ video {
 .item-breadcrumb {
   .category: {
     text-transform: capitalize;
-
   }
+}
+.actual-price {
+  text-decoration: line-through;
+  color: #828599;
+  padding-left: 10px;
+  padding-right: 10px;
 }

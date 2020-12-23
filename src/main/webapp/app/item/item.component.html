@@ -33,17 +33,17 @@
                         <div  style="color:#43497b">{{item?.name}}</div>
                         <div class="lead mt-2" style="color:#43497b; font-weight: bold;">
                             <ng-container *ngIf="isIpIndian">
-                                {{item.indianPrice | currency:'INR'}}
+                                {{item.indianPrice - item.indianDiscPrice | currency:'INR'}}<span class="actual-price">{{item.indianPrice | currency:'INR'}}</span>
                             </ng-container>
                             <ng-container *ngIf="!isIpIndian">
-                                {{item.usdPrice | currency:'USD'}}
+                                {{item.usdPrice  - item.usdDiscPrice | currency:'USD'}}<span class="actual-price">{{item.usdPrice | currency:'INR'}}</span>
                             </ng-container>
                         </div>
-                        <div style="font-size:x-small;color: #aaabb3">Regular Price + Premium Delivery</div>
+                        <div style="font-size:x-small;color: #aaabb3">Regular Price</div>
                         <ng-container *ngIf="item.usdAdvCustomizationPrice">
                             <div class="custom-control custom-checkbox mt-4 d-flex" style="font-size: small; color: #828599;">
-                                <input type="checkbox" class="custom-control-input" id="1">
-                                <label class="custom-control-label" for="1">Advanced Customization</label>
+                                <input type="checkbox" class="custom-control-input" id="advCustomizationPrice" [(ngModel)]="advCustomizationPriceChecked"  (change)="computePrice()">
+                                <label class="custom-control-label" for="advCustomizationPrice">Advanced Customization</label>
                                 <span class="ml-auto" style="font-weight: bold;">
                                     <ng-container *ngIf="isIpIndian">
                                         {{item.indianAdvCustomizationPrice | currency:'INR'}}
@@ -56,8 +56,8 @@
                         </ng-container>
                         <ng-container *ngIf="item.usdPremumDeliveryPrice">
                             <div class="custom-control custom-checkbox mt-2 d-flex" style="font-size: small; color: #828599;">
-                                <input type="checkbox" class="custom-control-input" id="2">
-                                <label class="custom-control-label" for="2" style="font-size: small;">Premium Delivery (Rush Order)</label>
+                                <input type="checkbox" class="custom-control-input" id="premumDeliveryPrice" [(ngModel)]="premumDeliveryPriceChecked"  (change)="computePrice()">
+                                <label class="custom-control-label" for="premumDeliveryPrice" style="font-size: small;">Premium Delivery (Rush Order)</label>
                                 <span class="ml-auto" style="font-weight: bold;">
                                     <ng-container *ngIf="isIpIndian">
                                         {{item.indianPremumDeliveryPrice | currency:'INR'}}
@@ -68,6 +68,22 @@
                                 </span>
                             </div>
                         </ng-container>
+                        <div class="custom-control mt-2 pt-2 d-flex" style="font-size: small; color: #828599">
+                            <label class="" style="font-size: small;">GST</label>
+                            <span class="ml-auto" style="font-weight: bold;">
+                                    <ng-container *ngIf="pricing">
+                                        {{pricing?.gstAmount | currency:'INR'}}
+                                    </ng-container>
+                                </span>
+                        </div>
+                        <div class="custom-control mt-2 pt-2 d-flex" style="font-size: small; color: #828599;border-top: 1px solid;">
+                            <label class="" style="font-size: small;">Total Amount</label>
+                            <span class="ml-auto" style="font-weight: bold;">
+                                    <ng-container *ngIf="pricing">
+                                        {{pricing?.totalAmount | currency:'INR'}}
+                                    </ng-container>
+                                </span>
+                        </div>
 
                         <div class="lead mt-4" style="color:#43497b; font-size: small; font-weight: bold;">Turn Around Time</div>
                         <div style="font-size:x-small;color: #aaabb3">2 Days Delivery*</div>

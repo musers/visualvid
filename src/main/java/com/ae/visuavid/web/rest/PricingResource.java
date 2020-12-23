@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pricing")
@@ -26,9 +28,9 @@ public class PricingResource {
     @Autowired
     private AdminUploadFormRepository adminUploadFormRepository;
 
-    @GetMapping("/{adminMediaId}")
-    public ResponseEntity<PricingDTO> computePricing(@PathVariable("adminMediaId") UUID adminMediaId, @RequestBody ItemCustomizationDTO itemCustomizationDTO) {
-        Optional<AdminMediaEntity> adminMediaEntity = adminUploadFormRepository.findById(adminMediaId);
+    @PostMapping("/computeprice")
+    public ResponseEntity<PricingDTO> computePricing(@RequestBody ItemCustomizationDTO itemCustomizationDTO) {
+        Optional<AdminMediaEntity> adminMediaEntity = adminUploadFormRepository.findById(itemCustomizationDTO.getAdminMediaId());
         PricingDTO pricingDTO = pricingService.computePrice(adminMediaEntity.get(), itemCustomizationDTO);
         return new ResponseEntity<>(pricingDTO, HttpStatus.OK);
     }

@@ -11,8 +11,10 @@ import { OrderRequest } from 'app/order/order-request.model';
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { AdminMedia } from '../../app/admin/admin-upload/admin-upload-form/adminmedia.model';
-import { ItemService } from '../../app/item/item.service';
+import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
+import { ItemService } from 'app/item/item.service';
+import { PricingService } from 'app/shared/pricing/pricing.service';
+import { Pricing } from 'app/shared/pricing/pricing.model';
 
 @Component({
   selector: 'jhi-item',
@@ -28,6 +30,9 @@ export class ItemComponent implements OnInit, AfterViewInit {
     slides: [],
   };
   isIpIndian = true;
+  advCustomizationPriceChecked = false;
+  premumDeliveryPriceChecked = false;
+  pricing: Pricing= {};
   matDialogRef?: MatDialogRef<VideoItemComponent>;
   constructor(
     private itemService: ItemService,
@@ -36,6 +41,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
     private countryService: CountryService,
     private razorpayService: RazorpayService,
     private orderService: OrderService,
+    private pricingService: PricingService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item', data);
@@ -52,6 +58,7 @@ export class ItemComponent implements OnInit, AfterViewInit {
           this.item = res;
           this.item.divId = this.item.id;
           this.formatTags();
+          this.computePrice();
         }
       });
     }
@@ -109,11 +116,29 @@ export class ItemComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  computePrice(): void {
+    console.log(this.advCustomizationPriceChecked)
+    if(this.item && this.item.id){
+       const itemCustomization = {
+            adminMediaId: this.item.id,
+            optedForAdvCustomization: this.advCustomizationPriceChecked,
+            optedForPremumDelivery: this.premumDeliveryPriceChecked,
+            currencyCode: this.isIpIndian ? 'INR': 'USD'
+          };
+       this.pricingService.computePricing(itemCustomization).subscribe((res: Pricing) => {
+          if(res){
+            console.log(this.pricing);
+            this.pricing = res;
+          }
+       });
+    }
+  }
   prepareOrderRequest(): OrderRequest {
     const itemCustomization = {
       adminMediaId: this.item.id,
-      optedForAdvCustomization: false,
-      optedForPremumDelivery: false
+      optedForAdvCustomization: this.advCustomizationPriceChecked,
+      optedForPremumDelivery: this.premumDeliveryPriceChecked,
+      currencyCode: this.isIpIndian ? 'INR': 'USD'
     };
 
     const orderRequest = {

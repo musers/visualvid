@@ -46,6 +46,12 @@ public class PricingService {
             advancedCustomizationAmount = adminMediaEntity.getIndianAdvCustomizationPrice();
             premiumDeliveryAmount = adminMediaEntity.getIndianPremumDeliveryPrice();
         }
+        if(!itemCustomization.isOptedForAdvCustomization()){
+            advancedCustomizationAmount = BigDecimal.ZERO;
+        }
+        if(!itemCustomization.isOptedForPremumDelivery()){
+            premiumDeliveryAmount = BigDecimal.ZERO;
+        }
 
         BigDecimal baseAmount = numberUtility.subtract(basicAmount, discountAmount);
         Integer couponDiscountPercentage = computeAndGetCouponDiscountPercentage(itemCustomization.getCouponCode());
