@@ -7,6 +7,7 @@ export interface Pricing {
   totalAmount?: number;
   couponDiscountAmount?: number;
   couponDiscountPercentage?: number;
+  gstAmount?: number;
   gstPercentage?: number;
   couponCode?: String;
 }
