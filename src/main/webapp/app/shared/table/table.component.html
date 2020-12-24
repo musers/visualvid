@@ -35,6 +35,7 @@
         <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnNames;"
                  [ngClass]="{'highlight': selectedRowIndex == row.position}"
+                 (dblclick)="doubleClick(row)"
                  (click)="enableCheckbox==false && allowMultiSelect==false ? highlight(row) : false ;selection.toggle(row); rowSelect()">
         </mat-row>
     </mat-table>

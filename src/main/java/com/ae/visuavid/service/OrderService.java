@@ -10,23 +10,21 @@ import com.ae.visuavid.service.mapper.OrderMapper;
 import com.ae.visuavid.service.mapper.OrderSlideMapper;
 import com.ae.visuavid.utils.NumberUtility;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
 @Transactional
 public class OrderService {
     private final Logger log = LoggerFactory.getLogger(OrderService.class);
-
 
     @Autowired
     protected OrderRepository orderRepository;
@@ -52,9 +50,7 @@ public class OrderService {
     @Autowired
     protected RazorPayService razorPayService;
 
-
-    public OrderService() {
-    }
+    public OrderService() {}
 
     public List<OrderDTO> create(@NotNull OrderRequestDTO orderRequest) {
         List<OrderDTO> orders = new ArrayList<>();
@@ -103,14 +99,22 @@ public class OrderService {
 
     private void updateParentChildReferences(OrderEntity order) {
         if (order.getOrderSlides() != null) {
-            order.getOrderSlides().forEach(orderSlide -> {
-                orderSlide.setOrder(order);
-                if (orderSlide.getOrderSlideItems() != null) {
-                    orderSlide.getOrderSlideItems().forEach(slideItem -> {
-                        slideItem.setOrderSlide(orderSlide);
-                    });
-                }
-            });
+            order
+                .getOrderSlides()
+                .forEach(
+                    orderSlide -> {
+                        orderSlide.setOrder(order);
+                        if (orderSlide.getOrderSlideItems() != null) {
+                            orderSlide
+                                .getOrderSlideItems()
+                                .forEach(
+                                    slideItem -> {
+                                        slideItem.setOrderSlide(orderSlide);
+                                    }
+                                );
+                        }
+                    }
+                );
         }
     }
 
@@ -165,9 +169,15 @@ public class OrderService {
     }
 
     public void updatePaymentOrder(List<OrderDTO> orders, PaymentOrderDTO paymentOrder) {
-        orders.forEach(order -> {
-            orderRepository.updateRazorPayOrderId(order.getId(), paymentOrder.getRazorPayOrderId(), OrderStatus.PAYMENT_INITIATED.name());
-        });
+        orders.forEach(
+            order -> {
+                orderRepository.updateRazorPayOrderId(
+                    order.getId(),
+                    paymentOrder.getRazorPayOrderId(),
+                    OrderStatus.PAYMENT_INITIATED.name()
+                );
+            }
+        );
     }
 
     public void updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
@@ -176,14 +186,36 @@ public class OrderService {
         String razorPayPaymentId = razorPayResponse.getRazorpayPaymentId();
         String razorPaySignature = razorPayResponse.getRazorpaySignature();
         razorPayService.validateRazorPayResponse(razorPayOrderId, razorPayPaymentId, razorPaySignature);
-        Optional<List<OrderEntity>> optOrders = orderRepository.findByRazorPayOrderId(razorPayOrderId);
-        if (optOrders.isPresent()) {
-            List<OrderEntity> orders = optOrders.get();
-            orders.forEach(order -> {
-                orderRepository.updateRazorPayPaymentIdAndSalesId(order.getId(), razorPayResponse.getRazorpayPaymentId(), OrderStatus.PAYMENT_COMPLETED.name());
-            });
+        List<OrderDTO> orderDtos = getOrdersByRazorPayOrderId(razorPayOrderId);
+        orderDtos.forEach(
+            order -> {
+                orderRepository.updateRazorPayPaymentIdAndSalesId(
+                    order.getId(),
+                    razorPayResponse.getRazorpayPaymentId(),
+                    OrderStatus.PAYMENT_COMPLETED.name()
+                );
+            }
+        );
+    }
+
+    public List<OrderDTO> getOrdersByRazorPayOrderId(String razorPayOrderId) {
+        Optional<List<OrderEntity>> optOrderEntities = orderRepository.findByRazorPayOrderId(razorPayOrderId);
+        if (optOrderEntities.isPresent()) {
+            return orderMapper.toDtos(optOrderEntities.get());
         } else {
             throw new ApiRuntimeException("No orders found for the given razorPayOrderId: " + razorPayOrderId);
+        }
+    }
+
+    public OrderDTO saveCustomerUpload(OrderDTO orderDTO) {
+        String orderStatus = orderRepository.getOrderStatus(orderDTO.getId());
+        if (orderStatus != null && orderStatus.equalsIgnoreCase(OrderStatus.PAYMENT_COMPLETED.name())) {
+            OrderEntity orderEntity = orderMapper.toEntity(orderDTO);
+            orderEntity.setOrderStatus(OrderStatus.DATA_UPLOADED.name());
+            updateParentChildReferences(orderEntity);
+            return orderMapper.toDto(orderRepository.save(orderEntity));
+        } else {
+            throw new ApiRuntimeException("Invalid order status for the order : " + orderDTO.getId());
         }
     }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Inject, Optional, ViewChild } from '@angular/core';
+import { TemplatePortalDirective } from '@angular/cdk/portal';
 import videojs from 'video.js';
 import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
 import { OrderService } from 'app/order/order.service';
@@ -8,11 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VideoItemComponent } from 'app/videodesigns/videoitem/videoitem.component';
 import { CountryService } from 'app/shared/country.service';
 import { OrderRequest } from 'app/order/order-request.model';
-
+import { OverlayService } from 'app/shared/overlay/overlay.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-
-import { AdminMedia } from '../../app/admin/admin-upload/admin-upload-form/adminmedia.model';
-import { ItemService } from '../../app/item/item.service';
+import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
+import { ItemService } from 'app/item/item.service';
+import { PricingService } from 'app/shared/pricing/pricing.service';
+import { Pricing } from 'app/shared/pricing/pricing.model';
 
 @Component({
   selector: 'jhi-item',
@@ -20,7 +22,7 @@ import { ItemService } from '../../app/item/item.service';
   styleUrls: ['item.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ItemComponent implements OnInit, AfterViewInit {
+export class ItemComponent implements OnInit {
   public player?: videojs.Player;
 
   @Input()
@@ -28,7 +30,11 @@ export class ItemComponent implements OnInit, AfterViewInit {
     slides: [],
   };
   isIpIndian = true;
+  advCustomizationPriceChecked = false;
+  premumDeliveryPriceChecked = false;
+  pricing: Pricing = {};
   matDialogRef?: MatDialogRef<VideoItemComponent>;
+  @ViewChild('buyNowTemplate') buyNowTemplate: TemplatePortalDirective;
   constructor(
     private itemService: ItemService,
     private route: ActivatedRoute,
@@ -36,6 +42,8 @@ export class ItemComponent implements OnInit, AfterViewInit {
     private countryService: CountryService,
     private razorpayService: RazorpayService,
     private orderService: OrderService,
+    private pricingService: PricingService,
+    private overlayService: OverlayService,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('item', data);
@@ -52,14 +60,15 @@ export class ItemComponent implements OnInit, AfterViewInit {
           this.item = res;
           this.item.divId = this.item.id;
           this.formatTags();
+          this.computePrice();
         }
       });
     }
-  }
-  ngAfterViewInit(): void {
-    if (this.item && this.item.divId) {
-      //       this.player = videojs(document.getElementById('item-' + this.item.divId), {});
-    }
+    this.razorpayService.onPaymentSuccess.subscribe((orders: any) => {
+      if (orders && orders.length > 0) {
+        window.location.href = '/customer/upload/' + orders[0].adminMediaId + '/' + orders[0].id;
+      }
+    });
   }
   formatTags(): void {
     if (this.item && this.item.tags) {
@@ -81,19 +90,20 @@ export class ItemComponent implements OnInit, AfterViewInit {
     });
   }
   formatCategory(categoryId?: string): string {
-    return categoryId? categoryId.replace('_',' '): '';
+    return categoryId ? categoryId.replace('_', ' ') : '';
   }
   buyNow(): void {
+    this.overlayService.openTemplateOverlay(this.buyNowTemplate);
     const orderRequest = this.prepareOrderRequest();
-    console.log('buyNow');
     this.orderService.createPaymentOrder(orderRequest).subscribe(data => {
       console.log(data);
+      this.overlayService.closeOverlay();
       const options = {
-        description: 'Foo Description',
+        description: 'VisualVid',
         key: data.razorPayKey,
         order_id: data.razorPayOrderId,
         amount: data.amount,
-        name: 'Foo',
+        name: 'Video',
         prefill: {
           email: 'test@test.com',
           contact: '+918087930476',
@@ -109,17 +119,35 @@ export class ItemComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  computePrice(): void {
+    console.log(this.advCustomizationPriceChecked);
+    if (this.item && this.item.id) {
+      const itemCustomization = {
+        adminMediaId: this.item.id,
+        optedForAdvCustomization: this.advCustomizationPriceChecked,
+        optedForPremumDelivery: this.premumDeliveryPriceChecked,
+        currencyCode: this.isIpIndian ? 'INR' : 'USD',
+      };
+      this.pricingService.computePricing(itemCustomization).subscribe((res: Pricing) => {
+        if (res) {
+          console.log(this.pricing);
+          this.pricing = res;
+        }
+      });
+    }
+  }
   prepareOrderRequest(): OrderRequest {
     const itemCustomization = {
       adminMediaId: this.item.id,
-      optedForAdvCustomization: false,
-      optedForPremumDelivery: false
+      optedForAdvCustomization: this.advCustomizationPriceChecked,
+      optedForPremumDelivery: this.premumDeliveryPriceChecked,
+      currencyCode: this.isIpIndian ? 'INR' : 'USD',
     };
 
     const orderRequest = {
-      couponCode : '',
-      currencyCode: this.isIpIndian ? 'INR': 'USD',
-      itemCustomizations : [itemCustomization]
+      couponCode: '',
+      currencyCode: this.isIpIndian ? 'INR' : 'USD',
+      itemCustomizations: [itemCustomization],
     };
     return orderRequest;
   }

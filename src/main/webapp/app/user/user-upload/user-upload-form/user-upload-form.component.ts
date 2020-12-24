@@ -5,11 +5,10 @@ import { JhiAlertService } from 'ng-jhipster';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
-import { UserTemplateService } from 'app/user/user-upload/user-template.service';
+import { OrderService } from 'app/order/order.service';
+import { OrderModel, OrderSlide } from 'app/order/order.model';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
-import { UserSlide } from './slide/user-slide.model';
-import { UserTemplate } from './user-template.model';
 
 @Component({
   selector: 'jhi-user-upload-form',
@@ -19,28 +18,27 @@ import { UserTemplate } from './user-template.model';
 export class UserUploadFormComponent implements OnInit, OnDestroy {
   @Input()
   adminMedia?: AdminMedia;
-  item: UserTemplate = {
-    userSlides: [],
+  item: OrderModel = {
+    orderSlides: [],
   };
   activeSlide: Slide = {
     slideItems: [],
   };
   activeTabIndex = 0;
-  userSlides: Array<UserSlide> = [];
   hideSubmitPanel = true;
   userUploadSuccess = false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private adminMediaService: AdminMediaService,
-    private userTemplateService: UserTemplateService,
+    private orderService: OrderService,
     private alertService: JhiAlertService,
     private route: ActivatedRoute,
     @Optional() @Inject(MAT_DIALOG_DATA) data?: AdminMedia
   ) {
     console.log('injected data', data);
     this.adminMedia = data;
-    this.updateUserSlides();
+    this.updateOrderSlides();
   }
   ngOnInit(): void {
     this.renderer.addClass(this.document.body, 'customer-upload-active');
@@ -49,11 +47,11 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
       this.adminMediaService.get(adminMediaId).subscribe((res: AdminMedia) => {
         if (res != null) {
           this.adminMedia = res;
-          this.item.adminMediaId = res.id;
-          this.updateUserSlides();
+          this.loadOrder();
         }
       });
     }
+    // TODO following needs to be executed after above
   }
 
   slideChanged(evt: any): void {
@@ -79,6 +77,17 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadOrder(): void {
+    // Update order
+    const orderId = this.route.snapshot.paramMap.get('orderId');
+    if (orderId && orderId !== 'new') {
+      this.orderService.getForCustomerUpload(orderId).subscribe((order: OrderModel) => {
+        if (order != null) {
+          this.item = order;
+        }
+      });
+    }
+  }
   updateSubmitPanelTag(): void {
     if (this.adminMedia?.slides?.length && this.activeTabIndex === this.adminMedia?.slides?.length - 1) {
       this.hideSubmitPanel = false;
@@ -90,31 +99,32 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
   saveCustomerUploadForm(): void {
     console.log(this.item);
     if (this.item.adminMediaId) {
-      this.userTemplateService.save(this.item).subscribe(() => {
+      this.orderService.saveCustomerUpload(this.item).subscribe(() => {
+        console.log('saveCustomerUpload');
         //         this.alertService.addAlert({ type: 'success', msg: 'user.uploadform.saved.successfully', timeout: 5000, toast: true }, []);
         this.userUploadSuccess = true;
       });
     }
   }
-  updateUserSlides(): void {
-    this.item.userSlides = [];
+  updateOrderSlides(): void {
+    this.item.orderSlides = [];
     if (this.adminMedia && this.adminMedia.slides) {
       this.adminMedia.slides.forEach(slide => {
-        this.item.userSlides.push(this.updateUserSlide(slide));
+        this.item.orderSlides.push(this.updateOrderSlide(slide));
       });
     }
   }
-  updateUserSlide(slide: Slide): any {
-    const userSlide = {} as UserSlide;
-    userSlide.adminSlideId = slide.id;
-    userSlide.screenShotS3Key = slide.screenShotS3Key;
-    userSlide.screenShotS3Url = slide.screenShotS3Url;
-    userSlide.slideName = slide.slideName;
-    userSlide.slideOrder = slide.slideOrder;
-    userSlide.userSlideItems = [];
+  updateOrderSlide(slide: Slide): any {
+    const orderSlide = {} as OrderSlide;
+    orderSlide.adminSlideId = slide.id;
+    orderSlide.screenShotS3Key = slide.screenShotS3Key;
+    orderSlide.screenShotS3Url = slide.screenShotS3Url;
+    orderSlide.slideName = slide.slideName;
+    orderSlide.slideOrder = slide.slideOrder;
+    orderSlide.orderSlideItems = [];
     slide.slideItems.forEach(si => {
-      if (userSlide.userSlideItems) {
-        userSlide.userSlideItems.push({
+      if (orderSlide.orderSlideItems) {
+        orderSlide.orderSlideItems.push({
           adminSlideItemId: si.id,
           itemOrder: si.order,
           itemLabel: si.label,
@@ -122,7 +132,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
         });
       }
     });
-    return userSlide;
+    return orderSlide;
   }
 
   gotoHome(): void {

@@ -28,6 +28,7 @@
                [enableCheckbox]="true"
                [allowMultiSelect]="true"
                (getSelectedRows)="onNotifySelected($event)"
+               (onDoubleClick)="onDoubleClick($event)"
                [sqPaginationConfig]="tablePaginationSettings"
                [sqColumnDefinition]="columnDefinition">
         </jhi-table>

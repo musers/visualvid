@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { JhiAlertService } from 'ng-jhipster';
-import { UserSlideItem } from './user-slide-item.model';
+import { OrderSlideItem } from 'app/order/order.model';
 import { SlideItem } from 'app/admin/admin-upload/admin-upload-form/slide/slideitem/slideitem.model';
 
 @Component({
@@ -11,14 +11,14 @@ import { SlideItem } from 'app/admin/admin-upload/admin-upload-form/slide/slidei
   styleUrls: ['./user-slide-item.component.scss'],
 })
 export class UserSlideItemComponent implements OnInit {
-  @Input() userSlideItems?: Array<UserSlideItem>;
+  @Input() orderSlideItems?: Array<OrderSlideItem>;
   @Input() adminItem: SlideItem = {};
   @Input() index = 0;
-  item: UserSlideItem = {};
+  item: OrderSlideItem = {};
   constructor(private fileUploadService: FileUploadService, private alertService: JhiAlertService) {}
   ngOnInit(): void {
-    if (this.userSlideItems && this.userSlideItems[this.index]) {
-      this.item = this.userSlideItems[this.index];
+    if (this.orderSlideItems && this.orderSlideItems[this.index]) {
+      this.item = this.orderSlideItems[this.index];
     } else {
       this.item = {};
     }

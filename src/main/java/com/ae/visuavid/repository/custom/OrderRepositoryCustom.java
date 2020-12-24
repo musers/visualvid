@@ -10,4 +10,6 @@ public interface OrderRepositoryCustom {
     void updateRazorPayOrderId(UUID id, String paymentOrderId, String orderStatus);
 
     void updateRazorPayPaymentIdAndSalesId(UUID id, String razorpayPaymentId, String name);
+
+    String getOrderStatus(UUID id);
 }

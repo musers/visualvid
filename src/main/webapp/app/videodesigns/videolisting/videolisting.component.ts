@@ -12,8 +12,7 @@ import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 export class VideoListingComponent implements OnInit {
   @Input() category: any;
   list: AdminMedia[] = [];
-  constructor(private videoDesignsService: VideoDesignsService,
-    private adminMediaService: AdminMediaService) {}
+  constructor(private videoDesignsService: VideoDesignsService, private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -26,12 +25,9 @@ export class VideoListingComponent implements OnInit {
     });
   }
   onVideoItemClick(item: any): void {
-    console.log('videoItem',item);
-    // TODO need to remove following
-    window.location.href= '/customer/upload/'+item.id;
+    console.log('videoItem', item);
   }
-  onVideoItemDoubleClick( item: any): void {
-    window.location.href= '/item/'+item.id;
+  onVideoItemDoubleClick(item: any): void {
+    window.location.href = '/item/' + item.id;
   }
-
 }

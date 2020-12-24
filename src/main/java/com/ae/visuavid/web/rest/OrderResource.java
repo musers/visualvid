@@ -1,5 +1,6 @@
 package com.ae.visuavid.web.rest;
 
+import com.ae.visuavid.constants.OrderStatus;
 import com.ae.visuavid.service.OrderService;
 import com.ae.visuavid.service.RazorPayService;
 import com.ae.visuavid.service.dto.OrderDTO;
@@ -7,16 +8,15 @@ import com.ae.visuavid.service.dto.OrderRequestDTO;
 import com.ae.visuavid.service.dto.PaymentOrderDTO;
 import com.ae.visuavid.service.dto.RazorPayResponseDTO;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.List;
+import java.util.UUID;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -52,13 +52,30 @@ public class OrderResource {
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/order/{id}/customerupload")
+    public ResponseEntity<OrderDTO> findOrderByIdForCustomerUpload(@PathVariable("id") String id) {
+        OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
+        if (OrderStatus.PAYMENT_COMPLETED.name().equalsIgnoreCase(orderDTO.getOrderStatus())) {
+            return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+        }
+        throw new ApiRuntimeException("Payment is not completed for the order: " + id);
+    }
+
+    @PutMapping("/order/{id}/customerupload")
+    public ResponseEntity<OrderDTO> saveCustomerUpload(@PathVariable("id") String id, @RequestBody OrderDTO orderDTO) {
+        orderDTO = orderService.saveCustomerUpload(orderDTO);
+        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+    }
+
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> findOrders() {
         List<OrderDTO> orders = orderService.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
     @PostMapping("/order/updaterazorpaytransaction")
-    public void updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
+    public List<OrderDTO> updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
         orderService.updateRazorPayTransaction(razorPayResponse);
+        return orderService.getOrdersByRazorPayOrderId(razorPayResponse.getRazorpayOrderId());
     }
 }
