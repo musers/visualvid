@@ -1,8 +1,8 @@
 export interface EmployeeModel {
-  name: string;
+  firstName: string;
   lastName: string;
   email: string;
-  mobile: string;
+  phone: string;
   role: string;
   address: string;
   login: string;

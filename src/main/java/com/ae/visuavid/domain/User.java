@@ -105,6 +105,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "user_type", length = 20)
     private String userType;
 
+    @Column(name = "country", length = 20)
+    private String country;
+
+    @Column(name = "phone", length = 15)
+    private String phone;
+
     public UUID getId() {
         return id;
     }
@@ -216,6 +222,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

@@ -1,0 +1,3 @@
+ALTER TABLE jhi_user ADD COLUMN user_type VARCHAR(20);
+ALTER TABLE jhi_user ADD COLUMN country VARCHAR(20);
+ALTER TABLE jhi_user ADD COLUMN phone VARCHAR(15);

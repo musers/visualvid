@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="009" author="srikanth">
-        <sqlFile encoding="utf8" path="config/liquibase/changelog/009_user.sql"/>
+    <changeSet id="011" author="srikanth">
+        <sqlFile encoding="utf8" path="config/liquibase/changelog/011_user.sql"/>
     </changeSet>
 </databaseChangeLog>

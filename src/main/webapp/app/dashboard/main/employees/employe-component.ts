@@ -22,13 +22,13 @@ export class DashboardEmployeComponent implements OnInit {
   }
 
   addNew(): void {
-    this.dialog.open(DashboardAddEmployeeComponent, {
+    const dialogRef = this.dialog.open(DashboardAddEmployeeComponent, {
       width: '20rem',
       height: '30rem',
       data: {
-        name: this.employee?.name,
-        lastName: this.employee?.name,
-        mobile: this.employee?.mobile,
+        name: this.employee?.firstName,
+        lastName: this.employee?.lastName,
+        mobile: this.employee?.phone,
         role: this.employee?.role,
         address: this.employee?.address,
       },

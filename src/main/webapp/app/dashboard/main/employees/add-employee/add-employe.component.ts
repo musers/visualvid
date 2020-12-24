@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeModel } from '../employe.model';
 import { UserService } from 'app/core/user/user.service';
@@ -15,7 +15,7 @@ export class DashboardAddEmployeeComponent {
   success = false;
 
   constructor(private userService: UserService, private alertService: JhiAlertService, @Inject(MAT_DIALOG_DATA) data?: EmployeeModel) {
-    console.log('employee name:', data?.name);
+    console.log('employee name:', data?.firstName);
     this.employee = data;
   }
 

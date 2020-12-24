@@ -13,7 +13,6 @@
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
-   <!--  <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/> -->
     <include file="config/liquibase/changelog/initial_schema.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/video_slide.sql" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/001_admin_media_db_changes.xml" relativeToChangelogFile="false"/>
@@ -22,13 +21,13 @@
     <include file="config/liquibase/changelog/003_alter_s3_info.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/004_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/005_order.xml" relativeToChangelogFile="false"/>
-<!--    <include file="config/liquibase/changelog/005_1_alter_order.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/006_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/006_1_alter_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/007_alter_admin_media.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/008_order.xml" relativeToChangelogFile="false"/>
-<!--    <include file="config/liquibase/changelog/008_alter_slide_items.xml" relativeToChangelogFile="false"/>-->
-
+    <include file="config/liquibase/changelog/009_drop_template_tables.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/010_drop_sequences.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/011_user.xml" relativeToChangelogFile="false"/>
 
 
 

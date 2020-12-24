@@ -56,6 +56,10 @@ public class UserDTO {
 
     private UserType userType;
 
+    private String country;
+
+    private String phone;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -75,6 +79,8 @@ public class UserDTO {
         this.lastModifiedDate = user.getLastModifiedDate();
         this.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         this.authorities = user.getAuthorities();
+        this.country = user.getCountry();
+        this.phone = user.getPhone();
     }
 
     public UUID getId() {
@@ -195,6 +201,22 @@ public class UserDTO {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

@@ -157,6 +157,14 @@ public class UserService {
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
+        if (StringUtils.isEmpty(userDTO.getCountry())) {
+            user.setCountry(Constants.DEFAULT_COUNTRY);
+        } else {
+            user.setCountry(userDTO.getCountry());
+        }
+
+        user.setPhone(userDTO.getPhone());
         if (userDTO.getUserType() != null) {
             user.setUserType(userDTO.getUserType().name());
         } else {
@@ -207,6 +215,7 @@ public class UserService {
                     user.setLogin(userDTO.getLogin().toLowerCase());
                     user.setFirstName(userDTO.getFirstName());
                     user.setLastName(userDTO.getLastName());
+                    user.setPhone(userDTO.getPhone());
                     if (userDTO.getEmail() != null) {
                         user.setEmail(userDTO.getEmail().toLowerCase());
                     }
@@ -218,6 +227,11 @@ public class UserService {
                         user.setUserType(userDTO.getUserType().name());
                     } else {
                         user.setUserType(UserType.CUSTOMER.name());
+                    }
+                    if (StringUtils.isEmpty(userDTO.getCountry())) {
+                        user.setCountry(Constants.DEFAULT_COUNTRY);
+                    } else {
+                        user.setCountry(userDTO.getCountry());
                     }
                     managedAuthorities.clear();
                     userDTO
