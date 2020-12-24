@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Slide } from 'app/admin/admin-upload/admin-upload-form/slide/slide.model';
-import { UserSlideItem } from './slideitem/user-slide-item.model';
+import { OrderSlideItem } from 'app/order/order.model';
 @Component({
   selector: 'jhi-user-upload-form-slide',
   templateUrl: './user-slide.component.html',
@@ -9,11 +9,11 @@ import { UserSlideItem } from './slideitem/user-slide-item.model';
 })
 export class UserSlideComponent implements OnInit {
   @Input() adminMediaSlide?: Slide ;
-  @Input() userSlideItems?: Array<UserSlideItem>  = [];
+  @Input() orderSlideItems?: Array<OrderSlideItem>  = [];
 
   constructor() {
-      if(!this.userSlideItems){
-        this.userSlideItems = [];
+      if(!this.orderSlideItems){
+        this.orderSlideItems = [];
       }
     }
   ngOnInit(): void {}

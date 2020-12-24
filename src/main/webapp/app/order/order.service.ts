@@ -24,8 +24,14 @@ export class OrderService {
   public createPaymentOrder(orderRequest: any) : Observable<PaymentOrder> {
     return this.httpClient.post(this.resourceUrl+'/order', orderRequest);
   }
-    public updateRazorPayTransaction(razorPayResponse: any) : Observable<PaymentOrder> {
-      console.log('updateRazorPayTransaction',razorPayResponse);
-      return this.httpClient.post(this.resourceUrl+'/order/updaterazorpaytransaction', razorPayResponse);
-    }
+  public updateRazorPayTransaction(razorPayResponse: any) : Observable<PaymentOrder> {
+    console.log('updateRazorPayTransaction',razorPayResponse);
+    return this.httpClient.post(this.resourceUrl+'/order/updaterazorpaytransaction', razorPayResponse);
+  }
+  public getForCustomerUpload(id: String): Observable<any> {
+    return this.httpClient.get(this.resourceUrl+'/order/'+id+'/customerupload');
+  }
+  public saveCustomerUpload(order: any): Observable<any>{
+      return this.httpClient.put(this.resourceUrl+'/order/'+order.id+'/customerupload', order);
+  }
 }

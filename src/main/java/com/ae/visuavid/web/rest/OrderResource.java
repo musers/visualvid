@@ -1,5 +1,6 @@
 package com.ae.visuavid.web.rest;
 
+import com.ae.visuavid.constants.OrderStatus;
 import com.ae.visuavid.service.OrderService;
 import com.ae.visuavid.service.RazorPayService;
 import com.ae.visuavid.service.dto.OrderDTO;
@@ -51,14 +52,23 @@ public class OrderResource {
         OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
+    @GetMapping("/order/{id}/customerupload")
+    public ResponseEntity<OrderDTO> findOrderByIdForCustomerUpload(@PathVariable("id") String id) {
+        OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
+        if(OrderStatus.PAYMENT_COMPLETED.name().equalsIgnoreCase(orderDTO.getOrderStatus())){
+            return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+        }
+        throw new ApiRuntimeException("Payment is not completed for the order");
+    }
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> findOrders() {
         List<OrderDTO> orders = orderService.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
     @PostMapping("/order/updaterazorpaytransaction")
-    public void updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
-        orderService.updateRazorPayTransaction(razorPayResponse);
+    public List<UUID> updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
+        return orderService.updateRazorPayTransaction(razorPayResponse);
     }
 }

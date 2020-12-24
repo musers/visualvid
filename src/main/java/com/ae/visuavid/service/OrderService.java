@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -170,7 +171,7 @@ public class OrderService {
         });
     }
 
-    public void updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
+    public List<UUID> updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
         // TODO should not be used, need to get order id from ui and use that
         String razorPayOrderId = razorPayResponse.getRazorpayOrderId();
         String razorPayPaymentId = razorPayResponse.getRazorpayPaymentId();
@@ -182,6 +183,7 @@ public class OrderService {
             orders.forEach(order -> {
                 orderRepository.updateRazorPayPaymentIdAndSalesId(order.getId(), razorPayResponse.getRazorpayPaymentId(), OrderStatus.PAYMENT_COMPLETED.name());
             });
+            return orders.stream().map(OrderEntity::getAdminMediaId).collect(Collectors.toList());
         } else {
             throw new ApiRuntimeException("No orders found for the given razorPayOrderId: " + razorPayOrderId);
         }

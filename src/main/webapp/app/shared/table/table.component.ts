@@ -61,6 +61,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
      */
     @Output() getSelectedRows = new EventEmitter();
 
+    @Output() onDoubleClick = new EventEmitter();
+
     ngAfterViewInit(): void{
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -95,6 +97,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     /** Gets the selected rows array on row select. */
     rowSelect(): void {
         this.getSelectedRows.emit(this.selection.selected);
+    }
+    doubleClick(data: any): void {
+      this.onDoubleClick.emit(data);
     }
     /**
      * @hidden

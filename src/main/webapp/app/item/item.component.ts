@@ -62,6 +62,12 @@ export class ItemComponent implements OnInit, AfterViewInit {
         }
       });
     }
+    this.razorpayService.onPaymentSuccess.subscribe((resp: any)=> {
+      if(resp && resp.length >0 ){
+      // TODO need to get itemid from resp and append it to the end of following line
+        window.location.href= '/customer/upload/'+ resp[0];
+      }
+    })
   }
   ngAfterViewInit(): void {
     if (this.item && this.item.divId) {

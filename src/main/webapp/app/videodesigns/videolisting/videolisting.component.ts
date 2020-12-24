@@ -27,8 +27,6 @@ export class VideoListingComponent implements OnInit {
   }
   onVideoItemClick(item: any): void {
     console.log('videoItem',item);
-    // TODO need to remove following
-    window.location.href= '/customer/upload/'+item.id;
   }
   onVideoItemDoubleClick( item: any): void {
     window.location.href= '/item/'+item.id;
