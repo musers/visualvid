@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit, Inject, Optional } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Inject, Optional } from '@angular/core';
 import videojs from 'video.js';
 import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
 import { OrderService } from 'app/order/order.service';
@@ -22,7 +22,7 @@ import { Pricing } from 'app/shared/pricing/pricing.model';
   styleUrls: ['item.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ItemComponent implements OnInit, AfterViewInit {
+export class ItemComponent implements OnInit {
   public player?: videojs.Player;
 
   @Input()
@@ -62,17 +62,11 @@ export class ItemComponent implements OnInit, AfterViewInit {
         }
       });
     }
-    this.razorpayService.onPaymentSuccess.subscribe((resp: any)=> {
-      if(resp && resp.length >0 ){
-      // TODO need to get itemid from resp and append it to the end of following line
-        window.location.href= '/customer/upload/'+ resp[0];
+    this.razorpayService.onPaymentSuccess.subscribe((orders: any)=> {
+      if(orders && orders.length >0 ){
+        window.location.href= '/customer/upload/'+ orders[0].adminMediaId+'/'+orders[0].id;
       }
     })
-  }
-  ngAfterViewInit(): void {
-    if (this.item && this.item.divId) {
-      //       this.player = videojs(document.getElementById('item-' + this.item.divId), {});
-    }
   }
   formatTags(): void {
     if (this.item && this.item.tags) {
@@ -98,15 +92,14 @@ export class ItemComponent implements OnInit, AfterViewInit {
   }
   buyNow(): void {
     const orderRequest = this.prepareOrderRequest();
-    console.log('buyNow');
     this.orderService.createPaymentOrder(orderRequest).subscribe(data => {
       console.log(data);
       const options = {
-        description: 'Foo Description',
+        description: 'VisualVid',
         key: data.razorPayKey,
         order_id: data.razorPayOrderId,
         amount: data.amount,
-        name: 'Foo',
+        name: 'Video',
         prefill: {
           email: 'test@test.com',
           contact: '+918087930476',

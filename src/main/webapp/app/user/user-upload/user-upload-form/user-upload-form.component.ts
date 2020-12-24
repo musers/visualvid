@@ -47,20 +47,11 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
       this.adminMediaService.get(adminMediaId).subscribe((res: AdminMedia) => {
         if (res != null) {
           this.adminMedia = res;
-          this.item.adminMediaId = res.id;
-          this.updateOrderSlides();
+          this.loadOrder();
         }
       });
     }
     // TODO following needs to be executed after above
-    const orderId = this.route.snapshot.paramMap.get('orderId');
-    if (orderId && orderId!=='new') {
-      this.orderService.getForCustomerUpload(orderId).subscribe((res: OrderModel) => {
-        if (res != null) {
-          this.item = res;
-        }
-      });
-    }
   }
 
   slideChanged(evt: any): void {
@@ -86,6 +77,17 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadOrder(): void {
+    // Update order
+    const orderId = this.route.snapshot.paramMap.get('orderId');
+    if (orderId && orderId!=='new') {
+      this.orderService.getForCustomerUpload(orderId).subscribe((order: OrderModel) => {
+        if (order != null) {
+          this.item = order;
+        }
+      });
+    }
+  }
   updateSubmitPanelTag(): void {
     if (this.adminMedia?.slides?.length && this.activeTabIndex === this.adminMedia?.slides?.length - 1) {
       this.hideSubmitPanel = false;

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -171,21 +170,38 @@ public class OrderService {
         });
     }
 
-    public List<UUID> updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
+    public void updateRazorPayTransaction(RazorPayResponseDTO razorPayResponse) {
         // TODO should not be used, need to get order id from ui and use that
         String razorPayOrderId = razorPayResponse.getRazorpayOrderId();
         String razorPayPaymentId = razorPayResponse.getRazorpayPaymentId();
         String razorPaySignature = razorPayResponse.getRazorpaySignature();
         razorPayService.validateRazorPayResponse(razorPayOrderId, razorPayPaymentId, razorPaySignature);
-        Optional<List<OrderEntity>> optOrders = orderRepository.findByRazorPayOrderId(razorPayOrderId);
-        if (optOrders.isPresent()) {
-            List<OrderEntity> orders = optOrders.get();
-            orders.forEach(order -> {
-                orderRepository.updateRazorPayPaymentIdAndSalesId(order.getId(), razorPayResponse.getRazorpayPaymentId(), OrderStatus.PAYMENT_COMPLETED.name());
-            });
-            return orders.stream().map(OrderEntity::getAdminMediaId).collect(Collectors.toList());
+        List<OrderDTO> orderDtos = getOrdersByRazorPayOrderId(razorPayOrderId);
+        orderDtos.forEach(order -> {
+            orderRepository.updateRazorPayPaymentIdAndSalesId(order.getId(), razorPayResponse.getRazorpayPaymentId(), OrderStatus.PAYMENT_COMPLETED.name());
+        });
+
+    }
+
+    public List<OrderDTO> getOrdersByRazorPayOrderId(String razorPayOrderId) {
+        Optional<List<OrderEntity>> optOrderEntities = orderRepository.findByRazorPayOrderId(razorPayOrderId);
+        if (optOrderEntities.isPresent()) {
+            return orderMapper.toDtos(optOrderEntities.get());
         } else {
             throw new ApiRuntimeException("No orders found for the given razorPayOrderId: " + razorPayOrderId);
         }
+    }
+
+    public OrderDTO saveCustomerUpload(OrderDTO orderDTO) {
+        String orderStatus = orderRepository.getOrderStatus(orderDTO.getId());
+        if (orderStatus != null && orderStatus.equalsIgnoreCase(OrderStatus.PAYMENT_COMPLETED.name())) {
+            OrderEntity orderEntity = orderMapper.toEntity(orderDTO);
+            orderEntity.setOrderStatus(OrderStatus.DATA_UPLOADED.name());
+            updateParentChildReferences(orderEntity);
+            return orderMapper.toDto(orderRepository.save(orderEntity));
+        } else {
+            throw new ApiRuntimeException("Invalid order status for the order : " + orderDTO.getId());
+        }
+
     }
 }

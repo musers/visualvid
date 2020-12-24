@@ -20,14 +20,17 @@ public interface BaseMapper<T extends BaseDTO, E extends BaseEntity> {
 
     default List<T> toDtos(List<E> entityList) {
         List<T> dtos = new ArrayList<>();
-        entityList.forEach(entity -> dtos.add(toDto(entity)));
+        if(entityList!=null) {
+            entityList.forEach(entity -> dtos.add(toDto(entity)));
+        }
         return dtos;
     }
 
     default List<T> toDtos(Page<E> entityList) {
         List<T> dtos = new ArrayList<>();
-
-        entityList.forEach(entity -> dtos.add(toDto(entity)));
+        if(entityList!=null) {
+            entityList.forEach(entity -> dtos.add(toDto(entity)));
+        }
         return dtos;
     }
 }

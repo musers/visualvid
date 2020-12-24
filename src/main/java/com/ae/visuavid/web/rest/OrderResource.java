@@ -52,13 +52,20 @@ public class OrderResource {
         OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
+
     @GetMapping("/order/{id}/customerupload")
     public ResponseEntity<OrderDTO> findOrderByIdForCustomerUpload(@PathVariable("id") String id) {
         OrderDTO orderDTO = orderService.findOrderById(UUID.fromString(id));
-        if(OrderStatus.PAYMENT_COMPLETED.name().equalsIgnoreCase(orderDTO.getOrderStatus())){
+        if (OrderStatus.PAYMENT_COMPLETED.name().equalsIgnoreCase(orderDTO.getOrderStatus())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.OK);
         }
-        throw new ApiRuntimeException("Payment is not completed for the order");
+        throw new ApiRuntimeException("Payment is not completed for the order: " + id);
+    }
+
+    @PutMapping("/order/{id}/customerupload")
+    public ResponseEntity<OrderDTO> saveCustomerUpload(@PathVariable("id") String id, @RequestBody OrderDTO orderDTO) {
+        orderDTO = orderService.saveCustomerUpload(orderDTO);
+        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 
     @GetMapping("/orders")
@@ -68,7 +75,8 @@ public class OrderResource {
     }
 
     @PostMapping("/order/updaterazorpaytransaction")
-    public List<UUID> updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
-        return orderService.updateRazorPayTransaction(razorPayResponse);
+    public List<OrderDTO> updateRazorPayTransaction(@Valid @RequestBody RazorPayResponseDTO razorPayResponse) {
+        orderService.updateRazorPayTransaction(razorPayResponse);
+        return orderService.getOrdersByRazorPayOrderId(razorPayResponse.getRazorpayOrderId());
     }
 }

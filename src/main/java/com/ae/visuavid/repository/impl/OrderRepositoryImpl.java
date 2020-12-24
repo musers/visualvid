@@ -3,6 +3,7 @@ package com.ae.visuavid.repository.impl;
 import com.ae.visuavid.repository.custom.OrderRepositoryCustom;
 import com.ae.visuavid.util.ProfileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
@@ -38,6 +39,15 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
         jdbcTemplate.update(updateQuery, razorpayPaymentId, orderStatus, salesId, id);
     }
 
+    @Override
+    public String getOrderStatus(UUID id) {
+        try {
+            return jdbcTemplate.queryForObject("select order_status from vvid_order where id = ?", new Object[]{id}, String.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 
     private String generateId(String prefix, String sequenceName) {
         Long num;
@@ -45,7 +55,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
             String sql = "select " + sequenceName + ".NEXTVAL from dual";
             num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
         } else {
-            String sql = "select last_value from \""+sequenceName+"\"";
+            String sql = "select last_value from \"" + sequenceName + "\"";
             num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
         }
 
