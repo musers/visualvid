@@ -4,7 +4,9 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JhiAlertService } from 'ng-jhipster';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TemplatePortalDirective } from '@angular/cdk/portal';
 
+import { OverlayService } from 'app/shared/overlay/overlay.service';
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { AdminMedia } from './adminmedia.model';
@@ -49,11 +51,13 @@ export class AdminUploadFormComponent implements OnInit {
   tagList: string[] = [];
   matDialogRef?: MatDialogRef<ItemComponent>;
   previewMatDialogRef: MatDialogRef<PreviewComponent>;
+  @ViewChild('uploading') uploadingTemplate: TemplatePortalDirective;
 
   constructor(
     private fileUploadService: FileUploadService,
     private adminMediaService: AdminMediaService,
     private alertService: JhiAlertService,
+    private overlayService: OverlayService,
     private matDialog: MatDialog
   ) {}
 
@@ -114,6 +118,7 @@ export class AdminUploadFormComponent implements OnInit {
   }
   uploadVideoFile(e: any, type: string): void {
     if (e && e.target) {
+       this.overlayService.openTemplateOverlay(this.uploadingTemplate);
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
         this.alertService.addAlert({ type: 'success', msg: 'file.upload.successful', timeout: 5000, toast: true }, []);
@@ -124,6 +129,7 @@ export class AdminUploadFormComponent implements OnInit {
           this.item.thumbNailS3Url = data.url;
           this.item.thumbNailS3Key = data.s3Key;
         }
+        this.overlayService.closeOverlay();
       });
     }
   }

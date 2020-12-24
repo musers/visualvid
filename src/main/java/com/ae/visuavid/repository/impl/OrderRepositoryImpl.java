@@ -2,6 +2,7 @@ package com.ae.visuavid.repository.impl;
 
 import com.ae.visuavid.repository.custom.OrderRepositoryCustom;
 import com.ae.visuavid.util.ProfileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,12 +19,34 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
 
     @Override
     public String generateOrderId() {
-        return generateId("O", "ORDER_ID_SEQ");
+        String maxOrderId;
+        try {
+            maxOrderId = jdbcTemplate.queryForObject("select max(order_id) from vvid_order", new Object[]{}, String.class);
+        } catch (EmptyResultDataAccessException e) {
+            maxOrderId = null;
+        }
+        if(StringUtils.isBlank(maxOrderId)){
+            maxOrderId = "O000000000001";
+        }
+        Long num = Long.valueOf(maxOrderId.substring(maxOrderId.length() - 6));
+        num++;
+        return getFormattedId("O", num);
     }
 
     @Override
     public String generateSalesId() {
-        return generateId("S", "SALES_ID_SEQ");
+        String maxSalesId;
+        try {
+            maxSalesId = jdbcTemplate.queryForObject("select max(sales_id) from vvid_order", new Object[]{}, String.class);
+        } catch (EmptyResultDataAccessException e) {
+            maxSalesId = null;
+        }
+        if(StringUtils.isBlank(maxSalesId)){
+            maxSalesId = "S000000000001";
+        }
+        Long num = Long.valueOf(maxSalesId.substring(maxSalesId.length() - 6));
+        num++;
+        return getFormattedId("S", num);
     }
 
     @Override
@@ -48,22 +71,27 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
         }
     }
 
+//    private String generateId(String prefix, String sequenceName) {
+//        Long num;
+//        if (profileUtils.isProfileLocal()) {
+//            String sql = "select " + sequenceName + ".NEXTVAL from dual";
+//            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
+//        } else {
+//            String sql = "select last_value from \"" + sequenceName + "\"";
+//            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
+//            num++;
+//        }
+//
+//        StringBuilder sb = getStringBuilder(prefix, num);
+//        return sb.toString();
+//    }
 
-    private String generateId(String prefix, String sequenceName) {
-        Long num;
-        if (profileUtils.isProfileLocal()) {
-            String sql = "select " + sequenceName + ".NEXTVAL from dual";
-            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
-        } else {
-            String sql = "select last_value from \"" + sequenceName + "\"";
-            num = jdbcTemplate.queryForObject(sql, new Object[]{}, Long.class);
-        }
-
+    private String getFormattedId(String prefix, Long num) {
         StringBuilder sb = new StringBuilder(prefix.toUpperCase());
         LocalDate currentdate = LocalDate.now();
         sb.append(currentdate.getYear()).
             append(currentdate.getMonthValue()).
-            append(String.format("%06d", num + 1));
+            append(String.format("%06d", num));
         return sb.toString();
     }
 }
