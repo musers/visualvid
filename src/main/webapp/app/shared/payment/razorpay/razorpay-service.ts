@@ -19,10 +19,7 @@ export class RazorpayService {
         razorpayOrderId: response['razorpay_order_id'],
         razorpaySignature: response['razorpay_signature']
       };
-        console.log(response);
-        console.log(options);
         this.orderService.updateRazorPayTransaction(razorpayResponse).subscribe( resp => {
-          console.log('payment Succeeded', resp);
           this.onPaymentSuccess.emit(resp);
         });
     });
