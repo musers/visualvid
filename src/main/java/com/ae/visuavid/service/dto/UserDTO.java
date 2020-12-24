@@ -3,6 +3,7 @@ package com.ae.visuavid.service.dto;
 import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
+import com.ae.visuavid.enumeration.UserType;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
@@ -52,6 +53,8 @@ public class UserDTO {
     private Set<String> roles;
 
     private Set<String> authorities;
+
+    private UserType userType;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -184,6 +187,14 @@ public class UserDTO {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Override

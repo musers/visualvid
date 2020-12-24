@@ -28,15 +28,15 @@
       </div>
 
       <div class="row mt-4">
-			<div class="col-lg-4 mt-2" *ngFor="let emp of employees; let i=index;">
+			<div class="col-lg-4 col-sm-12 mt-2" *ngFor="let emp of employees; let i=index;">
 				<div class="card-deck">
 					<div class="card card-employee">
 						<div class="card-body">
                                 <img class="employee-profile" src="https://visualvid.s3.ap-south-1.amazonaws.com/adminuploads/4b97f6d0-bf6e-475c-9785-cbcb1e596d4d_Thumbnail_04.png"/>
-							    <small class="row ml-4" style="font-weight: bolder; color: #43497b;">{{emp.name}}</small>
-								<small class="row ml-4"  style="font-size: x-small;">{{emp.email}}</small>
-								<small class="row ml-4"  style="font-size: x-small;">{{emp.mobile}}</small>
-								<div class="row employee-role mt-2 ml-4">
+							    <small class="row ml-1" style="font-weight: bolder; color: #43497b;">{{emp.name}}</small>
+								<small class="row ml-1"  style="font-size: x-small;">{{emp.email}}</small>
+								<small class="row ml-1"  style="font-size: x-small;">{{emp.mobile}}</small>
+								<div class="row employee-role mt-2 ml-1">
 									<small style="font-size: x-small; font-weight: bold;">{{emp.role}}</small>
 								</div>
 						</div>

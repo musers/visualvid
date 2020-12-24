@@ -6,4 +6,5 @@ export interface EmployeeModel {
   role: string;
   address: string;
   login: string;
+  userType: string;
 }

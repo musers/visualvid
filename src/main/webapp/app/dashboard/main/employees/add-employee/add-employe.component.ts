@@ -23,8 +23,12 @@ export class DashboardAddEmployeeComponent {
     console.log('employee data from popup: ', this.employee);
     if (this.employee) {
       this.employee.login = this.employee.email;
+      this.employee.userType = 'EMPLOYEE';
       this.userService.create(this.employee).subscribe(
-        () => (this.success = true),
+        () => {
+          this.success = true;
+          window.location.href = '/dashboard/employees';
+        },
         () => (this.error = true)
       );
     }

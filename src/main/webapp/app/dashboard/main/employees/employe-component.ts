@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EmployeeModel } from './employe.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardAddEmployeeComponent } from './add-employee/add-employe.component';
+import { EmployeeService } from './employee.service';
 
 @Component({
   selector: 'jhi-employe',
@@ -12,47 +13,12 @@ export class DashboardEmployeComponent implements OnInit {
   @Input() employees?: EmployeeModel[];
   employee?: EmployeeModel;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, protected employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employees = [
-      {
-        name: 'Anil Bobba',
-        lastName: 'Bobba',
-        email: 'anil@gmail.com',
-        mobile: '9703730427',
-        role: 'CREATIVE_DIRECTOR',
-        address: 'Hyderbad',
-        login: 'anil@gmail.com',
-      },
-      {
-        name: 'Bala Gangadhar',
-        lastName: 'Gangadhar',
-        email: 'bala@gmail.com',
-        mobile: '9703730427',
-        role: 'DESIGNER',
-        address: 'Hyderbad',
-        login: 'bala@gmail.com',
-      },
-      {
-        name: 'Srikanth Boddupally',
-        lastName: 'Boddupally',
-        email: 'srikanth@gmail.com',
-        mobile: '9703730427',
-        role: 'DESIGNER',
-        address: 'Hyderbad',
-        login: 'srikanth@gmail.com',
-      },
-      {
-        name: 'Sai Thota',
-        lastName: 'Thota',
-        email: 'sai@gmail.com',
-        mobile: '9703730427',
-        role: 'DESIGNER',
-        address: 'Hyderbad',
-        login: 'sai@gmail.com',
-      },
-    ];
+    this.employeeService.findAll('EMPLOYEE').subscribe((res: EmployeeModel[]) => {
+      this.employees = res;
+    });
   }
 
   addNew(): void {
