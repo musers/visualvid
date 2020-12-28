@@ -57,3 +57,24 @@
             background: #fff;
         }
 /*Styles for Fixed header end above*/
+
+mat-row {
+  margin-bottom:20px;
+  border: 0px;
+}
+mat-header-row {
+  background: transparent !important;
+  border: 0px !important;
+}
+.mat-cell {
+  font-weight: 500 !important;
+  color: #828599;
+}
+.mat-header-cell{
+  font-weight: 500 !important;
+  color: #AAABB3;
+  opacity: 0.8;
+}
+.mat-paginator {
+  background: transparent !important;
+}

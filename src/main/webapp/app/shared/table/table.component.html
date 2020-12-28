@@ -1,5 +1,5 @@
-<div class="mat-elevation-z8 table-container">
-    <mat-table [dataSource]="dataSource" matSort>
+<div class="mat-elevation-z81 table-container">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
         <ng-container *ngFor="let column of sqColumnDefinition" matColumnDef="{{column.name}}">
 
             <ng-container *ngIf="column.name ==='select';then checkbox else nocheckbox"></ng-container>
@@ -34,6 +34,7 @@
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnNames;"
+                 class="shadow"
                  [ngClass]="{'highlight': selectedRowIndex == row.position}"
                  (dblclick)="doubleClick(row)"
                  (click)="enableCheckbox==false && allowMultiSelect==false ? highlight(row) : false ;selection.toggle(row); rowSelect()">
