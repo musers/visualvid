@@ -34,7 +34,7 @@
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnNames;"
-                 class="shadow"
+                 class="rounded shadow-sm"
                  [ngClass]="{'highlight': selectedRowIndex == row.position}"
                  (dblclick)="doubleClick(row)"
                  (click)="enableCheckbox==false && allowMultiSelect==false ? highlight(row) : false ;selection.toggle(row); rowSelect()">

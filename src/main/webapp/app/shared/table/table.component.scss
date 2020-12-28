@@ -59,8 +59,9 @@
 /*Styles for Fixed header end above*/
 
 mat-row {
-  margin-bottom:20px;
+  margin-bottom:15px;
   border: 0px;
+  background: #fff !important;
 }
 mat-header-row {
   background: transparent !important;
@@ -76,5 +77,8 @@ mat-header-row {
   opacity: 0.8;
 }
 .mat-paginator {
+  background: transparent !important;
+}
+.mat-table {
   background: transparent !important;
 }
