@@ -128,5 +128,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     highlight(row: any): void {
         this.selectedRowIndex = row.position;
     }
+    sortData(evt: any): void{
+      console.log('sortchange',evt);
+    }
 
 }
