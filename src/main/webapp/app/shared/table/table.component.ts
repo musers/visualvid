@@ -63,6 +63,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
     @Output() onDoubleClick = new EventEmitter();
 
+    @Output() onFilterChange = new EventEmitter();
+
     ngAfterViewInit(): void{
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -75,7 +77,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
      */
     ngOnChanges() : void{
         this.dataSource = new MatTableDataSource(this.rowData);
-        this.dataSource.sort = this.sort;
+        console.log('ngOnChanges');
+//         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
     }
 
@@ -128,8 +131,23 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     highlight(row: any): void {
         this.selectedRowIndex = row.position;
     }
-    sortData(evt: any): void{
-      console.log('sortchange',evt);
+    sortData(): void{
+      this.onTableChange();
+    }
+    onPageChange(): void {
+      this.onTableChange();
+    }
+    onTableChange(): void {
+      console.log('onTableChange');
+      console.log('sortData',this.sort);
+      console.log('paginator', this.paginator);
+      console.log(this.sort.active);
+      console.log(this.sort.direction);
+      console.log(this.paginator.pageSize);
+      console.log(this.paginator.pageIndex);
+//       this.onFilterChange.emit();
+// TODO pagination needs to be implemented
+// https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular
     }
 
 }
