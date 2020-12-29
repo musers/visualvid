@@ -8,13 +8,13 @@ import { OrderSlideItem } from 'app/order/order.model';
   styleUrls: ['./user-slide.component.scss'],
 })
 export class UserSlideComponent implements OnInit {
-  @Input() adminMediaSlide?: Slide ;
-  @Input() orderSlideItems?: Array<OrderSlideItem>  = [];
+  @Input() adminMediaSlide?: Slide;
+  @Input() orderSlideItems?: Array<OrderSlideItem> = [];
 
   constructor() {
-      if(!this.orderSlideItems){
-        this.orderSlideItems = [];
-      }
+    if (!this.orderSlideItems) {
+      this.orderSlideItems = [];
     }
+  }
   ngOnInit(): void {}
 }

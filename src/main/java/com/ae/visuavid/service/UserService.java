@@ -4,6 +4,7 @@ import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.Authority;
 import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
+import com.ae.visuavid.enumeration.UserType;
 import com.ae.visuavid.repository.AuthorityRepository;
 import com.ae.visuavid.repository.RoleRepository;
 import com.ae.visuavid.repository.UserRepository;
@@ -24,6 +25,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * Service class for managing users.
@@ -155,6 +157,19 @@ public class UserService {
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
+        if (StringUtils.isEmpty(userDTO.getCountry())) {
+            user.setCountry(Constants.DEFAULT_COUNTRY);
+        } else {
+            user.setCountry(userDTO.getCountry());
+        }
+
+        user.setPhone(userDTO.getPhone());
+        if (userDTO.getUserType() != null) {
+            user.setUserType(userDTO.getUserType().name());
+        } else {
+            user.setUserType(UserType.CUSTOMER.name());
+        }
         if (userDTO.getEmail() != null) {
             user.setEmail(userDTO.getEmail().toLowerCase());
         }
@@ -200,6 +215,7 @@ public class UserService {
                     user.setLogin(userDTO.getLogin().toLowerCase());
                     user.setFirstName(userDTO.getFirstName());
                     user.setLastName(userDTO.getLastName());
+                    user.setPhone(userDTO.getPhone());
                     if (userDTO.getEmail() != null) {
                         user.setEmail(userDTO.getEmail().toLowerCase());
                     }
@@ -207,6 +223,16 @@ public class UserService {
                     user.setActivated(userDTO.isActivated());
                     user.setLangKey(userDTO.getLangKey());
                     Set<Role> managedAuthorities = user.getRoles();
+                    if (userDTO.getUserType() != null) {
+                        user.setUserType(userDTO.getUserType().name());
+                    } else {
+                        user.setUserType(UserType.CUSTOMER.name());
+                    }
+                    if (StringUtils.isEmpty(userDTO.getCountry())) {
+                        user.setCountry(Constants.DEFAULT_COUNTRY);
+                    } else {
+                        user.setCountry(userDTO.getCountry());
+                    }
                     managedAuthorities.clear();
                     userDTO
                         .getRoles()
@@ -281,6 +307,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllManagedUsersByType(UserType userType) {
+        return userRepository.findAllByUserType(userType.name()).stream().map(UserDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

@@ -8,12 +8,11 @@ import com.ae.visuavid.repository.CouponInfoRepository;
 import com.ae.visuavid.service.dto.ItemCustomizationDTO;
 import com.ae.visuavid.service.dto.PricingDTO;
 import com.ae.visuavid.utils.NumberUtility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.Instant;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PricingService {
@@ -39,25 +38,26 @@ public class PricingService {
             discountAmount = adminMediaEntity.getUsdDiscPrice();
             advancedCustomizationAmount = adminMediaEntity.getUsdAdvCustomizationPrice();
             premiumDeliveryAmount = adminMediaEntity.getUsdPremumDeliveryPrice();
-
         } else if (currency.equals(Currency.INR)) {
             basicAmount = adminMediaEntity.getIndianPrice();
             discountAmount = adminMediaEntity.getIndianDiscPrice();
             advancedCustomizationAmount = adminMediaEntity.getIndianAdvCustomizationPrice();
             premiumDeliveryAmount = adminMediaEntity.getIndianPremumDeliveryPrice();
         }
-        if(!itemCustomization.isOptedForAdvCustomization()){
+        if (!itemCustomization.isOptedForAdvCustomization()) {
             advancedCustomizationAmount = BigDecimal.ZERO;
         }
-        if(!itemCustomization.isOptedForPremumDelivery()){
+        if (!itemCustomization.isOptedForPremumDelivery()) {
             premiumDeliveryAmount = BigDecimal.ZERO;
         }
 
         BigDecimal baseAmount = numberUtility.subtract(basicAmount, discountAmount);
         Integer couponDiscountPercentage = computeAndGetCouponDiscountPercentage(itemCustomization.getCouponCode());
         BigDecimal couponDiscountAmount = numberUtility.percentage(baseAmount, couponDiscountPercentage);
-        BigDecimal totalAmountWithoutGst = numberUtility.
-            subtract(numberUtility.add(baseAmount, advancedCustomizationAmount, premiumDeliveryAmount), couponDiscountAmount);
+        BigDecimal totalAmountWithoutGst = numberUtility.subtract(
+            numberUtility.add(baseAmount, advancedCustomizationAmount, premiumDeliveryAmount),
+            couponDiscountAmount
+        );
         BigDecimal gstAmount = numberUtility.percentage(totalAmountWithoutGst, applicationProperties.getGst());
         BigDecimal totalAmount = numberUtility.add(totalAmountWithoutGst, gstAmount);
 

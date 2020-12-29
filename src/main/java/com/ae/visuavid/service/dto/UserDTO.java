@@ -3,6 +3,7 @@ package com.ae.visuavid.service.dto;
 import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.Role;
 import com.ae.visuavid.domain.User;
+import com.ae.visuavid.enumeration.UserType;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
@@ -53,6 +54,12 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private UserType userType;
+
+    private String country;
+
+    private String phone;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -72,6 +79,8 @@ public class UserDTO {
         this.lastModifiedDate = user.getLastModifiedDate();
         this.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         this.authorities = user.getAuthorities();
+        this.country = user.getCountry();
+        this.phone = user.getPhone();
     }
 
     public UUID getId() {
@@ -184,6 +193,30 @@ public class UserDTO {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

@@ -80,7 +80,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
   loadOrder(): void {
     // Update order
     const orderId = this.route.snapshot.paramMap.get('orderId');
-    if (orderId && orderId!=='new') {
+    if (orderId && orderId !== 'new') {
       this.orderService.getForCustomerUpload(orderId).subscribe((order: OrderModel) => {
         if (order != null) {
           this.item = order;
@@ -100,7 +100,7 @@ export class UserUploadFormComponent implements OnInit, OnDestroy {
     console.log(this.item);
     if (this.item.adminMediaId) {
       this.orderService.saveCustomerUpload(this.item).subscribe(() => {
-          console.log('saveCustomerUpload')
+        console.log('saveCustomerUpload');
         //         this.alertService.addAlert({ type: 'success', msg: 'user.uploadform.saved.successfully', timeout: 5000, toast: true }, []);
         this.userUploadSuccess = true;
       });

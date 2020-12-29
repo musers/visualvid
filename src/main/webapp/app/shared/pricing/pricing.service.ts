@@ -10,7 +10,7 @@ export class PricingService {
   public resourceUrl = SERVER_API_URL + 'api/pricing';
   constructor(protected httpClient: HttpClient) {}
 
-  public computePricing(itemCustomization : any): Observable<Pricing> {
-    return this.httpClient.post(this.resourceUrl+'/computeprice', itemCustomization);
+  public computePricing(itemCustomization: any): Observable<Pricing> {
+    return this.httpClient.post(this.resourceUrl + '/computeprice', itemCustomization);
   }
 }

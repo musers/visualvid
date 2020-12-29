@@ -118,7 +118,7 @@ export class AdminUploadFormComponent implements OnInit {
   }
   uploadVideoFile(e: any, type: string): void {
     if (e && e.target) {
-       this.overlayService.openTemplateOverlay(this.uploadingTemplate);
+      this.overlayService.openTemplateOverlay(this.uploadingTemplate);
       const fileToBeUploaded = e.target.files[0];
       this.fileUploadService.uploadFile(fileToBeUploaded).subscribe(data => {
         this.alertService.addAlert({ type: 'success', msg: 'file.upload.successful', timeout: 5000, toast: true }, []);

@@ -48,7 +48,7 @@ export class DashboardOrdersComponent implements OnInit {
     console.log(selectedRows);
   }
   onDoubleClick(data: any): void {
-    window.location.href= '/customer/upload/'+data.adminMediaId+'/'+ data.id;
+    window.location.href = '/customer/upload/' + data.adminMediaId + '/' + data.id;
   }
   search(evt: any): void {
     console.log(evt);

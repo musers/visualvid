@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Component, Input, OnInit, ViewEncapsulation, Inject, Optional, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Inject, Optional, ViewChild } from '@angular/core';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 import videojs from 'video.js';
 import { RazorpayService } from 'app/shared/payment/razorpay/razorpay-service';
@@ -32,7 +32,7 @@ export class ItemComponent implements OnInit {
   isIpIndian = true;
   advCustomizationPriceChecked = false;
   premumDeliveryPriceChecked = false;
-  pricing: Pricing= {};
+  pricing: Pricing = {};
   matDialogRef?: MatDialogRef<VideoItemComponent>;
   @ViewChild('buyNowTemplate') buyNowTemplate: TemplatePortalDirective;
   constructor(
@@ -64,11 +64,11 @@ export class ItemComponent implements OnInit {
         }
       });
     }
-    this.razorpayService.onPaymentSuccess.subscribe((orders: any)=> {
-      if(orders && orders.length >0 ){
-        window.location.href= '/customer/upload/'+ orders[0].adminMediaId+'/'+orders[0].id;
+    this.razorpayService.onPaymentSuccess.subscribe((orders: any) => {
+      if (orders && orders.length > 0) {
+        window.location.href = '/customer/upload/' + orders[0].adminMediaId + '/' + orders[0].id;
       }
-    })
+    });
   }
   formatTags(): void {
     if (this.item && this.item.tags) {
@@ -90,7 +90,7 @@ export class ItemComponent implements OnInit {
     });
   }
   formatCategory(categoryId?: string): string {
-    return categoryId? categoryId.replace('_',' '): '';
+    return categoryId ? categoryId.replace('_', ' ') : '';
   }
   buyNow(): void {
     this.overlayService.openTemplateOverlay(this.buyNowTemplate);
@@ -120,20 +120,20 @@ export class ItemComponent implements OnInit {
     });
   }
   computePrice(): void {
-    console.log(this.advCustomizationPriceChecked)
-    if(this.item && this.item.id){
-       const itemCustomization = {
-            adminMediaId: this.item.id,
-            optedForAdvCustomization: this.advCustomizationPriceChecked,
-            optedForPremumDelivery: this.premumDeliveryPriceChecked,
-            currencyCode: this.isIpIndian ? 'INR': 'USD'
-          };
-       this.pricingService.computePricing(itemCustomization).subscribe((res: Pricing) => {
-          if(res){
-            console.log(this.pricing);
-            this.pricing = res;
-          }
-       });
+    console.log(this.advCustomizationPriceChecked);
+    if (this.item && this.item.id) {
+      const itemCustomization = {
+        adminMediaId: this.item.id,
+        optedForAdvCustomization: this.advCustomizationPriceChecked,
+        optedForPremumDelivery: this.premumDeliveryPriceChecked,
+        currencyCode: this.isIpIndian ? 'INR' : 'USD',
+      };
+      this.pricingService.computePricing(itemCustomization).subscribe((res: Pricing) => {
+        if (res) {
+          console.log(this.pricing);
+          this.pricing = res;
+        }
+      });
     }
   }
   prepareOrderRequest(): OrderRequest {
@@ -141,13 +141,13 @@ export class ItemComponent implements OnInit {
       adminMediaId: this.item.id,
       optedForAdvCustomization: this.advCustomizationPriceChecked,
       optedForPremumDelivery: this.premumDeliveryPriceChecked,
-      currencyCode: this.isIpIndian ? 'INR': 'USD'
+      currencyCode: this.isIpIndian ? 'INR' : 'USD',
     };
 
     const orderRequest = {
-      couponCode : '',
-      currencyCode: this.isIpIndian ? 'INR': 'USD',
-      itemCustomizations : [itemCustomization]
+      couponCode: '',
+      currencyCode: this.isIpIndian ? 'INR' : 'USD',
+      itemCustomizations: [itemCustomization],
     };
     return orderRequest;
   }
