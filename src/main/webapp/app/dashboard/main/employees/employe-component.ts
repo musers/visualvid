@@ -22,7 +22,7 @@ export class DashboardEmployeComponent implements OnInit {
   }
 
   addNew(): void {
-    const dialogRef = this.dialog.open(DashboardAddEmployeeComponent, {
+    this.dialog.open(DashboardAddEmployeeComponent, {
       width: '20rem',
       height: '30rem',
       data: {
