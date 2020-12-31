@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
@@ -44,6 +45,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatTableModule,
     PortalModule,
     OverlayModule,
+    MatSelectModule
   ],
 })
 export class VisualvidSharedLibsModule {}

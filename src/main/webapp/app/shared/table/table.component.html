@@ -6,7 +6,6 @@
             <ng-template #checkbox>
 
                 <mat-header-cell *matHeaderCellDef>
-
                     <mat-checkbox (change)="$event ? masterToggle() : null"
                                   [checked]="selection.hasValue() && isAllSelected()"
                                   [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -27,11 +26,27 @@
                         <mat-icon *ngIf="column.icon" class="icon-align">{{column.icon}}</mat-icon>
                     </div>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    {{element[column.name]}}
-                </mat-cell>
+<!--                <mat-cell *matCellDef="let element">-->
+<!--                    {{element[column.name]}}-->
+<!--                </mat-cell>-->
+                <ng-container *ngIf="column.cellTemplate">
+                    <mat-cell *matCellDef="let element">
+                        <ng-template [ngTemplateOutletContext]="{
+                            element: element[column.name],
+                            column: column
+                          }" [ngTemplateOutlet]="column.cellTemplate">
+                        </ng-template>
+                    </mat-cell>
+                </ng-container>
+                <ng-container *ngIf="!column.cellTemplate">
+                    <mat-cell *matCellDef="let element">
+                        {{element[column.name]}}
+                    </mat-cell>
+                </ng-container>
             </ng-template>
+
         </ng-container>
+
         <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnNames;"
                  class="rounded shadow-sm"

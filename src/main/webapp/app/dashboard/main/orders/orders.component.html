@@ -31,6 +31,17 @@
                (onDoubleClick)="onDoubleClick($event)"
                [sqPaginationConfig]="tablePaginationSettings"
                [sqColumnDefinition]="columnDefinition">
+
+                <ng-template #orderStatusTemplate let-element="element" let-column="column">
+                    <div class="custom-style-red">
+                        <mat-select [ngModel]="currentAction">
+                            <mat-option *ngFor="let action of actions" [value]="action.value">
+                                {{action.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </ng-template>
+
         </jhi-table>
     </div>
 <!--    <div class="row mt-4 order-menu-bar">-->
@@ -75,5 +86,3 @@
 <!--       </div>-->
 <!--    </div>-->
 </div>
-
-
