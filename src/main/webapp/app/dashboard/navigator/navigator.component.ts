@@ -6,5 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['navigator.component.scss'],
 })
 export class DashboardNavigatorComponent implements OnInit {
-  ngOnInit(): void {}
+  moreView = false;
+  constructor(){}
+  ngOnInit(): void {
+    if(window.location.pathname==='/dashboard/categories'){
+      this.moreView = true;
+    }
+  }
+
+  toggleMore(): void {
+    this.moreView = !this.moreView;
+  }
 }

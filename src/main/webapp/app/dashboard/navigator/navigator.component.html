@@ -1,4 +1,5 @@
 <div class="ml-3 d-flex flex-column" >
+    <ng-container *ngIf="!moreView">
     <div class="mb-5">
        <div class="navitem">
           <span class="text-color disabled-item">
@@ -68,11 +69,26 @@
               <span>Support</span>
           </span>
        </div>
-       <div class="navitem mb-5">
-          <span class="text-color disabled-item">
+       <div class="navitem ptr mb-5">
+          <span class="text-color" (click)="toggleMore()">
               <i class="material-icons">view_headline</i>
               <span>More</span>
           </span>
        </div>
     </div>
+    </ng-container>
+    <ng-container *ngIf="moreView">
+        <div class="mt-1 navitem ptr">
+          <span class="text-color" (click)="toggleMore()">
+              <i class="material-icons">navigate_before</i>
+              <span>Back</span>
+          </span>
+        </div>
+        <div class="navitem">
+            <a routerLink="/dashboard/categories" routerLinkActive="active-navitem" class="text-color">
+                <i class="material-icons">view_headline</i>
+                <span>Categories</span>
+            </a>
+        </div>
+    </ng-container>
 </div>
