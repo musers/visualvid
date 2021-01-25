@@ -42,6 +42,10 @@
     </div>
 
     <mat-menu #categoryMenu="matMenu">
+        <div mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+            <mat-icon>add_circle_outline</mat-icon>
+            Add Sub Category
+        </div>
         <div mat-menu-item  (click)="onContextItemSelect('renameCategory')">
             <mat-icon>edit</mat-icon>
             Rename Category
@@ -52,10 +56,6 @@
         </div>
     </mat-menu>
     <mat-menu #subCategoryMenu="matMenu">
-        <div mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
-            <mat-icon>add_circle_outline</mat-icon>
-            Create Sub Category
-        </div>
         <div mat-menu-item (click)="onContextItemSelect('createSubCategory')">
             <mat-icon>edit</mat-icon>
             Rename Sub Category
