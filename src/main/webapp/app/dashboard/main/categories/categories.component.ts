@@ -1,9 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, ViewChildren, QueryList} from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { of as observableOf } from 'rxjs';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'app/category/category.service';
 import { CategoryNode } from 'app/category/category.model';
+
 
 export interface TreeNode {
   name: string;
@@ -27,6 +29,10 @@ export class DashboardCategoriesComponent implements OnInit{
   /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
   dataSource: MatTreeFlatDataSource<CategoryNode, TreeNode>;
 
+  @ViewChildren(MatMenuTrigger)
+  contextMenu: QueryList<MatMenuTrigger>;
+  contextMenuPosition = { x: '0px', y: '0px' };
+
   constructor(private categoryService: CategoryService) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -39,7 +45,7 @@ export class DashboardCategoriesComponent implements OnInit{
 //     this.dataSource.data = catTree;
   }
    ngOnInit(): void {
-    this.categoryService.getCatTree().subscribe(resp => {
+    this.categoryService.getCategoryTree().subscribe(resp => {
        this.dataSource.data = resp;
     })
    }
@@ -71,6 +77,23 @@ export class DashboardCategoriesComponent implements OnInit{
   /** Get whether the node has children or not. */
   hasChild(index: number, node: TreeNode): any{
     return node.expandable;
+  }
+  onContextItemSelect(evtId: any): void {
+     console.log('evtId',evtId);
+  }
+  openCategoryMenu(event: MouseEvent, node: any): void{
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.first.menuData = { node };
+    this.contextMenu.first.openMenu();
+  }
+  openSubCategoryMenu(event: MouseEvent, node: any): void{
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.last.menuData = { node };
+    this.contextMenu.last.openMenu();
   }
 
 }

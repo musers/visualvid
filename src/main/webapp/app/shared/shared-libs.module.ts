@@ -20,7 +20,10 @@ import { MatTableModule } from '@angular/material/table';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {MatSelectModule} from '@angular/material/select';
-import {MatTreeModule} from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule,MatTreeModule, AngularSvgIconModule.forRoot()],
@@ -47,7 +50,10 @@ import {MatTreeModule} from '@angular/material/tree';
     PortalModule,
     OverlayModule,
     MatSelectModule,
-    MatTreeModule
+    MatTreeModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatToolbarModule
   ],
 })
 export class VisualvidSharedLibsModule {}

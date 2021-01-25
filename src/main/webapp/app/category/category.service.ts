@@ -13,7 +13,7 @@ export class CategoryService {
     return this.httpClient.get<any>(this.categoryUrl);
   }
 
-  getCatTree() : Observable<any>{
+  getCategoryTree() : Observable<any>{
     const catTree = [
       {
         name: 'Wedding',
