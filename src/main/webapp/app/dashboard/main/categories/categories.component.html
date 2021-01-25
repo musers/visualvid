@@ -1,62 +1,68 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-        <div mat-icon-button disabled></div>
-        <mat-icon class="type-icon" [attr.aria-label]="node.type + 'icon'">
-            {{ node.type ==='subCategory' ? 'align_horizontal_left' : '' }}
-        </mat-icon>
-        {{node.name}}
-            <div mat-icon-button (click)="openSubCategoryMenu($event, node)">
-                <mat-icon>more_vert</mat-icon>
-            </div>
-    </mat-tree-node>
-
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <div mat-icon-button matTreeNodeToggle class="ptr"
-                [attr.aria-label]="'toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-        </div>
-        {{node.name}}
-            <div mat-icon-button (click)="openCategoryMenu($event, node)">
-                <mat-icon>more_vert</mat-icon>
-            </div>
-    </mat-tree-node>
-
-</mat-tree>
-
-<div style="visibility: hidden; position: fixed"
-     [style.left]="contextMenuPosition.x"
-     [style.top]="contextMenuPosition.y"
-     [matMenuTriggerFor]="categoryMenu">
-</div>
-<div style="visibility: hidden; position: fixed"
-     [style.left]="contextMenuPosition.x"
-     [style.top]="contextMenuPosition.y"
-     [matMenuTriggerFor]="subCategoryMenu">
-</div>
-
-<mat-menu #categoryMenu="matMenu">
-    <div mat-menu-item  (click)="onContextItemSelect('renameCategory')">
-        <mat-icon>edit</mat-icon>
-        Rename Category
-    </div>
-    <div class="border-top" mat-menu-item  (click)="onContextItemSelect('deleteCategory')">
-        <mat-icon>delete</mat-icon>
-        Delete Category
-    </div>
-</mat-menu>
-<mat-menu #subCategoryMenu="matMenu">
-    <div mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+<div class="bg-white">
+    <div class="p-1 pt-2" mat-icon-button (click)="addCateogry($event)">
         <mat-icon>add_circle_outline</mat-icon>
-        Create Sub Category
+        <small class="pl-1">Add Category</small>
     </div>
-    <div mat-menu-item (click)="onContextItemSelect('createSubCategory')">
-        <mat-icon>edit</mat-icon>
-        Rename Sub Category
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+            <div mat-icon-button disabled></div>
+            <mat-icon class="type-icon" [attr.aria-label]="node.type + 'icon'">
+                {{ node.type ==='subCategory' ? 'align_horizontal_left' : '' }}
+            </mat-icon>
+            {{node.name}}
+                <div mat-icon-button (click)="openSubCategoryMenu($event, node)">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+        </mat-tree-node>
+
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+            <div mat-icon-button matTreeNodeToggle class="ptr"
+                    [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </div>
+            {{node.name}}
+                <div mat-icon-button (click)="openCategoryMenu($event, node)">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+        </mat-tree-node>
+
+    </mat-tree>
+
+    <div style="visibility: hidden; position: fixed"
+         [style.left]="contextMenuPosition.x"
+         [style.top]="contextMenuPosition.y"
+         [matMenuTriggerFor]="categoryMenu">
     </div>
-    <div class="border-top" mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
-        <mat-icon>delete</mat-icon>
-        Delete Sub Category
+    <div style="visibility: hidden; position: fixed"
+         [style.left]="contextMenuPosition.x"
+         [style.top]="contextMenuPosition.y"
+         [matMenuTriggerFor]="subCategoryMenu">
     </div>
-</mat-menu>
+
+    <mat-menu #categoryMenu="matMenu">
+        <div mat-menu-item  (click)="onContextItemSelect('renameCategory')">
+            <mat-icon>edit</mat-icon>
+            Rename Category
+        </div>
+        <div class="border-top" mat-menu-item  (click)="onContextItemSelect('deleteCategory')">
+            <mat-icon>delete</mat-icon>
+            Delete Category
+        </div>
+    </mat-menu>
+    <mat-menu #subCategoryMenu="matMenu">
+        <div mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+            <mat-icon>add_circle_outline</mat-icon>
+            Create Sub Category
+        </div>
+        <div mat-menu-item (click)="onContextItemSelect('createSubCategory')">
+            <mat-icon>edit</mat-icon>
+            Rename Sub Category
+        </div>
+        <div class="border-top" mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+            <mat-icon>delete</mat-icon>
+            Delete Sub Category
+        </div>
+    </mat-menu>
+</div>

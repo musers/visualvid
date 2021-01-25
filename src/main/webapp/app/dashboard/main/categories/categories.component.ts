@@ -95,5 +95,7 @@ export class DashboardCategoriesComponent implements OnInit{
     this.contextMenu.last.menuData = { node };
     this.contextMenu.last.openMenu();
   }
-
+ addCateogry(): void {
+  console.log('addCateogry');
+ }
 }
