@@ -20,9 +20,10 @@ import { MatTableModule } from '@angular/material/table';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
-  imports: [HttpClientModule, DragDropModule, MatTabsModule, AngularSvgIconModule.forRoot()],
+  imports: [HttpClientModule, DragDropModule, MatTabsModule,MatTreeModule, AngularSvgIconModule.forRoot()],
   exports: [
     FormsModule,
     CommonModule,
@@ -45,7 +46,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     PortalModule,
     OverlayModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTreeModule
   ],
 })
 export class VisualvidSharedLibsModule {}

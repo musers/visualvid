@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
 import { VideoItem } from './videoitem.model';
-import { Category } from './category.model';
 
 @Injectable({ providedIn: 'root' })
 export class VideoDesignsService {
   constructor(protected http: HttpClient) {}
-  public getCategories(): Observable<Array<Category>> {
+  public getCategories(): Observable<Array<any>> {
     const data = [
       {
         index: '1',

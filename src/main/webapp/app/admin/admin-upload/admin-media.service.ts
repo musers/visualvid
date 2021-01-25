@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
 import { AdminMedia } from 'app/admin/admin-upload/admin-upload-form/adminmedia.model';
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +24,5 @@ export class AdminMediaService {
   }
   public getAll(categoryId: String): Observable<any> {
     return this.httpClient.get(this.resourceUrl+'/page/category/'+categoryId);
-  }
-  public getCategories(): Observable<AdminCategory[]> {
-    return this.httpClient.get<AdminCategory[]>(this.categoryUrl);
   }
 }

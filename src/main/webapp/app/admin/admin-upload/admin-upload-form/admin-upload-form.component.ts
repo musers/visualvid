@@ -9,8 +9,9 @@ import { TemplatePortalDirective } from '@angular/cdk/portal';
 import { OverlayService } from 'app/shared/overlay/overlay.service';
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
+import { CategoryService } from 'app/category/category.service';
 import { AdminMedia } from './adminmedia.model';
-import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
+import { Category } from 'app/category/category.model';
 import { ItemComponent } from 'app/item/item.component';
 import { PreviewComponent } from 'app/admin/admin-upload/preview/preview.component';
 @Component({
@@ -39,7 +40,7 @@ export class AdminUploadFormComponent implements OnInit {
     slides: [],
   };
   @ViewChild('description') divRef?: ElementRef;
-  categories: AdminCategory[] = [];
+  categories: Category[] = [];
   errors: any = {};
   disabled = false;
 
@@ -56,6 +57,7 @@ export class AdminUploadFormComponent implements OnInit {
   constructor(
     private fileUploadService: FileUploadService,
     private adminMediaService: AdminMediaService,
+    private categoryService: CategoryService,
     private alertService: JhiAlertService,
     private overlayService: OverlayService,
     private matDialog: MatDialog
@@ -69,7 +71,7 @@ export class AdminUploadFormComponent implements OnInit {
         slideName: '',
         slideItems: this.getInitialSlideItems(),
       });
-      this.adminMediaService.getCategories().subscribe((res: AdminCategory[]) => {
+      this.categoryService.getCategories().subscribe((res: Category[]) => {
         if (res != null) {
           this.categories = res;
         }
