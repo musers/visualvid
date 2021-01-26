@@ -1,10 +1,12 @@
-import { Component,OnInit, ViewChildren, QueryList} from '@angular/core';
+import { Component,OnInit, ViewChild} from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { of as observableOf } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'app/category/category.service';
 import { CategoryNode } from 'app/category/category.model';
+import { RenameCategoryComponent, DialogConfig } from './dialogs/renamecategory.component';
 
 
 export interface TreeNode {
@@ -29,11 +31,13 @@ export class DashboardCategoriesComponent implements OnInit{
   /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
   dataSource: MatTreeFlatDataSource<CategoryNode, TreeNode>;
 
-  @ViewChildren(MatMenuTrigger)
-  contextMenu: QueryList<MatMenuTrigger>;
-  contextMenuPosition = { x: '0px', y: '0px' };
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
 
-  constructor(private categoryService: CategoryService) {
+  contextMenuPosition = { x: '0px', y: '0px' };
+  contextMenuType = 'category';
+
+  constructor(private categoryService: CategoryService, private dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
@@ -42,7 +46,6 @@ export class DashboardCategoriesComponent implements OnInit{
 
     this.treeControl = new FlatTreeControl<TreeNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-//     this.dataSource.data = catTree;
   }
    ngOnInit(): void {
     this.categoryService.getCategoryTree().subscribe(resp => {
@@ -80,22 +83,28 @@ export class DashboardCategoriesComponent implements OnInit{
   }
   onContextItemSelect(evtId: any): void {
      console.log('evtId',evtId);
+     if(evtId==='renameCategory'){
+        const dialog: DialogConfig = {
+          categoryName: '',
+          content: 'Name of the category'
+        };
+        const dialogRef = this.dialog.open(RenameCategoryComponent, { width: '287px', data: dialog });
+        dialogRef.afterClosed().subscribe(result => {
+          // TODO backedn service call
+          this.contextMenu.menuData.node.name='adf';
+          this.dataSource.data.push(this.contextMenu.menuData.node);
+        });
+     }
   }
-  openCategoryMenu(event: MouseEvent, node: any): void{
+  openContextMenu(event: MouseEvent, node: any): void{
     event.preventDefault();
+    this.contextMenuType = node.type;
     this.contextMenuPosition.x = event.clientX + 'px';
     this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.first.menuData = { node };
-    this.contextMenu.first.openMenu();
-  }
-  openSubCategoryMenu(event: MouseEvent, node: any): void{
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.last.menuData = { node };
-    this.contextMenu.last.openMenu();
+    this.contextMenu.menuData = { node };
+    this.contextMenu.openMenu();
   }
  addCateogry(): void {
-  console.log('addCateogry');
+    console.log('addCateogry');
  }
 }

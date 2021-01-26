@@ -24,6 +24,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [HttpClientModule, DragDropModule, MatTabsModule,MatTreeModule, AngularSvgIconModule.forRoot()],
@@ -53,7 +54,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTreeModule,
     MatMenuModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule
   ],
 })
 export class VisualvidSharedLibsModule {}

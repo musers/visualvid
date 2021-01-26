@@ -7,6 +7,7 @@ import { DashboardEmployeComponent } from './employees/employe-component';
 import { DashboardAddEmployeeComponent } from './employees/add-employee/add-employe.component';
 import { DashboardAssignmentsComponent } from './assignments/assignments.component';
 import { DashboardCategoriesComponent } from './categories/categories.component';
+import { RenameCategoryComponent } from './categories/dialogs/renamecategory.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardEmployeComponent,
     DashboardAssignmentsComponent,
     DashboardAddEmployeeComponent,
-    DashboardCategoriesComponent
+    DashboardCategoriesComponent,
+    RenameCategoryComponent
   ],
   exports: [DashboardMainComponent],
 })
