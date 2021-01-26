@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'app/category/category.service';
 import { CategoryNode } from 'app/category/category.model';
-import { CatTreeActionComponent, CatTreeActionConfig } from './dialogs/cattreeaction/cattreeaction.component';
+import { CatTreeActionComponent } from './dialogs/cattreeaction/cattreeaction.component';
 
 
 export interface TreeNode {
@@ -85,60 +85,15 @@ export class DashboardCategoriesComponent implements OnInit{
   }
   onContextItemSelect(actionId: any): void {
      console.log('evtId',actionId);
-     const node = this.contextMenu.menuData.node;
-     if(actionId==='renameCategory' || actionId==='renameSubCategory'){
-        const dialog: CatTreeActionConfig = {
-          name: node.name,
-          type: node.type,
-          id: node.id,
-          actionId
-        };
-        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
-        dialogRef.afterClosed().subscribe(result => {
-          if(result && result !== node.name){
-            this.categoryService.rename(node.id,node.type,result).subscribe(resp => {
-              console.log(resp);
-              node.name = result;
-              this.dataSource.data.push(node);
-            })
-          }
-        });
-     } else if(actionId ==='createSubCategory'){
-        const dialog: CatTreeActionConfig = {
-          name: node.name,
-          type: node.type,
-          id: node.id,
-          actionId
-        };
-        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            this.categoryService.createSubCategory(node.id,result).subscribe(resp => {
-              const n = {
-                    name: result,
-                    type: 'subCategory',
-                    id: resp.id,
-                    expandable: false,
-                    level: 1
-              }
-              console.log('n',n);
-              const data = this.dataSource.data;
-              data.forEach(cNode => {
-                  if(cNode.id === node.id){
-                    if(!cNode.children){
-                      cNode.children = [];
-                    }
-                    cNode.children.push(n)
-                  }
-              })
-              this.dataSource.data = data;
-              this.treeControl.expand(node);
-            });
-          }
-        });
+     if(actionId==='renameCategory' || actionId==='renameSubCategory' || actionId ==='createSubCategory'){
+        const node = this.contextMenu.menuData.node;
+        let newName = '';
+        if(actionId !=='createSubCategory'){
+          newName = node.name;
+        }
+      this.handleAction(actionId,node,newName)
      }
   }
-
   openContextMenu(event: MouseEvent, node: any): void{
     event.preventDefault();
     this.contextMenuType = node.type;
@@ -148,27 +103,20 @@ export class DashboardCategoriesComponent implements OnInit{
     this.contextMenu.openMenu();
   }
  addCateogry(): void {
-    console.log('addCateogry');
-    const dialog: CatTreeActionConfig = {
-          actionId: 'createCategory'
-        };
-        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            this.categoryService.createCategory(result).subscribe(resp => {
-              const n = {
-                    name: result,
-                    type: 'category',
-                    id: resp.id,
-                    expandable: true,
-                    level: 0
-              }
-              console.log('n',n);
-              const data = this.dataSource.data;
-              data.push(n);
-              this.dataSource.data = data;
-            });
-          }
-        });
+    this.handleAction('createCategory',null,'');
+ }
+ handleAction(actionId: string, node: any, newName: string): void {
+    const data = {
+     actionId,
+     node,
+     nodes: this.dataSource.data,
+     newName
+    }
+    const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data });
+    dialogRef.afterClosed().subscribe(nodes => {
+       if(nodes){
+         this.dataSource.data = nodes;
+       }
+    });
  }
 }
