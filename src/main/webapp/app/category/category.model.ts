@@ -1,6 +1,7 @@
 export interface CategoryNode {
   name: string;
   type?: string;
+  id? : string;
   children?: CategoryNode[];
 }
 

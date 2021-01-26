@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'app/category/category.service';
 import { CategoryNode } from 'app/category/category.model';
-import { RenameCategoryComponent, DialogConfig } from './dialogs/renamecategory.component';
+import { CatTreeActionComponent, CatTreeActionConfig } from './dialogs/cattreeaction/cattreeaction.component';
 
 
 export interface TreeNode {
@@ -14,6 +14,7 @@ export interface TreeNode {
   type: string;
   level: number;
   expandable: boolean;
+  id: string;
 }
 
 @Component({
@@ -57,6 +58,7 @@ export class DashboardCategoriesComponent implements OnInit{
     return {
       name: node.name,
       type: node.type,
+      id: node.id,
       level,
       expandable: !!node.children
     };
@@ -81,21 +83,62 @@ export class DashboardCategoriesComponent implements OnInit{
   hasChild(index: number, node: TreeNode): any{
     return node.expandable;
   }
-  onContextItemSelect(evtId: any): void {
-     console.log('evtId',evtId);
-     if(evtId==='renameCategory'){
-        const dialog: DialogConfig = {
-          categoryName: '',
-          content: 'Name of the category'
+  onContextItemSelect(actionId: any): void {
+     console.log('evtId',actionId);
+     const node = this.contextMenu.menuData.node;
+     if(actionId==='renameCategory' || actionId==='renameSubCategory'){
+        const dialog: CatTreeActionConfig = {
+          name: node.name,
+          type: node.type,
+          id: node.id,
+          actionId
         };
-        const dialogRef = this.dialog.open(RenameCategoryComponent, { width: '287px', data: dialog });
+        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
         dialogRef.afterClosed().subscribe(result => {
-          // TODO backedn service call
-          this.contextMenu.menuData.node.name='adf';
-          this.dataSource.data.push(this.contextMenu.menuData.node);
+          if(result && result !== node.name){
+            this.categoryService.rename(node.id,node.type,result).subscribe(resp => {
+              console.log(resp);
+              node.name = result;
+              this.dataSource.data.push(node);
+            })
+          }
+        });
+     } else if(actionId ==='createSubCategory'){
+        const dialog: CatTreeActionConfig = {
+          name: node.name,
+          type: node.type,
+          id: node.id,
+          actionId
+        };
+        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.categoryService.createSubCategory(node.id,result).subscribe(resp => {
+              const n = {
+                    name: result,
+                    type: 'subCategory',
+                    id: resp.id,
+                    expandable: false,
+                    level: 1
+              }
+              console.log('n',n);
+              const data = this.dataSource.data;
+              data.forEach(cNode => {
+                  if(cNode.id === node.id){
+                    if(!cNode.children){
+                      cNode.children = [];
+                    }
+                    cNode.children.push(n)
+                  }
+              })
+              this.dataSource.data = data;
+              this.treeControl.expand(node);
+            });
+          }
         });
      }
   }
+
   openContextMenu(event: MouseEvent, node: any): void{
     event.preventDefault();
     this.contextMenuType = node.type;
@@ -106,5 +149,26 @@ export class DashboardCategoriesComponent implements OnInit{
   }
  addCateogry(): void {
     console.log('addCateogry');
+    const dialog: CatTreeActionConfig = {
+          actionId: 'createCategory'
+        };
+        const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data: dialog });
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.categoryService.createCategory(result).subscribe(resp => {
+              const n = {
+                    name: result,
+                    type: 'category',
+                    id: resp.id,
+                    expandable: true,
+                    level: 0
+              }
+              console.log('n',n);
+              const data = this.dataSource.data;
+              data.push(n);
+              this.dataSource.data = data;
+            });
+          }
+        });
  }
 }

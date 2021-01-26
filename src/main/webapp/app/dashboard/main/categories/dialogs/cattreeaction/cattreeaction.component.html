@@ -1,0 +1,53 @@
+<ng-container *ngIf="data.actionId==='renameCategory'">
+    <h1 mat-dialog-title>Rename Category</h1>
+    <div mat-dialog-content>
+        <p>Enter new name</p>
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.name">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close(false)">Discard</button>
+        <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data.actionId==='renameSubCategory'">
+    <h1 mat-dialog-title>Rename Sub Category</h1>
+    <div mat-dialog-content>
+        <p>Enter new name</p>
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.name">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close(false)">Discard</button>
+        <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data.actionId==='createCategory'">
+    <h1 mat-dialog-title>Create Category</h1>
+    <div mat-dialog-content>
+        <p>Enter New Category Name</p>
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.newName">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close(false)">Discard</button>
+        <button mat-button [mat-dialog-close]="data.newName" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data.actionId==='createSubCategory'">
+    <h1 mat-dialog-title>Create Sub Category</h1>
+    <div mat-dialog-content>
+        <p>Enter Sub Category Name</p>
+        <mat-form-field>
+            {{data.name}} : <input matInput [(ngModel)]="data.newName">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close(false)">Discard</button>
+        <button mat-button [mat-dialog-close]="data.newName" cdkFocusInitial>Ok</button>
+    </div>
+</ng-container>
+

@@ -7,7 +7,8 @@ import { DashboardEmployeComponent } from './employees/employe-component';
 import { DashboardAddEmployeeComponent } from './employees/add-employee/add-employe.component';
 import { DashboardAssignmentsComponent } from './assignments/assignments.component';
 import { DashboardCategoriesComponent } from './categories/categories.component';
-import { RenameCategoryComponent } from './categories/dialogs/renamecategory.component';
+import { CatTreeActionComponent } from './categories/dialogs/cattreeaction/cattreeaction.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -20,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardAssignmentsComponent,
     DashboardAddEmployeeComponent,
     DashboardCategoriesComponent,
-    RenameCategoryComponent
+    CatTreeActionComponent
   ],
   exports: [DashboardMainComponent],
 })
