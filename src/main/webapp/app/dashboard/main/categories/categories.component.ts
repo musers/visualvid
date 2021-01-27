@@ -7,6 +7,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'app/category/category.service';
 import { CategoryNode } from 'app/category/category.model';
 import { CatTreeActionComponent } from './dialogs/cattreeaction/cattreeaction.component';
+import { JhiAlertService } from 'ng-jhipster';
 
 
 export interface TreeNode {
@@ -38,7 +39,10 @@ export class DashboardCategoriesComponent implements OnInit{
   contextMenuPosition = { x: '0px', y: '0px' };
   contextMenuType = 'category';
 
-  constructor(private categoryService: CategoryService, private dialog: MatDialog) {
+  constructor(
+    private categoryService: CategoryService,
+    private dialog: MatDialog,
+    private alertService: JhiAlertService) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
@@ -96,11 +100,25 @@ export class DashboardCategoriesComponent implements OnInit{
     })
     return parentId;
   }
+  getCategoryNode(id: string): CategoryNode{
+    let categoryNode = null;
+    this.dataSource.data.forEach((cNode: CategoryNode) => {
+        if(cNode.id === id){
+          categoryNode = cNode;
+        } else if(cNode.children){
+          cNode.children.forEach(sc => {
+            if(sc.id === id){
+              categoryNode = cNode;
+            }
+          })
+        }
+    })
+    return categoryNode;
+  }
   onContextItemSelect(actionId: any): void {
-     console.log('evtId',actionId);
      let parentIndex = null;
+     const node = this.contextMenu.menuData.node;
      if(actionId==='renameCategory' || actionId==='renameSubCategory' || actionId ==='createSubCategory'){
-        const node = this.contextMenu.menuData.node;
         let newName = '';
         if(actionId !=='createSubCategory'){
           newName = node.name;
@@ -111,13 +129,16 @@ export class DashboardCategoriesComponent implements OnInit{
         } else if (actionId ==='createSubCategory'){
           parentId = node.id;
         }
-        this.treeControl.dataNodes.forEach((n,i) =>{
+        this.treeControl.dataNodes.forEach((n,i) => {
           if(n.id === parentId){
             parentIndex = i;
           }
         })
-
       this.handleAction(actionId,node,newName, parentIndex);
+     } else if(actionId === 'deleteCategory'){
+      this.deleteCategory(node);
+     } else if(actionId ==='deleteSubCategory'){
+      this.deleteSubCategory(node);
      }
   }
   openContextMenu(event: MouseEvent, node: any): void{
@@ -130,6 +151,31 @@ export class DashboardCategoriesComponent implements OnInit{
   }
  addCateogry(): void {
     this.handleAction('createCategory',null,'',null);
+ }
+ deleteSubCategory(node: any): void {
+    const parentNode = this.getCategoryNode(node.id);
+    this.categoryService.deleteSubCategory(node.id).subscribe(resp => {
+     const nodes = this.dataSource.data.filter(item => item.id !== parentNode.id);
+      const children = parentNode.children.filter(item => item.id !== node.id);
+      parentNode.children = children;
+      nodes.push(parentNode);
+      this.dataSource.data = nodes;
+    });
+ }
+ deleteCategory(node: any): void {
+     const categoryNode = this.getCategoryNode(node.id);
+     let error = '';
+    if(categoryNode.children && categoryNode.children.length > 0 ) {
+      error = 'categoryIsNotEmpty';
+    }
+    if(!error){
+      this.categoryService.deleteCategory(node.id).subscribe(resp => {
+        const nodes = this.dataSource.data.filter(item => item.id !== node.id);
+        this.dataSource.data = nodes;
+      });
+    } else {
+      this.alertService.addAlert({ type: 'warning', msg: error, timeout: 5000, toast: true }, []);
+    }
  }
  handleAction(actionId: string, node: any, newName: string, parentIndex: number): void {
     const data = {

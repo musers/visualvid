@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
@@ -13,16 +14,12 @@ export class CategoryService {
     return this.httpClient.get<any>(this.categoryUrl);
   }
   public rename(id: string, type: string, name: string): Observable<any>{
-    console.log(id);
-    console.log(type);
-    console.log(name);
     const resp = {
       success : true
     }
      return of(resp);
   }
   public createCategory(name: string): Observable<any>{
-    console.log(name);
     const resp = {
       success : true,
       id: btoa(Math.random().toString()).substr(0, 20)
@@ -30,15 +27,24 @@ export class CategoryService {
      return of(resp);
   }
   public createSubCategory(categoryId: string,name: string): Observable<any>{
-    console.log(categoryId);
-    console.log(name);
     const resp = {
       success : true,
       id: btoa(Math.random().toString()).substr(0, 20)
     }
      return of(resp);
   }
-
+  public deleteCategory(categoryId: string): Observable<any>{
+    const resp = {
+      success : true
+    }
+    return of(resp);
+  }
+  public deleteSubCategory(subCategoryId: string): Observable<any>{
+    const resp = {
+      success : true
+    }
+    return of(resp);
+  }
   getCategoryTree() : Observable<any>{
     const catTree = [
       {
