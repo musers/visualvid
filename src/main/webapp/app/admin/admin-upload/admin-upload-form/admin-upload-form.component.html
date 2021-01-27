@@ -25,18 +25,33 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="vlabel" style="">Category</label>
+                    <label class="vlabel" style="" for="subcategory">Category</label>
                     <div class="vtext-box">
-                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">
-                        <option *ngFor="let c of categories;" [ngValue]="c.categoryId">
-                            {{ c.categoryName }}
-                          </option>
-                        </select>
-                        <div *ngIf="errors.categoryIdRequired">
-                            <small class="form-text text-danger">
-                                Category cannot be empty.
-                            </small>
-                        </div>
+<!--                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">-->
+<!--                        <option *ngFor="let c of subCategories;" [ngValue]="c.id">-->
+<!--                            <strong>{{ c.categoryName }}</strong> -  {{ c.name }}-->
+<!--                          </option>-->
+<!--                        </select>-->
+<!--                        <div *ngIf="errors.categoryIdRequired">-->
+<!--                            <small class="form-text text-danger">-->
+<!--                                Category cannot be empty.-->
+<!--                            </small>-->
+<!--                        </div>-->
+<!--                        <input id="category"  type="text" class="form-control"-->
+<!--                               name="categoryId"-->
+<!--                               [(ngModel)]="item.categoryId"-->
+<!--                               [ngbTypeahead]="search"-->
+<!--                               [inputFormatter]="formatter"-->
+<!--                               [resultFormatter]="formatter"-->
+<!--                               [editable]='false' />-->
+<!--                        <input id="typeahead-basic" name="categoryId" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>-->
+                        <input id="subcategory" type="text" name="categoryId" class="form-control" [(ngModel)]="subCategorySearchModel" [ngbTypeahead]="search" [resultTemplate]="subCategoryResultTemplate"
+                               [inputFormatter]="subCategoryFormatter" [editable]='false' (focus)="onFocus($event)"/>
+                                                <div *ngIf="errors.categoryIdRequired">
+                                                    <small class="form-text text-danger">
+                                                        Category cannot be empty.
+                                                    </small>
+                                                </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -247,3 +262,8 @@
 <ng-template cdk-portal #uploading="cdkPortal">
     <div style="color: #fff;">Uploading...</div>
 </ng-template>
+<ng-template #subCategoryResultTemplate let-r="result" let-t="term">
+    {{r.categoryName}} :
+    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+

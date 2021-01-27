@@ -5,15 +5,18 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { JhiAlertService } from 'ng-jhipster';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 import { OverlayService } from 'app/shared/overlay/overlay.service';
 import { FileUploadService } from 'app/fileupload/fileupload.service';
 import { AdminMediaService } from '../admin-media.service';
 import { CategoryService } from 'app/category/category.service';
 import { AdminMedia } from './adminmedia.model';
-import { Category } from 'app/category/category.model';
+import { Category, SubCategory} from 'app/category/category.model';
 import { ItemComponent } from 'app/item/item.component';
 import { PreviewComponent } from 'app/admin/admin-upload/preview/preview.component';
+
 @Component({
   selector: 'jhi-admin-upload-form',
   templateUrl: './admin-upload-form.component.html',
@@ -41,6 +44,7 @@ export class AdminUploadFormComponent implements OnInit {
   };
   @ViewChild('description') divRef?: ElementRef;
   categories: Category[] = [];
+  subCategories: SubCategory[] = [];
   errors: any = {};
   disabled = false;
 
@@ -53,7 +57,7 @@ export class AdminUploadFormComponent implements OnInit {
   matDialogRef?: MatDialogRef<ItemComponent>;
   previewMatDialogRef: MatDialogRef<PreviewComponent>;
   @ViewChild('uploading') uploadingTemplate: TemplatePortalDirective;
-
+  public subCategorySearchModel: any;
   constructor(
     private fileUploadService: FileUploadService,
     private adminMediaService: AdminMediaService,
@@ -63,6 +67,23 @@ export class AdminUploadFormComponent implements OnInit {
     private matDialog: MatDialog
   ) {}
 
+ search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => this.subCategories.filter(v => new RegExp(term, 'mi').test(v.categoryName+v.name)))
+    )
+
+  subCategoryFormatter = (x: SubCategory) => x.categoryName + ':'+ x.name;
+
+   public onFocus(e: Event): void {
+     e.stopPropagation();
+     setTimeout(() => {
+       const inputEvent: Event = new Event('input');
+       e.target.dispatchEvent(inputEvent);
+     }, 0);
+   }
+
   ngOnInit(): void {
     console.log('item loaded', this.item);
     this.tagList = this.convertTagsToTagList(this.item.tags);
@@ -71,9 +92,14 @@ export class AdminUploadFormComponent implements OnInit {
         slideName: '',
         slideItems: this.getInitialSlideItems(),
       });
-      this.categoryService.getCategories().subscribe((res: Category[]) => {
+//       this.categoryService.getCategories().subscribe((res: Category[]) => {
+//         if (res != null) {
+//           this.categories = res;
+//         }
+//       });
+      this.categoryService.getAllSubCategories().subscribe((res: SubCategory[]) => {
         if (res != null) {
-          this.categories = res;
+          this.subCategories = res;
         }
       });
     }
@@ -162,6 +188,8 @@ export class AdminUploadFormComponent implements OnInit {
     this.validateAdminForm();
     if (Object.keys(this.errors).length === 0 && !this.disabled) {
       this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.categoryId = this.subCategorySearchModel.categoryId;
+      this.item.subCategoryId = this.subCategorySearchModel.id;
       this.adminMediaService.save(this.item).subscribe(() => {
         this.alertService.addAlert({ type: 'success', msg: 'uploadform.saved.successfully', timeout: 5000, toast: true }, []);
         this.disabled = true;
@@ -204,7 +232,7 @@ export class AdminUploadFormComponent implements OnInit {
       this.errors.usdDiscPriceLargerThanPrice = true;
     }
 
-    if (!this.item.categoryId) {
+    if (!this.subCategorySearchModel) {
       this.errors.categoryIdRequired = true;
     }
     if (!this.item.previewVideoS3Url) {
@@ -248,6 +276,8 @@ export class AdminUploadFormComponent implements OnInit {
     this.validateAdminForm();
     if (Object.keys(this.errors).length === 0 && !this.disabled) {
       this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.categoryId = this.subCategorySearchModel.categoryId;
+      this.item.subCategoryId = this.subCategorySearchModel.id;
       this.item.divId = 'preview';
       this.matDialogRef = this.matDialog.open(ItemComponent, {
         data: this.item,
@@ -262,6 +292,8 @@ export class AdminUploadFormComponent implements OnInit {
     this.validateAdminForm();
     if (Object.keys(this.errors).length === 0 && !this.disabled) {
       this.item.tags = this.convertTagListToTags(this.tagList);
+      this.item.categoryId = this.subCategorySearchModel.categoryId;
+      this.item.subCategoryId = this.subCategorySearchModel.id;
       this.item.divId = 'preview';
       this.previewMatDialogRef = this.matDialog.open(PreviewComponent, {
         data: this.item,

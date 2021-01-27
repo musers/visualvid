@@ -5,6 +5,7 @@ export interface AdminMedia {
   name?: string;
   description?: string;
   categoryId?: string;
+  subCategoryId?: string;
   indianPrice?: any;
   indianDiscPrice?: any;
   indianAdvCustomizationPrice?: any;

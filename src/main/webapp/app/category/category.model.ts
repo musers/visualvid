@@ -5,10 +5,16 @@ export interface CategoryNode {
   children?: CategoryNode[];
 }
 
-// TODO Need to merge with above
 export interface Category {
   categoryId: String;
   categoryName: String;
   id?: string;
   nameFormatted?: string;
+}
+
+export interface SubCategory {
+  categoryId?: String;
+  categoryName?: String;
+  id?: string;
+  name?: string;
 }

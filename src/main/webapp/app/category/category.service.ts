@@ -45,6 +45,26 @@ export class CategoryService {
     }
     return of(resp);
   }
+  getAllSubCategories(): Observable<any>{
+    const subCategories = [{
+      name: 'Hindu',
+      id: btoa(Math.random().toString()).substr(0, 20),
+      categoryId: btoa(Math.random().toString()).substr(0, 20),
+      categoryName: 'Wedding'
+      },{
+      name: 'Rajasthani',
+      id: btoa(Math.random().toString()).substr(0, 20),
+      categoryId: btoa(Math.random().toString()).substr(0, 20),
+      categoryName: 'Wedding'
+      },{
+      name: 'Something',
+      id: btoa(Math.random().toString()).substr(0, 20),
+      categoryId: btoa(Math.random().toString()).substr(0, 20),
+      categoryName: 'Corporate'
+      }
+    ];
+    return of(subCategories);
+  }
   getCategoryTree() : Observable<any>{
     const catTree = [
       {
