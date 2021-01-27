@@ -83,15 +83,41 @@ export class DashboardCategoriesComponent implements OnInit{
   hasChild(index: number, node: TreeNode): any{
     return node.expandable;
   }
+  getParentId(id: string): string{
+    let parentId = null;
+    this.dataSource.data.forEach((cNode: CategoryNode) => {
+        if(cNode.children){
+          cNode.children.forEach(sc => {
+            if(sc.id === id){
+              parentId = cNode.id;
+            }
+          })
+      }
+    })
+    return parentId;
+  }
   onContextItemSelect(actionId: any): void {
      console.log('evtId',actionId);
+     let parentIndex = null;
      if(actionId==='renameCategory' || actionId==='renameSubCategory' || actionId ==='createSubCategory'){
         const node = this.contextMenu.menuData.node;
         let newName = '';
         if(actionId !=='createSubCategory'){
           newName = node.name;
         }
-      this.handleAction(actionId,node,newName)
+        let parentId = '';
+        if(actionId==='renameSubCategory'){
+          parentId = this.getParentId(node.id);
+        } else if (actionId ==='createSubCategory'){
+          parentId = node.id;
+        }
+        this.treeControl.dataNodes.forEach((n,i) =>{
+          if(n.id === parentId){
+            parentIndex = i;
+          }
+        })
+
+      this.handleAction(actionId,node,newName, parentIndex);
      }
   }
   openContextMenu(event: MouseEvent, node: any): void{
@@ -103,19 +129,23 @@ export class DashboardCategoriesComponent implements OnInit{
     this.contextMenu.openMenu();
   }
  addCateogry(): void {
-    this.handleAction('createCategory',null,'');
+    this.handleAction('createCategory',null,'',null);
  }
- handleAction(actionId: string, node: any, newName: string): void {
+ handleAction(actionId: string, node: any, newName: string, parentIndex: number): void {
     const data = {
      actionId,
      node,
      nodes: this.dataSource.data,
      newName
     }
-    const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data });
+    const dialogRef = this.dialog.open(CatTreeActionComponent, { width: '287px', data, autoFocus: true});
     dialogRef.afterClosed().subscribe(nodes => {
        if(nodes){
          this.dataSource.data = nodes;
+         if(parentIndex !== null){
+          this.treeControl.expand(this.treeControl.dataNodes[parentIndex]);
+         }
+
        }
     });
  }

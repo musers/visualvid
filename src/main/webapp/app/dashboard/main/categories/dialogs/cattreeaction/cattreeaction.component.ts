@@ -26,10 +26,16 @@ export class CatTreeActionComponent {
       private categoryService: CategoryService
   ) {}
 
-  rename(): void{
+  rename(type: string): void{
+    this.error = '';
     if(!this.data.newName){
       this.error = 'Name cannot be empty';
+    } else if(type==='category' && this.categoryExists(this.data.newName,this.data.node.id)){
+      this.error = 'Category already exists with the same name';
+    } else if(type==='subCategory' && this.checkSubCategoryExists(this.data.newName,this.data.node.id)){
+      this.error = 'Sub Category with the same name exists';
     }
+
     if(!this.error){
       this.categoryService.rename(this.data.node.id,this.data.node.type,this.data.newName).subscribe(resp => {
         console.log(resp);
@@ -50,9 +56,10 @@ export class CatTreeActionComponent {
     }
   }
   createSubCategory(): void {
+    this.error = '';
     if(!this.data.newName){
       this.error = 'Name cannot be empty';
-    } else if(this.checkSubCategoryExists(this.data.newName)){
+    } else if(this.checkSubCategoryExists(this.data.newName, null)){
        this.error = 'Sub Category already exists in the same category';
     } else {
       this.error = '';
@@ -80,10 +87,11 @@ export class CatTreeActionComponent {
     }
   }
   createCategory(): void {
+    this.error = '';
     console.log('createCategory');
     if(!this.data.newName){
       this.error = 'Name cannot be empty '
-    } else if(this.categoryExists(this.data.newName)){
+    } else if(this.categoryExists(this.data.newName, null)){
       this.error = 'Category already exists with name : '+ this.data.newName;
     } else {
       this.error = '';
@@ -102,28 +110,40 @@ export class CatTreeActionComponent {
        })
     }
   }
-  categoryExists(name: string): boolean{
+  categoryExists(name: string, id: string): boolean{
     let cExists = false;
     this.data.nodes.forEach(cNode => {
       if(cNode.name.toLocaleLowerCase() === name.toLocaleLowerCase()){
-        cExists =  true;
+        if(cNode.id !== id){
+          cExists =  true;
+        }
       }
     })
     return cExists;
   }
-  checkSubCategoryExists(name: string): boolean {
+  checkSubCategoryExists(name: string, id: string): boolean {
     let scExists =false;
+      if(!id){
           this.data.nodes.forEach(cNode => {
-            if(cNode.id === this.data.node.id){
-              if(cNode.children){
-                cNode.children.forEach(sc => {
-                  if(sc.name === name){
+            if(cNode.id === this.data.node.id && cNode.children){
+              cNode.children.forEach(sc => {
+                if(sc.name === name){
                     scExists = true;
-                  }
-                })
-              }
+                }
+              })
             }
           })
-  return scExists;
+      } else {
+          this.data.nodes.forEach(cNode => {
+            if(cNode.children){
+              cNode.children.forEach(sc => {
+                if(sc.name === name && sc.id !== id){
+                    scExists = true;
+                }
+              })
+            }
+          })
+      }
+    return scExists;
   }
 }
