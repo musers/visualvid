@@ -1,9 +1,9 @@
 package com.ae.visuavid.service.dto;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 public class AdminMediaDTO implements BaseDTO {
     private UUID id;
@@ -59,6 +59,8 @@ public class AdminMediaDTO implements BaseDTO {
     private Double earnings;
 
     private String tags;
+
+    private String subCategoryId;
 
     private List<MediaSlideDTO> slides;
 
@@ -244,5 +246,13 @@ public class AdminMediaDTO implements BaseDTO {
 
     public void setUsdPremumDeliveryPrice(BigDecimal usdPremumDeliveryPrice) {
         this.usdPremumDeliveryPrice = usdPremumDeliveryPrice;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 }

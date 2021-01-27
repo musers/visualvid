@@ -28,6 +28,7 @@
     <include file="config/liquibase/changelog/009_drop_template_tables.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/010_drop_sequences.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/011_user.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/012_sub_categories.xml" relativeToChangelogFile="false"/>
 
 
 

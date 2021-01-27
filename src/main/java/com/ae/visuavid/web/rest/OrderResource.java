@@ -78,4 +78,12 @@ public class OrderResource {
         orderService.updateRazorPayTransaction(razorPayResponse);
         return orderService.getOrdersByRazorPayOrderId(razorPayResponse.getRazorpayOrderId());
     }
+
+    @PutMapping("/order/{orderid}/employee/{employeeid}/assign")
+    public ResponseEntity<Void> assignOrderToEmployee(
+        @PathVariable("orderid") String orderId,
+        @PathVariable("employeeid") String employeeId
+    ) {
+        return null;
+    }
 }
