@@ -3,13 +3,16 @@ package com.ae.visuavid.service;
 import com.ae.visuavid.constants.OrderStatus;
 import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.OrderEntity;
+import com.ae.visuavid.domain.User;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.OrderRepository;
+import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.service.dto.*;
 import com.ae.visuavid.service.mapper.OrderMapper;
 import com.ae.visuavid.service.mapper.OrderSlideMapper;
 import com.ae.visuavid.utils.NumberUtility;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +52,9 @@ public class OrderService {
 
     @Autowired
     protected RazorPayService razorPayService;
+
+    @Autowired
+    protected UserRepository userRepository;
 
     public OrderService() {}
 
@@ -216,6 +222,19 @@ public class OrderService {
             return orderMapper.toDto(orderRepository.save(orderEntity));
         } else {
             throw new ApiRuntimeException("Invalid order status for the order : " + orderDTO.getId());
+        }
+    }
+
+    public void assignOrderToEmployee(String orderId, String userId) {
+        Optional<OrderEntity> optOrder = orderRepository.findById(UUID.fromString(orderId));
+        if (optOrder.isPresent()) {
+            OrderEntity orderEntity = optOrder.get();
+            Optional<User> optUser = userRepository.findById(UUID.fromString(userId));
+            if (optUser.isPresent()) {
+                orderEntity.setAssignedUserId(optUser.get().getId().toString());
+                orderEntity.setAssignedUserName(optUser.get().getLogin());
+                orderRepository.save(orderEntity);
+            }
         }
     }
 }

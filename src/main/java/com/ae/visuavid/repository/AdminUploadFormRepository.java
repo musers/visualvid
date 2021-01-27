@@ -17,4 +17,6 @@ public interface AdminUploadFormRepository extends JpaRepository<AdminMediaEntit
     Page<AdminMediaEntity> findByNameIgnoreCaseContaining(Pageable pageable, String mediaName);
 
     Page<AdminMediaEntity> findAll(Pageable pageable);
+
+    List<AdminMediaEntity> findBySubCategoryId(String subCategoryId);
 }

@@ -1,13 +1,12 @@
 package com.ae.visuavid.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media")
@@ -86,6 +85,9 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     @Column(name = "tags")
     private String tags;
+
+    @Column(name = "sub_category_id")
+    private String subCategoryId;
 
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -273,5 +275,13 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     public void setUsdPremumDeliveryPrice(BigDecimal usdPremumDeliveryPrice) {
         this.usdPremumDeliveryPrice = usdPremumDeliveryPrice;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 }
