@@ -1,4 +1,5 @@
 <div class="bg-white">
+    <jhi-alert></jhi-alert>
     <div class="p-1 pt-2 ptr" mat-icon-button (click)="addCateogry()">
         <mat-icon>add_circle_outline</mat-icon>
         <small class="pl-1">Add Category</small>
@@ -56,7 +57,7 @@
                 <mat-icon>edit</mat-icon>
                 Rename Sub Category
             </div>
-            <div class="border-top" mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+            <div class="border-top" mat-menu-item  (click)="onContextItemSelect('deleteSubCategory')">
                 <mat-icon>delete</mat-icon>
                 Delete Sub Category
             </div>

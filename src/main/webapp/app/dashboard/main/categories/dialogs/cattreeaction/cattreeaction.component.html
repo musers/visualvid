@@ -1,53 +1,54 @@
 <ng-container *ngIf="data.actionId==='renameCategory'">
     <h1 mat-dialog-title>Rename Category</h1>
+    <div class="text-danger" *ngIf="error">{{error}}</div>
     <div mat-dialog-content>
-        <p>Enter new name</p>
         <mat-form-field>
-            <input matInput [(ngModel)]="data.name">
+            <input matInput placeholder="New name" #newName [(ngModel)]="data.newName">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close(false)">Discard</button>
-        <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+        <button mat-button  (click)="rename('category')">Ok</button>
     </div>
 </ng-container>
 <ng-container *ngIf="data.actionId==='renameSubCategory'">
+    <div class="text-danger" *ngIf="error">{{error}}</div>
     <h1 mat-dialog-title>Rename Sub Category</h1>
     <div mat-dialog-content>
-        <p>Enter new name</p>
         <mat-form-field>
-            <input matInput [(ngModel)]="data.name">
+            <input matInput placeholder="New name" [(ngModel)]="data.newName">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close(false)">Discard</button>
-        <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+        <button mat-button (click)="rename('subCategory')">Ok</button>
     </div>
 </ng-container>
 <ng-container *ngIf="data.actionId==='createCategory'">
     <h1 mat-dialog-title>Create Category</h1>
+    <div class="text-danger" *ngIf="error">{{error}}</div>
     <div mat-dialog-content>
-        <p>Enter New Category Name</p>
         <mat-form-field>
-            <input matInput [(ngModel)]="data.newName">
+            <input matInput placeholder="Enter New Category Name" [(ngModel)]="data.newName">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close(false)">Discard</button>
-        <button mat-button [mat-dialog-close]="data.newName" cdkFocusInitial>Ok</button>
+        <button mat-button (click)="createCategory()">Ok</button>
     </div>
 </ng-container>
 <ng-container *ngIf="data.actionId==='createSubCategory'">
     <h1 mat-dialog-title>Create Sub Category</h1>
+    <div class="text-danger" *ngIf="error">{{error}}</div>
     <div mat-dialog-content>
-        <p>Enter Sub Category Name</p>
+        {{data.node.name}} :
         <mat-form-field>
-            {{data.name}} : <input matInput [(ngModel)]="data.newName">
+             <input matInput placeholder="Enter Sub Category Name" [(ngModel)]="data.newName">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close(false)">Discard</button>
-        <button mat-button [mat-dialog-close]="data.newName" cdkFocusInitial>Ok</button>
+        <button mat-button (click)="createSubCategory()">Ok</button>
     </div>
 </ng-container>
 
