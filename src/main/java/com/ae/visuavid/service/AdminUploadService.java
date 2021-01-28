@@ -7,7 +7,6 @@ import com.ae.visuavid.domain.SlideItemEntity;
 import com.ae.visuavid.enumeration.S3MediaStatusType;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.MediaSlideRepository;
-import com.ae.visuavid.repository.OrderRepository;
 import com.ae.visuavid.repository.SlideItemRepository;
 import com.ae.visuavid.service.dto.AdminMediaDTO;
 import com.ae.visuavid.service.dto.MediaSlideDTO;
@@ -32,22 +31,22 @@ public class AdminUploadService {
     private static final Logger log = LoggerFactory.getLogger(AdminUploadService.class);
 
     @Autowired
-    AdminMediaMapper mediaMapper;
+    private AdminMediaMapper mediaMapper;
 
     @Autowired
-    AdminUploadFormRepository adminUploadFormRepository;
+    private AdminUploadFormRepository adminUploadFormRepository;
 
     @Autowired
-    S3Service s3Service;
+    private S3Service s3Service;
 
     @Autowired
-    MediaSlideRepository mediaSlideRepository;
+    private MediaSlideRepository mediaSlideRepository;
 
     @Autowired
-    SlideItemRepository slideItemRepository;
+    private SlideItemRepository slideItemRepository;
 
     @Autowired
-    OrderRepository templateRepository;
+    private CategoryService categoryService;
 
     public void saveUploadForm(AdminMediaDTO mediaDto) {
         try {
@@ -190,12 +189,8 @@ public class AdminUploadService {
         Optional<AdminMediaEntity> mediaEntityOptional = adminUploadFormRepository.findById(UUID.fromString(id));
         if (mediaEntityOptional.isPresent()) {
             AdminMediaDTO mediaDTO = mediaMapper.toDto(mediaEntityOptional.get());
-//            List<TemplateEntity> templates = templateRepository.findByAdminMediaId(UUID.fromString(id));
-//            if (!CollectionUtils.isEmpty(templates)) {
-//                mediaDTO.setTemplateCount(templates.size());
-//            } else {
-//                mediaDTO.setTemplateCount(Integer.valueOf(0));
-//            }
+            mediaDTO.setCategoryName(categoryService.getCategoryName(mediaDTO.getCategoryId()));
+            mediaDTO.setSubCategoryName(categoryService.getSubCategoryName(mediaDTO.getSubCategoryId()));
             return mediaDTO;
         }
         throw new ApiRuntimeException("could not find adminMedia for Id {} " + id);

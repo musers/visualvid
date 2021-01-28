@@ -12,7 +12,7 @@ import com.ae.visuavid.service.mapper.OrderMapper;
 import com.ae.visuavid.service.mapper.OrderSlideMapper;
 import com.ae.visuavid.utils.NumberUtility;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
-import io.swagger.annotations.Api;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -132,7 +132,7 @@ public class OrderService {
         orderDTO.setName(adminMediaEntity.getName());
         orderDTO.setDescription(orderDTO.getDescription());
         orderDTO.setCategoryId(adminMediaEntity.getCategoryId());
-        orderDTO.setCategoryName(categoryService.getName(adminMediaEntity.getCategoryId()));
+        orderDTO.setCategoryName(categoryService.getCategoryName(adminMediaEntity.getCategoryId()));
         orderDTO.setSubCategoryId(adminMediaEntity.getSubCategoryId());
         orderDTO.setSubCategoryName(categoryService.getSubCategoryName(adminMediaEntity.getSubCategoryId()));
         orderDTO.setPreviewVideoS3Url(adminMediaEntity.getPreviewVideoS3Url());

@@ -19,6 +19,9 @@ public class AdminMediaDTO implements BaseDTO {
     @NotNull
     private String subCategoryId;
 
+    private String subCategoryName;
+    private String categoryName;
+
     @NotNull
     private BigDecimal indianPrice;
 
@@ -255,5 +258,21 @@ public class AdminMediaDTO implements BaseDTO {
 
     public void setSubCategoryId(String subCategoryId) {
         this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

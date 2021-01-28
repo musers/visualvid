@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -57,10 +58,22 @@ public class CategoryService {
         return categoryMapper.toDto(entityCreated);
     }
 
-    public String getName(String id) {
-        CategoryEntity category = categoryRepository.findById(UUID.fromString(id)).get();
-        if (category != null) {
-            return category.getName();
+    public String getCategoryName(String id) {
+        if(!StringUtils.isEmpty(id)) {
+            CategoryEntity category = categoryRepository.findById(UUID.fromString(id)).get();
+            if (category != null) {
+                return category.getName();
+            }
+        }
+        return null;
+    }
+
+    public String getSubCategoryName(String subCategoryId) {
+        if(!StringUtils.isEmpty(subCategoryId)) {
+            Optional<SubCategoryEntity> subCategory = subCategoryRepository.findById(UUID.fromString(subCategoryId));
+            if (subCategory.isPresent()) {
+                return subCategory.get().getName();
+            }
         }
         return null;
     }
@@ -147,10 +160,10 @@ public class CategoryService {
                 if (existingCategory.isPresent()) {
                     throw new ApiRuntimeException("Category already exists with the same name " + newName);
                 }
-                CategoryEntity category = categoryRepository.findById(UUID.fromString(id)).get();
-                category.setName(newName);
-                categoryRepository.save(category);
             }
+            CategoryEntity category = categoryRepository.findById(UUID.fromString(id)).get();
+            category.setName(newName);
+            categoryRepository.save(category);
         } else if ("subCategory".equalsIgnoreCase(type)) {
             SubCategoryEntity subCategory = subCategoryRepository.findById(UUID.fromString(id)).get();
             subCategory.setName(newName);
@@ -159,11 +172,4 @@ public class CategoryService {
         }
     }
 
-    public String getSubCategoryName(String subCategoryId) {
-        Optional<SubCategoryEntity> subCategory = subCategoryRepository.findById(UUID.fromString(subCategoryId));
-        if (subCategory.isPresent()) {
-            return subCategory.get().getName();
-        }
-        return null;
-    }
 }

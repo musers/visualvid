@@ -151,4 +151,7 @@ export class ItemComponent implements OnInit {
     };
     return orderRequest;
   }
+  gotoHome(): void {
+    window.location.href = '/';
+  }
 }
