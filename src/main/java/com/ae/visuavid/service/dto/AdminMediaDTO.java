@@ -1,9 +1,9 @@
 package com.ae.visuavid.service.dto;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import javax.validation.constraints.NotNull;
 
 public class AdminMediaDTO implements BaseDTO {
     private UUID id;
@@ -15,6 +15,9 @@ public class AdminMediaDTO implements BaseDTO {
 
     @NotNull
     private String categoryId;
+
+    @NotNull
+    private String subCategoryId;
 
     @NotNull
     private BigDecimal indianPrice;
@@ -59,8 +62,6 @@ public class AdminMediaDTO implements BaseDTO {
     private Double earnings;
 
     private String tags;
-
-    private String subCategoryId;
 
     private List<MediaSlideDTO> slides;
 

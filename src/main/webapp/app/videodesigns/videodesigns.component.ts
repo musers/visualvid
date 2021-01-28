@@ -23,7 +23,7 @@ export class VideoDesignsComponent implements OnInit {
       if (data) {
         this.categories = data;
         this.categories.forEach(c => {
-          c.nameFormatted = c.categoryName.split(' ').join('<br>');
+          c.nameFormatted = c.name.split(' ').join('<br>');
         });
       }
     });

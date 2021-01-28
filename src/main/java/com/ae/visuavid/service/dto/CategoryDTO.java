@@ -4,28 +4,16 @@ import java.util.List;
 import java.util.UUID;
 
 public class CategoryDTO implements BaseDTO {
-    private UUID id;
-
-    private String categoryId;
-
-    private String categoryName;
-
     List<SubCategoryDTO> subCategories;
+    private UUID id;
+    private String name;
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UUID getId() {

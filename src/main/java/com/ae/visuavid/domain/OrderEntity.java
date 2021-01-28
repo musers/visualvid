@@ -1,12 +1,13 @@
 package com.ae.visuavid.domain;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "vvid_order")
@@ -47,6 +48,12 @@ public class OrderEntity extends AbstractAuditingEntity implements BaseEntity {
 
     @Column(name = "category_name")
     private String categoryName;
+
+    @Column(name = "sub_category_id")
+    private String subCategoryId;
+
+    @Column(name = "sub_category_name")
+    private String subCategoryName;
 
     @Column(name = "preview_video_s3_url")
     private String previewVideoS3Url;

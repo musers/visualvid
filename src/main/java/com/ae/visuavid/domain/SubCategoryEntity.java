@@ -1,8 +1,9 @@
 package com.ae.visuavid.domain;
 
-import java.util.UUID;
-import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "sub_category")
@@ -14,7 +15,7 @@ public class SubCategoryEntity extends AbstractAuditingEntity implements BaseEnt
     private UUID id;
 
     @Column(name = "sub_category_name")
-    private String subCategoryName;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -28,19 +29,19 @@ public class SubCategoryEntity extends AbstractAuditingEntity implements BaseEnt
         this.id = id;
     }
 
-    public String getSubCategoryName() {
-        return subCategoryName;
-    }
-
-    public void setSubCategoryName(String subCategoryName) {
-        this.subCategoryName = subCategoryName;
-    }
-
     public CategoryEntity getCategory() {
         return category;
     }
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

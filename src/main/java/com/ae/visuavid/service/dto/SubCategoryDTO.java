@@ -1,7 +1,7 @@
 package com.ae.visuavid.service.dto;
 
-import java.util.UUID;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 public class SubCategoryDTO implements BaseDTO {
     private UUID id;
@@ -9,8 +9,10 @@ public class SubCategoryDTO implements BaseDTO {
     @NotNull
     private String categoryId;
 
+    private String categoryName;
+
     @NotNull
-    private String subCategoryName;
+    private String name;
 
     public String getCategoryId() {
         return categoryId;
@@ -28,11 +30,19 @@ public class SubCategoryDTO implements BaseDTO {
         this.id = id;
     }
 
-    public String getSubCategoryName() {
-        return subCategoryName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setSubCategoryName(String subCategoryName) {
-        this.subCategoryName = subCategoryName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

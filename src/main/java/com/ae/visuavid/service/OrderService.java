@@ -133,6 +133,8 @@ public class OrderService {
         orderDTO.setDescription(orderDTO.getDescription());
         orderDTO.setCategoryId(adminMediaEntity.getCategoryId());
         orderDTO.setCategoryName(categoryService.getName(adminMediaEntity.getCategoryId()));
+        orderDTO.setSubCategoryId(adminMediaEntity.getSubCategoryId());
+        orderDTO.setSubCategoryName(categoryService.getSubCategoryName(adminMediaEntity.getSubCategoryId()));
         orderDTO.setPreviewVideoS3Url(adminMediaEntity.getPreviewVideoS3Url());
         orderDTO.setPreviewVideoS3Key(adminMediaEntity.getPreviewVideoS3Key());
         orderDTO.setThumbNailS3Url(adminMediaEntity.getThumbNailS3Url());

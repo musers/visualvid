@@ -1,13 +1,12 @@
 export interface CategoryNode {
-  name: string;
+  name?: string;
   type?: string;
   id? : string;
   children?: CategoryNode[];
 }
 
 export interface Category {
-  categoryId: String;
-  categoryName: String;
+  name: String;
   id?: string;
   nameFormatted?: string;
 }

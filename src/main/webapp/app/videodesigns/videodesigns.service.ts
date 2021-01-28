@@ -8,36 +8,7 @@ import { VideoItem } from './videoitem.model';
 @Injectable({ providedIn: 'root' })
 export class VideoDesignsService {
   constructor(protected http: HttpClient) {}
-  public getCategories(): Observable<Array<any>> {
-    const data = [
-      {
-        index: '1',
-        name: 'Family Invitations',
-        id: 'familyInvitations',
-      },
-      {
-        index: '2',
-        name: 'Logo Reveals',
-        id: 'logoReveals',
-      },
-      {
-        index: '3',
-        name: 'Corporate',
-        id: 'corporate',
-      },
-      {
-        index: '4',
-        name: 'Restaurant Displays',
-        id: 'restaurantDisplays',
-      },
-      {
-        index: '5',
-        name: 'Partyevent Invitations',
-        id: 'partyEventInvitations',
-      },
-    ];
-    return of(data);
-  }
+
   public getVideos(id: string): Observable<Array<VideoItem>> {
     console.log('id', id);
     let data;

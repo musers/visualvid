@@ -15,6 +15,8 @@ public class OrderDTO implements BaseDTO {
     private String name;
     private String description;
     private String categoryId;
+    private String subCategoryId;
+    private String subCategoryName;
     private String categoryName;
     private String previewVideoS3Url;
     private String previewVideoS3Key;
@@ -119,6 +121,22 @@ public class OrderDTO implements BaseDTO {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 
     public String getCategoryName() {

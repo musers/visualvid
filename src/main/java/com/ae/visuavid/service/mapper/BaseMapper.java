@@ -2,9 +2,10 @@ package com.ae.visuavid.service.mapper;
 
 import com.ae.visuavid.domain.BaseEntity;
 import com.ae.visuavid.service.dto.BaseDTO;
+import org.springframework.data.domain.Page;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.data.domain.Page;
 
 public interface BaseMapper<T extends BaseDTO, E extends BaseEntity> {
     E toEntity(T dto);
@@ -13,7 +14,9 @@ public interface BaseMapper<T extends BaseDTO, E extends BaseEntity> {
 
     default List<E> toEntities(List<T> dtoList) {
         List<E> entities = new ArrayList<>();
-        dtoList.forEach(dto -> entities.add(toEntity(dto)));
+        if (dtoList != null) {
+            dtoList.forEach(dto -> entities.add(toEntity(dto)));
+        }
         return entities;
     }
 
