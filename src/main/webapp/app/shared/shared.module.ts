@@ -8,6 +8,7 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { RouterModule } from '@angular/router';
 import { TableModule } from 'app/shared/table/table.module';
 import { SearchComponent } from 'app/shared/search/search.component';
+import { LoaderComponent } from 'app/shared/loader/loader.component';
 
 @NgModule({
   imports: [VisualvidSharedLibsModule],
@@ -18,6 +19,7 @@ import { SearchComponent } from 'app/shared/search/search.component';
     LoginModalComponent,
     SearchComponent,
     HasAnyAuthorityDirective,
+    LoaderComponent
   ],
   entryComponents: [LoginModalComponent],
   exports: [
@@ -30,6 +32,7 @@ import { SearchComponent } from 'app/shared/search/search.component';
     RouterModule,
     TableModule,
     SearchComponent,
+    LoaderComponent
   ],
 })
 export class VisualvidSharedModule {}

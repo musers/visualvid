@@ -25,9 +25,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
-  imports: [HttpClientModule, DragDropModule, MatTabsModule,MatTreeModule, AngularSvgIconModule.forRoot()],
+  imports: [HttpClientModule, DragDropModule,
+  MatTabsModule,MatTreeModule,
+  LottieModule.forRoot({ player: playerFactory }),
+  AngularSvgIconModule.forRoot()],
   exports: [
     FormsModule,
     CommonModule,
@@ -55,7 +64,8 @@ import { MatInputModule } from '@angular/material/input';
     MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    LottieModule
   ],
 })
 export class VisualvidSharedLibsModule {}

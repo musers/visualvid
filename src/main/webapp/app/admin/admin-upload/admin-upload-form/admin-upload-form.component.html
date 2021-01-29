@@ -260,7 +260,8 @@
 </div>
 
 <ng-template cdk-portal #uploading="cdkPortal">
-    <div style="color: #fff;">Uploading...</div>
+<!--    <div style="color: #fff;">Uploading...</div>-->
+    <jhi-loader></jhi-loader>
 </ng-template>
 <ng-template #subCategoryResultTemplate let-r="result" let-t="term">
     {{r.categoryName}} :
