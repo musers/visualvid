@@ -30,7 +30,7 @@
     <include file="config/liquibase/changelog/011_user.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/012_sub_categories.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/013_category_length.xml" relativeToChangelogFile="false"/>
-
+    <include file="config/liquibase/changelog/014_subcat_in_order.xml" relativeToChangelogFile="false"/>
 
 
 
