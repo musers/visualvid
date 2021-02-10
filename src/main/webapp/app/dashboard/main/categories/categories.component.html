@@ -1,0 +1,66 @@
+<div class="bg-white">
+    <jhi-alert></jhi-alert>
+    <div class="p-1 pt-2 ptr" mat-icon-button (click)="addCateogry()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <small class="pl-1">Add Category</small>
+    </div>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+            <div mat-icon-button disabled></div>
+            <mat-icon class="type-icon" [attr.aria-label]="node.type + 'icon'">
+                {{ node.type ==='subCategory' ? 'align_horizontal_left' : '' }}
+            </mat-icon>
+            {{node.name}}
+                <div mat-icon-button (click)="openContextMenu($event, node)">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+        </mat-tree-node>
+
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+            <div mat-icon-button matTreeNodeToggle class="ptr"
+                    [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </div>
+            {{node.name}}
+                <div mat-icon-button (click)="openContextMenu($event, node)">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+        </mat-tree-node>
+
+    </mat-tree>
+
+    <div style="visibility: hidden; position: fixed"
+         [style.left]="contextMenuPosition.x"
+         [style.top]="contextMenuPosition.y"
+         [matMenuTriggerFor]="categoryMenu">
+    </div>
+
+    <mat-menu #categoryMenu="matMenu">
+        <ng-container *ngIf="contextMenuType==='category'">
+            <div mat-menu-item  (click)="onContextItemSelect('createSubCategory')">
+                <mat-icon>add_circle_outline</mat-icon>
+                Add Sub Category
+            </div>
+            <div mat-menu-item  (click)="onContextItemSelect('renameCategory')">
+                <mat-icon>edit</mat-icon>
+                Rename Category
+            </div>
+            <div class="border-top" mat-menu-item  (click)="onContextItemSelect('deleteCategory')">
+                <mat-icon>delete</mat-icon>
+                Delete Category
+            </div>
+        </ng-container>
+        <ng-container *ngIf="contextMenuType==='subCategory'">
+            <div mat-menu-item (click)="onContextItemSelect('renameSubCategory')">
+                <mat-icon>edit</mat-icon>
+                Rename Sub Category
+            </div>
+            <div class="border-top" mat-menu-item  (click)="onContextItemSelect('deleteSubCategory')">
+                <mat-icon>delete</mat-icon>
+                Delete Sub Category
+            </div>
+        </ng-container>
+    </mat-menu>
+</div>

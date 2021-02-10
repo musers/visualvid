@@ -8,7 +8,7 @@ public class MediaSlideDTO implements BaseDTO {
 
     private String screenShotS3Url;
 
-    private String screnShotS3Key;
+    private String screenShotS3Key;
 
     private String slideName;
 
@@ -40,12 +40,12 @@ public class MediaSlideDTO implements BaseDTO {
         this.slideItems = slideItems;
     }
 
-    public String getScrenShotS3Key() {
-        return screnShotS3Key;
+    public String getScreenShotS3Key() {
+        return screenShotS3Key;
     }
 
-    public void setScrenShotS3Key(String screnShotS3Key) {
-        this.screnShotS3Key = screnShotS3Key;
+    public void setScreenShotS3Key(String screenShotS3Key) {
+        this.screenShotS3Key = screenShotS3Key;
     }
 
     public String getSlideName() {

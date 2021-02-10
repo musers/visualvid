@@ -1,0 +1,61 @@
+<div>
+    <div class="mt-4">
+       <h5 style="font-weight: bold;">Assignments</h5>
+    </div>
+    <div class="row ml-1 mt-4">
+        <div class="col-3 card card-box">
+            <div>Total Assignments</div>
+            <div class="card-box-metrics">1200</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>Completed</div>
+            <div class="card-box-metrics">580</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>In Progress</div>
+            <div class="card-box-metrics">390</div>
+        </div>
+        <div class="col-3 card card-box">
+            <div>Not Completed</div>
+            <div class="card-box-metrics">30</div>
+        </div>
+    </div>
+    <div class="row mt-4 order-menu-bar">
+         <div class="col-1 ml-n4">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="cb1" name="cb1">
+            </div>
+         </div>
+        <!-- <div class="col-1"><small>Id#</small></div> -->
+         <div class="col-1"><small style="font-weight: bold;">OrderId</small></div>
+         <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>
+         <div class="col-2 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
+         <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
+         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>  
+         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>  
+    </div>
+
+    <div *ngFor="let assig of assignments">
+        <div class="row mt-1 order-menu-bar order-row">
+            <div class="col-1 ml-n4 mt-2">
+               <div class="custom-control custom-checkbox">
+                   <input type="checkbox" id="cb1" name="cb1">
+               </div>
+            </div>
+           <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
+            <div class="col-1 mt-2"><small>{{assig.orderId}}</small></div>
+            <div class="col-2 ml-4 mt-2"><small>{{assig.name}}</small></div>
+            <div class="col-2 ml-4 mt-2"> <small>{{assig.assignTo}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{assig.status}}</small></div>
+            <div class="col-1 ml-4 mt-2"><small>{{assig.timeLeft}}</small></div>  
+            <div class="col-1 ml-4 mt-2">
+                <select class="form-control" id="sel1">
+                    <option>Design Team</option>
+                    <option>Marketing Team</option>
+                    <option>FInance Team</option>
+                    <option>HR Team</option>
+                  </select>
+             </div> 
+       </div>
+    </div>
+</div>

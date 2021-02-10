@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -40,4 +39,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findOneWithRolesByEmailIgnoreCase(String email);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
+
+    List<User> findAllByUserType(String userType);
 }

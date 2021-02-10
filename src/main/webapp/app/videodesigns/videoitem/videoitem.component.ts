@@ -26,11 +26,11 @@ export class VideoItemComponent implements OnInit, AfterViewInit {
     if (this.item && this.item.id) {
      const conf = {}
      conf['userActions'] = {
-        doubleClick: () => {
-          if(this.player){
-            this.player.pause()
-          }
-       }
+//         doubleClick: () => {
+//           if(this.player){
+//             this.player.pause()
+//           }
+//        }
      }
      conf['autoplay'] = this.autoplay;
       this.player = videojs(document.getElementById(this.item.id), conf);

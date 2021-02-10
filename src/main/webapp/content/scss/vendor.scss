@@ -18,6 +18,9 @@ eg $input-color: red;
 
 @import '~quill/dist/quill.snow.css';
 @import '~video.js/dist/video-js.css';
+.material-icons {
+  vertical-align: top;
+}
 .popover {
   border-radius: 0.25rem !important;
 }

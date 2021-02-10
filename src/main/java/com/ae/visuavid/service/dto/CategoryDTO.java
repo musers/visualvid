@@ -1,28 +1,19 @@
 package com.ae.visuavid.service.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CategoryDTO implements BaseDTO {
+    List<SubCategoryDTO> subCategories;
     private UUID id;
+    private String name;
 
-    private String categoryId;
-
-    private String categoryName;
-
-    public String getCategoryId() {
-        return categoryId;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UUID getId() {
@@ -31,5 +22,13 @@ public class CategoryDTO implements BaseDTO {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public List<SubCategoryDTO> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<SubCategoryDTO> subCategories) {
+        this.subCategories = subCategories;
     }
 }

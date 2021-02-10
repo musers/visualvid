@@ -25,24 +25,40 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="vlabel" style="">Category</label>
+                    <label class="vlabel" style="" for="subcategory">Category</label>
                     <div class="vtext-box">
-                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">
-                        <option *ngFor="let c of categories;" [ngValue]="c.categoryId">
-                            {{ c.categoryName }}
-                          </option>
-                        </select>
-                        <div *ngIf="errors.categoryIdRequired">
-                            <small class="form-text text-danger">
-                                Category cannot be empty.
-                            </small>
-                        </div>
+<!--                        <select class="input-item" style="" id="category" name="categoryId" [(ngModel)]="item.categoryId">-->
+<!--                        <option *ngFor="let c of subCategories;" [ngValue]="c.id">-->
+<!--                            <strong>{{ c.categoryName }}</strong> -  {{ c.name }}-->
+<!--                          </option>-->
+<!--                        </select>-->
+<!--                        <div *ngIf="errors.categoryIdRequired">-->
+<!--                            <small class="form-text text-danger">-->
+<!--                                Category cannot be empty.-->
+<!--                            </small>-->
+<!--                        </div>-->
+<!--                        <input id="category"  type="text" class="form-control"-->
+<!--                               name="categoryId"-->
+<!--                               [(ngModel)]="item.categoryId"-->
+<!--                               [ngbTypeahead]="search"-->
+<!--                               [inputFormatter]="formatter"-->
+<!--                               [resultFormatter]="formatter"-->
+<!--                               [editable]='false' />-->
+<!--                        <input id="typeahead-basic" name="categoryId" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>-->
+                        <input id="subcategory" type="text" name="categoryId" class="form-control" [(ngModel)]="subCategorySearchModel" [ngbTypeahead]="search" [resultTemplate]="subCategoryResultTemplate"
+                               [inputFormatter]="subCategoryFormatter" [editable]='false' (focus)="onFocus($event)"/>
+                                                <div *ngIf="errors.categoryIdRequired">
+                                                    <small class="form-text text-danger">
+                                                        Category cannot be empty.
+                                                    </small>
+                                                </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="vlabel" style="">Preview Video</label>
                     <div class="vtext-box">
                         <label for="previewvideofile" class="btn btn-primary upload-btn">Upload</label>
+                        <span *ngIf="item.previewVideoS3Url" class="material-icons">check_circle_outline</span>
                         <div *ngIf="errors.previewVideoS3UrlRequired">
                             <small class="form-text text-danger">
                                 Preview Video cannot be empty.
@@ -55,6 +71,7 @@
                     <label class="vlabel" style="">Thumbnail</label>
                     <div class="vtext-box">
                         <label for="thumbnailuploadfile" class="btn btn-primary upload-btn">Upload</label>
+                            <span *ngIf="item.thumbNailS3Url" class="material-icons">check_circle_outline</span>
                         <div *ngIf="errors.thumbNailS3UrlRequired">
                             <small class="form-text text-danger">
                                 Thumbnail cannot be empty.
@@ -70,7 +87,7 @@
                     <div class="form-row row" style="width: 60%;padding-left: 5rem;">
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianprice" style="max-width:100%;">Indian Price</label>
-                            <input type="text" class="input-item" style="width:100%" id="indianprice" placeholder="" name="indianPrice" [(ngModel)]="item.indianPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="indianprice" placeholder="" name="indianPrice" [(ngModel)]="item.indianPrice">
                             <div *ngIf="errors.indianPrice">
                                 <small class="form-text text-danger">
                                     Indian price is required.
@@ -79,7 +96,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdprice" style="max-width:100%;">USD</label>
-                            <input type="text" class="input-item" style="width:100%" id="usdprice" placeholder="" name="usdPrice" [(ngModel)]="item.usdPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="usdprice" placeholder="" name="usdPrice" [(ngModel)]="item.usdPrice">
                             <div *ngIf="errors.usdPrice">
                                 <small class="form-text text-danger">
                                     Us price is required.
@@ -93,11 +110,32 @@
                     <div class="form-row row" style="width: 60%;padding-left: 5rem;">
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianDiscPrice" style="max-width:100%;">Indian Price</label>
-                            <input type="text" class="input-item" style="width:100%" id="indianDiscPrice" placeholder="" name="indianDiscPrice" [(ngModel)]="item.indianDiscPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="indianDiscPrice" placeholder="" name="indianDiscPrice" [(ngModel)]="item.indianDiscPrice">
+                            <div *ngIf="errors.indianDiscPrice">
+                                <small class="form-text text-danger">
+                                    Indian Price is required.
+                                </small>
+                            </div>
+                            <div *ngIf="errors.indianDiscPriceLargerThanPrice">
+                                <small class="form-text text-danger">
+                                    Discount price cannot be more than Indian price
+                                </small>
+                            </div>
+
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdDiscPrice" style="max-width:100%;">USD</label>
-                            <input type="text" class="input-item" style="width:100%" id="usdDiscPrice" placeholder="" name="usdDiscPrice" [(ngModel)]="item.usdDiscPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="usdDiscPrice" placeholder="" name="usdDiscPrice" [(ngModel)]="item.usdDiscPrice">
+                            <div *ngIf="errors.usdDiscPrice">
+                                <small class="form-text text-danger">
+                                    USD Price is required.
+                                </small>
+                            </div>
+                            <div *ngIf="errors.usdDiscPriceLargerThanPrice">
+                                <small class="form-text text-danger">
+                                    Discount price cannot be more than USD price
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,11 +144,21 @@
                     <div class="form-row row" style="width: 60%;padding-left: 5rem;">
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianAdvCustomizationPrice" style="max-width:100%;">Indian Price</label>
-                            <input type="text" class="input-item" style="width:100%" id="indianAdvCustomizationPrice" placeholder="" name="indianAdvCustomizationPrice" [(ngModel)]="item.indianAdvCustomizationPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="indianAdvCustomizationPrice" placeholder="" name="indianAdvCustomizationPrice" [(ngModel)]="item.indianAdvCustomizationPrice">
+                            <div *ngIf="errors.indianAdvCustomizationPrice">
+                                <small class="form-text text-danger">
+                                    Indian Price is required.
+                                </small>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdAdvCustomizationPrice" style="max-width:100%;">USD</label>
-                            <input type="text" class="input-item" style="width:100%" id="usdAdvCustomizationPrice" placeholder="" name="usdAdvCustomizationPrice" [(ngModel)]="item.usdAdvCustomizationPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="usdAdvCustomizationPrice" placeholder="" name="usdAdvCustomizationPrice" [(ngModel)]="item.usdAdvCustomizationPrice">
+                            <div *ngIf="errors.usdAdvCustomizationPrice">
+                                <small class="form-text text-danger">
+                                    USD Price is required.
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,11 +167,21 @@
                     <div class="form-row row" style="width: 60%;padding-left: 5rem;">
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="indianPremumDeliveryPrice" style="max-width:100%;">Indian Price</label>
-                            <input type="text" class="input-item" style="width:100%" id="indianPremumDeliveryPrice" placeholder="" name="indianPremumDeliveryPrice" [(ngModel)]="item.indianPremumDeliveryPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="indianPremumDeliveryPrice" placeholder="" name="indianPremumDeliveryPrice" [(ngModel)]="item.indianPremumDeliveryPrice">
+                            <div *ngIf="errors.indianPremumDeliveryPrice">
+                                <small class="form-text text-danger">
+                                    Indian Price is required.
+                                </small>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="vlabel" for="usdPremumDeliveryPrice" style="max-width:100%;">USD</label>
-                            <input type="text" class="input-item" style="width:100%" id="usdPremumDeliveryPrice" placeholder="" name="usdPremumDeliveryPrice" [(ngModel)]="item.usdPremumDeliveryPrice">
+                            <input type="number" min="0" oninput="validity.valid||(value='');" class="input-item" style="width:100%" id="usdPremumDeliveryPrice" placeholder="" name="usdPremumDeliveryPrice" [(ngModel)]="item.usdPremumDeliveryPrice">
+                            <div *ngIf="errors.usdPremumDeliveryPrice">
+                                <small class="form-text text-danger">
+                                    USD Price is required.
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,10 +247,10 @@
                 </button>
             </div>
             <div class="form-group row mt-2">
-                    <button class="btn btn-primary preview-btn ml-auto" (click)="previewItem()">
+                    <button class="btn btn-primary preview-btn ml-auto" (click)="preview()">
                         <span class="">Preview</span>
                     </button>
-                    <button class="btn btn-primary publish-btn ml-2" [disabled]="disabled" (click)="saveData()">
+                <button class="btn btn-primary publish-btn ml-2" (click)="saveData()">
                         <span class="">Publish</span>
                     </button>
             </div>
@@ -200,3 +258,13 @@
 
     </div>
 </div>
+
+<ng-template cdk-portal #uploading="cdkPortal">
+<!--    <div style="color: #fff;">Uploading...</div>-->
+    <jhi-loader></jhi-loader>
+</ng-template>
+<ng-template #subCategoryResultTemplate let-r="result" let-t="term">
+    {{r.categoryName}} :
+    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+

@@ -1,12 +1,13 @@
 package com.ae.visuavid.domain;
 
+import com.ae.visuavid.config.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +21,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.GenericGenerator;
-
-import com.ae.visuavid.config.Constants;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A user.
@@ -104,6 +101,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Transient
     private Set<String> authorities = new HashSet<>();
+
+    @Column(name = "user_type", length = 20)
+    private String userType;
+
+    @Column(name = "country", length = 20)
+    private String country;
+
+    @Column(name = "phone", length = 15)
+    private String phone;
 
     public UUID getId() {
         return id;
@@ -218,6 +224,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -227,6 +249,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
             return false;
         }
         return id != null && id.equals(((User) o).id);
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @Override

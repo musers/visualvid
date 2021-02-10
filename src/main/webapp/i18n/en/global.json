@@ -145,5 +145,7 @@
   "itemForm": "Item View",
   "dashboardForm": "Dashboard",
   "atleastOneSlideItemRequired": "At least one item required",
-  "atleastOneSlideRequired": "At least one slide required"
+  "atleastOneSlideRequired": "At least one slide required",
+  "dashboardForm": "Dashboard",
+  "categoryIsNotEmpty": "Category is not emtpy"
 }

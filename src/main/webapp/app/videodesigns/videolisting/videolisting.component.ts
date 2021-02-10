@@ -12,26 +12,22 @@ import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
 export class VideoListingComponent implements OnInit {
   @Input() category: any;
   list: AdminMedia[] = [];
-  constructor(private videoDesignsService: VideoDesignsService,
-    private adminMediaService: AdminMediaService) {}
+  constructor(private videoDesignsService: VideoDesignsService, private adminMediaService: AdminMediaService) {}
 
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void {
-    this.adminMediaService.getAll(this.category.categoryId).subscribe(data => {
+    this.adminMediaService.getAll(this.category.id).subscribe(data => {
       if (data) {
         this.list = data.content;
       }
     });
   }
   onVideoItemClick(item: any): void {
-    console.log('videoItem',item);
-    // TODO need to remove following
-    window.location.href= '/customer/upload/'+item.id;
+    console.log('videoItem', item);
   }
-  onVideoItemDoubleClick( item: any): void {
-    window.location.href= '/item/'+item.id;
+  onVideoItemDoubleClick(item: any): void {
+    window.location.href = '/item/' + item.id;
   }
-
 }

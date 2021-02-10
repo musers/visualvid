@@ -2,6 +2,7 @@ package com.ae.visuavid.web.rest;
 
 import com.ae.visuavid.config.Constants;
 import com.ae.visuavid.domain.User;
+import com.ae.visuavid.enumeration.UserType;
 import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.security.AuthoritiesConstants;
 import com.ae.visuavid.service.MailService;
@@ -19,6 +20,7 @@ import java.util.*;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -146,6 +148,11 @@ public class UserResource {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/type/{user-type}")
+    public ResponseEntity<List<UserDTO>> getAllUsersByType(@PathVariable(name = "user-type") String userType) {
+        return new ResponseEntity<>(userService.getAllManagedUsersByType(UserType.valueOf(userType)), HttpStatus.OK);
     }
 
     /**

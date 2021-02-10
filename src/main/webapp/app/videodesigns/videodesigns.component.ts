@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AdminCategory } from 'app/admin/admin-upload/admin-upload-form/admincategory.model';
+import { Category } from 'app/category/category.model';
 import { VideoDesignsService } from './videodesigns.service';
-import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
+import { CategoryService } from 'app/category/category.service';
 
 @Component({
   selector: 'jhi-videodesigns',
@@ -10,20 +10,20 @@ import { AdminMediaService } from 'app/admin/admin-upload/admin-media.service';
   styleUrls: ['videodesigns.scss'],
 })
 export class VideoDesignsComponent implements OnInit {
-  categories: AdminCategory[] = [];
+  categories: Category[] = [];
   activeId = 'ngb-nav-0';
   constructor(private videoDesignsService: VideoDesignsService,
-    private adminMediaService: AdminMediaService) {}
+    private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void {
-    this.adminMediaService.getCategories().subscribe(data => {
+    this.categoryService.getCategories().subscribe(data => {
       if (data) {
         this.categories = data;
         this.categories.forEach(c => {
-          c.nameFormatted = c.categoryName.split(' ').join('<br>');
+          c.nameFormatted = c.name.split(' ').join('<br>');
         });
       }
     });

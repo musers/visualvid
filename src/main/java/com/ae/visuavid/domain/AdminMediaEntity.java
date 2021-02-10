@@ -1,13 +1,12 @@
 package com.ae.visuavid.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "media")
@@ -70,7 +69,7 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
     private String textPlaceholder;
 
     @Column(name = "turn_around_time")
-    private String turnAroundTime;
+    private Long turnAroundTime;
 
     @Column(name = "thumb_nail_s3_key")
     private String thumbNailS3Key;
@@ -86,6 +85,9 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     @Column(name = "tags")
     private String tags;
+
+    @Column(name = "sub_category_id")
+    private String subCategoryId;
 
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -163,11 +165,11 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
         this.textPlaceholder = textPlaceholder;
     }
 
-    public String getTurnAroundTime() {
+    public Long getTurnAroundTime() {
         return turnAroundTime;
     }
 
-    public void setTurnAroundTime(String turnAroundTime) {
+    public void setTurnAroundTime(Long turnAroundTime) {
         this.turnAroundTime = turnAroundTime;
     }
 
@@ -273,5 +275,13 @@ public class AdminMediaEntity extends AbstractAuditingEntity implements BaseEnti
 
     public void setUsdPremumDeliveryPrice(BigDecimal usdPremumDeliveryPrice) {
         this.usdPremumDeliveryPrice = usdPremumDeliveryPrice;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 }

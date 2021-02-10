@@ -8,6 +8,6 @@ import { ITEM_ROUTE } from './item.route';
 @NgModule({
   imports: [VisualvidSharedModule, RouterModule.forChild([ITEM_ROUTE])],
   declarations: [ItemComponent],
-  exports: [],
+  exports: [ItemComponent],
 })
 export class ItemModule {}

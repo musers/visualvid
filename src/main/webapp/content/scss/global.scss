@@ -215,11 +215,13 @@ ui bootstrap tweaks
 .admin-upload-active {
   background: #f6f6f6;
 }
+.dashboard-active {
+  max-width: 70%;
+}
 .customer-upload-active {
   background: #f6f6f6;
 }
-.dashboard-active {
-  background-color: #828599;
+.ptr {
+  cursor: pointer;
 }
-
 /* jhipster-needle-scss-add-main JHipster will add new css style */
