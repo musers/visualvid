@@ -1,8 +1,10 @@
 package com.ae.visuavid.service;
 
+import com.ae.visuavid.client.S3Service;
 import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.CategoryEntity;
 import com.ae.visuavid.domain.SubCategoryEntity;
+import com.ae.visuavid.enumeration.S3MediaStatusType;
 import com.ae.visuavid.repository.AdminUploadFormRepository;
 import com.ae.visuavid.repository.CategoryRepository;
 import com.ae.visuavid.repository.SubCategoryRepository;
@@ -11,17 +13,16 @@ import com.ae.visuavid.service.dto.SubCategoryDTO;
 import com.ae.visuavid.service.mapper.CategoryMapper;
 import com.ae.visuavid.service.mapper.SubCategoryMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -41,6 +42,9 @@ public class CategoryService {
     @Autowired
     private AdminUploadFormRepository adminUploadFormRepository;
 
+    @Autowired
+    private S3Service s3Service;
+
     public List<CategoryDTO> findCategories(boolean includeSubCategories) {
         List<CategoryEntity> categoryEntities = categoryRepository.findAll();
         if (includeSubCategories) {
@@ -55,11 +59,14 @@ public class CategoryService {
 
     public CategoryDTO save(CategoryDTO dto) {
         CategoryEntity entityCreated = categoryRepository.save(categoryMapper.toEntity(dto));
+        List<String> s3KeyList = new ArrayList<>();
+        s3KeyList.add(dto.getS3CoverImageKey());
+        s3Service.updateS3InfoStatus(s3KeyList, S3MediaStatusType.COMPLETED.name());
         return categoryMapper.toDto(entityCreated);
     }
 
     public String getCategoryName(String id) {
-        if(!StringUtils.isEmpty(id)) {
+        if (!StringUtils.isEmpty(id)) {
             CategoryEntity category = categoryRepository.findById(UUID.fromString(id)).get();
             if (category != null) {
                 return category.getName();
@@ -69,7 +76,7 @@ public class CategoryService {
     }
 
     public String getSubCategoryName(String subCategoryId) {
-        if(!StringUtils.isEmpty(subCategoryId)) {
+        if (!StringUtils.isEmpty(subCategoryId)) {
             Optional<SubCategoryEntity> subCategory = subCategoryRepository.findById(UUID.fromString(subCategoryId));
             if (subCategory.isPresent()) {
                 return subCategory.get().getName();
@@ -140,23 +147,27 @@ public class CategoryService {
                 List<SubCategoryEntity> subCategoryEntities = cEntity.getSubCategories();
                 if (subCategoryEntities != null && subCategoryEntities.size() > 0) {
                     List<SubCategoryDTO> sDtos = subCategoryMapper.toDtos(subCategoryEntities);
-                    sDtos.forEach(sDto -> {
-                        sDto.setCategoryName(cEntity.getName());
-                        sDto.setCategoryId(cEntity.getId().toString());
-                    });
+                    sDtos.forEach(
+                        sDto -> {
+                            sDto.setCategoryName(cEntity.getName());
+                            sDto.setCategoryId(cEntity.getId().toString());
+                        }
+                    );
                     subCategoryDtos.addAll(sDtos);
                 }
             }
         }
         return subCategoryDtos;
-
     }
 
     public void rename(String type, String id, @NotNull String newName) {
         if ("category".equalsIgnoreCase(type)) {
             List<CategoryEntity> categories = categoryRepository.findByNameIgnoreCase(newName);
             if (categories != null && categories.size() > 0) {
-                Optional<CategoryEntity> existingCategory = categories.stream().filter(c -> !id.equalsIgnoreCase(c.getId().toString())).findFirst();
+                Optional<CategoryEntity> existingCategory = categories
+                    .stream()
+                    .filter(c -> !id.equalsIgnoreCase(c.getId().toString()))
+                    .findFirst();
                 if (existingCategory.isPresent()) {
                     throw new ApiRuntimeException("Category already exists with the same name " + newName);
                 }
@@ -171,5 +182,4 @@ public class CategoryService {
             subCategoryRepository.save(subCategory);
         }
     }
-
 }

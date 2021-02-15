@@ -8,15 +8,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -110,6 +102,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "phone", length = 15)
     private String phone;
+
+    @OneToOne(mappedBy = "user")
+    private UserSubscriptionEntity userSubscription;
 
     public UUID getId() {
         return id;
@@ -262,6 +257,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Override
     public int hashCode() {
         return 31;
+    }
+
+    public UserSubscriptionEntity getUserSubscription() {
+        return userSubscription;
+    }
+
+    public void setUserSubscription(UserSubscriptionEntity userSubscription) {
+        this.userSubscription = userSubscription;
     }
 
     @Override
