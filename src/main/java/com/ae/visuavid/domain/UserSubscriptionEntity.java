@@ -41,6 +41,12 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
     @Column(name = "end_date")
     private Instant endDate;
 
+    @Column(name = "latest_download_time")
+    private Instant latestDownloadTime;
+
+    @Column(name = "unlimited_download_enable")
+    private Boolean unLimitedDownloadsEnable;
+
     // Pricing info
     @Column(name = "razor_pay_order_id")
     private String razorPayOrderId;
@@ -191,5 +197,21 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Instant getLatestDownloadTime() {
+        return latestDownloadTime;
+    }
+
+    public void setLatestDownloadTime(Instant latestDownloadTime) {
+        this.latestDownloadTime = latestDownloadTime;
+    }
+
+    public Boolean getUnLimitedDownloadsEnable() {
+        return unLimitedDownloadsEnable;
+    }
+
+    public void setUnLimitedDownloadsEnable(Boolean unLimitedDownloadsEnable) {
+        this.unLimitedDownloadsEnable = unLimitedDownloadsEnable;
     }
 }

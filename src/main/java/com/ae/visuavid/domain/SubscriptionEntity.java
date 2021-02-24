@@ -25,11 +25,17 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
     @Column(name = "subscription_type")
     private String type;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "monthly_price_local")
+    private BigDecimal monthlyPriceLocal;
 
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "yearly_price_local")
+    private BigDecimal yearlyPriceLocal;
+
+    @Column(name = "monthly_price_usd")
+    private BigDecimal monthlyPriceUsd;
+
+    @Column(name = "yearly_price_usd")
+    private BigDecimal yearlyPriceUsd;
 
     @Column(name = "discount_amount")
     private BigDecimal discountAmount;
@@ -37,11 +43,26 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
     @Column(name = "discount_percentage")
     private BigDecimal discountPercentage;
 
-    @Column(name = "order_count")
-    private Integer orderCount;
+    @Column(name = "download_count")
+    private Integer downloads;
 
-    @Column(name = "order_limit")
-    private Integer orderLimit;
+    @Column(name = "download_limit_per_day")
+    private Integer downloadPerDay;
+
+    @Column(name = "unlimited_download_enable")
+    private Boolean unLimitedDownloadsEnable;
+
+    @Column(name = "text_line_01")
+    private String textLine01;
+
+    @Column(name = "text_line_02")
+    private String textLine02;
+
+    @Column(name = "text_line_03")
+    private String textLine03;
+
+    @Column(name = "text_line_04")
+    private String textLine04;
 
     @OneToOne(mappedBy = "subscription")
     private UserSubscriptionEntity userSubscriptionEntity;
@@ -80,20 +101,36 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public BigDecimal getMonthlyPriceLocal() {
+        return monthlyPriceLocal;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMonthlyPriceLocal(BigDecimal monthlyPriceLocal) {
+        this.monthlyPriceLocal = monthlyPriceLocal;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getYearlyPriceLocal() {
+        return yearlyPriceLocal;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setYearlyPriceLocal(BigDecimal yearlyPriceLocal) {
+        this.yearlyPriceLocal = yearlyPriceLocal;
+    }
+
+    public BigDecimal getMonthlyPriceUsd() {
+        return monthlyPriceUsd;
+    }
+
+    public void setMonthlyPriceUsd(BigDecimal monthlyPriceUsd) {
+        this.monthlyPriceUsd = monthlyPriceUsd;
+    }
+
+    public BigDecimal getYearlyPriceUsd() {
+        return yearlyPriceUsd;
+    }
+
+    public void setYearlyPriceUsd(BigDecimal yearlyPriceUsd) {
+        this.yearlyPriceUsd = yearlyPriceUsd;
     }
 
     public BigDecimal getDiscountAmount() {
@@ -112,12 +149,52 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
         this.discountPercentage = discountPercentage;
     }
 
-    public Integer getOrderLimit() {
-        return orderLimit;
+    public Integer getDownloads() {
+        return downloads;
     }
 
-    public void setOrderLimit(Integer orderLimit) {
-        this.orderLimit = orderLimit;
+    public void setDownloads(Integer downloads) {
+        this.downloads = downloads;
+    }
+
+    public Integer getDownloadPerDay() {
+        return downloadPerDay;
+    }
+
+    public void setDownloadPerDay(Integer downloadPerDay) {
+        this.downloadPerDay = downloadPerDay;
+    }
+
+    public String getTextLine01() {
+        return textLine01;
+    }
+
+    public void setTextLine01(String textLine01) {
+        this.textLine01 = textLine01;
+    }
+
+    public String getTextLine02() {
+        return textLine02;
+    }
+
+    public void setTextLine02(String textLine02) {
+        this.textLine02 = textLine02;
+    }
+
+    public String getTextLine03() {
+        return textLine03;
+    }
+
+    public void setTextLine03(String textLine03) {
+        this.textLine03 = textLine03;
+    }
+
+    public String getTextLine04() {
+        return textLine04;
+    }
+
+    public void setTextLine04(String textLine04) {
+        this.textLine04 = textLine04;
     }
 
     public UserSubscriptionEntity getUserSubscriptionEntity() {
@@ -128,19 +205,19 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
         this.userSubscriptionEntity = userSubscriptionEntity;
     }
 
-    public Integer getOrderCount() {
-        return orderCount;
-    }
-
-    public void setOrderCount(Integer orderCount) {
-        this.orderCount = orderCount;
-    }
-
     public List<CategoryEntity> getCategories() {
         return categories;
     }
 
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
+    }
+
+    public Boolean getUnLimitedDownloadsEnable() {
+        return unLimitedDownloadsEnable;
+    }
+
+    public void setUnLimitedDownloadsEnable(Boolean unLimitedDownloadsEnable) {
+        this.unLimitedDownloadsEnable = unLimitedDownloadsEnable;
     }
 }

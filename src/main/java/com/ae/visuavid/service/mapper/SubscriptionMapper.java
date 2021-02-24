@@ -8,11 +8,4 @@ import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", uses = { CategoryMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface SubscriptionMapper extends BaseMapper<SubscriptionDTO, SubscriptionEntity> {
-    /*@Mapping(target = "categories", source = "categories", ignore = true)
-    public SubscriptionEntity toEntity(SubscriptionDTO dto);
-
-    @Mapping(target = "categories", source = "categories", ignore = true)
-    public SubscriptionDTO toDto(SubscriptionEntity entity);*/
-
-}
+public interface SubscriptionMapper extends BaseMapper<SubscriptionDTO, SubscriptionEntity> {}

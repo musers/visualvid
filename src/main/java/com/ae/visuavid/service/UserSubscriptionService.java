@@ -3,7 +3,9 @@ package com.ae.visuavid.service;
 import com.ae.visuavid.config.ApplicationProperties;
 import com.ae.visuavid.constants.OrderStatus;
 import com.ae.visuavid.domain.SubscriptionEntity;
+import com.ae.visuavid.domain.User;
 import com.ae.visuavid.domain.UserSubscriptionEntity;
+import com.ae.visuavid.enumeration.CountryCodeType;
 import com.ae.visuavid.enumeration.SubscriptionType;
 import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.repository.UserSubscriptionRepository;
@@ -21,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 @Transactional
@@ -47,25 +50,44 @@ public class UserSubscriptionService {
 
     private UserSubscriptionEntity prepareUserSubscription(UserSubscriptionDTO dto) {
         UserSubscriptionEntity entity = mapper.toEntity(dto);
-        /*if (entity.getUser() == null) {
-            throw new ApiRuntimeException("user is missing in userSubscription");
-        }*/
         SubscriptionEntity subscriptionEntity = subscriptionService.findOne(dto.getSubscriptionId());
         if (subscriptionEntity != null) {
             entity.setSubscription(subscriptionEntity);
             String subscriptionType = subscriptionEntity.getType();
-            entity.setStartDate(Instant.now());
-            if (subscriptionType.equals(SubscriptionType.MONTHlY.name())) {
-                entity.setEndDate(calculateSubscriptionExpirationDate(SubscriptionType.MONTHlY));
-            }
-            if (subscriptionType.equals(SubscriptionType.YEARLY.name())) {
-                entity.setEndDate(calculateSubscriptionExpirationDate(SubscriptionType.YEARLY));
-            }
-            entity.setBasicAmount(subscriptionEntity.getPrice());
-            entity.setDiscountAmount(subscriptionEntity.getDiscountAmount());
             SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin).ifPresent(user -> entity.setUser(user));
+            entity.setStartDate(Instant.now());
+            setEndDateAndBasicAmount(entity, subscriptionEntity, subscriptionType);
+            entity.setDiscountAmount(subscriptionEntity.getDiscountAmount());
         }
         return entity;
+    }
+
+    private void setEndDateAndBasicAmount(UserSubscriptionEntity entity, SubscriptionEntity subscriptionEntity, String subscriptionType) {
+        String country = entity.getUser().getCountry();
+        if (subscriptionType.equals(SubscriptionType.MONTHlY.name())) {
+            entity.setEndDate(calculateSubscriptionExpirationDate(SubscriptionType.MONTHlY));
+            setBasicAmountMonthly(entity, subscriptionEntity, country);
+        }
+        if (subscriptionType.equals(SubscriptionType.YEARLY.name())) {
+            entity.setEndDate(calculateSubscriptionExpirationDate(SubscriptionType.YEARLY));
+            setBasicAmountYearly(entity, subscriptionEntity, country);
+        }
+    }
+
+    private void setBasicAmountMonthly(UserSubscriptionEntity entity, SubscriptionEntity subscriptionEntity, String country) {
+        if (!StringUtils.isEmpty(country) && country.equalsIgnoreCase(CountryCodeType.IND.name())) {
+            entity.setBasicAmount(subscriptionEntity.getMonthlyPriceLocal());
+        } else {
+            entity.setBasicAmount(subscriptionEntity.getMonthlyPriceUsd());
+        }
+    }
+
+    private void setBasicAmountYearly(UserSubscriptionEntity entity, SubscriptionEntity subscriptionEntity, String country) {
+        if (!StringUtils.isEmpty(country) && country.equalsIgnoreCase(CountryCodeType.IND.name())) {
+            entity.setBasicAmount(subscriptionEntity.getYearlyPriceLocal());
+        } else {
+            entity.setBasicAmount(subscriptionEntity.getYearlyPriceUsd());
+        }
     }
 
     private Instant calculateSubscriptionExpirationDate(SubscriptionType subscriptionType) {

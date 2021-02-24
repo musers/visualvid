@@ -5,14 +5,15 @@ import com.ae.visuavid.domain.SubscriptionEntity;
 import com.ae.visuavid.repository.CategoryRepository;
 import com.ae.visuavid.repository.SubscriptionRepository;
 import com.ae.visuavid.service.dto.SubscriptionDTO;
-import com.ae.visuavid.service.mapper.CategoryMapper;
 import com.ae.visuavid.service.mapper.SubscriptionMapper;
+import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class SubscriptionService {
@@ -25,14 +26,18 @@ public class SubscriptionService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @Autowired
-    CategoryMapper categoryMapper;
-
     public SubscriptionDTO save(SubscriptionDTO subscriptionDTO) {
         SubscriptionEntity entity = subscriptionMapper.toEntity(subscriptionDTO);
         List<UUID> categoriesIds = new ArrayList<>();
-        subscriptionDTO.getCategories().stream().forEach(c -> categoriesIds.add(c.getId()));
+        categoriesIds.add(UUID.fromString("4dd486a0-0623-11eb-adc1-0242ac120002"));
+        //subscriptionDTO.getCategories().stream().forEach(c -> categoriesIds.add(c.getId()));
         List<CategoryEntity> categories = categoryRepository.findByIdIn(categoriesIds);
+        if (CollectionUtils.isEmpty(categories)) {
+            throw new ApiRuntimeException("no categories found");
+        }
+        if (subscriptionDTO.getUnLimitedDownloadsEnable()) {
+            entity.setUnLimitedDownloadsEnable(Boolean.TRUE);
+        }
         entity.setCategories(categories);
         entity = subscriptionRepository.save(entity);
         return subscriptionMapper.toDto(entity);

@@ -5,6 +5,7 @@ import { DashboardVideoDesignsComponent } from './main/videodesigns/videodesigns
 import { DashboardEmployeComponent } from './main/employees/employe-component';
 import { DashboardAssignmentsComponent } from './main/assignments/assignments.component';
 import { DashboardCategoriesComponent } from './main/categories/categories.component';
+import { DashboardSubscriptionComponent } from './main/subscriptions/subscriptions.component';
 
 export const DASHBOARD_ROUTE: Route = {
   path: 'dashboard',
@@ -14,7 +15,8 @@ export const DASHBOARD_ROUTE: Route = {
     { path: 'videodesigns', component: DashboardVideoDesignsComponent },
     { path: 'employees', component: DashboardEmployeComponent },
     { path: 'assignments', component: DashboardAssignmentsComponent },
-    { path: 'categories', component: DashboardCategoriesComponent}
+    { path: 'categories', component: DashboardCategoriesComponent },
+    { path: 'subscriptions', component: DashboardSubscriptionComponent },
   ],
   data: {
     authorities: [],

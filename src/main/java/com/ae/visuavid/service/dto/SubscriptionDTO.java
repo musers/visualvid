@@ -3,28 +3,29 @@ package com.ae.visuavid.service.dto;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class SubscriptionDTO implements BaseDTO {
     private UUID id;
-
-    @NotNull
     private String name;
-
-    @NotNull
     private String type;
-
-    private String description;
-
-    @NotNull
-    private BigDecimal price;
-
+    private BigDecimal monthlyPriceLocal;
+    private BigDecimal yearlyPriceLocal;
+    private BigDecimal monthlyPriceUsd;
+    private BigDecimal yearlyPriceUsd;
     private BigDecimal discountAmount;
     private BigDecimal discountPercentage;
-    private Integer orderCount;
-    private Integer orderLimit;
+    private Integer downloads;
+    private Integer downloadPerDay;
+    private Boolean unLimitedDownloadsEnable;
+    private String textLine01;
+    private String textLine02;
+    private String textLine03;
+    private String textLine04;
 
-    @NotNull
+    @JsonIgnore
     private List<CategoryDTO> categories;
 
     public UUID getId() {
@@ -51,20 +52,36 @@ public class SubscriptionDTO implements BaseDTO {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public BigDecimal getMonthlyPriceLocal() {
+        return monthlyPriceLocal;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMonthlyPriceLocal(BigDecimal monthlyPriceLocal) {
+        this.monthlyPriceLocal = monthlyPriceLocal;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getYearlyPriceLocal() {
+        return yearlyPriceLocal;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setYearlyPriceLocal(BigDecimal yearlyPriceLocal) {
+        this.yearlyPriceLocal = yearlyPriceLocal;
+    }
+
+    public BigDecimal getMonthlyPriceUsd() {
+        return monthlyPriceUsd;
+    }
+
+    public void setMonthlyPriceUsd(BigDecimal monthlyPriceUsd) {
+        this.monthlyPriceUsd = monthlyPriceUsd;
+    }
+
+    public BigDecimal getYearlyPriceUsd() {
+        return yearlyPriceUsd;
+    }
+
+    public void setYearlyPriceUsd(BigDecimal yearlyPriceUsd) {
+        this.yearlyPriceUsd = yearlyPriceUsd;
     }
 
     public BigDecimal getDiscountAmount() {
@@ -83,20 +100,60 @@ public class SubscriptionDTO implements BaseDTO {
         this.discountPercentage = discountPercentage;
     }
 
-    public Integer getOrderCount() {
-        return orderCount;
+    public Integer getDownloads() {
+        return downloads;
     }
 
-    public void setOrderCount(Integer orderCount) {
-        this.orderCount = orderCount;
+    public void setDownloads(Integer downloads) {
+        this.downloads = downloads;
     }
 
-    public Integer getOrderLimit() {
-        return orderLimit;
+    public Integer getDownloadPerDay() {
+        return downloadPerDay;
     }
 
-    public void setOrderLimit(Integer orderLimit) {
-        this.orderLimit = orderLimit;
+    public void setDownloadPerDay(Integer downloadPerDay) {
+        this.downloadPerDay = downloadPerDay;
+    }
+
+    public Boolean getUnLimitedDownloadsEnable() {
+        return unLimitedDownloadsEnable;
+    }
+
+    public void setUnLimitedDownloadsEnable(Boolean unLimitedDownloadsEnable) {
+        this.unLimitedDownloadsEnable = unLimitedDownloadsEnable;
+    }
+
+    public String getTextLine01() {
+        return textLine01;
+    }
+
+    public void setTextLine01(String textLine01) {
+        this.textLine01 = textLine01;
+    }
+
+    public String getTextLine02() {
+        return textLine02;
+    }
+
+    public void setTextLine02(String textLine02) {
+        this.textLine02 = textLine02;
+    }
+
+    public String getTextLine03() {
+        return textLine03;
+    }
+
+    public void setTextLine03(String textLine03) {
+        this.textLine03 = textLine03;
+    }
+
+    public String getTextLine04() {
+        return textLine04;
+    }
+
+    public void setTextLine04(String textLine04) {
+        this.textLine04 = textLine04;
     }
 
     public List<CategoryDTO> getCategories() {

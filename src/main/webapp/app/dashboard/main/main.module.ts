@@ -8,6 +8,8 @@ import { DashboardAddEmployeeComponent } from './employees/add-employee/add-empl
 import { DashboardAssignmentsComponent } from './assignments/assignments.component';
 import { DashboardCategoriesComponent } from './categories/categories.component';
 import { CatTreeActionComponent } from './categories/dialogs/cattreeaction/cattreeaction.component';
+import { DashboardSubscriptionComponent } from './subscriptions/subscriptions.component';
+import { DashboardAddSubscriptionComponent } from './subscriptions/add-subscription/add-subscription.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,7 +23,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardAssignmentsComponent,
     DashboardAddEmployeeComponent,
     DashboardCategoriesComponent,
-    CatTreeActionComponent
+    CatTreeActionComponent,
+    DashboardSubscriptionComponent,
+    DashboardAddSubscriptionComponent,
   ],
   exports: [DashboardMainComponent],
 })
