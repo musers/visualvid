@@ -33,6 +33,7 @@
     <include file="config/liquibase/changelog/014_subcat_in_order.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/015_subscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/016_alter_subscription.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/017_alter_user_subscription.xml" relativeToChangelogFile="false"/>
 
 
 

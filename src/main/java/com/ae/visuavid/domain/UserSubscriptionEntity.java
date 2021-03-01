@@ -3,9 +3,11 @@ package com.ae.visuavid.domain;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -70,6 +72,13 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
 
     @Column(name = "category_id")
     private String categoryId;
+
+    @Column(name = "user_name")
+    private String userName;
+
+    @OneToMany(mappedBy = "userSubscription", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<UserSubscriptionDownloadEntity> userSubscriptionDownloads;
 
     public UUID getId() {
         return id;
@@ -213,5 +222,21 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
 
     public void setUnLimitedDownloadsEnable(Boolean unLimitedDownloadsEnable) {
         this.unLimitedDownloadsEnable = unLimitedDownloadsEnable;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public List<UserSubscriptionDownloadEntity> getUserSubscriptionDownloads() {
+        return userSubscriptionDownloads;
+    }
+
+    public void setUserSubscriptionDownloads(List<UserSubscriptionDownloadEntity> userSubscriptionDownloads) {
+        this.userSubscriptionDownloads = userSubscriptionDownloads;
     }
 }

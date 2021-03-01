@@ -64,6 +64,9 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
     @Column(name = "text_line_04")
     private String textLine04;
 
+    @Column(name = "status")
+    private String status;
+
     @OneToOne(mappedBy = "subscription")
     private UserSubscriptionEntity userSubscriptionEntity;
 
@@ -219,5 +222,13 @@ public class SubscriptionEntity extends AbstractAuditingEntity implements BaseEn
 
     public void setUnLimitedDownloadsEnable(Boolean unLimitedDownloadsEnable) {
         this.unLimitedDownloadsEnable = unLimitedDownloadsEnable;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

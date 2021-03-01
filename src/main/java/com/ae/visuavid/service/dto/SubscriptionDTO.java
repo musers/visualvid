@@ -24,6 +24,7 @@ public class SubscriptionDTO implements BaseDTO {
     private String textLine02;
     private String textLine03;
     private String textLine04;
+    private String status;
 
     @JsonIgnore
     private List<CategoryDTO> categories;
@@ -162,5 +163,13 @@ public class SubscriptionDTO implements BaseDTO {
 
     public void setCategories(List<CategoryDTO> categories) {
         this.categories = categories;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

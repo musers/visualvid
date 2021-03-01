@@ -16,6 +16,7 @@ public class UserSubscriptionDTO implements BaseDTO {
     private UUID subscriptionId;
     private String currencyCode;
     private String categoryId;
+    private String userName;
 
     public UUID getId() {
         return id;
@@ -103,5 +104,13 @@ public class UserSubscriptionDTO implements BaseDTO {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -2,6 +2,7 @@ package com.ae.visuavid.service;
 
 import com.ae.visuavid.domain.CategoryEntity;
 import com.ae.visuavid.domain.SubscriptionEntity;
+import com.ae.visuavid.enumeration.SubscriptionStatusType;
 import com.ae.visuavid.repository.CategoryRepository;
 import com.ae.visuavid.repository.SubscriptionRepository;
 import com.ae.visuavid.service.dto.SubscriptionDTO;
@@ -38,6 +39,7 @@ public class SubscriptionService {
         if (subscriptionDTO.getUnLimitedDownloadsEnable()) {
             entity.setUnLimitedDownloadsEnable(Boolean.TRUE);
         }
+        entity.setStatus(SubscriptionStatusType.ACTIVE.name());
         entity.setCategories(categories);
         entity = subscriptionRepository.save(entity);
         return subscriptionMapper.toDto(entity);

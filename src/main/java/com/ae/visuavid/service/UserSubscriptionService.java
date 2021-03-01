@@ -6,6 +6,7 @@ import com.ae.visuavid.domain.SubscriptionEntity;
 import com.ae.visuavid.domain.User;
 import com.ae.visuavid.domain.UserSubscriptionEntity;
 import com.ae.visuavid.enumeration.CountryCodeType;
+import com.ae.visuavid.enumeration.SubscriptionStatusType;
 import com.ae.visuavid.enumeration.SubscriptionType;
 import com.ae.visuavid.repository.UserRepository;
 import com.ae.visuavid.repository.UserSubscriptionRepository;
@@ -17,6 +18,8 @@ import com.ae.visuavid.service.mapper.UserSubscriptionMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +57,13 @@ public class UserSubscriptionService {
         if (subscriptionEntity != null) {
             entity.setSubscription(subscriptionEntity);
             String subscriptionType = subscriptionEntity.getType();
-            SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin).ifPresent(user -> entity.setUser(user));
+            Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+            if (userOptional.isPresent()) {
+                entity.setUser(userOptional.get());
+                entity.setUserName(userOptional.get().getLogin());
+            }
             entity.setStartDate(Instant.now());
+            entity.setStatus(SubscriptionStatusType.ACTIVE.name());
             setEndDateAndBasicAmount(entity, subscriptionEntity, subscriptionType);
             entity.setDiscountAmount(subscriptionEntity.getDiscountAmount());
         }
@@ -122,6 +130,7 @@ public class UserSubscriptionService {
 
     public PaymentOrderDTO createPaymentOrder(UserSubscriptionDTO dto, UserSubscriptionEntity entity) {
         String paymentOrderId = UUID.randomUUID().toString();
+
         PaymentOrderDTO paymentOrderDTO = razorPayService.createPaymentOrder(dto.getAmountPaid(), dto.getCurrencyCode(), paymentOrderId);
         log.info("razor-payment initiated and pay-order is {} ", paymentOrderDTO.getRazorPayOrderId());
         paymentOrderDTO.setRazorPayKey(applicationProperties.getRazorpay().getKey());
@@ -153,5 +162,10 @@ public class UserSubscriptionService {
         } else {
             throw new ApiRuntimeException("No user-subscription found for the given razorPayOrderId: " + razorPayOrderId);
         }
+    }
+
+    public List<UserSubscriptionDTO> searchByUserName(String userName) {
+        List<UserSubscriptionEntity> userSubscriptionEntities = repository.findByUserNameContains(userName);
+        return mapper.toDtos(userSubscriptionEntities);
     }
 }

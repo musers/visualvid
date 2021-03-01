@@ -10,6 +10,7 @@ export class DashboardOverviewComponent implements OnInit {
   @Input() topSellers?: SaleModel[];
   @Input() showOverview = true;
   @Output() hideOverviewEmitter = new EventEmitter<string>();
+  dashboardType = 'subscription';
 
   ngOnInit(): void {
     this.topSellers = [
