@@ -66,15 +66,18 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
-    private SubscriptionEntity subscription;
-
     @Column(name = "category_id")
     private String categoryId;
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "plan_name")
+    private String planName;
+
+    @OneToOne
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private SubscriptionEntity subscription;
 
     @OneToMany(mappedBy = "userSubscription", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -238,5 +241,13 @@ public class UserSubscriptionEntity extends AbstractAuditingEntity implements Ba
 
     public void setUserSubscriptionDownloads(List<UserSubscriptionDownloadEntity> userSubscriptionDownloads) {
         this.userSubscriptionDownloads = userSubscriptionDownloads;
+    }
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 }

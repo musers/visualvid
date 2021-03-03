@@ -34,7 +34,7 @@
     <include file="config/liquibase/changelog/015_subscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/016_alter_subscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/017_alter_user_subscription.xml" relativeToChangelogFile="false"/>
-
+    <include file="config/liquibase/changelog/018_alter_user_subscription.xml" relativeToChangelogFile="false"/>
 
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->

@@ -8,6 +8,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
   showOverview = true;
+
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
   ngOnInit(): void {
     this.renderer.addClass(this.document.getElementById('main'), 'dashboard-active');

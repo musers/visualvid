@@ -13,6 +13,7 @@ import com.ae.visuavid.repository.UserSubscriptionRepository;
 import com.ae.visuavid.security.SecurityUtils;
 import com.ae.visuavid.service.dto.PaymentOrderDTO;
 import com.ae.visuavid.service.dto.RazorPayResponseDTO;
+import com.ae.visuavid.service.dto.UserDTO;
 import com.ae.visuavid.service.dto.UserSubscriptionDTO;
 import com.ae.visuavid.service.mapper.UserSubscriptionMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
@@ -24,6 +25,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -167,5 +170,10 @@ public class UserSubscriptionService {
     public List<UserSubscriptionDTO> searchByUserName(String userName) {
         List<UserSubscriptionEntity> userSubscriptionEntities = repository.findByUserNameContains(userName);
         return mapper.toDtos(userSubscriptionEntities);
+    }
+
+    public Page<UserSubscriptionDTO> findAllByPage(Pageable pageable) {
+        Page<UserSubscriptionEntity> userSubscriptionEntities = repository.findAll(pageable);
+        return userSubscriptionEntities.map(UserSubscriptionDTO::new);
     }
 }
