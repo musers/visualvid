@@ -3,6 +3,9 @@
        <div class="col">
              <small style="color: #7175d8; font-weight: bold;">Add New Subscription Model</small>
        </div>
+        <div class="add-subscription-close text-muted d-flex" (click)="gotoSubscriptionHome()" style="cursor: pointer;">
+             <span>CLOSE </span><span class="material-icons">close</span>
+        </div>
     </div>
      <div class="alert alert-success" *ngIf="success">
         <small style="color:green; font-weight: bold;">Subscription Model Added Successfully!!</small>
@@ -28,58 +31,58 @@
             <input  matInput [(ngModel)]="subscriptionAddModel.usPriceForMonth" class="form-control text-box" placeholder="US Price/Month"/>
         </div>
      </div>
-    
+
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.usPriceForYear" class="form-control text-box" placeholder="US Price/Year"/>      
+            <input matInput [(ngModel)]="subscriptionAddModel.usPriceForYear" class="form-control text-box" placeholder="US Price/Year"/>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.downloads" class="form-control text-box" placeholder="Downloads"/>       
+            <input matInput [(ngModel)]="subscriptionAddModel.downloads" class="form-control text-box" placeholder="Downloads"/>
           </div>
           <div class="col ml-n4" style="font-size: 0.6rem;">
             <mat-checkbox class = "tp-margin" [(ngModel)] = "subscriptionAddModel.unLimitedDownloadsEnable">Unlimited Downloads</mat-checkbox>
         </div>
      </div>
-     
+
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.downloadLimitPerDay" class="form-control text-box" placeholder="Download Limit Per Day"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.downloadLimitPerDay" class="form-control text-box" placeholder="Download Limit Per Day"></input>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.test" class="form-control text-box" placeholder="Categories"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.test" class="form-control text-box" placeholder="Categories"></input>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.textLine1" class="form-control text-box" placeholder="Text line 01"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.textLine1" class="form-control text-box" placeholder="Text line 01"></input>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.textLine2" class="form-control text-box" placeholder="Text line 02"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.textLine2" class="form-control text-box" placeholder="Text line 02"></input>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.textLine3" class="form-control text-box" placeholder="Text line 03"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.textLine3" class="form-control text-box" placeholder="Text line 03"></input>
           </div>
      </div>
      <div class="row mt-3">
         <div class="col">
-            <input matInput [(ngModel)]="subscriptionAddModel.textLine4" class="form-control text-box" placeholder="Text line 04"></input>       
+            <input matInput [(ngModel)]="subscriptionAddModel.textLine4" class="form-control text-box" placeholder="Text line 04"></input>
           </div>
      </div>
-     
+
 
      <div class="row mt-3">
         <div class="col">
             <a class="btn btn-primary" style="background-color: #7175d8; width: 16rem;" (click)=save()>
                 <span style="font-size: x-small; color: white;">Create New</span>
-            </a>       
+            </a>
         </div>
      </div>
 </div>

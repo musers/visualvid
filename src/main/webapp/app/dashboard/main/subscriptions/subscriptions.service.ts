@@ -1,6 +1,6 @@
 import { Injectable, Input } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SERVER_API_URL } from '../../../app.constants';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 
@@ -21,5 +21,39 @@ export class SubscriptionService {
       console.log('subscription data from popup: ', subscription);
       return this.httpClient.post(this.resourceUrl, subscription);
     }
+  }
+
+  public getAllSubscriptionPlans(): Observable<any> {
+    const data = [
+      {
+        id: '0001',
+        name: 'Basic',
+        price: '550$|7500$',
+        orderCount: '100/Month',
+        revisions: 'Revision 1',
+        status: 'Active',
+        action: '',
+      },
+      {
+        id: '0002',
+        name: 'Professional',
+        price: '750$|8500$',
+        orderCount: '100/Month',
+        revisions: 'Revision 2',
+        status: 'Active',
+        action: '',
+      },
+      {
+        id: '0003',
+        name: 'Life Time',
+        price: '950$|10500$',
+        orderCount: 'Unlimited',
+        revisions: 'Revision 2',
+        status: 'Active',
+        action: '',
+      },
+    ];
+    console.log('subscriptions data: ', data);
+    return of(data);
   }
 }

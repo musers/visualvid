@@ -1,9 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SubscriptionModel } from './subscriptions.model';
 import { UserSubscriptionModel } from './user-subscription.model';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
+import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardAddSubscriptionComponent } from './add-subscription/add-subscription.component';
+import { ColumnSettingsModel, TablePaginationSettingsModel } from 'app/shared/table/table-settings.model';
+
+export interface Action {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'jhi-subscriptions',
@@ -18,10 +25,58 @@ export class DashboardSubscriptionComponent implements OnInit {
   @Input() cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
 
-  constructor(public dialog: MatDialog) {}
+  @ViewChild('subscriptionsTemplate', { static: true }) subscriptionsTemplate?: TemplateRef<any>;
+  columnDefinition: ColumnSettingsModel[] = [];
+  tablePaginationSettings: TablePaginationSettingsModel = {
+    enablePagination: true,
+    pageSize: 10,
+    pageSizeOptions: [10, 20, 30],
+    showFirstLastButtons: true,
+  };
+
+  rowData: Array<SubscriptionModel> = [];
+  actions: Action[] = [
+    { viewValue: 'Action 1', value: 'action1' },
+    { viewValue: 'Action 2', value: 'action2' },
+    { viewValue: 'Action 3', value: 'action3' },
+  ];
+  currentAction = 'action1';
+
+  constructor(public dialog: MatDialog, private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
     this.getSubscriptionModels();
+    this.columnDefinition = [
+      {
+        name: 'id',
+        displayName: 'Id#',
+      },
+      {
+        name: 'name',
+        displayName: 'Plan Name',
+      },
+      {
+        name: 'price',
+        displayName: 'Price',
+      },
+      {
+        name: 'downloads',
+        displayName: 'Downloads',
+      },
+      {
+        name: 'revisions',
+        displayName: 'Revisions',
+      },
+      {
+        name: 'status',
+        displayName: 'Status',
+      },
+      {
+        name: 'action',
+        displayName: 'Action',
+        cellTemplate: this.subscriptionsTemplate,
+      },
+    ];
   }
 
   getUserSubscriptions(status: String) {
@@ -63,9 +118,12 @@ export class DashboardSubscriptionComponent implements OnInit {
   }
 
   getSubscriptionModels() {
+    this.subscriptionService.getAllSubscriptionPlans().subscribe(res => {
+      this.subscriptions = res;
+    });
     this.showSubscriptionModels = true;
     this.status = '';
-    this.subscriptions = [
+    /* this.subscriptions = [
       {
         id: '0001',
         name: 'Basic',
@@ -93,11 +151,12 @@ export class DashboardSubscriptionComponent implements OnInit {
         status: 'Active',
         action: '',
       },
-    ];
+    ];*/
   }
 
   addNew(): void {
     this.dialog.open(DashboardAddSubscriptionComponent, {
+      disableClose: true,
       width: '20rem',
       height: '40rem',
       data: {
@@ -117,5 +176,18 @@ export class DashboardSubscriptionComponent implements OnInit {
         textLine4: this.subscriptionAddModel?.textLine4,
       },
     });
+  }
+
+  onNotifySelected(selectedRows: object[]): void {
+    console.log(selectedRows);
+  }
+
+  onDoubleClick(data: any): void {
+    window.location.href = '/customer/upload/';
+  }
+
+  search(evt: any): void {
+    console.log(evt);
+    // TODO call a back-end service awith evt.query and map result to this.rowData;
   }
 }

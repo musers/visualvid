@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubscriptionAddModel } from './add-subscription.model';
 import { SubscriptionService } from '../subscriptions.service';
 
@@ -13,7 +13,11 @@ export class DashboardAddSubscriptionComponent implements OnInit {
   error = false;
   success = false;
 
-  constructor(private subscriptionsService: SubscriptionService, @Inject(MAT_DIALOG_DATA) data?: SubscriptionAddModel) {
+  constructor(
+    private subscriptionsService: SubscriptionService,
+    @Inject(MAT_DIALOG_DATA) data?: SubscriptionAddModel,
+    private dialogRef?: MatDialogRef<DashboardAddSubscriptionComponent>
+  ) {
     console.log('subscription plan name:', data?.name);
     this.subscriptionAddModel = data;
   }
@@ -28,5 +32,11 @@ export class DashboardAddSubscriptionComponent implements OnInit {
       },
       () => (this.error = true)
     );
+  }
+
+  gotoSubscriptionHome(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }
