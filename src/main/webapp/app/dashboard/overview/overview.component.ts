@@ -13,6 +13,7 @@ export class DashboardOverviewComponent implements OnInit {
   dashboardType = 'subscription';
 
   ngOnInit(): void {
+    this.dashboardType = 'subscription';
     this.topSellers = [
       {
         name: 'Restaurant Promo',

@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,12 @@ public class UserSubscriptionResource {
     @GetMapping("/search-by-username/{userName}")
     public ResponseEntity<List<UserSubscriptionDTO>> searchByUserName(@PathVariable("userName") String userName) {
         List<UserSubscriptionDTO> userSubscriptionDTOS = userSubscriptionService.searchByUserName(userName);
+        return ResponseEntity.ok(userSubscriptionDTOS);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<UserSubscriptionDTO>> findAllByPage(Pageable pageable) {
+        Page<UserSubscriptionDTO> userSubscriptionDTOS = userSubscriptionService.findAllByPage(pageable);
         return ResponseEntity.ok(userSubscriptionDTOS);
     }
 }
