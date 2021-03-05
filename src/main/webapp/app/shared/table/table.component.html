@@ -32,8 +32,9 @@
                 <ng-container *ngIf="column.cellTemplate">
                     <mat-cell *matCellDef="let element">
                         <ng-template [ngTemplateOutletContext]="{
-                            element: element[column.name],
-                            column: column
+                            element: element,
+                            column: column,
+                            cellValue: element[column.name]
                           }" [ngTemplateOutlet]="column.cellTemplate">
                         </ng-template>
                     </mat-cell>

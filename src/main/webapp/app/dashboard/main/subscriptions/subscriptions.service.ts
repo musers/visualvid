@@ -32,7 +32,7 @@ export class SubscriptionService {
         orderCount: '100/Month',
         revisions: 'Revision 1',
         status: 'Active',
-        action: '',
+        action: 'active',
       },
       {
         id: '0002',
@@ -41,7 +41,7 @@ export class SubscriptionService {
         orderCount: '100/Month',
         revisions: 'Revision 2',
         status: 'Active',
-        action: '',
+        action: 'inactive',
       },
       {
         id: '0003',
@@ -50,7 +50,7 @@ export class SubscriptionService {
         orderCount: 'Unlimited',
         revisions: 'Revision 2',
         status: 'Active',
-        action: '',
+        action: 'cancelled',
       },
     ];
     console.log('subscriptions data: ', data);

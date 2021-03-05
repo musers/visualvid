@@ -156,14 +156,33 @@
                    [sqPaginationConfig]="tablePaginationSettings"
                    [sqColumnDefinition]="columnDefinition">
 
-            <ng-template #subscriptionsTemplate let-element="element" let-column="column">
+            <ng-template #subscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
                 <div class="custom-style-red">
                     <!--<mat-select [ngModel]="currentAction">
                         <mat-option *ngFor="let action of actions" [value]="action.value">
                             {{action.viewValue}}
                         </mat-option>
                     </mat-select>-->
-                    <div>Hello</div>
+                  <!--  <div>Hello</div>-->
+                   <!-- <div class="col-1 ml-4 mt-2">
+                        <select class="form-control" id="sel1">
+                            <option>Select</option>
+                            <option>Active</option>
+                            <option>InActive</option>
+                            <option>Cancel</option>
+                        </select>
+                    </div>-->
+<!--                    <mat-form-field appearance="fill">-->
+<!--                        <mat-label>Select</mat-label>-->
+                    <mat-select>
+                        <ng-container *ngFor="let action of actions">
+                            <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
+                                {{action.name}}
+                            </mat-option>
+                        </ng-container>
+
+                    </mat-select>
+<!--                    </mat-form-field>-->
                 </div>
             </ng-template>
 

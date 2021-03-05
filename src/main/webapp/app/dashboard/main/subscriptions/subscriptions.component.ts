@@ -8,8 +8,8 @@ import { DashboardAddSubscriptionComponent } from './add-subscription/add-subscr
 import { ColumnSettingsModel, TablePaginationSettingsModel } from 'app/shared/table/table-settings.model';
 
 export interface Action {
-  value: string;
-  viewValue: string;
+  id: string;
+  name: string;
 }
 
 @Component({
@@ -36,9 +36,9 @@ export class DashboardSubscriptionComponent implements OnInit {
 
   rowData: Array<SubscriptionModel> = [];
   actions: Action[] = [
-    { viewValue: 'Action 1', value: 'action1' },
-    { viewValue: 'Action 2', value: 'action2' },
-    { viewValue: 'Action 3', value: 'action3' },
+    { name: 'Active', id: 'active' },
+    { name: 'Inactive', id: 'inactive' },
+    { name: 'Cancel', id: 'cancelled' },
   ];
   currentAction = 'action1';
 
@@ -189,5 +189,9 @@ export class DashboardSubscriptionComponent implements OnInit {
   search(evt: any): void {
     console.log(evt);
     // TODO call a back-end service awith evt.query and map result to this.rowData;
+  }
+  onActionSelect(action: string, element: any): void {
+    console.log('action', action);
+    console.log('element:', element);
   }
 }

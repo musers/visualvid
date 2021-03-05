@@ -12,6 +12,6 @@ CONSTRAINT pk_sub_category_id PRIMARY KEY (id)
 ALTER TABLE media ADD COLUMN sub_category VARCHAR(50);
 
 
-ALTER TABLE PUBLIC.sub_category ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES PUBLIC.category (id);
+ALTER TABLE PUBLIC.sub_category ADD CONSTRAINT fk_category_id1 FOREIGN KEY (category_id) REFERENCES PUBLIC.category (id);
 
 
