@@ -1,5 +1,5 @@
 <div class="mat-elevation-z81 table-container">
-    <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
+    <mat-table [dataSource]="dataSource" matSort>
         <ng-container *ngFor="let column of sqColumnDefinition" matColumnDef="{{column.name}}">
 
             <ng-container *ngIf="column.name ==='select';then checkbox else nocheckbox"></ng-container>
@@ -59,8 +59,7 @@
     <ng-container *ngIf="sqPaginationConfig && sqPaginationConfig.enablePagination">
         <mat-paginator [pageSize]="sqPaginationConfig.pageSize"
                        [pageSizeOptions]="sqPaginationConfig.pageSizeOptions"
-                       [showFirstLastButtons]="sqPaginationConfig.showFirstLastButtons"
-                       (page)="onPageChange()">
+                       [showFirstLastButtons]="sqPaginationConfig.showFirstLastButtons">
         </mat-paginator>
     </ng-container>
 </div>

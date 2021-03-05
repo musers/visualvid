@@ -1,9 +1,13 @@
-import { Component, Input, AfterViewInit, ViewChild, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TablePaginationSettingsModel, ColumnSettingsModel } from './table-settings.model';
+import { merge } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
+
+import { TableService } from 'app/shared/table/table.service';
 
 // https://stackblitz.com/edit/mat-table-custom?file=app%2Ftable-demo%2Ftable-demo.component.html
 
@@ -12,7 +16,7 @@ import { TablePaginationSettingsModel, ColumnSettingsModel } from './table-setti
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit, AfterViewInit, OnChanges {
+export class TableComponent implements OnInit, AfterViewInit {
 
   selectedRowIndex = -1;
 
@@ -65,21 +69,28 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
     @Output() onFilterChange = new EventEmitter();
 
-    ngAfterViewInit(): void{
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+    resultsLength = 0;
+
+   public constructor(private tableService: TableService) {
+
     }
-    /**
-     * @hidden
-     */
-    /**
-     * Lifecycle hook that is called when any data-bound property of a datasource changes.
-     */
-    ngOnChanges() : void{
-        this.dataSource = new MatTableDataSource(this.rowData);
-        console.log('ngOnChanges');
-//         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+    ngAfterViewInit(): void{
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        merge(this.sort.sortChange, this.paginator.page).
+        pipe(
+          startWith({}),
+          switchMap(() => {
+              return this.tableService.fetchLatest(this.sort.active, this.sort.direction,
+                          this.paginator.pageIndex + 1, this.paginator.pageSize);
+              })
+          ).
+        subscribe(data => {
+//             this.rowData = data;
+            this.dataSource = new MatTableDataSource(this.rowData);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          });
+
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -130,24 +141,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     /** Highlights the selected row on row click. */
     highlight(row: any): void {
         this.selectedRowIndex = row.position;
-    }
-    sortData(): void{
-      this.onTableChange();
-    }
-    onPageChange(): void {
-      this.onTableChange();
-    }
-    onTableChange(): void {
-      console.log('onTableChange');
-      console.log('sortData',this.sort);
-      console.log('paginator', this.paginator);
-      console.log(this.sort.active);
-      console.log(this.sort.direction);
-      console.log(this.paginator.pageSize);
-      console.log(this.paginator.pageIndex);
-//       this.onFilterChange.emit();
-// TODO pagination needs to be implemented
-// https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular
     }
 
 }

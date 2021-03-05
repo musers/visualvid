@@ -183,7 +183,7 @@ export class DashboardSubscriptionComponent implements OnInit {
   }
 
   onDoubleClick(data: any): void {
-    window.location.href = '/customer/upload/';
+//     window.location.href = '/customer/upload/';
   }
 
   search(evt: any): void {
