@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+// import { Observable } from 'rxjs';
 import { SubscriptionModel } from './subscriptions.model';
 import { UserSubscriptionModel } from './user-subscription.model';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardAddSubscriptionComponent } from './add-subscription/add-subscription.component';
-import { ColumnSettingsModel, TablePaginationSettingsModel } from 'app/shared/table/table-settings.model';
+import { ColumnSettingsModel, TablePaginationSettingsModel,ITableChangeCallback, TableDataModel} from 'app/shared/table/table-settings.model';
+import { TableComponent } from 'app/shared/table/table.component';
 
 export interface Action {
   id: string;
@@ -17,7 +19,7 @@ export interface Action {
   templateUrl: './subscriptions.component.html',
   styleUrls: ['subscriptions.scss'],
 })
-export class DashboardSubscriptionComponent implements OnInit {
+export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback {
   @Input() subscriptions?: SubscriptionModel[];
   @Input() userSubscriptions?: UserSubscriptionModel[];
   @Input() status?: String;
@@ -26,11 +28,15 @@ export class DashboardSubscriptionComponent implements OnInit {
   subscriptionAddModel?: SubscriptionAddModel;
 
   @ViewChild('subscriptionsTemplate', { static: true }) subscriptionsTemplate?: TemplateRef<any>;
+
+  @ViewChild('subscriptionTable', {static: true })
+  subscriptionTable : TableComponent;
+
   columnDefinition: ColumnSettingsModel[] = [];
   tablePaginationSettings: TablePaginationSettingsModel = {
     enablePagination: true,
-    pageSize: 10,
-    pageSizeOptions: [10, 20, 30],
+    pageSize: 1,
+    pageSizeOptions: [1, 2, 3],
     showFirstLastButtons: true,
   };
 
@@ -118,40 +124,11 @@ export class DashboardSubscriptionComponent implements OnInit {
   }
 
   getSubscriptionModels() {
-    this.subscriptionService.getAllSubscriptionPlans().subscribe(res => {
-      this.subscriptions = res;
-    });
+//     this.subscriptionService.getAllSubscriptionPlans().subscribe(res => {
+//       this.subscriptions = res;
+//     });
     this.showSubscriptionModels = true;
     this.status = '';
-    /* this.subscriptions = [
-      {
-        id: '0001',
-        name: 'Basic',
-        price: '550$|7500$',
-        orderCount: '100/Month',
-        revisions: 'Revision 1',
-        status: 'Active',
-        action: '',
-      },
-      {
-        id: '0002',
-        name: 'Professional',
-        price: '750$|8500$',
-        orderCount: '100/Month',
-        revisions: 'Revision 2',
-        status: 'Active',
-        action: '',
-      },
-      {
-        id: '0003',
-        name: 'Life Time',
-        price: '950$|10500$',
-        orderCount: 'Unlimited',
-        revisions: 'Revision 2',
-        status: 'Active',
-        action: '',
-      },
-    ];*/
   }
 
   addNew(): void {
@@ -187,11 +164,20 @@ export class DashboardSubscriptionComponent implements OnInit {
   }
 
   search(evt: any): void {
-    console.log(evt);
-    // TODO call a back-end service awith evt.query and map result to this.rowData;
+    this.subscriptionTable.search(evt.query);
   }
   onActionSelect(action: string, element: any): void {
     console.log('action', action);
     console.log('element:', element);
   }
+  getData(tableDataModel: TableDataModel): void {
+       this.subscriptionService.getAllSubscriptionPlans(tableDataModel).subscribe(resp =>{
+          this.subscriptions = resp;
+          const data = {
+            rowData : resp,
+            total : 12
+          }
+          this.subscriptionTable.setData(data);
+       })
+    }
 }

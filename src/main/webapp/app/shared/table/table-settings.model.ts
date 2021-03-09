@@ -3,6 +3,17 @@
  * @description SqTablePaginationSettingsModel is a custom type which is used in `app-table` for pagination properties
  */
 import { TemplateRef } from '@angular/core';
+import { Observable, of } from 'rxjs';
+export interface TableDataModel {
+  rowData?: object[];
+  total?: number;
+  sort?:string;
+  order?: string;
+  page?: number;
+  perPage?: number,
+  searchText?: string
+}
+
 export interface TablePaginationSettingsModel {
   /**
    * @description enable Pagination of rows
@@ -44,4 +55,7 @@ export interface ColumnSettingsModel {
   disableSorting?: boolean;
 
   cellTemplate?: TemplateRef<any>;
+}
+export interface ITableChangeCallback {
+    getData(data: TableDataModel): void;
 }

@@ -148,13 +148,14 @@
 </ng-container>
 -->
     <div class="pt-4">
-        <jhi-table [rowData]="subscriptions"
+        <jhi-table #subscriptionTable
                    [enableCheckbox]="true"
                    [allowMultiSelect]="true"
                    (getSelectedRows)="onNotifySelected($event)"
                    (onDoubleClick)="onDoubleClick($event)"
                    [sqPaginationConfig]="tablePaginationSettings"
-                   [sqColumnDefinition]="columnDefinition">
+                   [sqColumnDefinition]="columnDefinition"
+                   [tableChange]="this">
 
             <ng-template #subscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
                 <div class="custom-style-red">

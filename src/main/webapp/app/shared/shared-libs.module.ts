@@ -27,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { LoaderComponent } from 'app/shared/loader/loader.component';
 
 export function playerFactory() {
   return player;
@@ -37,6 +38,9 @@ export function playerFactory() {
   MatTabsModule,MatTreeModule,
   LottieModule.forRoot({ player: playerFactory }),
   AngularSvgIconModule.forRoot()],
+  declarations: [
+    LoaderComponent
+  ],
   exports: [
     FormsModule,
     CommonModule,
@@ -65,7 +69,8 @@ export function playerFactory() {
     MatButtonModule,
     MatToolbarModule,
     MatInputModule,
-    LottieModule
+    LottieModule,
+    LoaderComponent
   ],
 })
 export class VisualvidSharedLibsModule {}

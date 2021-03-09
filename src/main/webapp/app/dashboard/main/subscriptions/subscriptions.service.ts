@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { SERVER_API_URL } from '../../../app.constants';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
+import { TableDataModel } from 'app/shared/table/table-settings.model';
+import { delay } from "rxjs/operators";
 
 @Injectable({ providedIn: 'root' })
 export class SubscriptionService {
@@ -23,10 +25,11 @@ export class SubscriptionService {
     }
   }
 
-  public getAllSubscriptionPlans(): Observable<any> {
+  public getAllSubscriptionPlans(tableDataModel: TableDataModel): Observable<any> {
+    console.log('tableDataModel',tableDataModel);
     const data = [
       {
-        id: '0001',
+        id: Math.random().toString(),
         name: 'Basic',
         price: '550$|7500$',
         orderCount: '100/Month',
@@ -35,25 +38,16 @@ export class SubscriptionService {
         action: 'active',
       },
       {
-        id: '0002',
+        id: Math.random().toString(),
         name: 'Professional',
         price: '750$|8500$',
         orderCount: '100/Month',
         revisions: 'Revision 2',
         status: 'Active',
         action: 'inactive',
-      },
-      {
-        id: '0003',
-        name: 'Life Time',
-        price: '950$|10500$',
-        orderCount: 'Unlimited',
-        revisions: 'Revision 2',
-        status: 'Active',
-        action: 'cancelled',
-      },
+      }
     ];
     console.log('subscriptions data: ', data);
-    return of(data);
+    return of(data).pipe(delay(3000));
   }
 }

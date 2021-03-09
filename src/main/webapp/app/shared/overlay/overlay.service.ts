@@ -8,18 +8,22 @@ export class OverlayService {
   constructor(private overlay: Overlay) {}
 
   openTemplateOverlay(overlayTemplate: TemplatePortalDirective): void {
-    const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-    });
-    overlayConfig.hasBackdrop = true;
-    this.overlayRef = this.overlay.create(overlayConfig);
-    //     this.overlayRef.backdropClick().subscribe(() => {
-    //       this.overlayRef.dispose();
-    //     });
-    this.overlayRef.attach(overlayTemplate);
+    if(overlayTemplate){
+      const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
+      const overlayConfig = new OverlayConfig({
+        positionStrategy,
+      });
+      overlayConfig.hasBackdrop = true;
+      this.overlayRef = this.overlay.create(overlayConfig);
+      //     this.overlayRef.backdropClick().subscribe(() => {
+      //       this.overlayRef.dispose();
+      //     });
+      this.overlayRef.attach(overlayTemplate);
+    }
   }
   closeOverlay(): void {
-    this.overlayRef.dispose();
+    if(this.overlayRef){
+      this.overlayRef.dispose();
+    }
   }
 }
