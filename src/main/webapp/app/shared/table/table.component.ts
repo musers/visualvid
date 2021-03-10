@@ -51,7 +51,9 @@ export class TableComponent implements OnInit, AfterViewInit {
            });
        }
        this.selection = new SelectionModel<{}>(this.allowMultiSelect, []);
-       this.requestData();
+       setTimeout(()=>{
+        this.requestData();
+       })
    }
 
    ngAfterViewInit(): void {
@@ -94,7 +96,9 @@ export class TableComponent implements OnInit, AfterViewInit {
  }
  requestData(): void {
   this.overlayService.openTemplateOverlay(this.loadingTemplate);
-  this.tableChange.getData(this.getParamObj());
+  if(this.tableChange){
+    this.tableChange.getData(this.getParamObj());
+  }
  }
  getParamObj(): any {
     return {

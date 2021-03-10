@@ -163,12 +163,16 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   }
 
   onNotifySelected(selectedRows: object[]): void {
-    if(selectedRows && selectedRows.length >0){
-      this.overviewService.updateOverviewTemplate({
+    if(selectedRows && selectedRows.length === 1){
+      const templateData = {
         template : this.subscriptionsOverviewTemplate,
         data : selectedRows[0]
-      });
+      }
+     this.overviewService.updateOverviewTemplate(templateData);
+    } else {
+      this.overviewService.closeOverview();
     }
+
   }
 
   onDoubleClick(data: any): void {
@@ -190,6 +194,7 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
             total : 12
           }
           this.subscriptionTable.setData(data);
+          this.overviewService.closeOverview();
        })
     }
 }
