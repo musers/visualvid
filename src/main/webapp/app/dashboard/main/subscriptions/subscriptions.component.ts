@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DashboardAddSubscriptionComponent } from './add-subscription/add-subscription.component';
 import { ColumnSettingsModel, TablePaginationSettingsModel,ITableChangeCallback, TableDataModel} from 'app/shared/table/table-settings.model';
 import { TableComponent } from 'app/shared/table/table.component';
+import { OverviewService } from 'app/dashboard/overview/overview.service';
 
 export interface Action {
   id: string;
@@ -27,7 +28,10 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   @Input() cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
 
-  @ViewChild('subscriptionsTemplate', { static: true }) subscriptionsTemplate?: TemplateRef<any>;
+  @ViewChild('subscriptionsTemplate', { static: true })
+  subscriptionsTemplate?: TemplateRef<any>;
+  @ViewChild('subscriptionsOverviewTemplate', {static: true})
+  subscriptionsOverviewTemplate?: TemplateRef<any>;
 
   @ViewChild('subscriptionTable', {static: true })
   subscriptionTable : TableComponent;
@@ -48,7 +52,10 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   ];
   currentAction = 'action1';
 
-  constructor(public dialog: MatDialog, private subscriptionService: SubscriptionService) {}
+  constructor(
+    public dialog: MatDialog, private subscriptionService: SubscriptionService,
+    public overviewService: OverviewService
+    ) {}
 
   ngOnInit(): void {
     this.getSubscriptionModels();
@@ -156,7 +163,12 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   }
 
   onNotifySelected(selectedRows: object[]): void {
-    console.log(selectedRows);
+    if(selectedRows && selectedRows.length >0){
+      this.overviewService.updateOverviewTemplate({
+        template : this.subscriptionsOverviewTemplate,
+        data : selectedRows[0]
+      });
+    }
   }
 
   onDoubleClick(data: any): void {
