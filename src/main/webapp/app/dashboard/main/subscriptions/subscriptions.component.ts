@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ChangeDetectorRef} from '@angular/core';
 // import { Observable } from 'rxjs';
 import { SubscriptionModel } from './subscriptions.model';
 import { UserSubscriptionModel } from './user-subscription.model';
@@ -25,30 +25,30 @@ export interface Action {
   templateUrl: './subscriptions.component.html',
   styleUrls: ['subscriptions.scss'],
 })
-export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback {
-  @Input() subscriptions?: SubscriptionModel[];
-  @Input() userSubscriptions?: UserSubscriptionModel[];
-  @Input() status?: String;
-  @Input() showSubscriptionModels?: Boolean = true;
-  @Input() cardFooterClass?: String;
+export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback, AfterViewInit{
+  subscriptions?: SubscriptionModel[];
+  userSubscriptions?: UserSubscriptionModel[];
+  status?: String;
+  showSubscriptionModels = true;
+  cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
 
-  @ViewChild('subscriptionsTemplate', { static: true })
+  @ViewChild('subscriptionsTemplate', { static: false })
   subscriptionsTemplate?: TemplateRef<any>;
 
-  @ViewChild('subscriptionsOverviewTemplate', { static: true })
+  @ViewChild('subscriptionsOverviewTemplate', { static: false })
   subscriptionsOverviewTemplate?: TemplateRef<any>;
 
-  @ViewChild('userSubscriptionsOverviewTemplate', { static: true })
+  @ViewChild('userSubscriptionsOverviewTemplate', { static: false })
   userSubscriptionsOverviewTemplate?: TemplateRef<any>;
 
-  @ViewChild('userSubscriptionsTemplate', { static: true })
+  @ViewChild('userSubscriptionsTemplate', { static: false })
   userSubscriptionsTemplate?: TemplateRef<any>;
 
-  @ViewChild('subscriptionTable', { static: true })
+  @ViewChild('subscriptionTable', { static: false })
   subscriptionTable: TableComponent;
 
-  @ViewChild('userSubscriptionsTable', { static: true })
+  @ViewChild('userSubscriptionsTable', { static: false })
   userSubscriptionsTable: TableComponent;
 
   columnDefinition: ColumnSettingsModel[] = [];
@@ -69,10 +69,13 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   ];
   currentAction = 'action1';
 
-  constructor(public dialog: MatDialog, private subscriptionService: SubscriptionService, public overviewService: OverviewService) {}
+  constructor(
+    public dialog: MatDialog,
+    private subscriptionService: SubscriptionService,
+    public overviewService: OverviewService,
+    public changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getSubscriptionModels();
     this.columnDefinition = [
       {
         name: 'id',
@@ -141,54 +144,15 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
           }, */
     ];
   }
-
-  getUserSubscriptions(status: String) {
-    this.showSubscriptionModels = false;
+  ngAfterViewInit(): void {
+    this.getActiveTable().requestData();
+  }
+  enableSubscription(enableSubscription: boolean, status: string): void{
+    this.showSubscriptionModels = enableSubscription;
+    this.changeDetector.detectChanges();
     this.status = status;
-    this.subscriptions = [];
-    console.log('user subscriptions:: ');
-    /* this.userSubscriptions = [
-      {
-        userId: '0001',
-        planName: 'Basic',
-        userName: 'Anil Kumar',
-        startDate: '19 Nov,2020',
-        endDate: '19 Nov,2020',
-        ordersLeft: '5/10',
-        status: this.status,
-        action: '',
-      },
-      {
-        userId: '0002',
-        planName: 'Basic',
-        userName: 'Anil Kumar',
-        startDate: '19 Nov,2020',
-        endDate: '19 Nov,2020',
-        ordersLeft: '5/10',
-        status: this.status,
-        action: '',
-      },
-      {
-        userId: '0003',
-        planName: 'Basic',
-        userName: 'Anil Kumar',
-        startDate: '19 Nov,2020',
-        endDate: '19 Nov,2020',
-        ordersLeft: '5/10',
-        status: this.status,
-        action: '',
-      },
-    ];*/
+    this.getActiveTable().requestData();
   }
-
-  getSubscriptionModels() {
-    //     this.subscriptionService.getAllSubscriptionPlans().subscribe(res => {
-    //       this.subscriptions = res;
-    //     });
-    this.showSubscriptionModels = true;
-    this.status = '';
-  }
-
   addNew(): void {
     this.dialog.open(DashboardAddSubscriptionComponent, {
       disableClose: true,
@@ -224,13 +188,8 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
       this.overviewService.closeOverview();
     }
   }
-
-  onDoubleClick(data: any): void {
-    //     window.location.href = '/customer/upload/';
-  }
-
   search(evt: any): void {
-    this.subscriptionTable.search(evt.query);
+    this.getActiveTable().search(evt.query);
   }
   onActionSelect(action: string, element: any): void {
     console.log('action', action);
@@ -246,6 +205,9 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
     }
   }
 
+  getActiveTable(): TableComponent {
+    return this.showSubscriptionModels ? this.subscriptionTable : this.userSubscriptionsTable;
+  }
   getData(tableDataModel: TableDataModel): void {
     if (this.showSubscriptionModels) {
       this.subscriptionService.getAllSubscriptionPlans(tableDataModel).subscribe(resp => {
@@ -254,7 +216,7 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
           rowData: resp,
           total: 12,
         };
-        this.subscriptionTable.setData(data);
+        this.getActiveTable().setData(data);
       });
     } else {
       this.subscriptionService.getAllUserSubscriptions(tableDataModel).subscribe(resp => {
@@ -263,7 +225,7 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
           rowData: resp,
           total: 12,
         };
-        this.userSubscriptionsTable.setData(data);
+        this.getActiveTable().setData(data);
       });
     }
   }

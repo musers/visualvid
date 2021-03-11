@@ -6,9 +6,6 @@
             <span style="font-size: x-small;">+ Add New</span>
         </a>
       </div>
-      <!--<div class="col">
-        <input type="text" class="form-control search" id="search" placeholder="search..." style="width: 12rem;">
-      </div>-->
         <div class="row no-gutters mt-4">
             <h5 style="font-weight: bold;" class="mr-auto">Orders</h5>
             <jhi-search (searchEvent)="search($event)"></jhi-search>
@@ -19,7 +16,7 @@
             <div class="card-body" style="color:#7175d8;">
                 <div style="padding-left: 0.2rem;margin-top: 0.5rem;font-size: x-small;
                 font-weight: bold;">SUBSCRIPTION MODELS</div>
-              <a class="stretched-link" (click)="getSubscriptionModels()"></a>
+              <a class="stretched-link" (click)="enableSubscription(true,'')"></a>
             </div>
             <div class="card-footer" *ngIf="showSubscriptionModels"></div>
         </div>
@@ -28,7 +25,7 @@
             <div class="card-body">
                 <div style="margin-left: -0.5rem;font-size: x-small;">Active Subscriptions</div>
                 <div class="card-box-metrics">580</div>
-              <a class="stretched-link" (click)="getUserSubscriptions('Active')"></a>
+              <a class="stretched-link" (click)="enableSubscription(false,'active')"></a>
             </div>
             <ng-container *ngIf="status==='Active'">
                 <div class="card-footer"></div>
@@ -39,7 +36,7 @@
             <div class="card-body">
                 <div style="margin-left:-0.5rem;font-size:x-small;">InActive Subscriptions</div>
                 <div class="card-box-metrics">390</div>
-                <a class="stretched-link" (click)="getUserSubscriptions('InActive')"></a>
+                <a class="stretched-link" (click)="enableSubscription(false,'inactive')"></a>
             </div>
             <ng-container *ngIf="status==='InActive'">
                 <div class="card-footer"></div>
@@ -50,129 +47,34 @@
             <div class="card-body">
                 <div style="margin-left:-0.5rem;font-size:x-small;">Cancelled Subscriptions</div>
                 <div class="card-box-metrics">120</div>
-                <a class="stretched-link" (click)="getUserSubscriptions('Cancelled')"></a>
+                <a class="stretched-link" (click)="enableSubscription(false,'cancelled')"></a>
             </div>
             <ng-container *ngIf="status==='Cancelled'">
                 <div class="card-footer"></div>
             </ng-container>
         </div>
     </div>
-
-<!--
-<ng-container *ngIf="!showSubscriptionModels">
-    <div class="row mt-4 order-menu-bar">
-         <div class="col-1" style="margin-left:-3rem;">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cb1" name="cb1">
-            </div>
-         </div>
-        &lt;!&ndash; <div class="col-1"><small>Id#</small></div> &ndash;&gt;
-         <div class="col-1"><small style="font-weight: bold;">Id#</small></div>
-         <div class="col-2 ml-n2"><small style="font-weight: bold;">Plan</small></div>
-         <div class="col-2 ml-n5"><small style="font-weight: bold;">Name</small></div>
-         <div class="col-1 ml-n2"><small style="font-weight: bold;">Start Date</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">End Date</small></div>
-         <div class="col-1 ml-5"><small style="font-weight: bold;">Downloads Left</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>
-    </div>
-
-
-    <div *ngFor="let us of userSubscriptions">
-        <div class="row mt-1 order-menu-bar order-row">
-            <div class="col-1 ml-n5 mt-2">
-               <div class="custom-control custom-checkbox">
-                   <input type="checkbox" id="cb1" name="cb1">
-               </div>
-            </div>
-            <div class="col-1 mt-2"><small>{{us.userId}}</small></div>
-            <div class="col-2 ml-n2 mt-2"><small>{{us.planName}}</small></div>
-            <div class="col-2 ml-n5 mt-2"> <small>{{us.userName}}</small></div>
-            <div class="col-1 ml-n2 mt-2"><small>{{us.startDate}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small><span>{{us.endDate}}</span></small></div>
-            <div class="col-1 ml-5 mt-2"><small>{{us.ordersLeft}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{us.status}}</small></div>
-
-            <div class="col-1 ml-4 mt-2">
-                <select class="form-control" id="sel1">
-                    <option>Select</option>
-                    <option>Active</option>
-                    <option>InActive</option>
-                    <option>Cancel</option>
-                  </select>
-             </div>
-       </div>
-    </div>
-</ng-container>
--->
-    <ng-container *ngIf="showSubscriptionModels">
     <div class="pt-4">
-        <jhi-table #subscriptionTable
-                   [enableCheckbox]="true"
-                   [allowMultiSelect]="false"
-                   (getSelectedRows)="onNotifySelected($event)"
-                   (onDoubleClick)="onDoubleClick($event)"
-                   [sqPaginationConfig]="tablePaginationSettings"
-                   [sqColumnDefinition]="columnDefinition"
-                   [tableChange]="this">
-
-            <ng-template #subscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
-                <div class="custom-style-red">
-                    <!--<mat-select [ngModel]="currentAction">
-                        <mat-option *ngFor="let action of actions" [value]="action.value">
-                            {{action.viewValue}}
-                        </mat-option>
-                    </mat-select>-->
-                  <!--  <div>Hello</div>-->
-                   <!-- <div class="col-1 ml-4 mt-2">
-                        <select class="form-control" id="sel1">
-                            <option>Select</option>
-                            <option>Active</option>
-                            <option>InActive</option>
-                            <option>Cancel</option>
-                        </select>
-                    </div>-->
-                    <mat-select>
-                        <ng-container *ngFor="let action of actions">
-                            <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
-                                {{action.name}}
-                            </mat-option>
-                        </ng-container>
-
-                    </mat-select>
-                </div>
-            </ng-template>
-
-        </jhi-table>
-    </div>
-    </ng-container>
-
-    <ng-container *ngIf="!showSubscriptionModels">
-    <div class="pt-4">
-        <jhi-table #userSubscriptionsTable
-                   [enableCheckbox]="true"
-                   [allowMultiSelect]="true"
-                   (getSelectedRows)="onUserSubscriptionsNotifySelected($event)"
-                   [sqPaginationConfig]="tablePaginationSettings"
-                   [sqColumnDefinition]="userSubscriptionsColumnDefinition"
-                   [tableChange]="this">
-
-            <ng-template #userSubscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
-                <div class="custom-style-red">
-                    <mat-select>
-                        <ng-container *ngFor="let action of actions">
-                            <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
-                                {{action.name}}
-                            </mat-option>
-                        </ng-container>
-
-                    </mat-select>
-                </div>
-            </ng-template>
-
-        </jhi-table>
-    </div>
-    </ng-container>>
+        <ng-container *ngIf="showSubscriptionModels">
+            <jhi-table #subscriptionTable
+                       [enableCheckbox]="true"
+                       [allowMultiSelect]="false"
+                       (getSelectedRows)="onNotifySelected($event)"
+                       [sqPaginationConfig]="tablePaginationSettings"
+                       [sqColumnDefinition]="columnDefinition"
+                       [tableChange]="this">
+            </jhi-table>
+        </ng-container>
+        <ng-container *ngIf="!showSubscriptionModels">
+            <jhi-table #userSubscriptionsTable
+                       [enableCheckbox]="true"
+                       [allowMultiSelect]="true"
+                       (getSelectedRows)="onUserSubscriptionsNotifySelected($event)"
+                       [sqPaginationConfig]="tablePaginationSettings"
+                       [sqColumnDefinition]="userSubscriptionsColumnDefinition"
+                       [tableChange]="this">
+            </jhi-table>
+        </ng-container>
 </div>
 
 <ng-template #subscriptionsOverviewTemplate let-data = "data">
@@ -186,5 +88,28 @@
     <div>
         Name : {{data?.userId}}
         hello123
+    </div>
+</ng-template>
+<ng-template #userSubscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
+    <div class="custom-style-red">
+        <mat-select>
+            <ng-container *ngFor="let action of actions">
+                <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
+                    {{action.name}}
+                </mat-option>
+            </ng-container>
+
+        </mat-select>
+    </div>
+</ng-template>
+<ng-template #subscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
+    <div class="custom-style-red">
+        <mat-select>
+            <ng-container *ngFor="let action of actions">
+                <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
+                    {{action.name}}
+                </mat-option>
+            </ng-container>
+        </mat-select>
     </div>
 </ng-template>

@@ -36,11 +36,12 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   constructor(private overlayService: OverlayService) {}
   ngOnInit(): void {
+    console.log('columnNames');
     for (const column of this.sqColumnDefinition) {
       this.columnNames.push(column.name);
     }
     // Condition to add selection column to the table
-    if (this.enableCheckbox) {
+    if (this.enableCheckbox && !this.columnNames.includes('select')) {
       this.columnNames.splice(0, 0, 'select');
       this.sqColumnDefinition.splice(0, 0, {
         name: 'select',
@@ -48,9 +49,6 @@ export class TableComponent implements OnInit, AfterViewInit {
       });
     }
     this.selection = new SelectionModel<{}>(this.allowMultiSelect, []);
-    setTimeout(() => {
-      this.requestData();
-    });
   }
 
   ngAfterViewInit(): void {
