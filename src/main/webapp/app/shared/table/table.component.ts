@@ -11,7 +11,7 @@ import { TablePaginationSettingsModel, ColumnSettingsModel, ITableChangeCallback
 @Component({
   selector: 'jhi-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
   @Input() enableCheckbox: boolean;
@@ -24,7 +24,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Output() getSelectedRows = new EventEmitter();
   @Output() onDoubleClick = new EventEmitter();
 
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('loading') loadingTemplate: TemplatePortalDirective;
@@ -35,42 +34,39 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnNames: string[] = [];
   searchText = '';
 
-    constructor(
-      private overlayService: OverlayService
-    ){}
-   ngOnInit() : void{
-       for (const column of this.sqColumnDefinition) {
-           this.columnNames.push(column.name);
-       }
-       // Condition to add selection column to the table
-       if (this.enableCheckbox) {
-           this.columnNames.splice(0, 0, 'select');
-           this.sqColumnDefinition.splice(0, 0, {
-               'name': 'select',
-               'displayName': '#'
-           });
-       }
-       this.selection = new SelectionModel<{}>(this.allowMultiSelect, []);
-       this.requestData();
-   }
+  constructor(private overlayService: OverlayService) {}
+  ngOnInit(): void {
+    for (const column of this.sqColumnDefinition) {
+      this.columnNames.push(column.name);
+    }
+    // Condition to add selection column to the table
+    if (this.enableCheckbox) {
+      this.columnNames.splice(0, 0, 'select');
+      this.sqColumnDefinition.splice(0, 0, {
+        name: 'select',
+        displayName: '#',
+      });
+    }
+    this.selection = new SelectionModel<{}>(this.allowMultiSelect, []);
+    setTimeout(() => {
+      this.requestData();
+    });
+  }
 
-   ngAfterViewInit(): void {
-       this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-       merge(this.sort.sortChange, this.paginator.page).
-       subscribe(()=>{
-         this.requestData();
-       });
-   }
-  isAllSelected() : boolean {
-       const numSelected = this.selection.selected.length;
-       return numSelected === this.rowData.length;
-   }
-   masterToggle(): void  {
-    this.isAllSelected() ?
-      this.selection.clear() :
-        this.rowData.forEach(row => this.selection.select(row));
-       this.getSelectedRows.emit(this.selection.selected);
-   }
+  ngAfterViewInit(): void {
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
+      this.requestData();
+    });
+  }
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    return numSelected === this.rowData.length;
+  }
+  masterToggle(): void {
+    this.isAllSelected() ? this.selection.clear() : this.rowData.forEach(row => this.selection.select(row));
+    this.getSelectedRows.emit(this.selection.selected);
+  }
   rowSelect(): void {
     this.getSelectedRows.emit(this.selection.selected);
   }
@@ -80,29 +76,30 @@ export class TableComponent implements OnInit, AfterViewInit {
   highlight(row: any): void {
     this.selectedRowIndex = row.position;
   }
- pageChange(event: any): void {
- }
- search(searchText: string): void {
-  this.searchText = searchText;
-  this.requestData();
- }
- setData(data : TableDataModel): void {
-  this.selection.clear();
-  this.rowData = data.rowData;
-  this.total = data.total;
-  this.overlayService.closeOverlay();
- }
- requestData(): void {
-  this.overlayService.openTemplateOverlay(this.loadingTemplate);
-  this.tableChange.getData(this.getParamObj());
- }
- getParamObj(): any {
+  pageChange(event: any): void {}
+  search(searchText: string): void {
+    this.searchText = searchText;
+    this.requestData();
+  }
+  setData(data: TableDataModel): void {
+    this.selection.clear();
+    this.rowData = data.rowData;
+    this.total = data.total;
+    this.overlayService.closeOverlay();
+  }
+  requestData(): void {
+    this.overlayService.openTemplateOverlay(this.loadingTemplate);
+    if (this.tableChange) {
+      this.tableChange.getData(this.getParamObj());
+    }
+  }
+  getParamObj(): any {
     return {
-                sort : this.sort? this.sort.active : '',
-                order : this.sort? this.sort.direction: '',
-                page : this.paginator? this.paginator.pageIndex + 1 : 1,
-                perPage : this.paginator? this.paginator.pageSize : 10,
-                searchText: this.searchText
-           }
- }
+      sort: this.sort ? this.sort.active : '',
+      order: this.sort ? this.sort.direction : '',
+      page: this.paginator ? this.paginator.pageIndex + 1 : 1,
+      perPage: this.paginator ? this.paginator.pageSize : 10,
+      searchText: this.searchText,
+    };
+  }
 }

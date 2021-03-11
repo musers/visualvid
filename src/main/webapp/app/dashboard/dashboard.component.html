@@ -12,15 +12,12 @@
 
          <ng-container *ngIf="showOverview">
              <div class="col-lg-3 right shadow">
-                 <jhi-dashboard-overview (hideOverviewEmitter)="toggleOverview($event)"></jhi-dashboard-overview>
+                 <jhi-dashboard-overview></jhi-dashboard-overview>
              </div>
          </ng-container>
-           <ng-container *ngIf="!showOverview">
-                <div class="overview-btn btn btn-primary" (click)="toggleOverview($event)">overview</div>
-           </ng-container>
-
-
-
+<!--           <ng-container *ngIf="!showOverview">-->
+<!--                <div class="overview-btn btn btn-primary" (click)="showOverviewTab('true')">overview</div>-->
+<!--           </ng-container>-->
 
        </div>
     </div>

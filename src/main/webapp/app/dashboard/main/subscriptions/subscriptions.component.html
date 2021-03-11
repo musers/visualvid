@@ -109,7 +109,7 @@
     <div class="pt-4">
         <jhi-table #subscriptionTable
                    [enableCheckbox]="true"
-                   [allowMultiSelect]="true"
+                   [allowMultiSelect]="false"
                    (getSelectedRows)="onNotifySelected($event)"
                    (onDoubleClick)="onDoubleClick($event)"
                    [sqPaginationConfig]="tablePaginationSettings"
