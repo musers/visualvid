@@ -1,7 +1,5 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
-// import { Observable } from 'rxjs';
 import { SubscriptionModel } from './subscriptions.model';
-import { UserSubscriptionModel } from './user-subscription.model';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,7 +25,6 @@ export interface Action {
 })
 export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback, AfterViewInit {
   subscriptions?: SubscriptionModel[];
-  userSubscriptions?: UserSubscriptionModel[];
   status?: string;
   showSubscriptionModels = true;
   cardFooterClass?: String;
@@ -39,12 +36,6 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   @ViewChild('subscriptionsOverviewTemplate', { static: false })
   subscriptionsOverviewTemplate?: TemplateRef<any>;
 
-  @ViewChild('userSubscriptionsOverviewTemplate', { static: false })
-  userSubscriptionsOverviewTemplate?: TemplateRef<any>;
-
-  @ViewChild('userSubscriptionsTemplate', { static: false })
-  userSubscriptionsTemplate?: TemplateRef<any>;
-
   @ViewChild('subscriptionTable', { static: false })
   subscriptionTable: TableComponent;
 
@@ -52,7 +43,6 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   userSubscriptionsTable: TableComponent;
 
   columnDefinition: ColumnSettingsModel[] = [];
-  userSubscriptionsColumnDefinition: ColumnSettingsModel[] = [];
 
   tablePaginationSettings: TablePaginationSettingsModel = {
     enablePagination: true,
@@ -108,52 +98,14 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
         cellTemplate: this.subscriptionsTemplate,
       },
     ];
-
-    this.userSubscriptionsColumnDefinition = [
-      {
-        name: 'userId',
-        displayName: 'Subscriber Id#',
-      },
-      {
-        name: 'planName',
-        displayName: 'Plan',
-      },
-      {
-        name: 'userName',
-        displayName: 'Name',
-      },
-      {
-        name: 'startDate',
-        displayName: 'Start Date',
-      },
-      {
-        name: 'endDate',
-        displayName: 'End Date',
-      },
-      {
-        name: 'ordersLeft',
-        displayName: 'Downloads Left(month)',
-      },
-      {
-        name: 'status',
-        displayName: 'Status',
-      },
-      /* {
-            name: 'action',
-            displayName: 'Action',
-            cellTemplate: this.subscriptionsTemplate,
-          }, */
-    ];
   }
   ngAfterViewInit(): void {
     this.getActiveTable().requestData();
   }
   enableSubscription(enableSubscription: boolean, status: string): void {
-    console.log('enable user subscription:');
     this.showSubscriptionModels = enableSubscription;
-    this.changeDetector.detectChanges();
     this.status = status;
-    //this.getActiveTable().requestData();
+    this.changeDetector.detectChanges();
   }
   addNew(): void {
     this.dialog.open(DashboardAddSubscriptionComponent, {
@@ -178,7 +130,9 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
       },
     });
   }
-
+  search(evt: any): void {
+    return this.showSubscriptionModels ? this.subscriptionTable.search(evt.query) : this.userSubscriptionsTable.search(evt.query);
+  }
   onNotifySelected(selectedRows: object[]): void {
     if (selectedRows && selectedRows.length === 1) {
       const templateData = {
@@ -190,23 +144,10 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
       this.overviewService.closeOverview();
     }
   }
-  search(evt: any): void {
-    this.getActiveTable().search(evt.query);
-  }
   onActionSelect(action: string, element: any): void {
     console.log('action', action);
     console.log('element:', element);
   }
-
-  onUserSubscriptionsNotifySelected(selectedRows: object[]): void {
-    if (selectedRows && selectedRows.length > 0) {
-      this.overviewService.updateOverviewTemplate({
-        template: this.userSubscriptionsOverviewTemplate,
-        data: selectedRows[0],
-      });
-    }
-  }
-
   getActiveTable(): TableComponent {
     return this.showSubscriptionModels ? this.subscriptionTable : this.userSubscriptionsTable;
   }
@@ -214,15 +155,6 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
     if (this.showSubscriptionModels) {
       this.subscriptionService.getAllSubscriptionPlans(tableDataModel).subscribe(resp => {
         this.subscriptions = resp;
-        const data = {
-          rowData: resp,
-          total: 12,
-        };
-        this.getActiveTable().setData(data);
-      });
-    } else {
-      this.subscriptionService.getAllUserSubscriptions(tableDataModel, '').subscribe(resp => {
-        this.userSubscriptions = resp;
         const data = {
           rowData: resp,
           total: 12,

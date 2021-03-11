@@ -71,7 +71,9 @@ export class UserSubscriptionsComponent implements OnInit, ITableChangeCallback,
       });
     }
   }
-
+  search(searchText: string): void {
+    this.table.search(searchText);
+  }
   getData(tableDataModel: TableDataModel): void {
     console.log('getData for usersubsciprtions123');
     this.subscriptionService.getAllUserSubscriptions(tableDataModel, this.status).subscribe(resp => {
