@@ -1,0 +1,13 @@
+<jhi-table #table
+           [enableCheckbox]="true"
+           [allowMultiSelect]="true"
+           (getSelectedRows)="onRowSelect($event)"
+           [sqColumnDefinition]="columnDefinition"
+           [tableChange]="this">
+</jhi-table>
+<ng-template #overviewTemplate let-data = "data">
+    <div>
+        Name : {{data?.userId}}
+        hello123
+    </div>
+</ng-template>

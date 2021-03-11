@@ -17,7 +17,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() enableCheckbox: boolean;
   @Input() allowMultiSelect: boolean;
   @Input() sqColumnDefinition: ColumnSettingsModel[];
-  @Input() sqPaginationConfig?: TablePaginationSettingsModel;
+  @Input() sqPaginationConfig?: TablePaginationSettingsModel = {
+    enablePagination: true,
+    pageSize: 1,
+    pageSizeOptions: [1, 2, 3],
+    showFirstLastButtons: true,
+  };
   @Input() tableChange: ITableChangeCallback;
   @Input() rowData: object[];
 

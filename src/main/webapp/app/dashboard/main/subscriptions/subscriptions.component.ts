@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { SubscriptionModel } from './subscriptions.model';
 import { UserSubscriptionModel } from './user-subscription.model';
@@ -25,10 +25,10 @@ export interface Action {
   templateUrl: './subscriptions.component.html',
   styleUrls: ['subscriptions.scss'],
 })
-export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback, AfterViewInit{
+export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback, AfterViewInit {
   subscriptions?: SubscriptionModel[];
   userSubscriptions?: UserSubscriptionModel[];
-  status?: String;
+  status?: string;
   showSubscriptionModels = true;
   cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
@@ -73,7 +73,8 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
     public dialog: MatDialog,
     private subscriptionService: SubscriptionService,
     public overviewService: OverviewService,
-    public changeDetector: ChangeDetectorRef) {}
+    public changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.columnDefinition = [
@@ -147,11 +148,12 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
   ngAfterViewInit(): void {
     this.getActiveTable().requestData();
   }
-  enableSubscription(enableSubscription: boolean, status: string): void{
+  enableSubscription(enableSubscription: boolean, status: string): void {
+    console.log('enable user subscription:');
     this.showSubscriptionModels = enableSubscription;
     this.changeDetector.detectChanges();
     this.status = status;
-    this.getActiveTable().requestData();
+    //this.getActiveTable().requestData();
   }
   addNew(): void {
     this.dialog.open(DashboardAddSubscriptionComponent, {
@@ -219,7 +221,7 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
         this.getActiveTable().setData(data);
       });
     } else {
-      this.subscriptionService.getAllUserSubscriptions(tableDataModel).subscribe(resp => {
+      this.subscriptionService.getAllUserSubscriptions(tableDataModel, '').subscribe(resp => {
         this.userSubscriptions = resp;
         const data = {
           rowData: resp,

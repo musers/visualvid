@@ -66,14 +66,15 @@
             </jhi-table>
         </ng-container>
         <ng-container *ngIf="!showSubscriptionModels">
-            <jhi-table #userSubscriptionsTable
+           <!-- <jhi-table #userSubscriptionsTable
                        [enableCheckbox]="true"
                        [allowMultiSelect]="true"
                        (getSelectedRows)="onUserSubscriptionsNotifySelected($event)"
                        [sqPaginationConfig]="tablePaginationSettings"
                        [sqColumnDefinition]="userSubscriptionsColumnDefinition"
                        [tableChange]="this">
-            </jhi-table>
+            </jhi-table>-->
+            <jhi-user-subscriptions-table [status]="status"></jhi-user-subscriptions-table>>
         </ng-container>
 </div>
 

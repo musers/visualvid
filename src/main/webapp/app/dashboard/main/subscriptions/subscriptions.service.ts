@@ -51,8 +51,8 @@ export class SubscriptionService {
     return of(data).pipe(delay(3000));
   }
 
-  public getAllUserSubscriptions(tableDataModel: TableDataModel): Observable<any> {
-    console.log('tableDataModel', tableDataModel);
+  public getAllUserSubscriptions(tableDataModel: TableDataModel, status: string): Observable<any> {
+    console.log('status', status);
     const data = [
       {
         userId: '0001',

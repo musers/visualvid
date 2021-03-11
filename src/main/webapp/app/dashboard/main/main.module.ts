@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { VisualvidSharedModule } from 'app/shared/shared.module';
+import { DashboardSubscriptionsModule } from 'app/dashboard/main/subscriptions/subscriptions.module';
 import { DashboardMainComponent } from './main.component';
 import { DashboardOrdersComponent } from './orders/orders.component';
 import { DashboardVideoDesignsComponent } from './videodesigns/videodesigns.component';
@@ -14,7 +15,7 @@ import { DashboardAddSubscriptionComponent } from './subscriptions/add-subscript
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [VisualvidSharedModule, FormsModule, ReactiveFormsModule],
+  imports: [VisualvidSharedModule, DashboardSubscriptionsModule, FormsModule, ReactiveFormsModule],
   declarations: [
     DashboardMainComponent,
     DashboardOrdersComponent,
