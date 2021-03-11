@@ -58,48 +58,6 @@
         </div>
     </div>
 
-    <!--<ng-container *ngIf="showSubscriptionModels">
-    <div class="row mt-4 order-menu-bar">
-         <div class="col-1" style="margin-left:-3rem;">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cb1" name="cb1">
-            </div>
-         </div>
-        &lt;!&ndash; <div class="col-1"><small>Id#</small></div> &ndash;&gt;
-         <div class="col-1"><small style="font-weight: bold;">Id#</small></div>
-         <div class="col-2 ml-n2"><small style="font-weight: bold;">Plan Name</small></div>
-         <div class="col-2 ml-n1"> <small style="font-weight: bold;">Price</small></div>
-         <div class="col-1 ml-n2"><small style="font-weight: bold;">Downloads</small></div>
-         <div class="col-1 ml-5"><small style="font-weight: bold;">Revisions</small></div>
-         <div class="col-1 ml-5"><small style="font-weight: bold;">Status</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>
-    </div>
-
-    <div *ngFor="let s of subscriptions">
-        <div class="row mt-1 order-menu-bar order-row">
-            <div class="col-1 ml-n5 mt-2">
-               <div class="custom-control custom-checkbox">
-                   <input type="checkbox" id="cb1" name="cb1">
-               </div>
-            </div>
-            <div class="col-1 mt-2"><small>{{s.id}}</small></div>
-            <div class="col-2 ml-n2 mt-2"><small>{{s.name}}</small></div>
-            <div class="col-2 ml-n1 mt-2"> <small>{{s.price}} <br>{{s.price}}</small></div>
-            <div class="col-1 ml-n2 mt-2"><small>{{s.orderCount}}</small></div>
-            <div class="col-1 ml-5 mt-2"><small><span>{{s.revisions}}</small></span></div>
-            <div class="col-1 ml-5 mt-2"><small>{{s.status}}</small></div>
-            <div class="col-1 ml-4 mt-2">
-                <select class="form-control" id="sel1">
-                    <option>Select</option>
-                    <option>Active</option>
-                    <option>InActive</option>
-                    <option>Cancel</option>
-                  </select>
-             </div>
-       </div>
-    </div>
-</ng-container>-->
-
 <!--
 <ng-container *ngIf="!showSubscriptionModels">
     <div class="row mt-4 order-menu-bar">
@@ -147,6 +105,7 @@
     </div>
 </ng-container>
 -->
+    <ng-container *ngIf="showSubscriptionModels">
     <div class="pt-4">
         <jhi-table #subscriptionTable
                    [enableCheckbox]="true"
@@ -173,8 +132,6 @@
                             <option>Cancel</option>
                         </select>
                     </div>-->
-<!--                    <mat-form-field appearance="fill">-->
-<!--                        <mat-label>Select</mat-label>-->
                     <mat-select>
                         <ng-container *ngFor="let action of actions">
                             <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
@@ -183,17 +140,51 @@
                         </ng-container>
 
                     </mat-select>
-<!--                    </mat-form-field>-->
                 </div>
             </ng-template>
 
         </jhi-table>
     </div>
+    </ng-container>
 
+    <ng-container *ngIf="!showSubscriptionModels">
+    <div class="pt-4">
+        <jhi-table #userSubscriptionsTable
+                   [enableCheckbox]="true"
+                   [allowMultiSelect]="true"
+                   (getSelectedRows)="onUserSubscriptionsNotifySelected($event)"
+                   [sqPaginationConfig]="tablePaginationSettings"
+                   [sqColumnDefinition]="userSubscriptionsColumnDefinition"
+                   [tableChange]="this">
+
+            <ng-template #userSubscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
+                <div class="custom-style-red">
+                    <mat-select>
+                        <ng-container *ngFor="let action of actions">
+                            <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
+                                {{action.name}}
+                            </mat-option>
+                        </ng-container>
+
+                    </mat-select>
+                </div>
+            </ng-template>
+
+        </jhi-table>
+    </div>
+    </ng-container>>
 </div>
+
 <ng-template #subscriptionsOverviewTemplate let-data = "data">
     <div>
         Name : {{data?.id}}
+        hello123
+    </div>
+</ng-template>
+
+<ng-template #userSubscriptionsOverviewTemplate let-data = "data">
+    <div>
+        Name : {{data?.userId}}
         hello123
     </div>
 </ng-template>
