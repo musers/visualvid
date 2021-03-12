@@ -56,35 +56,12 @@
     </div>
     <div class="pt-4">
         <ng-container *ngIf="showSubscriptionModels">
-            <jhi-table #subscriptionTable
-                       [enableCheckbox]="true"
-                       [allowMultiSelect]="false"
-                       (getSelectedRows)="onNotifySelected($event)"
-                       [sqPaginationConfig]="tablePaginationSettings"
-                       [sqColumnDefinition]="columnDefinition"
-                       [tableChange]="this">
-            </jhi-table>
+            <jhi-base-subscriptions-table #baseSubscriptionsTable></jhi-base-subscriptions-table>
         </ng-container>
         <ng-container *ngIf="!showSubscriptionModels">
             <jhi-user-subscriptions-table #userSubscriptionsTable [status]="status"></jhi-user-subscriptions-table>>
         </ng-container>
 </div>
 
-<ng-template #subscriptionsOverviewTemplate let-data = "data">
-    <div>
-        Name : {{data?.id}}
-        hello123
-    </div>
-</ng-template>
 
-<ng-template #subscriptionsTemplate let-element="element" let-column="column" let-cellValue="cellValue">
-    <div class="custom-style-red">
-        <mat-select>
-            <ng-container *ngFor="let action of actions">
-                <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
-                    {{action.name}}
-                </mat-option>
-            </ng-container>
-        </mat-select>
-    </div>
-</ng-template>
+</div>
