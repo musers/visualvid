@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component,Input, OnInit, AfterViewInit, ViewChild, TemplateRef, SimpleChanges, OnChanges } from '@angular/core';
 import { OverviewService } from 'app/dashboard/overview/overview.service';
 import { SubscriptionService } from '../subscriptions.service';
 import { ColumnSettingsModel, ITableChangeCallback, TableDataModel } from 'app/shared/table/table-settings.model';
@@ -14,12 +14,12 @@ export interface Action {
   templateUrl: './base-subscriptions.component.html',
   styleUrls: ['base-subscriptions.scss'],
 })
-export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback, AfterViewInit {
+export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback, AfterViewInit, OnChanges {
   columnDefinition: ColumnSettingsModel[] = [];
+  @Input() searchText = '';
 
   @ViewChild('table', { static: false })
   table: TableComponent;
-
   @ViewChild('overviewTemplate', { static: false })
   overviewTemplate?: TemplateRef<any>;
 
@@ -28,7 +28,7 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
     { name: 'Inactive', id: 'inactive' },
     { name: 'Cancel', id: 'cancelled' },
   ];
-  currentAction = 'action1';
+  currentAction = 'active';
 
   constructor(private overviewService: OverviewService, private subscriptionService: SubscriptionService) {}
 
@@ -80,13 +80,19 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
   }
 
   search(searchText: string): void {
-    this.table.search(searchText);
+    if(this.table){
+      this.table.search(searchText);
+    }
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnchanges');
+    if (changes.searchText) {
+      this.search(changes.searchText.currentValue);
+    }
   }
 
   getData(tableDataModel: TableDataModel): void {
-    console.log('getData for subsciprtions12345');
     this.subscriptionService.getAllSubscriptionPlans(tableDataModel).subscribe(resp => {
-      // this.subscriptions = resp;
       const data = {
         rowData: resp,
         total: 12,
@@ -94,7 +100,6 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
       this.table.setData(data);
     });
   }
-
   onActionSelect(action: string, element: any): void {
     console.log('action', action);
     console.log('element:', element);

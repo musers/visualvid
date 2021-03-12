@@ -1,15 +1,8 @@
-import { Component, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardAddSubscriptionComponent } from './add-subscription/add-subscription.component';
-import {
-  ColumnSettingsModel,
-  TablePaginationSettingsModel,
-  ITableChangeCallback,
-  TableDataModel,
-} from 'app/shared/table/table-settings.model';
-import { TableComponent } from 'app/shared/table/table.component';
 import { OverviewService } from 'app/dashboard/overview/overview.service';
 
 @Component({
@@ -62,7 +55,6 @@ export class DashboardSubscriptionComponent {
   }
 
   search(evt: any): void {
-    //return this.showSubscriptionModels ? this.baseSubscriptionsTable.search(evt.query) : this.userSubscriptionsTable.search(evt.query);
     this.searchText = evt.query;
   }
 }

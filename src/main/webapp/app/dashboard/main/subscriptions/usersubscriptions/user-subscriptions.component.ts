@@ -73,21 +73,21 @@ export class UserSubscriptionsComponent implements OnInit, ITableChangeCallback,
     }
   }
   search(searchText: string): void {
-    this.table.search(searchText);
+    if(this.table){
+      this.table.search(searchText);
+    }
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.searchText) {
       this.search(changes.searchText.currentValue);
     }
-    if (changes.status) {
+    if (changes.status && this.table) {
       this.status = changes.status.currentValue;
       this.table.requestData();
     }
   }
   getData(tableDataModel: TableDataModel): void {
-    console.log('getData for usersubsciprtions123');
     this.subscriptionService.getAllUserSubscriptions(tableDataModel, this.status).subscribe(resp => {
-      // this.userSubscriptions = resp;
       const data = {
         rowData: resp,
         total: 12,
