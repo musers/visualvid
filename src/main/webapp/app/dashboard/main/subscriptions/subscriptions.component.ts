@@ -20,6 +20,7 @@ import { OverviewService } from 'app/dashboard/overview/overview.service';
 })
 export class DashboardSubscriptionComponent {
   status?: string;
+  searchText = '';
   showSubscriptionModels = true;
   cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
@@ -63,5 +64,6 @@ export class DashboardSubscriptionComponent {
 
   search(evt: any): void {
     //return this.showSubscriptionModels ? this.baseSubscriptionsTable.search(evt.query) : this.userSubscriptionsTable.search(evt.query);
+    this.searchText = evt.query;
   }
 }

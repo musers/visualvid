@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { OverviewService } from 'app/dashboard/overview/overview.service';
 import { SubscriptionService } from '../subscriptions.service';
 import { ColumnSettingsModel, ITableChangeCallback, TableDataModel } from 'app/shared/table/table-settings.model';
@@ -9,10 +9,11 @@ import { TableComponent } from 'app/shared/table/table.component';
   templateUrl: './user-subscriptions.component.html',
   styleUrls: ['user-subscriptions.scss'],
 })
-export class UserSubscriptionsComponent implements OnInit, ITableChangeCallback, AfterViewInit {
+export class UserSubscriptionsComponent implements OnInit, ITableChangeCallback, AfterViewInit, OnChanges {
   columnDefinition: ColumnSettingsModel[] = [];
 
   @Input() status = '';
+  @Input() searchText = '';
   @ViewChild('table', { static: false })
   table: TableComponent;
 
@@ -73,6 +74,15 @@ export class UserSubscriptionsComponent implements OnInit, ITableChangeCallback,
   }
   search(searchText: string): void {
     this.table.search(searchText);
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.searchText) {
+      this.search(changes.searchText.currentValue);
+    }
+    if (changes.status) {
+      this.status = changes.status.currentValue;
+      this.table.requestData();
+    }
   }
   getData(tableDataModel: TableDataModel): void {
     console.log('getData for usersubsciprtions123');
