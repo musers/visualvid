@@ -23,6 +23,9 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
   @ViewChild('overviewTemplate', { static: false })
   overviewTemplate?: TemplateRef<any>;
 
+  @ViewChild('actionTemplate', {static: false})
+  actionTemplate?: TemplateRef<any>;
+
   actions: Action[] = [
     { name: 'Active', id: 'active' },
     { name: 'Inactive', id: 'inactive' },
@@ -58,11 +61,11 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
         name: 'status',
         displayName: 'Status',
       },
-      /*   {
-            name: 'action',
-            displayName: 'Action',
-            cellTemplate: this.subscriptionsTemplate,
-          }, */
+      {
+        name: 'action',
+        displayName: 'Action',
+        cellTemplate: this.actionTemplate
+      }
     ];
   }
 

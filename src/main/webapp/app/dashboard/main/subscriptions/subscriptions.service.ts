@@ -48,7 +48,7 @@ export class SubscriptionService {
       },
     ];
     console.log('subscriptions data: ', data);
-    return of(data).pipe(delay(3000));
+    return of(data).pipe(delay(1000));
   }
 
   public getAllUserSubscriptions(tableDataModel: TableDataModel, status: string): Observable<any> {
@@ -87,6 +87,6 @@ export class SubscriptionService {
     ];
 
     console.log('User Subscriptions Data: ', data);
-    return of(data).pipe(delay(3000));
+    return of(data).pipe(delay(1000));
   }
 }
