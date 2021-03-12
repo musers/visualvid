@@ -1,5 +1,4 @@
 import { Component, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { SubscriptionModel } from './subscriptions.model';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
