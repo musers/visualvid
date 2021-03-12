@@ -26,6 +26,7 @@ export interface Action {
 export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallback, AfterViewInit {
   subscriptions?: SubscriptionModel[];
   status?: string;
+  searchText = '';
   showSubscriptionModels = true;
   cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
@@ -131,7 +132,7 @@ export class DashboardSubscriptionComponent implements OnInit, ITableChangeCallb
     });
   }
   search(evt: any): void {
-    return this.showSubscriptionModels ? this.subscriptionTable.search(evt.query) : this.userSubscriptionsTable.search(evt.query);
+    this.searchText = evt.query;
   }
   onNotifySelected(selectedRows: object[]): void {
     if (selectedRows && selectedRows.length === 1) {
