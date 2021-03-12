@@ -22,8 +22,7 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
   table: TableComponent;
   @ViewChild('overviewTemplate', { static: false })
   overviewTemplate?: TemplateRef<any>;
-
-  @ViewChild('actionTemplate', {static: false})
+  @ViewChild('actionTemplate', {static: true})
   actionTemplate?: TemplateRef<any>;
 
   actions: Action[] = [

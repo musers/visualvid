@@ -4,21 +4,21 @@
            (getSelectedRows)="onRowSelect($event)"
            [sqColumnDefinition]="columnDefinition"
            [tableChange]="this">
-    <ng-template #actionTemplate let-element="element" let-column="column" let-cellValue="cellValue">
-        <div class="custom-style-red">
-            <mat-select>
-                <ng-container *ngFor="let action of actions">
-                    <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
-                        {{action.name}}
-                    </mat-option>
-                </ng-container>
-            </mat-select>
-        </div>
-    </ng-template>
 </jhi-table>
 <ng-template #overviewTemplate let-data = "data">
     <div>
         Name : {{data?.id}}
         hello123
+    </div>
+</ng-template>
+<ng-template #actionTemplate let-element="element" let-column="column" let-cellValue="cellValue">
+    <div class="custom-style-red">
+        <mat-select>
+            <ng-container *ngFor="let action of actions">
+                <mat-option *ngIf="action.id!=cellValue" [value]="action.id" (click)="onActionSelect(action.id, element)">
+                    {{action.name}}
+                </mat-option>
+            </ng-container>
+        </mat-select>
     </div>
 </ng-template>
