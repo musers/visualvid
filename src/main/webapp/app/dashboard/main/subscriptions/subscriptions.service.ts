@@ -25,6 +25,14 @@ export class SubscriptionService {
     }
   }
 
+  public getStats(): Observable<any>{
+    const data = {
+      activeCount : 550,
+      inactiveCount : 220,
+      cancelledCount : 100
+    }
+    return of(data).pipe(delay(1000));
+  }
   public getAllSubscriptionPlans(tableDataModel: TableDataModel): Observable<any> {
     console.log('tableDataModel', tableDataModel);
     const data = [

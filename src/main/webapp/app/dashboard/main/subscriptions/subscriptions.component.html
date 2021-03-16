@@ -1,13 +1,12 @@
 <div>
     <div class="row mt-4">
-       <h5 style="font-weight: bold;">Subscriptions</h5>
+       <h5 style="font-weight: bold;">  <i class="material-icons">subscriptions</i> Subscriptions</h5>
        <div class="col">
         <a class="ml-2 btn btn-primary btn-new" (click)="addNew()">
             <span style="font-size: x-small;">+ Add New</span>
         </a>
       </div>
-        <div class="row no-gutters mt-4">
-            <h5 style="font-weight: bold;" class="mr-auto">Orders</h5>
+        <div class="row no-gutters">
             <jhi-search (searchEvent)="search($event)"></jhi-search>
         </div>
     </div>
@@ -24,7 +23,7 @@
         <div class="card" style="width: 8rem;height: 6rem;margin-left: 1rem;">
             <div class="card-body">
                 <div style="margin-left: -0.5rem;font-size: x-small;">Active Subscriptions</div>
-                <div class="card-box-metrics">580</div>
+                <div class="card-box-metrics">{{activeCount}}</div>
               <a class="stretched-link" (click)="enableSubscription(false,'active')"></a>
             </div>
             <ng-container *ngIf="status==='Active'">
@@ -35,7 +34,7 @@
         <div class="card" style="width: 8rem;height: 6rem;margin-left: 1rem;">
             <div class="card-body">
                 <div style="margin-left:-0.5rem;font-size:x-small;">InActive Subscriptions</div>
-                <div class="card-box-metrics">390</div>
+                <div class="card-box-metrics">{{inactiveCount}}</div>
                 <a class="stretched-link" (click)="enableSubscription(false,'inactive')"></a>
             </div>
             <ng-container *ngIf="status==='InActive'">
@@ -46,7 +45,7 @@
         <div class="card" style="width: 8rem;height: 6rem;margin-left: 1rem;">
             <div class="card-body">
                 <div style="margin-left:-0.5rem;font-size:x-small;">Cancelled Subscriptions</div>
-                <div class="card-box-metrics">120</div>
+                <div class="card-box-metrics">{{cancelledCount}}</div>
                 <a class="stretched-link" (click)="enableSubscription(false,'cancelled')"></a>
             </div>
             <ng-container *ngIf="status==='Cancelled'">

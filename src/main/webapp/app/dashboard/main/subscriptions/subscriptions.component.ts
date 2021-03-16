@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { SubscriptionAddModel } from './add-subscription/add-subscription.model';
 import { SubscriptionService } from './subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,12 +10,15 @@ import { OverviewService } from 'app/dashboard/overview/overview.service';
   templateUrl: './subscriptions.component.html',
   styleUrls: ['subscriptions.scss'],
 })
-export class DashboardSubscriptionComponent {
+export class DashboardSubscriptionComponent implements OnInit{
   status?: string;
   searchText = '';
   showSubscriptionModels = true;
   cardFooterClass?: String;
   subscriptionAddModel?: SubscriptionAddModel;
+  activeCount = 0;
+  inactiveCount = 0;
+  cancelledCount = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -23,6 +26,14 @@ export class DashboardSubscriptionComponent {
     public overviewService: OverviewService,
     public changeDetector: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.subscriptionService.getStats().subscribe(data => {
+      this.activeCount = data.activeCount;
+      this.inactiveCount = data.inactiveCount;
+      this.cancelledCount = data.cancelledCount;
+    })
+  }
 
   enableSubscription(enableSubscription: boolean, status: string): void {
     this.showSubscriptionModels = enableSubscription;
