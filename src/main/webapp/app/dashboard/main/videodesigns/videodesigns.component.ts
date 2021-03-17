@@ -18,8 +18,13 @@ export class DashboardVideoDesignsComponent implements OnInit, ITableChangeCallb
   @ViewChild('overviewTemplate', { static: false })
   overviewTemplate?: TemplateRef<any>;
 
-  count: Number = 0;
   columnDefinition: ColumnSettingsModel[] = [];
+  count: Number = 0;
+  totalVideosCount = 0;
+  salesCount = 0;
+  viewsCount = 0;
+  earningsCount = 0;
+
   constructor(
     protected adminVideoService: AdminVideoService,
     protected overviewService: OverviewService) {
@@ -43,19 +48,12 @@ export class DashboardVideoDesignsComponent implements OnInit, ITableChangeCallb
   }
 
   ngOnInit(): void {
-//     this.adminVideoService.findAll().subscribe((res: AdminVideoModel[]) => {
-//       if (res != null) {
-//         // this.videoDesigns = res;
-//         this.rowData = res;
-//         this.rowData.forEach(vd => {
-//           vd.created = 'Sep23, 2020';
-//           vd.modified = 'Sep23, 2020';
-//           vd.views = 500;
-//           vd.sales = 250;
-//           vd.earnings = 75000;
-//         });
-//       }
-//     });
+    this.adminVideoService.getStats().subscribe(data => {
+      this.totalVideosCount = data.totalVideosCount;
+      this.salesCount = data.salesCount;
+      this.viewsCount = data.viewsCount;
+      this.earningsCount = data.earningsCount;
+    })
   }
   editVideoDesign(vd: AdminVideoModel): void {
     window.location.href = '/admin/upload/' + vd.id;
