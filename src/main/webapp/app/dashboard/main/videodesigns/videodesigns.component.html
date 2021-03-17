@@ -52,12 +52,12 @@
     </div>
 
     <div class="pt-4">
-        <jhi-table [rowData]="rowData"
+        <jhi-table #table
                    [enableCheckbox]="true"
-                   [allowMultiSelect]="true"
-                   (getSelectedRows)="onNotifySelected($event)"
-                   [sqPaginationConfig]="tablePaginationSettings"
-                   [sqColumnDefinition]="columnDefinition">
+                   [allowMultiSelect]="false"
+                   (getSelectedRows)="onRowSelect($event)"
+                   [sqColumnDefinition]="columnDefinition"
+                   [tableChange]="this">
         </jhi-table>
     </div>
     <!--<div *ngFor="let vd of videoDesigns">
@@ -77,3 +77,9 @@
        </div>
     </div>-->
 </div>
+<ng-template #overviewTemplate let-data = "data">
+    <div>
+        Name : {{data?.id}}
+        hello123
+    </div>
+</ng-template>
