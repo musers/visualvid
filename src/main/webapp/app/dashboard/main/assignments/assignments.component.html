@@ -1,61 +1,49 @@
 <div>
     <div class="mt-4">
-       <h5 style="font-weight: bold;">Assignments</h5>
+       <h5 style="font-weight: bold;"><i class="material-icons">check_circle</i> Assignments</h5>
     </div>
     <div class="row ml-1 mt-4">
         <div class="col-3 card card-box">
             <div>Total Assignments</div>
-            <div class="card-box-metrics">1200</div>
+            <div class="card-box-metrics">{{totalCount}}</div>
         </div>
         <div class="col-3 card card-box">
             <div>Completed</div>
-            <div class="card-box-metrics">580</div>
+            <div class="card-box-metrics">{{completedCount}}</div>
         </div>
         <div class="col-3 card card-box">
             <div>In Progress</div>
-            <div class="card-box-metrics">390</div>
+            <div class="card-box-metrics">{{inProgressCount}}</div>
         </div>
         <div class="col-3 card card-box">
             <div>Not Completed</div>
-            <div class="card-box-metrics">30</div>
+            <div class="card-box-metrics">{{notCompletedCount}}</div>
         </div>
     </div>
-    <div class="row mt-4 order-menu-bar">
-         <div class="col-1 ml-n4">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cb1" name="cb1">
-            </div>
-         </div>
-        <!-- <div class="col-1"><small>Id#</small></div> -->
-         <div class="col-1"><small style="font-weight: bold;">OrderId</small></div>
-         <div class="col-2 ml-4"><small style="font-weight: bold;">Name</small></div>
-         <div class="col-2 ml-4"> <small style="font-weight: bold;">AssignTo</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Status</small></div>
-         <div class="col-1 ml-4"><small style="font-weight: bold;">TimeLeft</small></div>  
-         <div class="col-1 ml-4"><small style="font-weight: bold;">Action</small></div>  
-    </div>
-
-    <div *ngFor="let assig of assignments">
-        <div class="row mt-1 order-menu-bar order-row">
-            <div class="col-1 ml-n4 mt-2">
-               <div class="custom-control custom-checkbox">
-                   <input type="checkbox" id="cb1" name="cb1">
-               </div>
-            </div>
-           <!-- <div class="col-1 mt-2"><small>{{vd.id}}</small></div> -->
-            <div class="col-1 mt-2"><small>{{assig.orderId}}</small></div>
-            <div class="col-2 ml-4 mt-2"><small>{{assig.name}}</small></div>
-            <div class="col-2 ml-4 mt-2"> <small>{{assig.assignTo}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{assig.status}}</small></div>
-            <div class="col-1 ml-4 mt-2"><small>{{assig.timeLeft}}</small></div>  
-            <div class="col-1 ml-4 mt-2">
-                <select class="form-control" id="sel1">
-                    <option>Design Team</option>
-                    <option>Marketing Team</option>
-                    <option>FInance Team</option>
-                    <option>HR Team</option>
-                  </select>
-             </div> 
-       </div>
+    <div class="pt-4">
+        <jhi-table #table
+                   [enableCheckbox]="true"
+                   [allowMultiSelect]="false"
+                   (getSelectedRows)="onRowSelect($event)"
+                   [sqColumnDefinition]="columnDefinition"
+                   [tableChange]="this">
+        </jhi-table>
     </div>
 </div>
+<ng-template #overviewTemplate let-data = "data">
+    <div>
+        Name : {{data?.id}}
+        hello123
+    </div>
+</ng-template>
+<ng-template #actionTemplate let-element="element" let-column="column" let-cellValue="cellValue">
+    <div class="custom-style-red">
+        <mat-select>
+            <ng-container *ngFor="let action of actions">
+                <mat-option [value]="action.id" (click)="onActionSelect(action.id, element)">
+                    {{action.name}}
+                </mat-option>
+            </ng-container>
+        </mat-select>
+    </div>
+</ng-template>
