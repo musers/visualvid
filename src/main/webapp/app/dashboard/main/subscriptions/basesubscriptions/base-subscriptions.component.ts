@@ -73,12 +73,7 @@ export class BaseSubscriptionsComponent implements OnInit, ITableChangeCallback,
   }
 
   onRowSelect(selectedRows: object[]): void {
-    if (selectedRows && selectedRows.length > 0) {
-      this.overviewService.updateOverviewTemplate({
-        template: this.overviewTemplate,
-        data: selectedRows[0],
-      });
-    }
+    this.overviewService.updateOverviewTemplate(this.overviewTemplate,selectedRows);
   }
 
   search(searchText: string): void {

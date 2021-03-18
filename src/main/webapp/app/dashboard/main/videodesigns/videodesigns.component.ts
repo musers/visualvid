@@ -64,12 +64,7 @@ export class DashboardVideoDesignsComponent implements OnInit, ITableChangeCallb
   }
 
   onRowSelect(selectedRows: object[]): void {
-    if (selectedRows && selectedRows.length > 0) {
-      this.overviewService.updateOverviewTemplate({
-        template: this.overviewTemplate,
-        data: selectedRows[0],
-      });
-    }
+    this.overviewService.updateOverviewTemplate(this.overviewTemplate,selectedRows);
   }
 
   search(evt: any): void {
