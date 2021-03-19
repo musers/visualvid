@@ -30,18 +30,38 @@ export class DashboardVideoDesignsComponent implements OnInit, ITableChangeCallb
     protected overviewService: OverviewService) {
     this.columnDefinition = [
       {
-        name: 'name',
-        displayName: 'Name',
-        disableSorting: false,
-      },
-      {
         name: 'id',
         displayName: 'Video ID #',
         disableSorting: false,
       },
       {
+        name: 'name',
+        displayName: 'Name',
+        disableSorting: false,
+      },
+      {
+        name: 'createdDate',
+        displayName: 'Created',
+        disableSorting: false,
+      },
+      {
+        name: 'modifiedDate',
+        displayName: 'Modified',
+        disableSorting: false,
+      },
+      {
         name: 'views',
         displayName: 'Views',
+        disableSorting: false,
+      },
+      {
+        name: 'sales',
+        displayName: 'Sales',
+        disableSorting: false,
+      },
+      {
+        name: 'earnings',
+        displayName: 'Earnings',
         disableSorting: false,
       },
     ];
