@@ -20,7 +20,12 @@ export class DashboardEmployeComponent implements OnInit {
       this.employees = res;
     });
   }
-
+  search(evt: any): void {
+    console.log(evt.query);
+    this.employeeService.search('EMPLOYEE',evt.query).subscribe((res: EmployeeModel[]) => {
+      this.employees = res;
+    });
+  }
   addNew(): void {
     this.dialog.open(DashboardAddEmployeeComponent, {
       width: '20rem',

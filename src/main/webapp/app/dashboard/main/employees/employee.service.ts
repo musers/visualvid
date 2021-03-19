@@ -13,4 +13,7 @@ export class EmployeeService {
   findAll(userType: string): Observable<EmployeeModel[]> {
     return this.http.get<EmployeeModel[]>(this.resourceUrl + '/type/' + userType);
   }
+  search(userType: string, searchText: string): Observable<EmployeeModel[]> {
+    return this.http.get<EmployeeModel[]>(this.resourceUrl + '/type/' + userType);
+  }
 }

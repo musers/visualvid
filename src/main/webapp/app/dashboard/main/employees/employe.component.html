@@ -1,31 +1,23 @@
 <div>
     <div class="row mt-4">
-       <div class="col-lg-4">
-           <h5 style="font-weight: bold;">Employees</h5>
-        </div> 
-        <div class="col-lg-4">
-         </div> 
-         <div class="col-lg-4">
-            <input type="text" class="form-control search" id="search" placeholder="search...">
-         </div> 
-     </div>
-     <div class="row mt-4">
-        <div class="col-lg-4">
+        <h5 style="font-weight: bold;">  <i class="material-icons">groups</i> Employees</h5>
+        <div class="col">
             <select class="form-control" id="sel1">
                 <option>Design Team</option>
                 <option>Marketing Team</option>
                 <option>FInance Team</option>
                 <option>HR Team</option>
-              </select>
-         </div> 
-         <div class="col-lg-4">
-            <a class="btn btn-primary btn-new ml-n2" (click)="addNew()">
+            </select>
+        </div>
+        <div class="col">
+            <a class="ml-2 btn btn-primary btn-new" (click)="addNew()">
                 <span style="font-size: x-small;">+ Add New</span>
             </a>
-          </div> 
-          <div class="col-lg-4">
-          </div> 
-      </div>
+        </div>
+        <div class="row no-gutters">
+            <jhi-search (searchEvent)="search($event)"></jhi-search>
+        </div>
+    </div>
 
       <div class="row mt-4">
 			<div class="col-lg-4 col-sm-12 mt-2" *ngFor="let emp of employees; let i=index;">
