@@ -1,5 +1,7 @@
 package com.ae.visuavid.repository;
 
+import com.ae.visuavid.domain.User;
+import com.ae.visuavid.domain.UserSubscriptionDownloadEntity;
 import com.ae.visuavid.domain.UserSubscriptionEntity;
 import java.util.List;
 import java.util.UUID;
@@ -13,4 +15,5 @@ public interface UserSubscriptionRepository extends JpaRepository<UserSubscripti
     UserSubscriptionEntity findByRazorPayOrderId(String razorPayOrderId);
     List<UserSubscriptionEntity> findByUserNameContains(String userName);
     Page<UserSubscriptionEntity> findAll(Pageable pageable);
+    List<UserSubscriptionEntity> findByUser(User user);
 }

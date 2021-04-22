@@ -4,24 +4,20 @@ import com.ae.visuavid.config.ApplicationProperties;
 import com.ae.visuavid.constants.OrderStatus;
 import com.ae.visuavid.domain.SubscriptionEntity;
 import com.ae.visuavid.domain.User;
+import com.ae.visuavid.domain.UserSubscriptionDownloadEntity;
 import com.ae.visuavid.domain.UserSubscriptionEntity;
 import com.ae.visuavid.enumeration.CountryCodeType;
 import com.ae.visuavid.enumeration.SubscriptionStatusType;
 import com.ae.visuavid.enumeration.SubscriptionType;
 import com.ae.visuavid.repository.UserRepository;
+import com.ae.visuavid.repository.UserSubscriptionDownloadRepository;
 import com.ae.visuavid.repository.UserSubscriptionRepository;
 import com.ae.visuavid.security.SecurityUtils;
-import com.ae.visuavid.service.dto.PaymentOrderDTO;
-import com.ae.visuavid.service.dto.RazorPayResponseDTO;
-import com.ae.visuavid.service.dto.UserDTO;
-import com.ae.visuavid.service.dto.UserSubscriptionDTO;
+import com.ae.visuavid.service.dto.*;
 import com.ae.visuavid.service.mapper.UserSubscriptionMapper;
 import com.ae.visuavid.web.rest.errors.ApiRuntimeException;
 import java.time.Instant;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -54,6 +51,9 @@ public class UserSubscriptionService {
     @Autowired
     private ApplicationProperties applicationProperties;
 
+    @Autowired
+    private UserSubscriptionDownloadRepository userSubscriptionDownloadRepository;
+
     private UserSubscriptionEntity prepareUserSubscription(UserSubscriptionDTO dto) {
         UserSubscriptionEntity entity = mapper.toEntity(dto);
         SubscriptionEntity subscriptionEntity = subscriptionService.findOne(dto.getSubscriptionId());
@@ -66,6 +66,9 @@ public class UserSubscriptionService {
                 entity.setUserName(userOptional.get().getLogin());
             }
             entity.setStartDate(Instant.now());
+            if (entity.getAvailedOrders() == null) {
+                entity.setAvailedOrders(Integer.valueOf(0));
+            }
             entity.setStatus(SubscriptionStatusType.ACTIVE.name());
             setEndDateAndBasicAmount(entity, subscriptionEntity, subscriptionType);
             entity.setDiscountAmount(subscriptionEntity.getDiscountAmount());
@@ -175,5 +178,62 @@ public class UserSubscriptionService {
     public Page<UserSubscriptionDTO> findAllByPage(Pageable pageable) {
         Page<UserSubscriptionEntity> userSubscriptionEntities = repository.findAll(pageable);
         return userSubscriptionEntities.map(UserSubscriptionDTO::new);
+    }
+
+    public UserSubscriptionEntity findOne(UUID id) {
+        Optional<UserSubscriptionEntity> entity = repository.findById(id);
+        if (entity.isPresent()) {
+            return entity.get();
+        }
+        return null;
+    }
+
+    public UserSubscriptionDTO updateStatus(UUID id, String status) {
+        UserSubscriptionEntity entity = findOne(id);
+        entity.setStatus(SubscriptionStatusType.valueOf(status).name());
+        repository.save(entity);
+        return mapper.toDto(entity);
+    }
+
+    public UserSubscriptionPermissionDTO setSubscriptionPermissions(UUID userId, UUID mediaId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        UserSubscriptionPermissionDTO permissionDTO = new UserSubscriptionPermissionDTO();
+        if (userOptional.isPresent()) {
+            List<UserSubscriptionEntity> userSubscriptions = repository.findByUser(userOptional.get());
+            if (!CollectionUtils.isEmpty(userSubscriptions)) {
+                permissionDTO.setSubscribedUser(Boolean.TRUE);
+                UserSubscriptionEntity us = userSubscriptions.get(0);
+                if (Instant.now().isBefore(us.getEndDate())) {
+                    permissionDTO.setSubscriptionActive(Boolean.TRUE);
+                    permissionDTO.setEligibleToDownload(Boolean.TRUE);
+                } else {
+                    throw new ApiRuntimeException("Subscription Expired");
+                }
+
+                Integer availableDownloads = us.getOrderCount() - us.getAvailedOrders();
+                if (availableDownloads > 0 && !us.getUnLimitedDownloadsEnable()) {
+                    List<UserSubscriptionDownloadEntity> downloads = userSubscriptionDownloadRepository.findByDownloadedDate(new Date());
+                    if (!CollectionUtils.isEmpty(downloads)) {}
+                }
+                throw new ApiRuntimeException("already downloaded all the available videos of the plan");
+            }
+            throw new ApiRuntimeException("User is not subscribed");
+        }
+        return permissionDTO;
+    }
+
+    public void updateMediaDownloadCount(UUID mediaId) {
+        UserSubscriptionDownloadEntity entity = new UserSubscriptionDownloadEntity();
+        entity.setMediaId(mediaId);
+        entity.setDownloadedDate(new Date());
+        Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+        if (userOptional.isPresent()) {
+            List<UserSubscriptionEntity> userSubscriptions = repository.findByUser(userOptional.get());
+            if (!CollectionUtils.isEmpty(userSubscriptions)) {
+                entity.setUserSubscription(userSubscriptions.get(0));
+            }
+        }
+        userSubscriptionDownloadRepository.save(entity);
+        log.info("saved to media-download-count");
     }
 }

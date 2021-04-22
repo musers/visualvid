@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +24,9 @@ public class SubscriptionResource {
 
     @PostMapping("/")
     public ResponseEntity<SubscriptionDTO> create(@Valid @RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getId() != null) {
+            throw new ApiRuntimeException("Post method cannot have ID");
+        }
         subscriptionDTO = subscriptionService.save(subscriptionDTO);
         return new ResponseEntity<>(subscriptionDTO, HttpStatus.CREATED);
     }
@@ -50,5 +54,10 @@ public class SubscriptionResource {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<SubscriptionDTO>> findByCateogory(@PathVariable(name = "id") String categoryId) {
         return ResponseEntity.ok(subscriptionService.findByCategory(categoryId));
+    }
+
+    @PutMapping("/{id}/status/{status}")
+    public ResponseEntity<SubscriptionDTO> updateStatus(@PathVariable("id") String id, @PathVariable("status") String status) {
+        return ResponseEntity.ok(subscriptionService.updateStatus(UUID.fromString(id), status));
     }
 }

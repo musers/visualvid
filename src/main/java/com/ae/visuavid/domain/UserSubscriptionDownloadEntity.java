@@ -1,13 +1,8 @@
 package com.ae.visuavid.domain;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.UUID;
 import javax.persistence.*;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -25,6 +20,9 @@ public class UserSubscriptionDownloadEntity extends AbstractAuditingEntity imple
 
     @Column(name = "media_id")
     private UUID mediaId;
+
+    @Column(name = "downloaded_date")
+    private Date downloadedDate;
 
     public UUID getId() {
         return id;
@@ -48,5 +46,13 @@ public class UserSubscriptionDownloadEntity extends AbstractAuditingEntity imple
 
     public void setMediaId(UUID mediaId) {
         this.mediaId = mediaId;
+    }
+
+    public Date getDownloadedDate() {
+        return downloadedDate;
+    }
+
+    public void setDownloadedDate(Date downloadedDate) {
+        this.downloadedDate = downloadedDate;
     }
 }

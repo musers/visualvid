@@ -72,4 +72,11 @@ public class SubscriptionService {
         }
         return null;
     }
+
+    public SubscriptionDTO updateStatus(UUID id, String status) {
+        SubscriptionEntity entity = findOne(id);
+        entity.setStatus(SubscriptionStatusType.valueOf(status).name());
+        entity = subscriptionRepository.save(entity);
+        return subscriptionMapper.toDto(entity);
+    }
 }
