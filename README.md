@@ -229,3 +229,12 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: https://leafletjs.com/
 [definitelytyped]: https://definitelytyped.org/
+
+#map struct eclipse:
+1. Install mapstruct plugin in eclipse from eclipse marketplace
+2. Go Project-> Properties -> Java compiler -> AnnotationProcessing->Enable Project Settings (selec the checkbox)
+3. Go Project-> Properties -> Java compiler -> AnnotationProcessing->Enable Project Settings and Add External Jar
+4. Go to  C:\Users\userName\.gradle\caches\modules-2\files-2.1\org.mapstruct\mapstruct-processor\1.3.1.Final\a5e2a807eee3372cbfba0685b70505d7c0b7ae9a/mapstruct-processor-1.3.1.Final.jar select the jar.
+
+
+3. 
