@@ -41,6 +41,33 @@
                             </ng-container>
                         </div>
                         <div style="font-size:x-small;color: #aaabb3">Regular Price</div>
+                        <div class="coupon-panel mt-4">
+                            <label class="coupon-label" for="couponCode">Coupon code</label>
+                            <div class="d-flex">
+                                <input
+                                    id="couponCode"
+                                    class="form-control form-control-sm"
+                                    type="text"
+                                    maxlength="30"
+                                    [(ngModel)]="couponCode"
+                                    placeholder="Enter coupon"
+                                />
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-primary ml-2"
+                                    [disabled]="!canApplyCoupon()"
+                                    (click)="applyCoupon()"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                            <div class="coupon-feedback success" *ngIf="couponSuccess">{{couponSuccess}}</div>
+                            <div class="coupon-feedback error" *ngIf="couponError">{{couponError}}</div>
+                            <div class="coupon-applied" *ngIf="appliedCouponCode">
+                                Applied: <strong>{{appliedCouponCode}}</strong>
+                                <button type="button" class="btn btn-link btn-sm p-0 ml-2" (click)="removeCoupon()">Remove</button>
+                            </div>
+                        </div>
                         <ng-container *ngIf="item.usdAdvCustomizationPrice">
                             <div class="custom-control custom-checkbox mt-4 d-flex" style="font-size: small; color: #828599;">
                                 <input type="checkbox" class="custom-control-input" id="advCustomizationPrice" [(ngModel)]="advCustomizationPriceChecked"  (change)="computePrice()">
@@ -74,6 +101,14 @@
                             <span class="ml-auto" style="font-weight: bold;">
                                     <ng-container *ngIf="pricing">
                                         {{pricing?.gstAmount | currency:'INR'}}
+                                    </ng-container>
+                                </span>
+                        </div>
+                        <div class="custom-control mt-2 pt-2 d-flex" style="font-size: small; color: #828599" *ngIf="pricing?.couponDiscountAmount">
+                            <label class="" style="font-size: small;">Coupon Discount</label>
+                            <span class="ml-auto coupon-discount" style="font-weight: bold;">
+                                    <ng-container *ngIf="pricing">
+                                        -{{pricing?.couponDiscountAmount | currency:'INR'}}
                                     </ng-container>
                                 </span>
                         </div>

@@ -33,6 +33,10 @@ export class ItemComponent implements OnInit {
   advCustomizationPriceChecked = false;
   premumDeliveryPriceChecked = false;
   pricing: Pricing = {};
+  couponCode = '';
+  appliedCouponCode = '';
+  couponError = '';
+  couponSuccess = '';
   matDialogRef?: MatDialogRef<VideoItemComponent>;
   @ViewChild('buyNowTemplate') buyNowTemplate: TemplatePortalDirective;
   constructor(
@@ -95,63 +99,127 @@ export class ItemComponent implements OnInit {
   buyNow(): void {
     this.overlayService.openTemplateOverlay(this.buyNowTemplate);
     const orderRequest = this.prepareOrderRequest();
-    this.orderService.createPaymentOrder(orderRequest).subscribe(data => {
-      console.log(data);
-      this.overlayService.closeOverlay();
-      const options = {
-        description: 'VisualVid',
-        key: data.razorPayKey,
-        order_id: data.razorPayOrderId,
-        amount: data.amount,
-        name: 'Video',
-        prefill: {
-          email: 'test@test.com',
-          contact: '+918087930476',
-          name: 'Bala',
-        },
-        currency: data.currencyCode,
-      };
+    this.orderService.createPaymentOrder(orderRequest).subscribe(
+      data => {
+        console.log(data);
+        this.overlayService.closeOverlay();
+        const options = {
+          description: 'VisualVid',
+          key: data.razorPayKey,
+          order_id: data.razorPayOrderId,
+          amount: data.amount,
+          name: 'Video',
+          prefill: {
+            email: 'test@test.com',
+            contact: '+918087930476',
+            name: 'Bala',
+          },
+          currency: data.currencyCode,
+        };
 
-      try {
-        this.razorpayService.payWithRazor(options);
-      } catch (e) {
-        console.error(e);
+        try {
+          this.razorpayService.payWithRazor(options);
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      err => {
+        this.overlayService.closeOverlay();
+        this.couponError = this.getErrorMessage(err);
+        this.couponSuccess = '';
       }
-    });
+    );
   }
   computePrice(): void {
     console.log(this.advCustomizationPriceChecked);
     if (this.item && this.item.id) {
-      const itemCustomization = {
-        adminMediaId: this.item.id,
-        optedForAdvCustomization: this.advCustomizationPriceChecked,
-        optedForPremumDelivery: this.premumDeliveryPriceChecked,
-        currencyCode: this.isIpIndian ? 'INR' : 'USD',
-      };
-      this.pricingService.computePricing(itemCustomization).subscribe((res: Pricing) => {
-        if (res) {
-          console.log(this.pricing);
-          this.pricing = res;
+      this.pricingService.computePricing(this.getItemCustomization(this.appliedCouponCode)).subscribe(
+        (res: Pricing) => {
+          if (res) {
+            console.log(this.pricing);
+            this.pricing = res;
+          }
+        },
+        err => {
+          this.pricing = {};
+          this.appliedCouponCode = '';
+          this.couponSuccess = '';
+          this.couponError = this.getErrorMessage(err);
+          this.reloadPriceWithoutCoupon();
         }
-      });
+      );
     }
   }
-  prepareOrderRequest(): OrderRequest {
-    const itemCustomization = {
-      adminMediaId: this.item.id,
-      optedForAdvCustomization: this.advCustomizationPriceChecked,
-      optedForPremumDelivery: this.premumDeliveryPriceChecked,
-      currencyCode: this.isIpIndian ? 'INR' : 'USD',
-    };
+  applyCoupon(): void {
+    const normalizedCouponCode = this.getNormalizedCouponCode();
+    if (!normalizedCouponCode) {
+      this.couponError = 'Enter a coupon code to apply.';
+      this.couponSuccess = '';
+      return;
+    }
 
+    if (this.item && this.item.id) {
+      this.pricingService.computePricing(this.getItemCustomization(normalizedCouponCode)).subscribe(
+        (res: Pricing) => {
+          this.appliedCouponCode = normalizedCouponCode;
+          this.couponCode = normalizedCouponCode;
+          this.couponError = '';
+          this.couponSuccess = 'Coupon applied successfully.';
+          this.pricing = res;
+        },
+        err => {
+          this.appliedCouponCode = '';
+          this.couponError = this.getErrorMessage(err);
+          this.couponSuccess = '';
+          this.reloadPriceWithoutCoupon();
+        }
+      );
+    }
+  }
+  removeCoupon(): void {
+    this.couponCode = '';
+    this.appliedCouponCode = '';
+    this.couponError = '';
+    this.couponSuccess = '';
+    this.computePrice();
+  }
+  canApplyCoupon(): boolean {
+    return this.getNormalizedCouponCode().length > 0;
+  }
+  prepareOrderRequest(): OrderRequest {
     const orderRequest = {
-      couponCode: '',
+      couponCode: this.appliedCouponCode,
       currencyCode: this.isIpIndian ? 'INR' : 'USD',
-      itemCustomizations: [itemCustomization],
+      itemCustomizations: [this.getItemCustomization(this.appliedCouponCode)],
     };
     return orderRequest;
   }
   gotoHome(): void {
     window.location.href = '/';
+  }
+  private getItemCustomization(couponCode?: string): any {
+    return {
+      adminMediaId: this.item && this.item.id ? this.item.id : undefined,
+      optedForAdvCustomization: this.advCustomizationPriceChecked,
+      optedForPremumDelivery: this.premumDeliveryPriceChecked,
+      currencyCode: this.isIpIndian ? 'INR' : 'USD',
+      couponCode: couponCode || '',
+    };
+  }
+  private getNormalizedCouponCode(): string {
+    return this.couponCode ? this.couponCode.trim().toUpperCase() : '';
+  }
+  private reloadPriceWithoutCoupon(): void {
+    if (this.item && this.item.id) {
+      this.pricingService.computePricing(this.getItemCustomization()).subscribe((res: Pricing) => {
+        this.pricing = res;
+      });
+    }
+  }
+  private getErrorMessage(error: any): string {
+    if (error && error.error && error.error.detail) {
+      return error.error.detail;
+    }
+    return 'Unable to apply coupon right now.';
   }
 }

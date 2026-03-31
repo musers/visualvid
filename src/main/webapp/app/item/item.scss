@@ -34,3 +34,40 @@ video {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.coupon-panel {
+  border-top: 1px solid #e4e7ef;
+  border-bottom: 1px solid #e4e7ef;
+  padding: 12px 0;
+}
+
+.coupon-label {
+  display: block;
+  color: #43497b;
+  font-size: small;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.coupon-feedback {
+  font-size: x-small;
+  margin-top: 6px;
+}
+
+.coupon-feedback.success {
+  color: #2b8a3e;
+}
+
+.coupon-feedback.error {
+  color: #c92a2a;
+}
+
+.coupon-applied {
+  color: #43497b;
+  font-size: x-small;
+  margin-top: 6px;
+}
+
+.coupon-discount {
+  color: #2b8a3e;
+}
