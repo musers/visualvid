@@ -4,15 +4,14 @@ import com.ae.visuavid.config.ApplicationProperties;
 import com.ae.visuavid.constants.Currency;
 import com.ae.visuavid.domain.AdminMediaEntity;
 import com.ae.visuavid.domain.CouponInfoEntity;
-import com.ae.visuavid.repository.CouponInfoRepository;
 import com.ae.visuavid.service.dto.ItemCustomizationDTO;
 import com.ae.visuavid.service.dto.PricingDTO;
 import com.ae.visuavid.utils.NumberUtility;
 import java.math.BigDecimal;
-import java.time.Instant;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class PricingService {
@@ -23,7 +22,7 @@ public class PricingService {
     private NumberUtility numberUtility;
 
     @Autowired
-    private CouponInfoRepository couponInfoRepository;
+    private CouponInfoService couponInfoService;
 
     public PricingDTO computePrice(@NotNull AdminMediaEntity adminMediaEntity, ItemCustomizationDTO itemCustomization) {
         PricingDTO pricing = new PricingDTO();
@@ -52,12 +51,11 @@ public class PricingService {
         }
 
         BigDecimal baseAmount = numberUtility.subtract(basicAmount, discountAmount);
-        Integer couponDiscountPercentage = computeAndGetCouponDiscountPercentage(itemCustomization.getCouponCode());
-        BigDecimal couponDiscountAmount = numberUtility.percentage(baseAmount, couponDiscountPercentage);
-        BigDecimal totalAmountWithoutGst = numberUtility.subtract(
-            numberUtility.add(baseAmount, advancedCustomizationAmount, premiumDeliveryAmount),
-            couponDiscountAmount
-        );
+        BigDecimal totalAmountBeforeTax = numberUtility.add(baseAmount, advancedCustomizationAmount, premiumDeliveryAmount);
+        CouponInfoEntity couponInfoEntity = resolveCoupon(itemCustomization.getCouponCode());
+        Integer couponDiscountPercentage = couponInfoEntity == null ? 0 : couponInfoEntity.getCouponDiscountPercentage();
+        BigDecimal couponDiscountAmount = computeCouponDiscountAmount(baseAmount, totalAmountBeforeTax, couponInfoEntity);
+        BigDecimal totalAmountWithoutGst = numberUtility.subtract(totalAmountBeforeTax, couponDiscountAmount);
         BigDecimal gstAmount = numberUtility.percentage(totalAmountWithoutGst, applicationProperties.getGst());
         BigDecimal totalAmount = numberUtility.add(totalAmountWithoutGst, gstAmount);
 
@@ -71,18 +69,38 @@ public class PricingService {
         pricing.setGstAmount(gstAmount);
         pricing.setGstPercentage(applicationProperties.getGst());
         pricing.setTotalAmount(totalAmount);
-        pricing.setCouponCode(itemCustomization.getCouponCode());
+        pricing.setCouponCode(couponInfoEntity == null ? null : couponInfoEntity.getCouponCode());
         return pricing;
     }
 
-    private Integer computeAndGetCouponDiscountPercentage(String couponCode) {
-        CouponInfoEntity couponInfoEntity = couponInfoRepository.findByCouponCodeAndActiveTrue(couponCode);
-        if (couponInfoEntity != null) {
-            Instant now = Instant.now();
-            if (now.isAfter(couponInfoEntity.getStartDate()) && now.isBefore(couponInfoEntity.getEndDate())) {
-                return couponInfoEntity.getCouponDiscountPercentage();
-            }
+    private CouponInfoEntity resolveCoupon(String couponCode) {
+        if (StringUtils.hasText(couponCode)) {
+            return couponInfoService.getValidCoupon(couponCode);
         }
-        return 0;
+        return null;
+    }
+
+    private BigDecimal computeCouponDiscountAmount(
+        BigDecimal baseAmount,
+        BigDecimal totalAmountBeforeTax,
+        CouponInfoEntity couponInfoEntity
+    ) {
+        if (couponInfoEntity == null) {
+            return BigDecimal.ZERO;
+        }
+
+        BigDecimal discountAmount = couponInfoEntity.getCouponDiscountAmount();
+        if (discountAmount != null && discountAmount.signum() > 0) {
+            if (totalAmountBeforeTax == null || totalAmountBeforeTax.signum() <= 0) {
+                return BigDecimal.ZERO;
+            }
+            return discountAmount.min(totalAmountBeforeTax);
+        }
+
+        Integer discountPercentage = couponInfoEntity.getCouponDiscountPercentage();
+        if (discountPercentage != null && discountPercentage > 0) {
+            return numberUtility.percentage(baseAmount, discountPercentage);
+        }
+        return BigDecimal.ZERO;
     }
 }

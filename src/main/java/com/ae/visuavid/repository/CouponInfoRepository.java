@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CouponInfoRepository extends JpaRepository<CouponInfoEntity, UUID> {
-    CouponInfoEntity findByCouponCodeAndActiveTrue(String couponCode);
+    CouponInfoEntity findByCouponCodeIgnoreCase(String couponCode);
 }
